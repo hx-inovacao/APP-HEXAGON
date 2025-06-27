@@ -3,17 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>HEXAGON - Registro de Materiais Ortopédicos</title>
+    <title>Registro de Consumo de Materiais Consignados</title>
     
     <!-- PWA Meta Tags -->
     <meta name="theme-color" content="#2563eb">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="default">
     <meta name="apple-mobile-web-app-title" content="HEXAGON">
-    <meta name="description" content="PWA para registro de consumo de materiais ortopédicos consignados">
-    
-    <!-- Manifest -->
-    <link rel="manifest" id="manifest-placeholder">
+    <link rel="manifest" href="data:application/json;base64,eyJuYW1lIjoiSEVYQUdPTiIsInNob3J0X25hbWUiOiJIZXhhZ29uIiwic3RhcnRfdXJsIjoiLyIsImRpc3BsYXkiOiJzdGFuZGFsb25lIiwidGhlbWVfY29sb3IiOiIjMjU2M2ViIiwiYmFja2dyb3VuZF9jb2xvciI6IiNmOWZhZmIiLCJpY29ucyI6W3sic3JjIjoiZGF0YTppbWFnZS9zdmcreG1sO2Jhc2U2NCxQSE4yWnlCNGJXeHVjejBpYUhSMGNEb3ZMM2QzZHk1M00zTXViM0puTHpJd01EQXZjM1puSWlCNGJHeHVjenBzYVc1clBTSm9kSFJ3T2k4dmQzZDNMbmN6TG05eVp5OHhPVGs1TDNoc2FXNXJJaUIzYVdSMGFEMGlNVEkzSWlCb1pXbG5hSFE5SWpFeU55SWdkbWxsZDBKdmVEMGlNQ0F3SURFM055QXhOelVpSUdacGJHdzlJaU14T0RNd1JEVWlQand2YzNablBnPT0iLCJzaXplcyI6IjE5MngxOTIiLCJ0eXBlIjoiaW1hZ2Uvc3ZnK3htbCJ9XX0=">
     
     <!-- Tailwind CSS -->
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
@@ -36,8 +33,6 @@
             color: #2563eb;
             text-align: center;
             text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
-            letter-spacing: 2px;
-            font-family: 'Arial', 'Helvetica', sans-serif;
         }
         
         .operation-tab {
@@ -50,10 +45,10 @@
         }
         
         .product-card {
-            border: 2px solid #e5e7eb;
+            border: 1px solid #d1d5db;
             border-radius: 8px;
             padding: 12px;
-            margin-bottom: 12px;
+            margin-bottom: 8px;
             background: white;
             transition: all 0.3s ease;
         }
@@ -63,65 +58,65 @@
             background-color: #eff6ff;
         }
         
-        .product-header {
-            display: grid;
-            grid-template-columns: auto 1fr;
-            gap: 12px;
-            align-items: center;
-            margin-bottom: 8px;
-        }
-        
-        .product-info {
-            flex: 1;
-        }
-        
-        .product-name {
-            font-weight: 600;
-            color: #374151;
-            font-size: 14px;
-            line-height: 1.4;
-        }
-        
-        .product-code {
-            color: #6b7280;
-            font-size: 12px;
-            margin-top: 2px;
-        }
-        
         .product-controls {
             display: none;
-            grid-template-columns: 1fr 2fr auto;
+            margin-top: 12px;
             gap: 8px;
-            align-items: center;
-            margin-top: 8px;
-            padding-top: 8px;
-            border-top: 1px solid #e5e7eb;
         }
         
         .product-controls.show {
-            display: grid;
+            display: flex;
+            flex-wrap: wrap;
         }
         
-        .lot-container {
-            display: flex;
-            flex-direction: column;
-            gap: 4px;
+        .lot-input {
+            width: 5.5em !important; /* Aproximadamente 8 caracteres */
+            min-width: 5.5em;
+            font-size: 14px;
+            padding: 6px 8px;
         }
         
-        .lot-row {
-            display: flex;
-            gap: 4px;
-            align-items: center;
+        .qty-select {
+            width: 4em;
+            min-width: 4em;
+            font-size: 14px;
+            padding: 6px 4px;
         }
         
         .add-lot-btn, .remove-lot-btn {
-            width: 32px;
+            min-width: 32px;
             height: 32px;
             font-size: 14px;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-weight: bold;
+        }
+        
+        .lot-row {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            margin-bottom: 6px;
+        }
+        
+        .lot-row:last-child {
+            margin-bottom: 0;
+        }
+        
+        @media (max-width: 768px) {
+            .product-controls {
+                align-items: stretch;
+            }
+            
+            .lot-input {
+                width: 5em !important;
+                min-width: 5em;
+            }
+            
+            .qty-select {
+                width: 3.5em;
+                min-width: 3.5em;
+            }
         }
         
         .completion-screen {
@@ -140,24 +135,6 @@
         
         .main-content.hide {
             display: none;
-        }
-
-        @media (max-width: 768px) {
-            .logo-text {
-                font-size: 2rem;
-            }
-            
-            .product-card {
-                padding: 10px;
-            }
-            
-            .product-name {
-                font-size: 13px;
-            }
-            
-            .product-code {
-                font-size: 11px;
-            }
         }
     </style>
 </head>
@@ -184,13 +161,13 @@
 
         <!-- Control Buttons -->
         <div class="grid grid-cols-3 gap-2 mb-4">
-            <button onclick="deleteOperation()" class="bg-red-500 hover:bg-red-600 text-white py-2 px-4 rounded font-medium text-sm">
+            <button onclick="deleteOperation()" class="bg-red-500 hover:bg-red-600 text-white py-2 px-4 rounded font-medium">
                 Apagar Operação
             </button>
-            <button onclick="previousOperation()" class="bg-gray-500 hover:bg-gray-600 text-white py-2 px-4 rounded font-medium text-sm">
+            <button onclick="previousOperation()" class="bg-gray-500 hover:bg-gray-600 text-white py-2 px-4 rounded font-medium">
                 Operação Anterior
             </button>
-            <button onclick="nextOperation()" class="bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded font-medium text-sm">
+            <button onclick="nextOperation()" class="bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded font-medium">
                 Próxima Operação
             </button>
         </div>
@@ -254,10 +231,10 @@
             </div>
 
             <div class="grid grid-cols-2 gap-2 mb-4">
-                <button onclick="showSelectedOnly()" class="bg-green-500 hover:bg-green-600 text-white py-2 px-4 rounded font-medium text-sm">
+                <button onclick="showSelectedOnly()" class="bg-green-500 hover:bg-green-600 text-white py-2 px-4 rounded font-medium">
                     Filtrar Selecionados
                 </button>
-                <button onclick="showAllProducts()" class="bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded font-medium text-sm">
+                <button onclick="showAllProducts()" class="bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded font-medium">
                     Mostrar Todos
                 </button>
             </div>
@@ -290,56 +267,39 @@
 
     <!-- Version -->
     <div class="text-center text-gray-500 text-sm py-4">
-        Versão 4.0 - Layout Melhorado
+        Versão 3.1 - Layout Otimizado
     </div>
 
     <script>
-        // PWA Manifest
-        const manifestObj = {
-            name: "HEXAGON - Materiais Ortopédicos",
-            short_name: "HEXAGON",
-            description: "PWA para registro de materiais ortopédicos",
-            start_url: "/",
-            display: "standalone",
-            background_color: "#ffffff",
-            theme_color: "#2563eb",
-            icons: [
-                {
-                    src: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3Crect width='512' height='512' fill='%232563eb'/%3E%3Ctext x='256' y='280' font-family='Arial,sans-serif' font-size='180' font-weight='bold' text-anchor='middle' fill='white'%3EH%3C/text%3E%3C/svg%3E",
-                    sizes: "512x512",
-                    type: "image/svg+xml"
-                }
-            ]
-        };
-        
-        const manifestBlob = new Blob([JSON.stringify(manifestObj)], {type: 'application/json'});
-        const manifestURL = URL.createObjectURL(manifestBlob);
-        document.getElementById('manifest-placeholder').href = manifestURL;
-
-        // Service Worker
+        // Service Worker Registration
         if ('serviceWorker' in navigator) {
-            const swCode = `
-                const CACHE_NAME = 'hexagon-v4';
-                const urlsToCache = ['/'];
+            window.addEventListener('load', function() {
+                const swCode = `
+                    const CACHE_NAME = 'hexagon-v1';
+                    const urlsToCache = ['/'];
+                    
+                    self.addEventListener('install', event => {
+                        event.waitUntil(
+                            caches.open(CACHE_NAME)
+                                .then(cache => cache.addAll(urlsToCache))
+                        );
+                    });
+                    
+                    self.addEventListener('fetch', event => {
+                        event.respondWith(
+                            caches.match(event.request)
+                                .then(response => response || fetch(event.request))
+                        );
+                    });
+                `;
                 
-                self.addEventListener('install', event => {
-                    event.waitUntil(
-                        caches.open(CACHE_NAME)
-                            .then(cache => cache.addAll(urlsToCache))
-                    );
-                });
+                const blob = new Blob([swCode], { type: 'application/javascript' });
+                const swUrl = URL.createObjectURL(blob);
                 
-                self.addEventListener('fetch', event => {
-                    event.respondWith(
-                        caches.match(event.request)
-                            .then(response => response || fetch(event.request))
-                    );
-                });
-            `;
-            
-            const swBlob = new Blob([swCode], {type: 'application/javascript'});
-            const swURL = URL.createObjectURL(swBlob);
-            navigator.serviceWorker.register(swURL);
+                navigator.serviceWorker.register(swUrl)
+                    .then(registration => console.log('SW registered'))
+                    .catch(error => console.log('SW registration failed'));
+            });
         }
 
         // Supabase configuration
@@ -497,24 +457,27 @@
                 card.id = `product-${index}`;
                 
                 card.innerHTML = `
-                    <div class="product-header">
-                        <input type="checkbox" onchange="toggleProductSelection(${index})" class="w-5 h-5" id="checkbox-${index}">
-                        <div class="product-info">
-                            <div class="product-name">${product.nome}</div>
-                            <div class="product-code">Código: ${product.codigo}</div>
+                    <div class="flex items-start justify-between">
+                        <div class="flex items-start space-x-3 flex-1">
+                            <input type="checkbox" id="check-${index}" onchange="toggleProductSelection(${index})" class="mt-1 w-4 h-4 text-blue-600">
+                            <div class="flex-1">
+                                <div class="font-medium text-gray-900">${product.nome}</div>
+                                <div class="text-sm text-gray-500">Código: ${product.codigo}</div>
+                            </div>
                         </div>
                     </div>
+                    
                     <div class="product-controls" id="controls-${index}">
-                        <div class="text-sm font-medium text-gray-700">Qtd:</div>
-                        <div class="lot-container" id="lot-container-${index}">
+                        <div class="w-full">
                             <div class="lot-row">
-                                <select class="w-16 p-1 border border-gray-300 rounded text-sm">
-                                    <option value="">-</option>
+                                <select class="qty-select border border-gray-300 rounded">
+                                    <option value="">Qtd</option>
                                     ${Array.from({length: 10}, (_, i) => `<option value="${i+1}">${i+1}</option>`).join('')}
                                 </select>
-                                <input type="text" class="flex-1 p-1 border border-gray-300 rounded text-sm" placeholder="Lote" maxlength="12">
+                                <input type="text" class="lot-input border border-gray-300 rounded" placeholder="Lote" maxlength="12">
                                 <button onclick="addLot(${index})" class="add-lot-btn bg-blue-500 text-white rounded hover:bg-blue-600">+</button>
                             </div>
+                            <div id="extra-lots-${index}"></div>
                         </div>
                     </div>
                 `;
@@ -524,7 +487,7 @@
         }
         
         function toggleProductSelection(index) {
-            const checkbox = document.getElementById(`checkbox-${index}`);
+            const checkbox = document.getElementById(`check-${index}`);
             const card = document.getElementById(`product-${index}`);
             const controls = document.getElementById(`controls-${index}`);
             
@@ -540,18 +503,18 @@
         }
         
         function addLot(productIndex) {
-            const container = document.getElementById(`lot-container-${productIndex}`);
-            const newLotDiv = document.createElement('div');
-            newLotDiv.className = 'lot-row';
-            newLotDiv.innerHTML = `
-                <select class="w-16 p-1 border border-gray-300 rounded text-sm">
-                    <option value="">-</option>
+            const extraLotsContainer = document.getElementById(`extra-lots-${productIndex}`);
+            const lotRow = document.createElement('div');
+            lotRow.className = 'lot-row';
+            lotRow.innerHTML = `
+                <select class="qty-select border border-gray-300 rounded">
+                    <option value="">Qtd</option>
                     ${Array.from({length: 10}, (_, i) => `<option value="${i+1}">${i+1}</option>`).join('')}
                 </select>
-                <input type="text" class="flex-1 p-1 border border-gray-300 rounded text-sm" placeholder="Lote" maxlength="12">
+                <input type="text" class="lot-input border border-gray-300 rounded" placeholder="Lote" maxlength="12">
                 <button onclick="removeLot(this)" class="remove-lot-btn bg-red-500 text-white rounded hover:bg-red-600">-</button>
             `;
-            container.appendChild(newLotDiv);
+            extraLotsContainer.appendChild(lotRow);
             saveOperationData();
         }
         
@@ -671,18 +634,17 @@
             
             // Save selected products
             operation.selectedProducts = [];
-            const checkboxes = document.querySelectorAll('.product-card input[type="checkbox"]:checked');
+            const checkboxes = document.querySelectorAll('input[type="checkbox"]:checked');
             checkboxes.forEach(checkbox => {
-                const card = checkbox.closest('.product-card');
-                const index = card.id.split('-')[1];
-                if (currentProducts[index]) {
+                const productIndex = parseInt(checkbox.id.split('-')[1]);
+                if (currentProducts[productIndex]) {
                     const product = {
-                        ...currentProducts[index],
+                        ...currentProducts[productIndex],
                         lots: []
                     };
                     
-                    const lotContainer = document.getElementById(`lot-container-${index}`);
-                    const lotRows = lotContainer.querySelectorAll('.lot-row');
+                    const controls = document.getElementById(`controls-${productIndex}`);
+                    const lotRows = controls.querySelectorAll('.lot-row');
                     
                     lotRows.forEach(row => {
                         const qtySelect = row.querySelector('select');
@@ -838,14 +800,14 @@
         }
     </script>
 
-<script defer src="https://static.cloudflareinsights.com/beacon.min.js/vcd15cbe7772f49c399c6a5babf22c1241717689176015" integrity="sha512-ZpsOmlRQV6y907TI0dKBHq9Md29nnaEIPlkf84rnaERnq6zvWvPUqr2ft8M1aS28oN72PdrCzSjY4U6VaAw1EQ==" data-cf-beacon='{"rayId":"9566e3f7981aa480","serverTiming":{"name":{"cfExtPri":true,"cfEdge":true,"cfOrigin":true,"cfL4":true,"cfSpeedBrain":true,"cfCacheStatus":true}},"version":"2025.6.2","token":"4edd5f8ec12a48cfa682ab8261b80a79"}' crossorigin="anonymous"></script>
+<script defer src="https://static.cloudflareinsights.com/beacon.min.js/vcd15cbe7772f49c399c6a5babf22c1241717689176015" integrity="sha512-ZpsOmlRQV6y907TI0dKBHq9Md29nnaEIPlkf84rnaERnq6zvWvPUqr2ft8M1aS28oN72PdrCzSjY4U6VaAw1EQ==" data-cf-beacon='{"rayId":"9566f33f8ae9a429","serverTiming":{"name":{"cfExtPri":true,"cfEdge":true,"cfOrigin":true,"cfL4":true,"cfSpeedBrain":true,"cfCacheStatus":true}},"version":"2025.6.2","token":"4edd5f8ec12a48cfa682ab8261b80a79"}' crossorigin="anonymous"></script>
 </body>
 </html>
     <script id="html_badge_script1">
         window.__genspark_remove_badge_link = "https://www.genspark.ai/api/html_badge/" +
-            "remove_badge?token=To%2FBnjzloZ3UfQdcSaYfDpP3%2Fx3Qxb%2FDrjxE38JZ8H%2FaE0nXpKSbi2%2BVkCk3t7FWhc1wwrJqQt1bzGmkOQyo2C24x0rNkIrH3UJCdEJ%2B42rksBePwGt86TCSR8cKFLlXAlX2biWartXbDtXNYitGMs4aSFQUzn%2F7Rz9yDqPAQbe5qhDcjkLyf0jTMVgsvSkGHIy%2Fyw5e9txpOU%2B1Yp21XqUx4b0DVBBLb0Ws2UNFuuRUp03Gd9YakGCZEWMYEto5BiVS%2BZZ0QezAn1Wm4F04aLpEbSyH7xijpErH8rPbmkxK6JmHuDGoVGy27CR1FhNPk9x0XS9zddJ%2FXUPryZRo%2FtyBJ%2BiWA5%2BmnZkyTWeiUOcX6d6MejeR9%2FTrwgdz6FUuObeDh%2BMWrclZdboUKwVIBNLsVnOHzEYSvff8i6wrABKezZ3azQOPOMyxhlIjs1E3HHgFDuSdQlP9W%2BIgefX0nt4Ux7dz3%2FHKqtiQ0hdg6jspN1yTlepp5CypBhOO0e6LQmBWLl6f%2BKwYFUla4n4qxg%3D%3D";
+            "remove_badge?token=To%2FBnjzloZ3UfQdcSaYfDoEFyqmQC29WVXJzOUrCY%2Firnb3zK%2BsMV9gzJ5vy%2FBmU9dcd%2BAC0XR43Kpp5YGvypdS2nADzG%2BrhnB1CltlKt1kA%2FQxX9Uke%2BEqUAtm3oNl0Dt%2FikDLrEV54dHNzzkhGpRNLyGZYgEbINlKXr26o9YakvsqSF%2ByE1abzigc25gxJelQQ3BXeduv7y6Np4WPwNVpx576WZmNOjSM1deUKx9AIkFTqfzo%2FjQW3zBOYL%2FtVDtQy0TU9xgyyO%2Buhb2fFW2xmsektjUgAObl9Xl%2BeR6pG4EQXgvhs3iVlKkX%2BpD4gAIQkNEy0sCFsctfUqJlOBS%2Fk%2BerYQuMtXWf1vSCYLj7QjHvQkmda2E314Xje4%2BcVLGlLoAGITf5gI%2Fp5vIOeE8Cr2qtsczPr0kQTupz1gqd3waqrGt498thyE7KQm9FEJIna9JgUFi3NT1ET46Jjb3b7nVC%2F1W9tomYMOGKTR4C8KHFdObJ0cRtkuGwWiYvXYsEXNTdMLuCgxxUtRqretw%3D%3D";
         window.__genspark_locale = "pt-BR";
-        window.__genspark_token = "To/BnjzloZ3UfQdcSaYfDpP3/x3Qxb/DrjxE38JZ8H/aE0nXpKSbi2+VkCk3t7FWhc1wwrJqQt1bzGmkOQyo2C24x0rNkIrH3UJCdEJ+42rksBePwGt86TCSR8cKFLlXAlX2biWartXbDtXNYitGMs4aSFQUzn/7Rz9yDqPAQbe5qhDcjkLyf0jTMVgsvSkGHIy/yw5e9txpOU+1Yp21XqUx4b0DVBBLb0Ws2UNFuuRUp03Gd9YakGCZEWMYEto5BiVS+ZZ0QezAn1Wm4F04aLpEbSyH7xijpErH8rPbmkxK6JmHuDGoVGy27CR1FhNPk9x0XS9zddJ/XUPryZRo/tyBJ+iWA5+mnZkyTWeiUOcX6d6MejeR9/Trwgdz6FUuObeDh+MWrclZdboUKwVIBNLsVnOHzEYSvff8i6wrABKezZ3azQOPOMyxhlIjs1E3HHgFDuSdQlP9W+IgefX0nt4Ux7dz3/HKqtiQ0hdg6jspN1yTlepp5CypBhOO0e6LQmBWLl6f+KwYFUla4n4qxg==";
+        window.__genspark_token = "To/BnjzloZ3UfQdcSaYfDoEFyqmQC29WVXJzOUrCY/irnb3zK+sMV9gzJ5vy/BmU9dcd+AC0XR43Kpp5YGvypdS2nADzG+rhnB1CltlKt1kA/QxX9Uke+EqUAtm3oNl0Dt/ikDLrEV54dHNzzkhGpRNLyGZYgEbINlKXr26o9YakvsqSF+yE1abzigc25gxJelQQ3BXeduv7y6Np4WPwNVpx576WZmNOjSM1deUKx9AIkFTqfzo/jQW3zBOYL/tVDtQy0TU9xgyyO+uhb2fFW2xmsektjUgAObl9Xl+eR6pG4EQXgvhs3iVlKkX+pD4gAIQkNEy0sCFsctfUqJlOBS/k+erYQuMtXWf1vSCYLj7QjHvQkmda2E314Xje4+cVLGlLoAGITf5gI/p5vIOeE8Cr2qtsczPr0kQTupz1gqd3waqrGt498thyE7KQm9FEJIna9JgUFi3NT1ET46Jjb3b7nVC/1W9tomYMOGKTR4C8KHFdObJ0cRtkuGwWiYvXYsEXNTdMLuCgxxUtRqretw==";
     </script>
     
     <script id="html_notice_dialog_script" src="https://www.genspark.ai/notice_dialog.js"></script>
