@@ -3,14 +3,22 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>HEXAGON - Materiais Ortopédicos</title>
+    <title>HEXAGON - Registro de Materiais Ortopédicos</title>
     
     <!-- PWA Meta Tags -->
     <meta name="theme-color" content="#2563eb">
     <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="apple-mobile-web-app-title" content="HEXAGON">
-    <link rel="manifest" href="data:application/json;base64,eyJuYW1lIjoiSEVYQUdPTiAtIE1hdGVyaWFpcyBPcnRvcMOpZGljb3MiLCJzaG9ydF9uYW1lIjoiSEVYQUdPTiIsInN0YXJ0X3VybCI6Ii8iLCJkaXNwbGF5Ijoic3RhbmRhbG9uZSIsImJhY2tncm91bmRfY29sb3IiOiIjZmZmZmZmIiwidGhlbWVfY29sb3IiOiIjMjU2M2ViIiwiaWNvbnMiOlt7InNyYyI6ImRhdGE6aW1hZ2Uvc3ZnK3htbDtiYXNlNjQsUEhOMlp5QjNhV1IwYUQwaU1USTRJaUJvWldsbmFIUTlJakV5T0NJZ2RtbGxkMEp2ZUQwaU1DQXdJREV5T0NBeU9DSWdabWxzYkQwaUl6STFOak5sWWlJZ2VHMXNibk05SW1oMGRIQXZMM2QzZHk1M00yNXZjbWN2TWpBd01DOXpkbWNpUGdvZ0lEeDBaWGgwSUhnaVBUUWlJSGs5SWpFMElpQm1hV3hzUFNKM2FHbDBaU0lnWm05dWRDMW1ZVzFwYkhrOUltRnlhV0ZzSWlCbWIyNTBMWE5wZW1VOUlqTTJJaUJtYjI1MExYZGxhV2RvZEQwaVltOXNaQ0lnZEdWNGRDMWhibU5vYjNJOUltMXBaR1JzWlNJK1NFVllRVWRQVGp3dmRHVjRkRDRnSUR3dmMzWm5QZ29nSUNJc0luTnBla1Z6SWpvaU5qUWdOalFnTVRJNElERXlPQ0lzSW5SNWNHVWlPaUpwYldGblpTOXpkbWNyZUcxc0luMWRmUT09IiwNCiAgICAgICAic2l6ZXMiOiI2NHg2NCAxMjh4MTI4IiwNCiAgICAgICAidHlwZSI6ImltYWdlL3N2Zyt4bWwiDQogICAgIH1dDQp9">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-touch-fullscreen" content="yes">
+    
+    <!-- Manifest -->
+    <link rel="manifest" href="data:application/json;base64,ewogICJuYW1lIjogIkhFWEFHT04gLSBSZWdpc3RybyBkZSBNYXRlcmlhaXMgT3J0b3DDqWRpY29zIiwKICAic2hvcnRfbmFtZSI6ICJIRVhBR09OIiwKICAiZGVzY3JpcHRpb24iOiAiUFdBIHBhcmEgcmVnaXN0cm8gZGUgY29uc3VtbyBkZSBtYXRlcmlhaXMgb3J0b3DDqWRpY29zIGNvbnNpZ25hZG9zIiwKICAic3RhcnRfdXJsIjogIi8iLAogICJkaXNwbGF5IjogInN0YW5kYWxvbmUiLAogICJvcmllbnRhdGlvbiI6ICJwb3J0cmFpdCIsCiAgInRoZW1lX2NvbG9yIjogIiMyNTYzZWIiLAogICJiYWNrZ3JvdW5kX2NvbG9yIjogIiNmOWZhZmIiLAogICJpY29ucyI6IFsKICAgIHsKICAgICAgInNyYyI6ICJkYXRhOmltYWdlL3N2Zyt4bWw7YmFzZTY0LFBITjJaeUIzYVdSMGFEMGlNVEkzSWlCb1pXbG5hSFE5SWpFeU55SWdkbWxsZDFKdmVEMGlNQ0F3SURFNE5DQXhPRFFpSUdobGJXNXpQU0pvZEhSd09pOHZkM2QzTG5jekxtOXlaeTh5TURBd0wzTjJaeUkrUEdKaFkydG5jbTkxYm1RZ1ptbHNiRDBpSTJZNVptRm1ZaUkrUEM5aVlXTnJaM0p2ZFc1a1BqeDBaWGgwSUdacGJHdzlJaU16TlRZemFXWTZJaUJtYjI1MExYTnBlbVU5SWpRM2NIZ2lJSFJsZUhRdFlXNWphRzl5UFNKdGFXUmtiR1VpSUhnOUlqa3lJaUI1UFNKNk5qVWlQa2hGV0VGSFQwNDhMM1JsZUhRK1BDOXpkbWMrIiwKICAgICAgInNpemVzIjogIjE5MngxOTIiLAogICAgICAidHlwZSI6ICJpbWFnZS9zdmcreG1sIgogICAgfSwKICAgIHsKICAgICAgInNyYyI6ICJkYXRhOmltYWdlL3N2Zyt4bWw7YmFzZTY0LFBITjJaeUIzYVdSMGFEMGlOVEV5SWlCb1pXbG5hSFE5SWpVeE1pSWdkbWxsZDFKdmVEMGlNQ0F3SURBNE5EZ2dOalV5SWlCNGJXeHVjejBpYUhSMGNEb3ZMM2QzZHk1M015NXZjbWN2TWpBd01DOXpkbWNpUGp4aVlXTnJaM0p2ZFc1a0lHWnBiR3c5SWpKck5qTmxZaUkrUEM5aVlXTnJaM0p2ZFc1a1BqeDBaWGgwSUdacGJHdzlJaU0yTlRZMmFEVWlJR1p2Ym5RdGMybDZaVDBpT1RCd2VDSWdkR1Y0ZEMxaGJtTm9iM0k5SW0xcFpHUnNaU0lnZUQwaU5ESTBJaUI1UFNKek5qTWlQa2hGV0VGSFQwNDhMM1JsZUhRK1BDOXpkbWMrIiwKICAgICAgInNpemVzIjogIjUxMng1MTIiLAogICAgICAidHlwZSI6ICJpbWFnZS9zdmcreG1sIgogICAgfQogIF0KfQ==">
+    
+    <!-- Icons -->
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTI3IiBoZWlnaHQ9IjEyNyIgdmlld1JveD0iMCAwIDE4NCAxODQiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGJhY2tncm91bmQgZmlsbD0iI2Y5ZmFmYiI+PC9iYWNrZ3JvdW5kPjx0ZXh0IGZpbGw9IiMzNTYzZWYiIGZvbnQtc2l6ZT0iNDdweCIgdGV4dC1hbmNob3I9Im1pZGRsZSIgeD0iOTIiIHk9Ino2NSI+SEVYQUdPTjwvdGV4dD48L3N2Zz4=">
+    <link rel="apple-touch-icon" href="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTI3IiBoZWlnaHQ9IjEyNyIgdmlld1JveD0iMCAwIDE4NCAxODQiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGJhY2tncm91bmQgZmlsbD0iI2Y5ZmFmYiI+PC9iYWNrZ3JvdW5kPjx0ZXh0IGZpbGw9IiMzNTYzZWYiIGZvbnQtc2l6ZT0iNDdweCIgdGV4dC1hbmNob3I9Im1pZGRsZSIgeD0iOTIiIHk9Ino2NSI+SEVYQUdPTjwvdGV4dD48L3N2Zz4=">
     
     <!-- Tailwind CSS -->
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
@@ -23,7 +31,7 @@
     
     <style>
         .logo-container {
-            max-width: 140px;
+            max-width: 200px;
             margin: 0 auto 1.5rem auto;
             text-align: center;
         }
@@ -35,8 +43,6 @@
             text-align: center;
             text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
             letter-spacing: 2px;
-            display: block;
-            width: 100%;
         }
         
         .operation-tab {
@@ -49,12 +55,12 @@
         }
         
         .product-card {
-            transition: all 0.3s ease;
-            border: 2px solid #e5e7eb;
+            border: 1px solid #e5e7eb;
             border-radius: 8px;
-            padding: 12px;
-            margin-bottom: 8px;
+            padding: 16px;
+            margin-bottom: 12px;
             background: white;
+            transition: all 0.3s ease;
         }
         
         .product-card.selected {
@@ -62,66 +68,94 @@
             background-color: #eff6ff;
         }
         
+        .product-header {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            margin-bottom: 12px;
+        }
+        
         .product-info {
             flex: 1;
-            min-width: 0;
+        }
+        
+        .product-name {
+            font-weight: 600;
+            color: #1f2937;
+            font-size: 16px;
+            line-height: 1.4;
+            margin-bottom: 4px;
+        }
+        
+        .product-code {
+            font-size: 14px;
+            color: #6b7280;
         }
         
         .product-controls {
             display: none;
-            margin-top: 8px;
+            grid-template-columns: 1fr 2fr 32px;
             gap: 8px;
+            align-items: center;
+            margin-top: 12px;
         }
         
         .product-controls.show {
-            display: flex;
-            flex-wrap: wrap;
-            align-items: center;
+            display: grid;
         }
         
         .qty-select {
-            min-width: 60px;
-            height: 36px;
-            font-size: 14px;
-            padding: 4px 8px;
+            padding: 8px;
             border: 1px solid #d1d5db;
-            border-radius: 4px;
+            border-radius: 6px;
+            font-size: 14px;
+            min-height: 40px;
         }
         
         .lot-input {
-            width: 80px;
-            height: 36px;
-            font-size: 14px;
-            padding: 4px 8px;
+            padding: 8px;
             border: 1px solid #d1d5db;
-            border-radius: 4px;
-            font-family: monospace;
-        }
-        
-        .add-lot-btn, .remove-lot-btn {
-            min-width: 32px;
-            height: 32px;
+            border-radius: 6px;
             font-size: 14px;
-            border-radius: 4px;
-            border: none;
-            color: white;
-            cursor: pointer;
+            width: 100px;
+            max-width: 100px;
         }
         
         .add-lot-btn {
-            background-color: #3b82f6;
+            width: 32px;
+            height: 32px;
+            background: #2563eb;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: bold;
+            transition: background-color 0.3s;
         }
         
         .add-lot-btn:hover {
-            background-color: #2563eb;
+            background: #1d4ed8;
         }
         
         .remove-lot-btn {
-            background-color: #ef4444;
+            width: 24px;
+            height: 24px;
+            background: #dc2626;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 12px;
+            font-weight: bold;
         }
         
-        .remove-lot-btn:hover {
-            background-color: #dc2626;
+        .lot-row {
+            display: grid;
+            grid-template-columns: 60px 100px 28px;
+            gap: 8px;
+            align-items: center;
+            margin-top: 8px;
         }
         
         .completion-screen {
@@ -144,50 +178,46 @@
         
         .install-button {
             position: fixed;
-            bottom: 20px;
-            right: 20px;
-            background: linear-gradient(45deg, #2563eb, #3b82f6);
+            top: 10px;
+            right: 10px;
+            background: #10b981;
             color: white;
             border: none;
-            border-radius: 50px;
-            padding: 12px 20px;
-            font-weight: bold;
-            font-size: 14px;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 12px;
             cursor: pointer;
-            box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
             z-index: 1000;
-            transition: all 0.3s ease;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.2);
         }
         
-        .install-button:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 16px rgba(37, 99, 235, 0.4);
-        }
-        
-        .install-modal {
+        .modal {
             display: none;
             position: fixed;
-            top: 0;
+            z-index: 2000;
             left: 0;
+            top: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0, 0, 0, 0.5);
-            z-index: 2000;
-            justify-content: center;
-            align-items: center;
+            background-color: rgba(0,0,0,0.5);
         }
         
-        .install-modal.show {
-            display: flex;
-        }
-        
-        .install-modal-content {
-            background: white;
-            padding: 24px;
+        .modal-content {
+            background-color: white;
+            margin: 15% auto;
+            padding: 20px;
             border-radius: 12px;
-            max-width: 320px;
-            margin: 20px;
+            width: 90%;
+            max-width: 400px;
             text-align: center;
+        }
+        
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
         }
         
         @media (max-width: 768px) {
@@ -195,23 +225,33 @@
                 font-size: 2rem;
             }
             
-            .product-controls {
-                flex-direction: column;
-                align-items: stretch;
+            .product-name {
+                font-size: 15px;
             }
             
-            .lot-row {
-                display: flex;
-                gap: 8px;
-                align-items: center;
-                margin-bottom: 4px;
+            .product-code {
+                font-size: 13px;
             }
         }
     </style>
 </head>
 <body class="bg-gray-50 min-h-screen">
     
-    <!-- Logo centralizado -->
+    <!-- Install Button -->
+    <button id="installBtn" class="install-button" onclick="showInstallInstructions()">
+        📱 Instalar App
+    </button>
+    
+    <!-- Install Modal -->
+    <div id="installModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeInstallModal()">&times;</span>
+            <h3 class="text-lg font-bold mb-4">📱 Como Instalar o App</h3>
+            <div id="installInstructions"></div>
+        </div>
+    </div>
+
+    <!-- Logo -->
     <div class="logo-container pt-6">
         <div class="logo-text">HEXAGON</div>
     </div>
@@ -220,22 +260,6 @@
     <h1 class="text-2xl font-bold text-center text-gray-800 mb-6">
         Registro de Consumo de Materiais Consignados
     </h1>
-
-    <!-- Install Button -->
-    <button class="install-button" id="installBtn">
-        📱 Instalar App
-    </button>
-
-    <!-- Install Modal -->
-    <div class="install-modal" id="installModal">
-        <div class="install-modal-content">
-            <h3 class="text-lg font-bold mb-4">📱 Instalar HEXAGON</h3>
-            <div id="installInstructions"></div>
-            <button onclick="closeInstallModal()" class="mt-4 bg-gray-500 text-white px-4 py-2 rounded">
-                Fechar
-            </button>
-        </div>
-    </div>
 
     <!-- Main Content -->
     <div class="main-content max-w-4xl mx-auto px-4">
@@ -326,8 +350,8 @@
                 </button>
             </div>
 
-            <!-- Products Cards -->
-            <div id="productsContainer">
+            <!-- Products List -->
+            <div id="productsList">
                 <div class="text-center p-4 text-gray-500">
                     Selecione um subgrupo para visualizar os produtos
                 </div>
@@ -354,14 +378,14 @@
 
     <!-- Version -->
     <div class="text-center text-gray-500 text-sm py-4">
-        Versão 4.0 - PWA Completo
+        Versão 4.0 - PWA Standalone
     </div>
 
     <script>
-        // Service Worker Registration
+        // Register Service Worker
         if ('serviceWorker' in navigator) {
             window.addEventListener('load', function() {
-                const swContent = `
+                const swScript = `
                     const CACHE_NAME = 'hexagon-v1';
                     const urlsToCache = ['/'];
                     
@@ -388,73 +412,19 @@
                     });
                 `;
                 
-                const blob = new Blob([swContent], { type: 'application/javascript' });
+                const blob = new Blob([swScript], { type: 'application/javascript' });
                 const swUrl = URL.createObjectURL(blob);
                 
                 navigator.serviceWorker.register(swUrl)
                     .then(function(registration) {
-                        console.log('Service Worker registrado:', registration);
+                        console.log('ServiceWorker registration successful');
                     })
-                    .catch(function(error) {
-                        console.log('Falha ao registrar Service Worker:', error);
+                    .catch(function(err) {
+                        console.log('ServiceWorker registration failed');
                     });
             });
         }
-
-        // Install App Functions
-        function showInstallModal() {
-            const modal = document.getElementById('installModal');
-            const instructions = document.getElementById('installInstructions');
-            
-            const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
-            const isAndroid = /Android/.test(navigator.userAgent);
-            
-            if (isIOS) {
-                instructions.innerHTML = `
-                    <div class="text-left">
-                        <p class="mb-2">Para instalar no iPhone:</p>
-                        <ol class="list-decimal pl-4 space-y-1 text-sm">
-                            <li>Toque no botão <strong>Compartilhar</strong> (□↗) na barra inferior</li>
-                            <li>Role para baixo e toque em <strong>"Adicionar à Tela de Início"</strong></li>
-                            <li>Toque em <strong>"Adicionar"</strong></li>
-                        </ol>
-                        <p class="mt-2 text-xs text-gray-600">📱 Use apenas o Safari para esta função</p>
-                    </div>
-                `;
-            } else if (isAndroid) {
-                instructions.innerHTML = `
-                    <div class="text-left">
-                        <p class="mb-2">Para instalar no Android:</p>
-                        <ol class="list-decimal pl-4 space-y-1 text-sm">
-                            <li>Toque nos <strong>3 pontos</strong> (⋮) no menu do navegador</li>
-                            <li>Procure por <strong>"Adicionar à tela inicial"</strong> ou <strong>"Instalar app"</strong></li>
-                            <li>Confirme a instalação</li>
-                        </ol>
-                        <p class="mt-2 text-xs text-gray-600">📱 Funciona no Chrome, Edge ou Firefox</p>
-                    </div>
-                `;
-            } else {
-                instructions.innerHTML = `
-                    <div class="text-left">
-                        <p class="mb-2">Para instalar como app:</p>
-                        <ul class="list-disc pl-4 space-y-1 text-sm">
-                            <li>Use o menu do navegador</li>
-                            <li>Procure por "Instalar" ou "Adicionar"</li>
-                            <li>Confirme a instalação</li>
-                        </ul>
-                    </div>
-                `;
-            }
-            
-            modal.classList.add('show');
-        }
-
-        function closeInstallModal() {
-            document.getElementById('installModal').classList.remove('show');
-        }
-
-        document.getElementById('installBtn').addEventListener('click', showInstallModal);
-
+        
         // Supabase configuration
         const SUPABASE_URL = 'https://gahzwqbaopzjihewpdbh.supabase.co';
         const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImdhaHp3cWJhb3B6amloZXdwZGJoIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTA4NzM1NTMsImV4cCI6MjA2NjQ0OTU1M30.U4Tz5taRHyJaxXR2tYL_EYblu6GGKNUrdH2zLhIg2R0';
@@ -465,7 +435,6 @@
         let operations = [{}];
         let currentOperation = 1;
         let currentProducts = [];
-        let allProducts = [];
         
         // Hospital data
         const hospitals = {
@@ -483,6 +452,54 @@
             'DF': ['INST DE GESTAO ESTRAT DE SAUDE DO DF - IGSDF'],
             'GO': ['SOC BENEF ISRAELITA BRAS HOSP ALBERT EINSTEIN HUGO']
         };
+        
+        // Install button functions
+        function showInstallInstructions() {
+            const modal = document.getElementById('installModal');
+            const instructions = document.getElementById('installInstructions');
+            
+            const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
+            const isAndroid = /Android/.test(navigator.userAgent);
+            
+            if (isIOS) {
+                instructions.innerHTML = `
+                    <div class="text-left">
+                        <p class="mb-3">📱 <strong>Para iPhone/iPad:</strong></p>
+                        <ol class="list-decimal list-inside space-y-2 text-sm">
+                            <li>Toque no ícone de <strong>compartilhar</strong> (□↗) na barra inferior do Safari</li>
+                            <li>Role para baixo e toque em <strong>"Adicionar à Tela de Início"</strong></li>
+                            <li>Toque em <strong>"Adicionar"</strong> para confirmar</li>
+                        </ol>
+                        <p class="mt-3 text-xs text-gray-600">* Funciona apenas no Safari</p>
+                    </div>
+                `;
+            } else if (isAndroid) {
+                instructions.innerHTML = `
+                    <div class="text-left">
+                        <p class="mb-3">📱 <strong>Para Android:</strong></p>
+                        <ol class="list-decimal list-inside space-y-2 text-sm">
+                            <li>Toque nos <strong>3 pontos</strong> (⋮) no canto superior direito</li>
+                            <li>Procure por <strong>"Adicionar à tela inicial"</strong> ou <strong>"Instalar app"</strong></li>
+                            <li>Toque para confirmar a instalação</li>
+                        </ol>
+                        <p class="mt-3 text-xs text-gray-600">* Funciona no Chrome, Edge ou Firefox</p>
+                    </div>
+                `;
+            } else {
+                instructions.innerHTML = `
+                    <div class="text-left">
+                        <p class="mb-3">💻 <strong>Para Desktop:</strong></p>
+                        <p class="text-sm">Procure pelo ícone de instalação na barra de endereços ou no menu do navegador.</p>
+                    </div>
+                `;
+            }
+            
+            modal.style.display = 'block';
+        }
+        
+        function closeInstallModal() {
+            document.getElementById('installModal').style.display = 'none';
+        }
         
         // Initialize
         document.addEventListener('DOMContentLoaded', async function() {
@@ -560,15 +577,15 @@
         // Filtrar produtos por subgrupo
         async function filterProducts() {
             const subgrupo = document.getElementById('documentType').value;
-            const container = document.getElementById('productsContainer');
+            const productsList = document.getElementById('productsList');
             
             if (!subgrupo) {
-                container.innerHTML = '<div class="text-center p-4 text-gray-500">Selecione um subgrupo para visualizar os produtos</div>';
+                productsList.innerHTML = '<div class="text-center p-4 text-gray-500">Selecione um subgrupo para visualizar os produtos</div>';
                 return;
             }
             
             // Mostrar loading
-            container.innerHTML = '<div class="text-center p-4 text-blue-500">🔄 Buscando produtos...</div>';
+            productsList.innerHTML = '<div class="text-center p-4 text-blue-500">🔄 Buscando produtos...</div>';
             
             try {
                 console.log('Buscando produtos para:', subgrupo);
@@ -581,27 +598,26 @@
                 
                 if (error) {
                     console.error('Erro ao buscar produtos:', error);
-                    container.innerHTML = '<div class="text-center p-4 text-red-500">Erro ao carregar produtos</div>';
+                    productsList.innerHTML = '<div class="text-center p-4 text-red-500">Erro ao carregar produtos</div>';
                     return;
                 }
                 
                 console.log('Produtos encontrados:', data.length);
                 currentProducts = data;
-                allProducts = [...data];
                 renderProducts();
                 
             } catch (error) {
                 console.error('Erro na consulta:', error);
-                container.innerHTML = '<div class="text-center p-4 text-red-500">Erro de conexão</div>';
+                productsList.innerHTML = '<div class="text-center p-4 text-red-500">Erro de conexão</div>';
             }
         }
         
         function renderProducts() {
-            const container = document.getElementById('productsContainer');
-            container.innerHTML = '';
+            const productsList = document.getElementById('productsList');
+            productsList.innerHTML = '';
             
             if (currentProducts.length === 0) {
-                container.innerHTML = '<div class="text-center p-4 text-gray-500">Nenhum produto encontrado</div>';
+                productsList.innerHTML = '<div class="text-center p-4 text-gray-500">Nenhum produto encontrado</div>';
                 return;
             }
             
@@ -611,31 +627,25 @@
                 card.id = `product-${index}`;
                 
                 card.innerHTML = `
-                    <div class="flex items-start gap-3">
-                        <input type="checkbox" onchange="toggleProductSelection(${index})" class="mt-1 w-4 h-4">
+                    <div class="product-header">
+                        <input type="checkbox" onchange="toggleProductSelection(${index})" class="w-5 h-5 text-blue-600">
                         <div class="product-info">
-                            <div class="font-medium text-gray-900">${product.nome}</div>
-                            <div class="text-sm text-gray-500">Código: ${product.codigo}</div>
+                            <div class="product-name">${product.nome}</div>
+                            <div class="product-code">Código: ${product.codigo}</div>
                         </div>
                     </div>
                     <div class="product-controls" id="controls-${index}">
-                        <div class="flex flex-wrap gap-2 items-center w-full">
-                            <label class="text-sm font-medium">Qtd:</label>
-                            <select class="qty-select">
-                                <option value="">-</option>
-                                ${Array.from({length: 10}, (_, i) => `<option value="${i+1}">${i+1}</option>`).join('')}
-                            </select>
-                            <label class="text-sm font-medium">Lote:</label>
-                            <div class="flex items-center gap-2 flex-1">
-                                <input type="text" class="lot-input" placeholder="Lote" maxlength="12">
-                                <button onclick="addLot(${index})" class="add-lot-btn">+</button>
-                            </div>
-                        </div>
-                        <div id="additional-lots-${index}"></div>
+                        <select class="qty-select">
+                            <option value="">Qtd</option>
+                            ${Array.from({length: 10}, (_, i) => `<option value="${i+1}">${i+1}</option>`).join('')}
+                        </select>
+                        <input type="text" class="lot-input" placeholder="Lote" maxlength="12">
+                        <button class="add-lot-btn" onclick="addLot(${index})">+</button>
                     </div>
+                    <div id="additional-lots-${index}"></div>
                 `;
                 
-                container.appendChild(card);
+                productsList.appendChild(card);
             });
         }
         
@@ -650,6 +660,8 @@
             } else {
                 card.classList.remove('selected');
                 controls.classList.remove('show');
+                // Clear additional lots
+                document.getElementById(`additional-lots-${index}`).innerHTML = '';
             }
             
             saveOperationData();
@@ -657,19 +669,17 @@
         
         function addLot(productIndex) {
             const additionalLots = document.getElementById(`additional-lots-${productIndex}`);
-            const lotDiv = document.createElement('div');
-            lotDiv.className = 'lot-row';
-            lotDiv.innerHTML = `
-                <label class="text-sm font-medium">Qtd:</label>
+            const lotRow = document.createElement('div');
+            lotRow.className = 'lot-row';
+            lotRow.innerHTML = `
                 <select class="qty-select">
-                    <option value="">-</option>
+                    <option value="">Qtd</option>
                     ${Array.from({length: 10}, (_, i) => `<option value="${i+1}">${i+1}</option>`).join('')}
                 </select>
-                <label class="text-sm font-medium">Lote:</label>
                 <input type="text" class="lot-input" placeholder="Lote" maxlength="12">
-                <button onclick="removeLot(this)" class="remove-lot-btn">-</button>
+                <button class="remove-lot-btn" onclick="removeLot(this)">-</button>
             `;
-            additionalLots.appendChild(lotDiv);
+            additionalLots.appendChild(lotRow);
             saveOperationData();
         }
         
@@ -682,15 +692,17 @@
             const cards = document.querySelectorAll('.product-card');
             cards.forEach(card => {
                 const checkbox = card.querySelector('input[type="checkbox"]');
-                if (checkbox && !checkbox.checked) {
+                if (!checkbox.checked) {
                     card.style.display = 'none';
                 }
             });
         }
         
         function showAllProducts() {
-            currentProducts = [...allProducts];
-            renderProducts();
+            const cards = document.querySelectorAll('.product-card');
+            cards.forEach(card => {
+                card.style.display = 'block';
+            });
         }
         
         // Hospital functions
@@ -787,27 +799,38 @@
             
             // Save selected products
             operation.selectedProducts = [];
-            const cards = document.querySelectorAll('.product-card');
-            cards.forEach((card, cardIndex) => {
-                const checkbox = card.querySelector('input[type="checkbox"]');
-                if (checkbox && checkbox.checked && currentProducts[cardIndex]) {
+            const checkboxes = document.querySelectorAll('.product-card input[type="checkbox"]:checked');
+            checkboxes.forEach(checkbox => {
+                const card = checkbox.closest('.product-card');
+                const index = Array.from(card.parentNode.children).indexOf(card);
+                if (currentProducts[index]) {
                     const product = {
-                        ...currentProducts[cardIndex],
+                        ...currentProducts[index],
                         lots: []
                     };
                     
-                    const controls = card.querySelector('.product-controls');
-                    const qtySelects = controls.querySelectorAll('select');
-                    const lotInputs = controls.querySelectorAll('input[type="text"]');
+                    // Get first lot
+                    const firstLotInput = card.querySelector('.lot-input');
+                    const firstQtySelect = card.querySelector('.qty-select');
+                    if (firstLotInput.value) {
+                        product.lots.push({
+                            lot: firstLotInput.value,
+                            qty: firstQtySelect.value || '1'
+                        });
+                    }
                     
-                    for (let i = 0; i < lotInputs.length; i++) {
-                        if (lotInputs[i].value) {
+                    // Get additional lots
+                    const additionalLots = card.querySelectorAll('.lot-row');
+                    additionalLots.forEach(row => {
+                        const lotInput = row.querySelector('.lot-input');
+                        const qtySelect = row.querySelector('.qty-select');
+                        if (lotInput.value) {
                             product.lots.push({
-                                lot: lotInputs[i].value,
-                                qty: qtySelects[i] ? qtySelects[i].value : '1'
+                                lot: lotInput.value,
+                                qty: qtySelect.value || '1'
                             });
                         }
-                    }
+                    });
                     
                     operation.selectedProducts.push(product);
                 }
@@ -942,21 +965,29 @@
             currentOperation = 1;
             updateOperationTabs();
             loadOperationData();
-            document.getElementById('productsContainer').innerHTML = '<div class="text-center p-4 text-gray-500">Selecione um subgrupo para visualizar os produtos</div>';
+            document.getElementById('productsList').innerHTML = '<div class="text-center p-4 text-gray-500">Selecione um subgrupo para visualizar os produtos</div>';
             
             document.querySelector('.main-content').classList.remove('hide');
             document.querySelector('.completion-screen').classList.remove('show');
         }
+        
+        // Close modal when clicking outside
+        window.onclick = function(event) {
+            const modal = document.getElementById('installModal');
+            if (event.target == modal) {
+                modal.style.display = 'none';
+            }
+        }
     </script>
 
-<script defer src="https://static.cloudflareinsights.com/beacon.min.js/vcd15cbe7772f49c399c6a5babf22c1241717689176015" integrity="sha512-ZpsOmlRQV6y907TI0dKBHq9Md29nnaEIPlkf84rnaERnq6zvWvPUqr2ft8M1aS28oN72PdrCzSjY4U6VaAw1EQ==" data-cf-beacon='{"rayId":"95670a9ae8e5a415","serverTiming":{"name":{"cfExtPri":true,"cfEdge":true,"cfOrigin":true,"cfL4":true,"cfSpeedBrain":true,"cfCacheStatus":true}},"version":"2025.6.2","token":"4edd5f8ec12a48cfa682ab8261b80a79"}' crossorigin="anonymous"></script>
+<script defer src="https://static.cloudflareinsights.com/beacon.min.js/vcd15cbe7772f49c399c6a5babf22c1241717689176015" integrity="sha512-ZpsOmlRQV6y907TI0dKBHq9Md29nnaEIPlkf84rnaERnq6zvWvPUqr2ft8M1aS28oN72PdrCzSjY4U6VaAw1EQ==" data-cf-beacon='{"rayId":"956721465f7ff25a","serverTiming":{"name":{"cfExtPri":true,"cfEdge":true,"cfOrigin":true,"cfL4":true,"cfSpeedBrain":true,"cfCacheStatus":true}},"version":"2025.6.2","token":"4edd5f8ec12a48cfa682ab8261b80a79"}' crossorigin="anonymous"></script>
 </body>
 </html>
     <script id="html_badge_script1">
         window.__genspark_remove_badge_link = "https://www.genspark.ai/api/html_badge/" +
-            "remove_badge?token=To%2FBnjzloZ3UfQdcSaYfDrurmBi9Ari6IagSduKQNclcKA2xXlj9HSDK8%2Bzz4i1JQcIsIUYgr4BfuehVL5BluTh5%2FPqCIoEzGt0wc2XUrauwQSFc804LhnxVAgFG49PHFm4xveXJBqoGNvwjdzVzroTkykpBaf5CXbozkGjRgQs6nJUklKf7vLSnyKCZfswawRAk7NfhhKAnpiAABLyMBfXzdvnzAnJx%2Fp3VtR711R6vRRd9m9Ywu3TNaX3mGcWYG0Qz3cskFdOjBszcqjP32%2B%2FRZw%2FAZgnsypRHr3hJbtGOWqB3Zz%2Fa70%2Btg%2BX4X3Y3rIfc0y0oa0RmNmO4R9iurXU6NPTn1S19naTll1rfKTbdDyYuEC4SaRD6Dtxrworqpt0yZb%2BOQB%2Bn7PWfWeQjSI5geBd2y0QrhbVcp%2FjLsc%2FYgMm5GIpfzTxP%2BSORUxDjSVIgB8LyLxo0CI7EAipPuarxu9uhlDL6HOfe2%2BkRsaXYGWIxRNnEMtzn350bcJQbOORSw8%2FjRTvfQR8S5p56x2VEl9mR0L2R4glLwP6H9Mw%3D";
+            "remove_badge?token=To%2FBnjzloZ3UfQdcSaYfDhCfXgWZAQeZLkSul1l8tCG6099hDinm8Pv%2BKt1ZJKXpkcQjqp6XW8Pj1FoZpLLJ4vhtvvycDCuFkk%2BTgaOVM8kGI%2FQXjhv46FlS4wsyuX2miMoaLA7Q5UBKbNX2%2Bqt1F4iuyei2NhO4%2B2kFshjrT7K9TCnvWfPiuXFbmC8lz9KyZup2E%2BSfwcA7q55xnhmwYa7f1ww0269w0YrAFvSyAXmb2pt5z%2B9JL722gNukif%2BuSdcjxLQsSqADsttUQozg%2B6Rj%2FI8r7%2FvNBWoaVx63P1%2Bgi1FVYTtTwh91IYDTcxB7nglMsStj4pIpWuU7m%2B3GU9a865PBmnyRmlcBc1Hebo8HV8ochjbRDnTOYrWV8FRdcf67u5PAS9YczPi73UeTE5ri6GZ%2FMT3iFzPJnfGv6wqNn9rdkI0J%2B%2B%2FWc6Odev%2FXHSgX9od8CD3Xu%2BRKMQ5mP%2Bbd3yrPCgMWbrKQjSH5nkPIEfbJfC8nFWTctkwpcRsOSRlh7pSM%2BDOwLtSbeMUb2Q%3D%3D";
         window.__genspark_locale = "pt-BR";
-        window.__genspark_token = "To/BnjzloZ3UfQdcSaYfDrurmBi9Ari6IagSduKQNclcKA2xXlj9HSDK8+zz4i1JQcIsIUYgr4BfuehVL5BluTh5/PqCIoEzGt0wc2XUrauwQSFc804LhnxVAgFG49PHFm4xveXJBqoGNvwjdzVzroTkykpBaf5CXbozkGjRgQs6nJUklKf7vLSnyKCZfswawRAk7NfhhKAnpiAABLyMBfXzdvnzAnJx/p3VtR711R6vRRd9m9Ywu3TNaX3mGcWYG0Qz3cskFdOjBszcqjP32+/RZw/AZgnsypRHr3hJbtGOWqB3Zz/a70+tg+X4X3Y3rIfc0y0oa0RmNmO4R9iurXU6NPTn1S19naTll1rfKTbdDyYuEC4SaRD6Dtxrworqpt0yZb+OQB+n7PWfWeQjSI5geBd2y0QrhbVcp/jLsc/YgMm5GIpfzTxP+SORUxDjSVIgB8LyLxo0CI7EAipPuarxu9uhlDL6HOfe2+kRsaXYGWIxRNnEMtzn350bcJQbOORSw8/jRTvfQR8S5p56x2VEl9mR0L2R4glLwP6H9Mw=";
+        window.__genspark_token = "To/BnjzloZ3UfQdcSaYfDhCfXgWZAQeZLkSul1l8tCG6099hDinm8Pv+Kt1ZJKXpkcQjqp6XW8Pj1FoZpLLJ4vhtvvycDCuFkk+TgaOVM8kGI/QXjhv46FlS4wsyuX2miMoaLA7Q5UBKbNX2+qt1F4iuyei2NhO4+2kFshjrT7K9TCnvWfPiuXFbmC8lz9KyZup2E+SfwcA7q55xnhmwYa7f1ww0269w0YrAFvSyAXmb2pt5z+9JL722gNukif+uSdcjxLQsSqADsttUQozg+6Rj/I8r7/vNBWoaVx63P1+gi1FVYTtTwh91IYDTcxB7nglMsStj4pIpWuU7m+3GU9a865PBmnyRmlcBc1Hebo8HV8ochjbRDnTOYrWV8FRdcf67u5PAS9YczPi73UeTE5ri6GZ/MT3iFzPJnfGv6wqNn9rdkI0J++/Wc6Odev/XHSgX9od8CD3Xu+RKMQ5mP+bd3yrPCgMWbrKQjSH5nkPIEfbJfC8nFWTctkwpcRsOSRlh7pSM+DOwLtSbeMUb2Q==";
     </script>
     
     <script id="html_notice_dialog_script" src="https://www.genspark.ai/notice_dialog.js"></script>
