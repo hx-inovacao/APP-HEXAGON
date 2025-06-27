@@ -3,14 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Registro de Consumo de Materiais Consignados</title>
+    <title>HEXAGON - Materiais Ortopédicos</title>
     
     <!-- PWA Meta Tags -->
     <meta name="theme-color" content="#2563eb">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="default">
     <meta name="apple-mobile-web-app-title" content="HEXAGON">
-    <link rel="manifest" href="data:application/json;base64,eyJuYW1lIjoiSEVYQUdPTiIsInNob3J0X25hbWUiOiJIZXhhZ29uIiwic3RhcnRfdXJsIjoiLyIsImRpc3BsYXkiOiJzdGFuZGFsb25lIiwidGhlbWVfY29sb3IiOiIjMjU2M2ViIiwiYmFja2dyb3VuZF9jb2xvciI6IiNmOWZhZmIiLCJpY29ucyI6W3sic3JjIjoiZGF0YTppbWFnZS9zdmcreG1sO2Jhc2U2NCxQSE4yWnlCNGJXeHVjejBpYUhSMGNEb3ZMM2QzZHk1M00zTXViM0puTHpJd01EQXZjM1puSWlCNGJHeHVjenBzYVc1clBTSm9kSFJ3T2k4dmQzZDNMbmN6TG05eVp5OHhPVGs1TDNoc2FXNXJJaUIzYVdSMGFEMGlNVEkzSWlCb1pXbG5hSFE5SWpFeU55SWdkbWxsZDBKdmVEMGlNQ0F3SURFM055QXhOelVpSUdacGJHdzlJaU14T0RNd1JEVWlQand2YzNablBnPT0iLCJzaXplcyI6IjE5MngxOTIiLCJ0eXBlIjoiaW1hZ2Uvc3ZnK3htbCJ9XX0=">
+    <link rel="manifest" href="data:application/json;base64,eyJuYW1lIjoiSEVYQUdPTiAtIE1hdGVyaWFpcyBPcnRvcMOpZGljb3MiLCJzaG9ydF9uYW1lIjoiSEVYQUdPTiIsInN0YXJ0X3VybCI6Ii8iLCJkaXNwbGF5Ijoic3RhbmRhbG9uZSIsImJhY2tncm91bmRfY29sb3IiOiIjZmZmZmZmIiwidGhlbWVfY29sb3IiOiIjMjU2M2ViIiwiaWNvbnMiOlt7InNyYyI6ImRhdGE6aW1hZ2Uvc3ZnK3htbDtiYXNlNjQsUEhOMlp5QjNhV1IwYUQwaU1USTRJaUJvWldsbmFIUTlJakV5T0NJZ2RtbGxkMEp2ZUQwaU1DQXdJREV5T0NBeU9DSWdabWxzYkQwaUl6STFOak5sWWlJZ2VHMXNibk05SW1oMGRIQXZMM2QzZHk1M00yNXZjbWN2TWpBd01DOXpkbWNpUGdvZ0lEeDBaWGgwSUhnaVBUUWlJSGs5SWpFMElpQm1hV3hzUFNKM2FHbDBaU0lnWm05dWRDMW1ZVzFwYkhrOUltRnlhV0ZzSWlCbWIyNTBMWE5wZW1VOUlqTTJJaUJtYjI1MExYZGxhV2RvZEQwaVltOXNaQ0lnZEdWNGRDMWhibU5vYjNJOUltMXBaR1JzWlNJK1NFVllRVWRQVGp3dmRHVjRkRDRnSUR3dmMzWm5QZ29nSUNJc0luTnBla1Z6SWpvaU5qUWdOalFnTVRJNElERXlPQ0lzSW5SNWNHVWlPaUpwYldGblpTOXpkbWNyZUcxc0luMWRmUT09IiwNCiAgICAgICAic2l6ZXMiOiI2NHg2NCAxMjh4MTI4IiwNCiAgICAgICAidHlwZSI6ImltYWdlL3N2Zyt4bWwiDQogICAgIH1dDQp9">
     
     <!-- Tailwind CSS -->
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
@@ -25,6 +25,7 @@
         .logo-container {
             max-width: 140px;
             margin: 0 auto 1.5rem auto;
+            text-align: center;
         }
         
         .logo-text {
@@ -33,6 +34,9 @@
             color: #2563eb;
             text-align: center;
             text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+            letter-spacing: 2px;
+            display: block;
+            width: 100%;
         }
         
         .operation-tab {
@@ -45,12 +49,12 @@
         }
         
         .product-card {
-            border: 1px solid #d1d5db;
+            transition: all 0.3s ease;
+            border: 2px solid #e5e7eb;
             border-radius: 8px;
             padding: 12px;
             margin-bottom: 8px;
             background: white;
-            transition: all 0.3s ease;
         }
         
         .product-card.selected {
@@ -58,65 +62,66 @@
             background-color: #eff6ff;
         }
         
+        .product-info {
+            flex: 1;
+            min-width: 0;
+        }
+        
         .product-controls {
             display: none;
-            margin-top: 12px;
+            margin-top: 8px;
             gap: 8px;
         }
         
         .product-controls.show {
             display: flex;
             flex-wrap: wrap;
-        }
-        
-        .lot-input {
-            width: 5.5em !important; /* Aproximadamente 8 caracteres */
-            min-width: 5.5em;
-            font-size: 14px;
-            padding: 6px 8px;
+            align-items: center;
         }
         
         .qty-select {
-            width: 4em;
-            min-width: 4em;
+            min-width: 60px;
+            height: 36px;
             font-size: 14px;
-            padding: 6px 4px;
+            padding: 4px 8px;
+            border: 1px solid #d1d5db;
+            border-radius: 4px;
+        }
+        
+        .lot-input {
+            width: 80px;
+            height: 36px;
+            font-size: 14px;
+            padding: 4px 8px;
+            border: 1px solid #d1d5db;
+            border-radius: 4px;
+            font-family: monospace;
         }
         
         .add-lot-btn, .remove-lot-btn {
             min-width: 32px;
             height: 32px;
             font-size: 14px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            border-radius: 4px;
+            border: none;
+            color: white;
+            cursor: pointer;
         }
         
-        .lot-row {
-            display: flex;
-            align-items: center;
-            gap: 6px;
-            margin-bottom: 6px;
+        .add-lot-btn {
+            background-color: #3b82f6;
         }
         
-        .lot-row:last-child {
-            margin-bottom: 0;
+        .add-lot-btn:hover {
+            background-color: #2563eb;
         }
         
-        @media (max-width: 768px) {
-            .product-controls {
-                align-items: stretch;
-            }
-            
-            .lot-input {
-                width: 5em !important;
-                min-width: 5em;
-            }
-            
-            .qty-select {
-                width: 3.5em;
-                min-width: 3.5em;
-            }
+        .remove-lot-btn {
+            background-color: #ef4444;
+        }
+        
+        .remove-lot-btn:hover {
+            background-color: #dc2626;
         }
         
         .completion-screen {
@@ -136,11 +141,77 @@
         .main-content.hide {
             display: none;
         }
+        
+        .install-button {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: linear-gradient(45deg, #2563eb, #3b82f6);
+            color: white;
+            border: none;
+            border-radius: 50px;
+            padding: 12px 20px;
+            font-weight: bold;
+            font-size: 14px;
+            cursor: pointer;
+            box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
+            z-index: 1000;
+            transition: all 0.3s ease;
+        }
+        
+        .install-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(37, 99, 235, 0.4);
+        }
+        
+        .install-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 2000;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .install-modal.show {
+            display: flex;
+        }
+        
+        .install-modal-content {
+            background: white;
+            padding: 24px;
+            border-radius: 12px;
+            max-width: 320px;
+            margin: 20px;
+            text-align: center;
+        }
+        
+        @media (max-width: 768px) {
+            .logo-text {
+                font-size: 2rem;
+            }
+            
+            .product-controls {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            
+            .lot-row {
+                display: flex;
+                gap: 8px;
+                align-items: center;
+                margin-bottom: 4px;
+            }
+        }
     </style>
 </head>
 <body class="bg-gray-50 min-h-screen">
     
-    <!-- Logo -->
+    <!-- Logo centralizado -->
     <div class="logo-container pt-6">
         <div class="logo-text">HEXAGON</div>
     </div>
@@ -149,6 +220,22 @@
     <h1 class="text-2xl font-bold text-center text-gray-800 mb-6">
         Registro de Consumo de Materiais Consignados
     </h1>
+
+    <!-- Install Button -->
+    <button class="install-button" id="installBtn">
+        📱 Instalar App
+    </button>
+
+    <!-- Install Modal -->
+    <div class="install-modal" id="installModal">
+        <div class="install-modal-content">
+            <h3 class="text-lg font-bold mb-4">📱 Instalar HEXAGON</h3>
+            <div id="installInstructions"></div>
+            <button onclick="closeInstallModal()" class="mt-4 bg-gray-500 text-white px-4 py-2 rounded">
+                Fechar
+            </button>
+        </div>
+    </div>
 
     <!-- Main Content -->
     <div class="main-content max-w-4xl mx-auto px-4">
@@ -239,7 +326,7 @@
                 </button>
             </div>
 
-            <!-- Products Container -->
+            <!-- Products Cards -->
             <div id="productsContainer">
                 <div class="text-center p-4 text-gray-500">
                     Selecione um subgrupo para visualizar os produtos
@@ -267,40 +354,106 @@
 
     <!-- Version -->
     <div class="text-center text-gray-500 text-sm py-4">
-        Versão 3.1 - Layout Otimizado
+        Versão 4.0 - PWA Completo
     </div>
 
     <script>
         // Service Worker Registration
         if ('serviceWorker' in navigator) {
             window.addEventListener('load', function() {
-                const swCode = `
+                const swContent = `
                     const CACHE_NAME = 'hexagon-v1';
                     const urlsToCache = ['/'];
                     
-                    self.addEventListener('install', event => {
+                    self.addEventListener('install', function(event) {
                         event.waitUntil(
                             caches.open(CACHE_NAME)
-                                .then(cache => cache.addAll(urlsToCache))
+                                .then(function(cache) {
+                                    return cache.addAll(urlsToCache);
+                                })
                         );
                     });
                     
-                    self.addEventListener('fetch', event => {
+                    self.addEventListener('fetch', function(event) {
                         event.respondWith(
                             caches.match(event.request)
-                                .then(response => response || fetch(event.request))
+                                .then(function(response) {
+                                    if (response) {
+                                        return response;
+                                    }
+                                    return fetch(event.request);
+                                }
+                            )
                         );
                     });
                 `;
                 
-                const blob = new Blob([swCode], { type: 'application/javascript' });
+                const blob = new Blob([swContent], { type: 'application/javascript' });
                 const swUrl = URL.createObjectURL(blob);
                 
                 navigator.serviceWorker.register(swUrl)
-                    .then(registration => console.log('SW registered'))
-                    .catch(error => console.log('SW registration failed'));
+                    .then(function(registration) {
+                        console.log('Service Worker registrado:', registration);
+                    })
+                    .catch(function(error) {
+                        console.log('Falha ao registrar Service Worker:', error);
+                    });
             });
         }
+
+        // Install App Functions
+        function showInstallModal() {
+            const modal = document.getElementById('installModal');
+            const instructions = document.getElementById('installInstructions');
+            
+            const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
+            const isAndroid = /Android/.test(navigator.userAgent);
+            
+            if (isIOS) {
+                instructions.innerHTML = `
+                    <div class="text-left">
+                        <p class="mb-2">Para instalar no iPhone:</p>
+                        <ol class="list-decimal pl-4 space-y-1 text-sm">
+                            <li>Toque no botão <strong>Compartilhar</strong> (□↗) na barra inferior</li>
+                            <li>Role para baixo e toque em <strong>"Adicionar à Tela de Início"</strong></li>
+                            <li>Toque em <strong>"Adicionar"</strong></li>
+                        </ol>
+                        <p class="mt-2 text-xs text-gray-600">📱 Use apenas o Safari para esta função</p>
+                    </div>
+                `;
+            } else if (isAndroid) {
+                instructions.innerHTML = `
+                    <div class="text-left">
+                        <p class="mb-2">Para instalar no Android:</p>
+                        <ol class="list-decimal pl-4 space-y-1 text-sm">
+                            <li>Toque nos <strong>3 pontos</strong> (⋮) no menu do navegador</li>
+                            <li>Procure por <strong>"Adicionar à tela inicial"</strong> ou <strong>"Instalar app"</strong></li>
+                            <li>Confirme a instalação</li>
+                        </ol>
+                        <p class="mt-2 text-xs text-gray-600">📱 Funciona no Chrome, Edge ou Firefox</p>
+                    </div>
+                `;
+            } else {
+                instructions.innerHTML = `
+                    <div class="text-left">
+                        <p class="mb-2">Para instalar como app:</p>
+                        <ul class="list-disc pl-4 space-y-1 text-sm">
+                            <li>Use o menu do navegador</li>
+                            <li>Procure por "Instalar" ou "Adicionar"</li>
+                            <li>Confirme a instalação</li>
+                        </ul>
+                    </div>
+                `;
+            }
+            
+            modal.classList.add('show');
+        }
+
+        function closeInstallModal() {
+            document.getElementById('installModal').classList.remove('show');
+        }
+
+        document.getElementById('installBtn').addEventListener('click', showInstallModal);
 
         // Supabase configuration
         const SUPABASE_URL = 'https://gahzwqbaopzjihewpdbh.supabase.co';
@@ -312,7 +465,7 @@
         let operations = [{}];
         let currentOperation = 1;
         let currentProducts = [];
-        let subgruposDisponiveis = [];
+        let allProducts = [];
         
         // Hospital data
         const hospitals = {
@@ -434,6 +587,7 @@
                 
                 console.log('Produtos encontrados:', data.length);
                 currentProducts = data;
+                allProducts = [...data];
                 renderProducts();
                 
             } catch (error) {
@@ -457,28 +611,27 @@
                 card.id = `product-${index}`;
                 
                 card.innerHTML = `
-                    <div class="flex items-start justify-between">
-                        <div class="flex items-start space-x-3 flex-1">
-                            <input type="checkbox" id="check-${index}" onchange="toggleProductSelection(${index})" class="mt-1 w-4 h-4 text-blue-600">
-                            <div class="flex-1">
-                                <div class="font-medium text-gray-900">${product.nome}</div>
-                                <div class="text-sm text-gray-500">Código: ${product.codigo}</div>
-                            </div>
+                    <div class="flex items-start gap-3">
+                        <input type="checkbox" onchange="toggleProductSelection(${index})" class="mt-1 w-4 h-4">
+                        <div class="product-info">
+                            <div class="font-medium text-gray-900">${product.nome}</div>
+                            <div class="text-sm text-gray-500">Código: ${product.codigo}</div>
                         </div>
                     </div>
-                    
                     <div class="product-controls" id="controls-${index}">
-                        <div class="w-full">
-                            <div class="lot-row">
-                                <select class="qty-select border border-gray-300 rounded">
-                                    <option value="">Qtd</option>
-                                    ${Array.from({length: 10}, (_, i) => `<option value="${i+1}">${i+1}</option>`).join('')}
-                                </select>
-                                <input type="text" class="lot-input border border-gray-300 rounded" placeholder="Lote" maxlength="12">
-                                <button onclick="addLot(${index})" class="add-lot-btn bg-blue-500 text-white rounded hover:bg-blue-600">+</button>
+                        <div class="flex flex-wrap gap-2 items-center w-full">
+                            <label class="text-sm font-medium">Qtd:</label>
+                            <select class="qty-select">
+                                <option value="">-</option>
+                                ${Array.from({length: 10}, (_, i) => `<option value="${i+1}">${i+1}</option>`).join('')}
+                            </select>
+                            <label class="text-sm font-medium">Lote:</label>
+                            <div class="flex items-center gap-2 flex-1">
+                                <input type="text" class="lot-input" placeholder="Lote" maxlength="12">
+                                <button onclick="addLot(${index})" class="add-lot-btn">+</button>
                             </div>
-                            <div id="extra-lots-${index}"></div>
                         </div>
+                        <div id="additional-lots-${index}"></div>
                     </div>
                 `;
                 
@@ -487,7 +640,7 @@
         }
         
         function toggleProductSelection(index) {
-            const checkbox = document.getElementById(`check-${index}`);
+            const checkbox = event.target;
             const card = document.getElementById(`product-${index}`);
             const controls = document.getElementById(`controls-${index}`);
             
@@ -503,18 +656,20 @@
         }
         
         function addLot(productIndex) {
-            const extraLotsContainer = document.getElementById(`extra-lots-${productIndex}`);
-            const lotRow = document.createElement('div');
-            lotRow.className = 'lot-row';
-            lotRow.innerHTML = `
-                <select class="qty-select border border-gray-300 rounded">
-                    <option value="">Qtd</option>
+            const additionalLots = document.getElementById(`additional-lots-${productIndex}`);
+            const lotDiv = document.createElement('div');
+            lotDiv.className = 'lot-row';
+            lotDiv.innerHTML = `
+                <label class="text-sm font-medium">Qtd:</label>
+                <select class="qty-select">
+                    <option value="">-</option>
                     ${Array.from({length: 10}, (_, i) => `<option value="${i+1}">${i+1}</option>`).join('')}
                 </select>
-                <input type="text" class="lot-input border border-gray-300 rounded" placeholder="Lote" maxlength="12">
-                <button onclick="removeLot(this)" class="remove-lot-btn bg-red-500 text-white rounded hover:bg-red-600">-</button>
+                <label class="text-sm font-medium">Lote:</label>
+                <input type="text" class="lot-input" placeholder="Lote" maxlength="12">
+                <button onclick="removeLot(this)" class="remove-lot-btn">-</button>
             `;
-            extraLotsContainer.appendChild(lotRow);
+            additionalLots.appendChild(lotDiv);
             saveOperationData();
         }
         
@@ -534,10 +689,8 @@
         }
         
         function showAllProducts() {
-            const cards = document.querySelectorAll('.product-card');
-            cards.forEach(card => {
-                card.style.display = '';
-            });
+            currentProducts = [...allProducts];
+            renderProducts();
         }
         
         // Hospital functions
@@ -634,33 +787,29 @@
             
             // Save selected products
             operation.selectedProducts = [];
-            const checkboxes = document.querySelectorAll('input[type="checkbox"]:checked');
-            checkboxes.forEach(checkbox => {
-                const productIndex = parseInt(checkbox.id.split('-')[1]);
-                if (currentProducts[productIndex]) {
+            const cards = document.querySelectorAll('.product-card');
+            cards.forEach((card, cardIndex) => {
+                const checkbox = card.querySelector('input[type="checkbox"]');
+                if (checkbox && checkbox.checked && currentProducts[cardIndex]) {
                     const product = {
-                        ...currentProducts[productIndex],
+                        ...currentProducts[cardIndex],
                         lots: []
                     };
                     
-                    const controls = document.getElementById(`controls-${productIndex}`);
-                    const lotRows = controls.querySelectorAll('.lot-row');
+                    const controls = card.querySelector('.product-controls');
+                    const qtySelects = controls.querySelectorAll('select');
+                    const lotInputs = controls.querySelectorAll('input[type="text"]');
                     
-                    lotRows.forEach(row => {
-                        const qtySelect = row.querySelector('select');
-                        const lotInput = row.querySelector('input[type="text"]');
-                        
-                        if (lotInput.value) {
+                    for (let i = 0; i < lotInputs.length; i++) {
+                        if (lotInputs[i].value) {
                             product.lots.push({
-                                lot: lotInput.value,
-                                qty: qtySelect.value || '1'
+                                lot: lotInputs[i].value,
+                                qty: qtySelects[i] ? qtySelects[i].value : '1'
                             });
                         }
-                    });
-                    
-                    if (product.lots.length > 0) {
-                        operation.selectedProducts.push(product);
                     }
+                    
+                    operation.selectedProducts.push(product);
                 }
             });
             
@@ -800,14 +949,14 @@
         }
     </script>
 
-<script defer src="https://static.cloudflareinsights.com/beacon.min.js/vcd15cbe7772f49c399c6a5babf22c1241717689176015" integrity="sha512-ZpsOmlRQV6y907TI0dKBHq9Md29nnaEIPlkf84rnaERnq6zvWvPUqr2ft8M1aS28oN72PdrCzSjY4U6VaAw1EQ==" data-cf-beacon='{"rayId":"9566f33f8ae9a429","serverTiming":{"name":{"cfExtPri":true,"cfEdge":true,"cfOrigin":true,"cfL4":true,"cfSpeedBrain":true,"cfCacheStatus":true}},"version":"2025.6.2","token":"4edd5f8ec12a48cfa682ab8261b80a79"}' crossorigin="anonymous"></script>
+<script defer src="https://static.cloudflareinsights.com/beacon.min.js/vcd15cbe7772f49c399c6a5babf22c1241717689176015" integrity="sha512-ZpsOmlRQV6y907TI0dKBHq9Md29nnaEIPlkf84rnaERnq6zvWvPUqr2ft8M1aS28oN72PdrCzSjY4U6VaAw1EQ==" data-cf-beacon='{"rayId":"95670a9ae8e5a415","serverTiming":{"name":{"cfExtPri":true,"cfEdge":true,"cfOrigin":true,"cfL4":true,"cfSpeedBrain":true,"cfCacheStatus":true}},"version":"2025.6.2","token":"4edd5f8ec12a48cfa682ab8261b80a79"}' crossorigin="anonymous"></script>
 </body>
 </html>
     <script id="html_badge_script1">
         window.__genspark_remove_badge_link = "https://www.genspark.ai/api/html_badge/" +
-            "remove_badge?token=To%2FBnjzloZ3UfQdcSaYfDoEFyqmQC29WVXJzOUrCY%2Firnb3zK%2BsMV9gzJ5vy%2FBmU9dcd%2BAC0XR43Kpp5YGvypdS2nADzG%2BrhnB1CltlKt1kA%2FQxX9Uke%2BEqUAtm3oNl0Dt%2FikDLrEV54dHNzzkhGpRNLyGZYgEbINlKXr26o9YakvsqSF%2ByE1abzigc25gxJelQQ3BXeduv7y6Np4WPwNVpx576WZmNOjSM1deUKx9AIkFTqfzo%2FjQW3zBOYL%2FtVDtQy0TU9xgyyO%2Buhb2fFW2xmsektjUgAObl9Xl%2BeR6pG4EQXgvhs3iVlKkX%2BpD4gAIQkNEy0sCFsctfUqJlOBS%2Fk%2BerYQuMtXWf1vSCYLj7QjHvQkmda2E314Xje4%2BcVLGlLoAGITf5gI%2Fp5vIOeE8Cr2qtsczPr0kQTupz1gqd3waqrGt498thyE7KQm9FEJIna9JgUFi3NT1ET46Jjb3b7nVC%2F1W9tomYMOGKTR4C8KHFdObJ0cRtkuGwWiYvXYsEXNTdMLuCgxxUtRqretw%3D%3D";
+            "remove_badge?token=To%2FBnjzloZ3UfQdcSaYfDrurmBi9Ari6IagSduKQNclcKA2xXlj9HSDK8%2Bzz4i1JQcIsIUYgr4BfuehVL5BluTh5%2FPqCIoEzGt0wc2XUrauwQSFc804LhnxVAgFG49PHFm4xveXJBqoGNvwjdzVzroTkykpBaf5CXbozkGjRgQs6nJUklKf7vLSnyKCZfswawRAk7NfhhKAnpiAABLyMBfXzdvnzAnJx%2Fp3VtR711R6vRRd9m9Ywu3TNaX3mGcWYG0Qz3cskFdOjBszcqjP32%2B%2FRZw%2FAZgnsypRHr3hJbtGOWqB3Zz%2Fa70%2Btg%2BX4X3Y3rIfc0y0oa0RmNmO4R9iurXU6NPTn1S19naTll1rfKTbdDyYuEC4SaRD6Dtxrworqpt0yZb%2BOQB%2Bn7PWfWeQjSI5geBd2y0QrhbVcp%2FjLsc%2FYgMm5GIpfzTxP%2BSORUxDjSVIgB8LyLxo0CI7EAipPuarxu9uhlDL6HOfe2%2BkRsaXYGWIxRNnEMtzn350bcJQbOORSw8%2FjRTvfQR8S5p56x2VEl9mR0L2R4glLwP6H9Mw%3D";
         window.__genspark_locale = "pt-BR";
-        window.__genspark_token = "To/BnjzloZ3UfQdcSaYfDoEFyqmQC29WVXJzOUrCY/irnb3zK+sMV9gzJ5vy/BmU9dcd+AC0XR43Kpp5YGvypdS2nADzG+rhnB1CltlKt1kA/QxX9Uke+EqUAtm3oNl0Dt/ikDLrEV54dHNzzkhGpRNLyGZYgEbINlKXr26o9YakvsqSF+yE1abzigc25gxJelQQ3BXeduv7y6Np4WPwNVpx576WZmNOjSM1deUKx9AIkFTqfzo/jQW3zBOYL/tVDtQy0TU9xgyyO+uhb2fFW2xmsektjUgAObl9Xl+eR6pG4EQXgvhs3iVlKkX+pD4gAIQkNEy0sCFsctfUqJlOBS/k+erYQuMtXWf1vSCYLj7QjHvQkmda2E314Xje4+cVLGlLoAGITf5gI/p5vIOeE8Cr2qtsczPr0kQTupz1gqd3waqrGt498thyE7KQm9FEJIna9JgUFi3NT1ET46Jjb3b7nVC/1W9tomYMOGKTR4C8KHFdObJ0cRtkuGwWiYvXYsEXNTdMLuCgxxUtRqretw==";
+        window.__genspark_token = "To/BnjzloZ3UfQdcSaYfDrurmBi9Ari6IagSduKQNclcKA2xXlj9HSDK8+zz4i1JQcIsIUYgr4BfuehVL5BluTh5/PqCIoEzGt0wc2XUrauwQSFc804LhnxVAgFG49PHFm4xveXJBqoGNvwjdzVzroTkykpBaf5CXbozkGjRgQs6nJUklKf7vLSnyKCZfswawRAk7NfhhKAnpiAABLyMBfXzdvnzAnJx/p3VtR711R6vRRd9m9Ywu3TNaX3mGcWYG0Qz3cskFdOjBszcqjP32+/RZw/AZgnsypRHr3hJbtGOWqB3Zz/a70+tg+X4X3Y3rIfc0y0oa0RmNmO4R9iurXU6NPTn1S19naTll1rfKTbdDyYuEC4SaRD6Dtxrworqpt0yZb+OQB+n7PWfWeQjSI5geBd2y0QrhbVcp/jLsc/YgMm5GIpfzTxP+SORUxDjSVIgB8LyLxo0CI7EAipPuarxu9uhlDL6HOfe2+kRsaXYGWIxRNnEMtzn350bcJQbOORSw8/jRTvfQR8S5p56x2VEl9mR0L2R4glLwP6H9Mw=";
     </script>
     
     <script id="html_notice_dialog_script" src="https://www.genspark.ai/notice_dialog.js"></script>
