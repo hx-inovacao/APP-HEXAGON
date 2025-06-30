@@ -3,22 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>HEXAGON - Registro de Materiais Ortopédicos</title>
+    <title>Registro de Consumo de Materiais Consignados</title>
     
     <!-- PWA Meta Tags -->
     <meta name="theme-color" content="#2563eb">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="apple-mobile-web-app-title" content="HEXAGON">
-    <meta name="mobile-web-app-capable" content="yes">
-    <meta name="apple-touch-fullscreen" content="yes">
     
-    <!-- Manifest -->
-    <link rel="manifest" href="data:application/json;base64,ewogICJuYW1lIjogIkhFWEFHT04gLSBSZWdpc3RybyBkZSBNYXRlcmlhaXMgT3J0b3DDqWRpY29zIiwKICAic2hvcnRfbmFtZSI6ICJIRVhBR09OIiwKICAiZGVzY3JpcHRpb24iOiAiUFdBIHBhcmEgcmVnaXN0cm8gZGUgY29uc3VtbyBkZSBtYXRlcmlhaXMgb3J0b3DDqWRpY29zIGNvbnNpZ25hZG9zIiwKICAic3RhcnRfdXJsIjogIi8iLAogICJkaXNwbGF5IjogInN0YW5kYWxvbmUiLAogICJvcmllbnRhdGlvbiI6ICJwb3J0cmFpdCIsCiAgInRoZW1lX2NvbG9yIjogIiMyNTYzZWIiLAogICJiYWNrZ3JvdW5kX2NvbG9yIjogIiNmOWZhZmIiLAogICJpY29ucyI6IFsKICAgIHsKICAgICAgInNyYyI6ICJkYXRhOmltYWdlL3N2Zyt4bWw7YmFzZTY0LFBITjJaeUIzYVdSMGFEMGlNVEkzSWlCb1pXbG5hSFE5SWpFeU55SWdkbWxsZDFKdmVEMGlNQ0F3SURFNE5DQXhPRFFpSUdobGJXNXpQU0pvZEhSd09pOHZkM2QzTG5jekxtOXlaeTh5TURBd0wzTjJaeUkrUEdKaFkydG5jbTkxYm1RZ1ptbHNiRDBpSTJZNVptRm1ZaUkrUEM5aVlXTnJaM0p2ZFc1a1BqeDBaWGgwSUdacGJHdzlJaU16TlRZemFXWTZJaUJtYjI1MExYTnBlbVU5SWpRM2NIZ2lJSFJsZUhRdFlXNWphRzl5UFNKdGFXUmtiR1VpSUhnOUlqa3lJaUI1UFNKNk5qVWlQa2hGV0VGSFQwNDhMM1JsZUhRK1BDOXpkbWMrIiwKICAgICAgInNpemVzIjogIjE5MngxOTIiLAogICAgICAidHlwZSI6ICJpbWFnZS9zdmcreG1sIgogICAgfSwKICAgIHsKICAgICAgInNyYyI6ICJkYXRhOmltYWdlL3N2Zyt4bWw7YmFzZTY0LFBITjJaeUIzYVdSMGFEMGlOVEV5SWlCb1pXbG5hSFE5SWpVeE1pSWdkbWxsZDFKdmVEMGlNQ0F3SURBNE5EZ2dOalV5SWlCNGJXeHVjejBpYUhSMGNEb3ZMM2QzZHk1M015NXZjbWN2TWpBd01DOXpkbWNpUGp4aVlXTnJaM0p2ZFc1a0lHWnBiR3c5SWpKck5qTmxZaUkrUEM5aVlXTnJaM0p2ZFc1a1BqeDBaWGgwSUdacGJHdzlJaU0yTlRZMmFEVWlJR1p2Ym5RdGMybDZaVDBpT1RCd2VDSWdkR1Y0ZEMxaGJtTm9iM0k5SW0xcFpHUnNaU0lnZUQwaU5ESTBJaUI1UFNKek5qTWlQa2hGV0VGSFQwNDhMM1JsZUhRK1BDOXpkbWMrIiwKICAgICAgInNpemVzIjogIjUxMng1MTIiLAogICAgICAidHlwZSI6ICJpbWFnZS9zdmcreG1sIgogICAgfQogIF0KfQ==">
-    
-    <!-- Icons -->
-    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTI3IiBoZWlnaHQ9IjEyNyIgdmlld1JveD0iMCAwIDE4NCAxODQiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGJhY2tncm91bmQgZmlsbD0iI2Y5ZmFmYiI+PC9iYWNrZ3JvdW5kPjx0ZXh0IGZpbGw9IiMzNTYzZWYiIGZvbnQtc2l6ZT0iNDdweCIgdGV4dC1hbmNob3I9Im1pZGRsZSIgeD0iOTIiIHk9Ino2NSI+SEVYQUdPTjwvdGV4dD48L3N2Zz4=">
-    <link rel="apple-touch-icon" href="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTI3IiBoZWlnaHQ9IjEyNyIgdmlld1JveD0iMCAwIDE4NCAxODQiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGJhY2tncm91bmQgZmlsbD0iI2Y5ZmFmYiI+PC9iYWNrZ3JvdW5kPjx0ZXh0IGZpbGw9IiMzNTYzZWYiIGZvbnQtc2l6ZT0iNDdweCIgdGV4dC1hbmNob3I9Im1pZGRsZSIgeD0iOTIiIHk9Ino2NSI+SEVYQUdPTjwvdGV4dD48L3N2Zz4=">
+    <!-- PWA Manifest -->
+    <link rel="manifest" href="data:application/json;base64,ewogICJuYW1lIjogIkhFWEFHT04gLSBSZWdpc3RybyBkZSBNYXRlcmlhaXMiLAogICJzaG9ydF9uYW1lIjogIkhFWEFHT04iLAogICJkZXNjcmlwdGlvbiI6ICJQV0EgcGFyYSByZWdpc3RybyBkZSBjb25zdW1vIGRlIG1hdGVyaWFpcyBvcnRvcGVkaWNvcyIsCiAgInN0YXJ0X3VybCI6ICIvIiwKICAiZGlzcGxheSI6ICJzdGFuZGFsb25lIiwKICAiYmFja2dyb3VuZF9jb2xvciI6ICIjZmZmZmZmIiwKICAidGhlbWVfY29sb3IiOiAiIzI1NjNlYiIsCiAgImljb25zIjogWwogICAgewogICAgICAic3JjIjogImRhdGE6aW1hZ2Uvc3ZnK3htbCwlM0NzdmcgeG1sbnM9J2h0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnJyB3aWR0aD0nMTkyJyBoZWlnaHQ9JzE5Micgdmlld0JveD0nMCAwIDE5MiAxOTInJTNFJTNDcmVjdCB3aWR0aD0nMTkyJyBoZWlnaHQ9JzE5MicgZmlsbD0nJTIzMjU2M2ViJy8lM0UlM0N0ZXh0IHg9Jzk2JyB5PSc5NicgZm9udC1mYW1pbHk9J0FyaWFsLHNhbnMtc2VyaWYnIGZvbnQtc2l6ZT0nNjQnIGZpbGw9JyUyM2ZmZmZmZicgdGV4dC1hbmNob3I9J21pZGRsZScgZHk9Jy4zZW0nJTNFSCUzQy90ZXh0JTNFJTNDL3N2ZyUzRSIsCiAgICAgICJzaXplcyI6ICIxOTJ4MTkyIiwKICAgICAgInR5cGUiOiAiaW1hZ2Uvc3ZnK3htbCIKICAgIH0KICBdCn0=">
     
     <!-- Tailwind CSS -->
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
@@ -36,13 +30,10 @@
             text-align: center;
         }
         
-        .logo-text {
-            font-size: 2.5rem;
-            font-weight: bold;
-            color: #2563eb;
-            text-align: center;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
-            letter-spacing: 2px;
+        .logo-image {
+            max-width: 100%;
+            height: auto;
+            max-height: 80px;
         }
         
         .operation-tab {
@@ -55,107 +46,97 @@
         }
         
         .product-card {
+            transition: all 0.3s ease;
             border: 1px solid #e5e7eb;
             border-radius: 8px;
-            padding: 16px;
-            margin-bottom: 12px;
+            padding: 12px;
+            margin-bottom: 8px;
             background: white;
-            transition: all 0.3s ease;
         }
         
         .product-card.selected {
             border-color: #2563eb;
-            background-color: #eff6ff;
+            background-color: #f8fafc;
         }
         
-        .product-header {
-            display: flex;
-            align-items: flex-start;
-            gap: 12px;
-            margin-bottom: 12px;
-        }
-        
-        .product-info {
-            flex: 1;
-        }
-        
-        .product-name {
-            font-weight: 600;
-            color: #1f2937;
-            font-size: 16px;
-            line-height: 1.4;
-            margin-bottom: 4px;
-        }
-        
-        .product-code {
-            font-size: 14px;
-            color: #6b7280;
-        }
-        
-        .product-controls {
+        .qty-controls {
             display: none;
-            grid-template-columns: 1fr 2fr 32px;
+            margin-top: 8px;
+        }
+        
+        .qty-controls.show {
+            display: flex;
             gap: 8px;
             align-items: center;
-            margin-top: 12px;
-        }
-        
-        .product-controls.show {
-            display: grid;
-        }
-        
-        .qty-select {
-            padding: 8px;
-            border: 1px solid #d1d5db;
-            border-radius: 6px;
-            font-size: 14px;
-            min-height: 40px;
+            flex-wrap: wrap;
         }
         
         .lot-input {
-            padding: 8px;
-            border: 1px solid #d1d5db;
-            border-radius: 6px;
-            font-size: 14px;
             width: 100px;
-            max-width: 100px;
+            padding: 6px 8px;
+            border: 1px solid #d1d5db;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+        
+        .qty-select {
+            width: 60px;
+            padding: 6px;
+            border: 1px solid #d1d5db;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+        
+        .add-lot-btn, .remove-lot-btn {
+            width: 32px;
+            height: 32px;
+            font-size: 16px;
+            border-radius: 4px;
+            border: none;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
         
         .add-lot-btn {
-            width: 32px;
-            height: 32px;
-            background: #2563eb;
+            background-color: #2563eb;
             color: white;
-            border: none;
-            border-radius: 6px;
-            cursor: pointer;
-            font-size: 16px;
-            font-weight: bold;
-            transition: background-color 0.3s;
         }
         
         .add-lot-btn:hover {
-            background: #1d4ed8;
+            background-color: #1d4ed8;
         }
         
         .remove-lot-btn {
-            width: 24px;
-            height: 24px;
-            background: #dc2626;
+            background-color: #dc2626;
             color: white;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            font-size: 12px;
-            font-weight: bold;
+        }
+        
+        .remove-lot-btn:hover {
+            background-color: #b91c1c;
         }
         
         .lot-row {
-            display: grid;
-            grid-template-columns: 60px 100px 28px;
-            gap: 8px;
+            display: flex;
+            gap: 4px;
             align-items: center;
-            margin-top: 8px;
+            margin-top: 4px;
+        }
+        
+        @media (max-width: 768px) {
+            .logo-image {
+                max-height: 60px;
+            }
+            
+            .qty-controls {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            
+            .lot-input {
+                width: 80px;
+            }
         }
         
         .completion-screen {
@@ -175,85 +156,39 @@
         .main-content.hide {
             display: none;
         }
-        
-        .install-button {
+
+        .install-btn {
             position: fixed;
             top: 10px;
             right: 10px;
-            background: #10b981;
+            background-color: #10b981;
             color: white;
             border: none;
-            padding: 8px 16px;
-            border-radius: 20px;
+            padding: 8px 12px;
+            border-radius: 6px;
             font-size: 12px;
             cursor: pointer;
             z-index: 1000;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.2);
         }
-        
-        .modal {
-            display: none;
-            position: fixed;
-            z-index: 2000;
-            left: 0;
-            top: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0,0,0,0.5);
+
+        .install-btn:hover {
+            background-color: #059669;
         }
-        
-        .modal-content {
-            background-color: white;
-            margin: 15% auto;
-            padding: 20px;
-            border-radius: 12px;
-            width: 90%;
-            max-width: 400px;
-            text-align: center;
-        }
-        
-        .close {
-            color: #aaa;
-            float: right;
-            font-size: 28px;
-            font-weight: bold;
-            cursor: pointer;
-        }
-        
-        @media (max-width: 768px) {
-            .logo-text {
-                font-size: 2rem;
-            }
-            
-            .product-name {
-                font-size: 15px;
-            }
-            
-            .product-code {
-                font-size: 13px;
-            }
+
+        #documentType option {
+            font-size: 13px;
         }
     </style>
 </head>
 <body class="bg-gray-50 min-h-screen">
     
     <!-- Install Button -->
-    <button id="installBtn" class="install-button" onclick="showInstallInstructions()">
-        📱 Instalar App
-    </button>
+    <button class="install-btn" onclick="showInstallInstructions()">📱 Instalar App</button>
     
-    <!-- Install Modal -->
-    <div id="installModal" class="modal">
-        <div class="modal-content">
-            <span class="close" onclick="closeInstallModal()">&times;</span>
-            <h3 class="text-lg font-bold mb-4">📱 Como Instalar o App</h3>
-            <div id="installInstructions"></div>
-        </div>
-    </div>
-
     <!-- Logo -->
     <div class="logo-container pt-6">
-        <div class="logo-text">HEXAGON</div>
+        <img src="https://mateus22072005.github.io/APP-HEXAGON/hexagon-logo.jpg" alt="HEXAGON" class="logo-image" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+        <div class="text-3xl font-bold text-blue-600" style="display: none;">HEXAGON</div>
     </div>
 
     <!-- Title -->
@@ -289,23 +224,13 @@
             
             <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
                 <div>
-                    <label class="block text-sm font-medium text-gray-700 mb-1">Região</label>
-                    <select id="regionSelect" onchange="updateHospitals()" class="w-full p-2 border border-gray-300 rounded-md">
-                        <option value="">Selecione uma região</option>
-                        <option value="SP1">SP1</option>
-                        <option value="BA">BA</option>
-                        <option value="CP">CP</option>
-                        <option value="DF">DF</option>
-                        <option value="GO">GO</option>
-                    </select>
+                    <label class="block text-sm font-medium text-gray-700 mb-1">Usuário</label>
+                    <input type="text" id="userField" placeholder="Digite o nome do usuário" class="w-full p-2 border border-gray-300 rounded-md">
                 </div>
                 
                 <div>
                     <label class="block text-sm font-medium text-gray-700 mb-1">Hospital</label>
-                    <input type="text" id="hospitalSelect" list="hospitalList" placeholder="Digite ou selecione um hospital" class="w-full p-2 border border-gray-300 rounded-md">
-                    <datalist id="hospitalList">
-                        <option value="Selecione primeiro uma região">
-                    </datalist>
+                    <input type="text" id="hospitalSelect" placeholder="Digite o nome do hospital" class="w-full p-2 border border-gray-300 rounded-md">
                 </div>
                 
                 <div>
@@ -341,21 +266,22 @@
                 </select>
             </div>
 
-            <div class="grid grid-cols-2 gap-2 mb-4">
-                <button onclick="showSelectedOnly()" class="bg-green-500 hover:bg-green-600 text-white py-2 px-4 rounded font-medium">
-                    Filtrar Selecionados
-                </button>
-                <button onclick="showAllProducts()" class="bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded font-medium">
-                    Mostrar Todos
-                </button>
-            </div>
-
-            <!-- Products List -->
-            <div id="productsList">
+            <!-- Products Container -->
+            <div id="productsContainer">
                 <div class="text-center p-4 text-gray-500">
                     Selecione um subgrupo para visualizar os produtos
                 </div>
             </div>
+        </div>
+
+        <!-- Filter Buttons -->
+        <div class="grid grid-cols-2 gap-2 mb-4">
+            <button onclick="showSelectedOnly()" class="bg-green-500 hover:bg-green-600 text-white py-2 px-4 rounded font-medium">
+                Filtrar Selecionados
+            </button>
+            <button onclick="showAllProducts()" class="bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded font-medium">
+                Mostrar Todos
+            </button>
         </div>
 
         <!-- Send Report Button -->
@@ -378,53 +304,10 @@
 
     <!-- Version -->
     <div class="text-center text-gray-500 text-sm py-4">
-        Versão 4.0 - PWA Standalone
+        Versão 3.5 - Com Logo
     </div>
 
     <script>
-        // Register Service Worker
-        if ('serviceWorker' in navigator) {
-            window.addEventListener('load', function() {
-                const swScript = `
-                    const CACHE_NAME = 'hexagon-v1';
-                    const urlsToCache = ['/'];
-                    
-                    self.addEventListener('install', function(event) {
-                        event.waitUntil(
-                            caches.open(CACHE_NAME)
-                                .then(function(cache) {
-                                    return cache.addAll(urlsToCache);
-                                })
-                        );
-                    });
-                    
-                    self.addEventListener('fetch', function(event) {
-                        event.respondWith(
-                            caches.match(event.request)
-                                .then(function(response) {
-                                    if (response) {
-                                        return response;
-                                    }
-                                    return fetch(event.request);
-                                }
-                            )
-                        );
-                    });
-                `;
-                
-                const blob = new Blob([swScript], { type: 'application/javascript' });
-                const swUrl = URL.createObjectURL(blob);
-                
-                navigator.serviceWorker.register(swUrl)
-                    .then(function(registration) {
-                        console.log('ServiceWorker registration successful');
-                    })
-                    .catch(function(err) {
-                        console.log('ServiceWorker registration failed');
-                    });
-            });
-        }
-        
         // Supabase configuration
         const SUPABASE_URL = 'https://gahzwqbaopzjihewpdbh.supabase.co';
         const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImdhaHp3cWJhb3B6amloZXdwZGJoIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTA4NzM1NTMsImV4cCI6MjA2NjQ0OTU1M30.U4Tz5taRHyJaxXR2tYL_EYblu6GGKNUrdH2zLhIg2R0';
@@ -436,77 +319,21 @@
         let currentOperation = 1;
         let currentProducts = [];
         
-        // Hospital data
-        const hospitals = {
-            'SP1': [
-                'INSTIT RESP SOC SIRIO LIBANES HOSP REG ROTA BANDEIRANTES',
-                'CASA DE SAUDE STA MARCELINA HOSP GERAL ITAIM PT1'
-            ],
-            'BA': [
-                'SOC BENEF ISRAELITABRAS HOSPITAL ALBERT EINSTEIN',
-                'SANTA CASA MISERICORDIA FEIRA DE SANTANA BA',
-                'STA CASA MISER RUY BARBOSA HOSP METROPOLITANO',
-                'EMP BRAS SERV HOSP EBSERH HU GETULIO VARGAS MANAUS'
-            ],
-            'CP': ['ASS HOSP S JOSE DE JARAGUA DO SUL (SC)'],
-            'DF': ['INST DE GESTAO ESTRAT DE SAUDE DO DF - IGSDF'],
-            'GO': ['SOC BENEF ISRAELITA BRAS HOSP ALBERT EINSTEIN HUGO']
-        };
-        
-        // Install button functions
-        function showInstallInstructions() {
-            const modal = document.getElementById('installModal');
-            const instructions = document.getElementById('installInstructions');
-            
-            const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
-            const isAndroid = /Android/.test(navigator.userAgent);
-            
-            if (isIOS) {
-                instructions.innerHTML = `
-                    <div class="text-left">
-                        <p class="mb-3">📱 <strong>Para iPhone/iPad:</strong></p>
-                        <ol class="list-decimal list-inside space-y-2 text-sm">
-                            <li>Toque no ícone de <strong>compartilhar</strong> (□↗) na barra inferior do Safari</li>
-                            <li>Role para baixo e toque em <strong>"Adicionar à Tela de Início"</strong></li>
-                            <li>Toque em <strong>"Adicionar"</strong> para confirmar</li>
-                        </ol>
-                        <p class="mt-3 text-xs text-gray-600">* Funciona apenas no Safari</p>
-                    </div>
-                `;
-            } else if (isAndroid) {
-                instructions.innerHTML = `
-                    <div class="text-left">
-                        <p class="mb-3">📱 <strong>Para Android:</strong></p>
-                        <ol class="list-decimal list-inside space-y-2 text-sm">
-                            <li>Toque nos <strong>3 pontos</strong> (⋮) no canto superior direito</li>
-                            <li>Procure por <strong>"Adicionar à tela inicial"</strong> ou <strong>"Instalar app"</strong></li>
-                            <li>Toque para confirmar a instalação</li>
-                        </ol>
-                        <p class="mt-3 text-xs text-gray-600">* Funciona no Chrome, Edge ou Firefox</p>
-                    </div>
-                `;
-            } else {
-                instructions.innerHTML = `
-                    <div class="text-left">
-                        <p class="mb-3">💻 <strong>Para Desktop:</strong></p>
-                        <p class="text-sm">Procure pelo ícone de instalação na barra de endereços ou no menu do navegador.</p>
-                    </div>
-                `;
-            }
-            
-            modal.style.display = 'block';
-        }
-        
-        function closeInstallModal() {
-            document.getElementById('installModal').style.display = 'none';
-        }
-        
         // Initialize
         document.addEventListener('DOMContentLoaded', async function() {
             console.log('Aplicação iniciada - carregando subgrupos...');
             await carregarSubgrupos();
             loadOperationData();
         });
+        
+        // Install instructions
+        function showInstallInstructions() {
+            if (navigator.userAgent.indexOf('iPhone') > -1 || navigator.userAgent.indexOf('iPad') > -1) {
+                alert('Para instalar no iPhone/iPad:\n\n1. Toque no ícone de compartilhar (□↗) na barra inferior\n2. Role para baixo e toque em "Adicionar à Tela de Início"\n3. Toque em "Adicionar" para confirmar');
+            } else {
+                alert('Para instalar no Android:\n\n1. Toque no menu (⋮) do seu navegador\n2. Procure por "Adicionar à tela inicial" ou "Instalar app"\n3. Toque para instalar');
+            }
+        }
         
         // Carregar subgrupos do Supabase
         async function carregarSubgrupos() {
@@ -577,15 +404,15 @@
         // Filtrar produtos por subgrupo
         async function filterProducts() {
             const subgrupo = document.getElementById('documentType').value;
-            const productsList = document.getElementById('productsList');
+            const container = document.getElementById('productsContainer');
             
             if (!subgrupo) {
-                productsList.innerHTML = '<div class="text-center p-4 text-gray-500">Selecione um subgrupo para visualizar os produtos</div>';
+                container.innerHTML = '<div class="text-center p-4 text-gray-500">Selecione um subgrupo para visualizar os produtos</div>';
                 return;
             }
             
             // Mostrar loading
-            productsList.innerHTML = '<div class="text-center p-4 text-blue-500">🔄 Buscando produtos...</div>';
+            container.innerHTML = '<div class="text-center p-4 text-blue-500">🔄 Buscando produtos...</div>';
             
             try {
                 console.log('Buscando produtos para:', subgrupo);
@@ -598,7 +425,7 @@
                 
                 if (error) {
                     console.error('Erro ao buscar produtos:', error);
-                    productsList.innerHTML = '<div class="text-center p-4 text-red-500">Erro ao carregar produtos</div>';
+                    container.innerHTML = '<div class="text-center p-4 text-red-500">Erro ao carregar produtos</div>';
                     return;
                 }
                 
@@ -608,58 +435,61 @@
                 
             } catch (error) {
                 console.error('Erro na consulta:', error);
-                productsList.innerHTML = '<div class="text-center p-4 text-red-500">Erro de conexão</div>';
+                container.innerHTML = '<div class="text-center p-4 text-red-500">Erro de conexão</div>';
             }
         }
         
         function renderProducts() {
-            const productsList = document.getElementById('productsList');
-            productsList.innerHTML = '';
+            const container = document.getElementById('productsContainer');
+            container.innerHTML = '';
             
             if (currentProducts.length === 0) {
-                productsList.innerHTML = '<div class="text-center p-4 text-gray-500">Nenhum produto encontrado</div>';
+                container.innerHTML = '<div class="text-center p-4 text-gray-500">Nenhum produto encontrado</div>';
                 return;
             }
             
             currentProducts.forEach((product, index) => {
                 const card = document.createElement('div');
                 card.className = 'product-card';
-                card.id = `product-${index}`;
-                
                 card.innerHTML = `
-                    <div class="product-header">
-                        <input type="checkbox" onchange="toggleProductSelection(${index})" class="w-5 h-5 text-blue-600">
-                        <div class="product-info">
-                            <div class="product-name">${product.nome}</div>
-                            <div class="product-code">Código: ${product.codigo}</div>
+                    <div class="flex items-start gap-3">
+                        <input type="checkbox" onchange="toggleProductSelection(${index})" class="mt-1 w-4 h-4" id="checkbox-${index}">
+                        <div class="flex-1">
+                            <div class="font-medium text-gray-900">${product.nome}</div>
+                            <div class="text-sm text-gray-500">Código: ${product.codigo}</div>
                         </div>
                     </div>
-                    <div class="product-controls" id="controls-${index}">
-                        <select class="qty-select">
-                            <option value="">Qtd</option>
-                            ${Array.from({length: 10}, (_, i) => `<option value="${i+1}">${i+1}</option>`).join('')}
-                        </select>
-                        <input type="text" class="lot-input" placeholder="Lote" maxlength="12">
-                        <button class="add-lot-btn" onclick="addLot(${index})">+</button>
+                    <div class="qty-controls" id="qty-controls-${index}">
+                        <div class="flex items-center gap-2">
+                            <label class="text-sm font-medium">Qtd:</label>
+                            <select class="qty-select">
+                                <option value="">-</option>
+                                ${Array.from({length: 10}, (_, i) => `<option value="${i+1}">${i+1}</option>`).join('')}
+                            </select>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <label class="text-sm font-medium">Lote:</label>
+                            <input type="text" class="lot-input" placeholder="Lote" maxlength="12">
+                            <button onclick="addLot(${index})" class="add-lot-btn">+</button>
+                        </div>
+                        <div id="additional-lots-${index}"></div>
                     </div>
-                    <div id="additional-lots-${index}"></div>
                 `;
-                
-                productsList.appendChild(card);
+                container.appendChild(card);
             });
         }
         
         function toggleProductSelection(index) {
-            const checkbox = event.target;
-            const card = document.getElementById(`product-${index}`);
-            const controls = document.getElementById(`controls-${index}`);
+            const checkbox = document.getElementById(`checkbox-${index}`);
+            const controls = document.getElementById(`qty-controls-${index}`);
+            const card = checkbox.closest('.product-card');
             
             if (checkbox.checked) {
-                card.classList.add('selected');
                 controls.classList.add('show');
+                card.classList.add('selected');
             } else {
-                card.classList.remove('selected');
                 controls.classList.remove('show');
+                card.classList.remove('selected');
                 // Clear additional lots
                 document.getElementById(`additional-lots-${index}`).innerHTML = '';
             }
@@ -668,23 +498,23 @@
         }
         
         function addLot(productIndex) {
-            const additionalLots = document.getElementById(`additional-lots-${productIndex}`);
-            const lotRow = document.createElement('div');
-            lotRow.className = 'lot-row';
-            lotRow.innerHTML = `
+            const container = document.getElementById(`additional-lots-${productIndex}`);
+            const lotDiv = document.createElement('div');
+            lotDiv.className = 'lot-row';
+            lotDiv.innerHTML = `
                 <select class="qty-select">
-                    <option value="">Qtd</option>
+                    <option value="">-</option>
                     ${Array.from({length: 10}, (_, i) => `<option value="${i+1}">${i+1}</option>`).join('')}
                 </select>
                 <input type="text" class="lot-input" placeholder="Lote" maxlength="12">
-                <button class="remove-lot-btn" onclick="removeLot(this)">-</button>
+                <button onclick="removeLot(this)" class="remove-lot-btn">-</button>
             `;
-            additionalLots.appendChild(lotRow);
+            container.appendChild(lotDiv);
             saveOperationData();
         }
         
         function removeLot(button) {
-            button.parentElement.remove();
+            button.closest('.lot-row').remove();
             saveOperationData();
         }
         
@@ -705,25 +535,6 @@
             });
         }
         
-        // Hospital functions
-        function updateHospitals() {
-            const regionSelect = document.getElementById('regionSelect');
-            const hospitalList = document.getElementById('hospitalList');
-            const selectedRegion = regionSelect.value;
-            
-            hospitalList.innerHTML = '';
-            
-            if (selectedRegion && hospitals[selectedRegion]) {
-                hospitals[selectedRegion].forEach(hospital => {
-                    const option = document.createElement('option');
-                    option.value = hospital;
-                    hospitalList.appendChild(option);
-                });
-            }
-            
-            saveOperationData();
-        }
-        
         // Operation management
         function switchOperation(operationNumber) {
             saveOperationData();
@@ -735,11 +546,11 @@
         function nextOperation() {
             const nextOp = operations.length + 1;
             
-            const currentRegion = document.getElementById('regionSelect').value;
+            const currentUser = document.getElementById('userField').value;
             const currentHospital = document.getElementById('hospitalSelect').value;
             
             operations.push({
-                regionSelect: currentRegion,
+                userField: currentUser,
                 hospitalSelect: currentHospital
             });
             
@@ -788,7 +599,7 @@
         
         function saveOperationData() {
             const operation = {
-                regionSelect: document.getElementById('regionSelect').value,
+                userField: document.getElementById('userField').value,
                 hospitalSelect: document.getElementById('hospitalSelect').value,
                 patientName: document.getElementById('patientName').value,
                 recordNumber: document.getElementById('recordNumber').value,
@@ -802,37 +613,40 @@
             const checkboxes = document.querySelectorAll('.product-card input[type="checkbox"]:checked');
             checkboxes.forEach(checkbox => {
                 const card = checkbox.closest('.product-card');
-                const index = Array.from(card.parentNode.children).indexOf(card);
+                const index = parseInt(checkbox.id.split('-')[1]);
                 if (currentProducts[index]) {
                     const product = {
                         ...currentProducts[index],
                         lots: []
                     };
                     
-                    // Get first lot
-                    const firstLotInput = card.querySelector('.lot-input');
-                    const firstQtySelect = card.querySelector('.qty-select');
-                    if (firstLotInput.value) {
+                    const qtyControls = document.getElementById(`qty-controls-${index}`);
+                    const qtySelect = qtyControls.querySelector('.qty-select');
+                    const lotInput = qtyControls.querySelector('.lot-input');
+                    
+                    if (lotInput.value) {
                         product.lots.push({
-                            lot: firstLotInput.value,
-                            qty: firstQtySelect.value || '1'
+                            lot: lotInput.value,
+                            qty: qtySelect.value || '1'
                         });
                     }
                     
-                    // Get additional lots
-                    const additionalLots = card.querySelectorAll('.lot-row');
+                    // Additional lots
+                    const additionalLots = document.querySelectorAll(`#additional-lots-${index} .lot-row`);
                     additionalLots.forEach(row => {
-                        const lotInput = row.querySelector('.lot-input');
-                        const qtySelect = row.querySelector('.qty-select');
-                        if (lotInput.value) {
+                        const qty = row.querySelector('.qty-select').value;
+                        const lot = row.querySelector('.lot-input').value;
+                        if (lot) {
                             product.lots.push({
-                                lot: lotInput.value,
-                                qty: qtySelect.value || '1'
+                                lot: lot,
+                                qty: qty || '1'
                             });
                         }
                     });
                     
-                    operation.selectedProducts.push(product);
+                    if (product.lots.length > 0) {
+                        operation.selectedProducts.push(product);
+                    }
                 }
             });
             
@@ -842,8 +656,7 @@
         function loadOperationData() {
             const operation = operations[currentOperation - 1] || {};
             
-            document.getElementById('regionSelect').value = operation.regionSelect || '';
-            updateHospitals();
+            document.getElementById('userField').value = operation.userField || '';
             document.getElementById('hospitalSelect').value = operation.hospitalSelect || '';
             document.getElementById('patientName').value = operation.patientName || '';
             document.getElementById('recordNumber').value = operation.recordNumber || '';
@@ -861,14 +674,20 @@
             const { jsPDF } = window.jspdf;
             const doc = new jsPDF();
             
-            doc.setFontSize(16);
-            doc.text('HEXAGON', 105, 20, { align: 'center' });
+            // Add logo to PDF
+            try {
+                doc.addImage('https://mateus22072005.github.io/APP-HEXAGON/hexagon-logo.jpg', 'JPEG', 20, 10, 40, 20);
+            } catch (error) {
+                console.log('Logo não pôde ser adicionado ao PDF');
+            }
             
             doc.setFontSize(14);
-            doc.text('REGISTRO DE CONSUMO DE MATERIAIS CONSIGNADOS', 105, 35, { align: 'center' });
+            doc.text('REGISTRO DE CONSUMO DE MATERIAIS CONSIGNADOS', 105, 45, { align: 'center' });
             
-            let yPos = 55;
+            let yPos = 65;
             doc.setFontSize(10);
+            doc.text(`Usuário: ${operationData.userField || ''}`, 20, yPos);
+            yPos += 10;
             doc.text(`Hospital: ${operationData.hospitalSelect || ''}`, 20, yPos);
             yPos += 10;
             doc.text(`Nome do Paciente: ${operationData.patientName || ''}`, 20, yPos);
@@ -917,6 +736,7 @@
                 if (index > 0) message += '\n\n==============================================\n\n';
                 
                 message += 'REGISTRO DE CONSUMO DE MATERIAIS CONSIGNADOS\n\n';
+                message += `Usuário: ${operation.userField || ''}\n`;
                 message += `Hospital: ${operation.hospitalSelect || ''}\n`;
                 message += `Nome do Paciente: ${operation.patientName || ''}\n`;
                 message += `Num Prontuário: ${operation.recordNumber || ''}\n`;
@@ -965,29 +785,21 @@
             currentOperation = 1;
             updateOperationTabs();
             loadOperationData();
-            document.getElementById('productsList').innerHTML = '<div class="text-center p-4 text-gray-500">Selecione um subgrupo para visualizar os produtos</div>';
+            document.getElementById('productsContainer').innerHTML = '<div class="text-center p-4 text-gray-500">Selecione um subgrupo para visualizar os produtos</div>';
             
             document.querySelector('.main-content').classList.remove('hide');
             document.querySelector('.completion-screen').classList.remove('show');
         }
-        
-        // Close modal when clicking outside
-        window.onclick = function(event) {
-            const modal = document.getElementById('installModal');
-            if (event.target == modal) {
-                modal.style.display = 'none';
-            }
-        }
     </script>
 
-<script defer src="https://static.cloudflareinsights.com/beacon.min.js/vcd15cbe7772f49c399c6a5babf22c1241717689176015" integrity="sha512-ZpsOmlRQV6y907TI0dKBHq9Md29nnaEIPlkf84rnaERnq6zvWvPUqr2ft8M1aS28oN72PdrCzSjY4U6VaAw1EQ==" data-cf-beacon='{"rayId":"956721465f7ff25a","serverTiming":{"name":{"cfExtPri":true,"cfEdge":true,"cfOrigin":true,"cfL4":true,"cfSpeedBrain":true,"cfCacheStatus":true}},"version":"2025.6.2","token":"4edd5f8ec12a48cfa682ab8261b80a79"}' crossorigin="anonymous"></script>
+<script defer src="https://static.cloudflareinsights.com/beacon.min.js/vcd15cbe7772f49c399c6a5babf22c1241717689176015" integrity="sha512-ZpsOmlRQV6y907TI0dKBHq9Md29nnaEIPlkf84rnaERnq6zvWvPUqr2ft8M1aS28oN72PdrCzSjY4U6VaAw1EQ==" data-cf-beacon='{"rayId":"957f7a650c98fd60","serverTiming":{"name":{"cfExtPri":true,"cfEdge":true,"cfOrigin":true,"cfL4":true,"cfSpeedBrain":true,"cfCacheStatus":true}},"version":"2025.6.2","token":"4edd5f8ec12a48cfa682ab8261b80a79"}' crossorigin="anonymous"></script>
 </body>
 </html>
     <script id="html_badge_script1">
         window.__genspark_remove_badge_link = "https://www.genspark.ai/api/html_badge/" +
-            "remove_badge?token=To%2FBnjzloZ3UfQdcSaYfDhCfXgWZAQeZLkSul1l8tCG6099hDinm8Pv%2BKt1ZJKXpkcQjqp6XW8Pj1FoZpLLJ4vhtvvycDCuFkk%2BTgaOVM8kGI%2FQXjhv46FlS4wsyuX2miMoaLA7Q5UBKbNX2%2Bqt1F4iuyei2NhO4%2B2kFshjrT7K9TCnvWfPiuXFbmC8lz9KyZup2E%2BSfwcA7q55xnhmwYa7f1ww0269w0YrAFvSyAXmb2pt5z%2B9JL722gNukif%2BuSdcjxLQsSqADsttUQozg%2B6Rj%2FI8r7%2FvNBWoaVx63P1%2Bgi1FVYTtTwh91IYDTcxB7nglMsStj4pIpWuU7m%2B3GU9a865PBmnyRmlcBc1Hebo8HV8ochjbRDnTOYrWV8FRdcf67u5PAS9YczPi73UeTE5ri6GZ%2FMT3iFzPJnfGv6wqNn9rdkI0J%2B%2B%2FWc6Odev%2FXHSgX9od8CD3Xu%2BRKMQ5mP%2Bbd3yrPCgMWbrKQjSH5nkPIEfbJfC8nFWTctkwpcRsOSRlh7pSM%2BDOwLtSbeMUb2Q%3D%3D";
+            "remove_badge?token=To%2FBnjzloZ3UfQdcSaYfDohmgGBWgQpC4Iim%2BuqbpsRMjAxdtgHtK%2BLvpf1%2FnLfLBgWLggrmcOetuQqggGCc%2FO4uuQdcARLkWU3WsMyGoLIiDVsd%2BwtEdjj4uSd5FJ8GqENFqGEYgEwKYbxXYqqyIW%2FnLsZH%2BoXtWrjef%2FVrpJtam7Ym1hSzMmQCis%2BLm8i14PUPcgcRHGmkAZNz8WPX0WJW6g%2FOjJDDjs%2BmQFIlEuCXrl1wUsXnEjH4i0wE8bu5chy4vH2PAQp6w5ht%2FII9e2SwgtrczEqAH4Z9zGyKFbz2lwc6QgmSWo4fbiPVq5UlkQdmcJ8rvM2LuEo%2Fqi0j9HOfd%2BHPI%2FpV3g3ZAXFwUK7kGQkN0Vlxuw6rF5ckdi4%2Fxbl51kfktHg81EV0H9WNoNGqJMw6qLWIgNHXKRMd%2F1E%2BdrsBk1DCZeQp2wfBWVmsuiTCHNxkA%2BkGOA1HBlOQkHttwYC6Mi4C0oq%2FpH0bxSTYMzT18dEsMd5OT99tHz5ob8i8jYou8FeIb%2BJF7HzRzQ%3D%3D";
         window.__genspark_locale = "pt-BR";
-        window.__genspark_token = "To/BnjzloZ3UfQdcSaYfDhCfXgWZAQeZLkSul1l8tCG6099hDinm8Pv+Kt1ZJKXpkcQjqp6XW8Pj1FoZpLLJ4vhtvvycDCuFkk+TgaOVM8kGI/QXjhv46FlS4wsyuX2miMoaLA7Q5UBKbNX2+qt1F4iuyei2NhO4+2kFshjrT7K9TCnvWfPiuXFbmC8lz9KyZup2E+SfwcA7q55xnhmwYa7f1ww0269w0YrAFvSyAXmb2pt5z+9JL722gNukif+uSdcjxLQsSqADsttUQozg+6Rj/I8r7/vNBWoaVx63P1+gi1FVYTtTwh91IYDTcxB7nglMsStj4pIpWuU7m+3GU9a865PBmnyRmlcBc1Hebo8HV8ochjbRDnTOYrWV8FRdcf67u5PAS9YczPi73UeTE5ri6GZ/MT3iFzPJnfGv6wqNn9rdkI0J++/Wc6Odev/XHSgX9od8CD3Xu+RKMQ5mP+bd3yrPCgMWbrKQjSH5nkPIEfbJfC8nFWTctkwpcRsOSRlh7pSM+DOwLtSbeMUb2Q==";
+        window.__genspark_token = "To/BnjzloZ3UfQdcSaYfDohmgGBWgQpC4Iim+uqbpsRMjAxdtgHtK+Lvpf1/nLfLBgWLggrmcOetuQqggGCc/O4uuQdcARLkWU3WsMyGoLIiDVsd+wtEdjj4uSd5FJ8GqENFqGEYgEwKYbxXYqqyIW/nLsZH+oXtWrjef/VrpJtam7Ym1hSzMmQCis+Lm8i14PUPcgcRHGmkAZNz8WPX0WJW6g/OjJDDjs+mQFIlEuCXrl1wUsXnEjH4i0wE8bu5chy4vH2PAQp6w5ht/II9e2SwgtrczEqAH4Z9zGyKFbz2lwc6QgmSWo4fbiPVq5UlkQdmcJ8rvM2LuEo/qi0j9HOfd+HPI/pV3g3ZAXFwUK7kGQkN0Vlxuw6rF5ckdi4/xbl51kfktHg81EV0H9WNoNGqJMw6qLWIgNHXKRMd/1E+drsBk1DCZeQp2wfBWVmsuiTCHNxkA+kGOA1HBlOQkHttwYC6Mi4C0oq/pH0bxSTYMzT18dEsMd5OT99tHz5ob8i8jYou8FeIb+JF7HzRzQ==";
     </script>
     
     <script id="html_notice_dialog_script" src="https://www.genspark.ai/notice_dialog.js"></script>
