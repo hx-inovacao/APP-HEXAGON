@@ -12,7 +12,7 @@
     <meta name="apple-mobile-web-app-title" content="HEXAGON">
     
     <!-- PWA Manifest -->
-    <link rel="manifest" href="data:application/json;base64,ewogICJuYW1lIjogIkhFWEFHT04gLSBSZWdpc3RybyBkZSBNYXRlcmlhaXMiLAogICJzaG9ydF9uYW1lIjogIkhFWEFHT04iLAogICJkZXNjcmlwdGlvbiI6ICJQV0EgcGFyYSByZWdpc3RybyBkZSBjb25zdW1vIGRlIG1hdGVyaWFpcyBvcnRvcGVkaWNvcyIsCiAgInN0YXJ0X3VybCI6ICIvIiwKICAiZGlzcGxheSI6ICJzdGFuZGFsb25lIiwKICAiYmFja2dyb3VuZF9jb2xvciI6ICIjZmZmZmZmIiwKICAidGhlbWVfY29sb3IiOiAiIzI1NjNlYiIsCiAgImljb25zIjogWwogICAgewogICAgICAic3JjIjogImRhdGE6aW1hZ2Uvc3ZnK3htbCwlM0NzdmcgeG1sbnM9J2h0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnJyB3aWR0aD0nMTkyJyBoZWlnaHQ9JzE5Micgdmlld0JveD0nMCAwIDE5MiAxOTInJTNFJTNDcmVjdCB3aWR0aD0nMTkyJyBoZWlnaHQ9JzE5MicgZmlsbD0nJTIzMjU2M2ViJy8lM0UlM0N0ZXh0IHg9Jzk2JyB5PSc5NicgZm9udC1mYW1pbHk9J0FyaWFsLHNhbnMtc2VyaWYnIGZvbnQtc2l6ZT0nNjQnIGZpbGw9JyUyM2ZmZmZmZicgdGV4dC1hbmNob3I9J21pZGRsZScgZHk9Jy4zZW0nJTNFSCUzQy90ZXh0JTNFJTNDL3N2ZyUzRSIsCiAgICAgICJzaXplcyI6ICIxOTJ4MTkyIiwKICAgICAgInR5cGUiOiAiaW1hZ2Uvc3ZnK3htbCIKICAgIH0KICBdCn0=">
+    <link rel="manifest" href="data:application/json;base64,ewogICJuYW1lIjogIkhFWEFHT04gLSBSZWdpc3RybyBkZSBNYXRlcmlhaXMiLAogICJzaG9ydF9uYW1lIjogIkhFWEFHT04iLAogICJkZXNjcmlwdGlvbiI6ICJQV0EgcGFyYSByZWdpc3RybyBkZSBjb25zdW1vIGRlIG1hdGVyaWFpcyBvcnRvcGVkaWNvcyIsCiAgInN0YXJ0X3VybCI6ICIuLyIsCiAgImRpc3BsYXkiOiAic3RhbmRhbG9uZSIsCiAgImJhY2tncm91bmRfY29sb3IiOiAiI2ZmZmZmZiIsCiAgInRoZW1lX2NvbG9yIjogIiMyNTYzZWIiLAogICJpY29ucyI6IFsKICAgIHsKICAgICAgInNyYyI6ICJkYXRhOmltYWdlL3N2Zyt4bWwsJTNDc3ZnIHhtbG5zPSdodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2Zycgd2lkdGg9JzE5MicgaGVpZ2h0PScxOTInIHZpZXdCb3g9JzAgMCAxOTIgMTkyJyUzRSUzQ3JlY3Qgd2lkdGg9JzE5MicgaGVpZ2h0PScxOTInIGZpbGw9JyUyMzI1NjNlYicvJTNFJTNDdGV4dCB4PSc5NicgeT0nOTYnIGZvbnQtZmFtaWx5PSdBcmlhbCxzYW5zLXNlcmlmJyBmb250LXNpemU9JzY0JyBmaWxsPSclMjNmZmZmZmYnIHRleHQtYW5jaG9yPSdtaWRkbGUnIGR5PScuM2VtJyUzRUglM0MvdGV4dCUzRSUzQy9zdmclM0UiLAogICAgICAic2l6ZXMiOiAiMTkyeDE5MiIsCiAgICAgICJ0eXBlIjogImltYWdlL3N2Zyt4bWwiCiAgICB9CiAgXQp9">
     
     <!-- Tailwind CSS -->
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
@@ -304,7 +304,7 @@
 
     <!-- Version -->
     <div class="text-center text-gray-500 text-sm py-4">
-        Versão 3.5 - Com Logo
+        Versão 3.6 - Corrigida
     </div>
 
     <script>
@@ -335,30 +335,48 @@
             }
         }
         
-        // Carregar subgrupos do Supabase
+        // Carregar subgrupos do Supabase - VERSÃO CORRIGIDA
         async function carregarSubgrupos() {
             try {
                 console.log('Conectando com Supabase...');
-                const { data, error } = await supabase
-                    .from('materiais')
-                    .select('grupo, subgrupo')
-                    .order('grupo, subgrupo');
                 
-                if (error) {
-                    console.error('Erro ao carregar subgrupos:', error);
-                    return;
-                }
-                
-                console.log('Dados recebidos:', data);
-                
-                // Organizar subgrupos por grupo
                 const gruposOrganizados = {};
-                data.forEach(item => {
-                    if (!gruposOrganizados[item.grupo]) {
-                        gruposOrganizados[item.grupo] = new Set();
+                
+                // Carregar cada grupo separadamente - ESTA É A CORREÇÃO PRINCIPAL
+                for (const grupo of ['A', 'B', 'C', 'D', 'E']) {
+                    try {
+                        console.log(`Carregando grupo ${grupo}...`);
+                        
+                        const { data, error } = await supabase
+                            .from('materiais')
+                            .select('subgrupo')
+                            .eq('grupo', grupo);
+                        
+                        if (error) {
+                            console.error(`Erro ao carregar grupo ${grupo}:`, error);
+                            continue;
+                        }
+                        
+                        if (data && data.length > 0) {
+                            gruposOrganizados[grupo] = [];
+                            
+                            data.forEach(item => {
+                                if (item.subgrupo && !gruposOrganizados[grupo].includes(item.subgrupo)) {
+                                    gruposOrganizados[grupo].push(item.subgrupo);
+                                }
+                            });
+                            
+                            console.log(`Grupo ${grupo}: ${gruposOrganizados[grupo].length} subgrupos únicos`);
+                        }
+                        
+                        // Pequena pausa para não sobrecarregar
+                        await new Promise(resolve => setTimeout(resolve, 10));
+                        
+                    } catch (groupError) {
+                        console.error(`Erro no grupo ${grupo}:`, groupError);
+                        continue;
                     }
-                    gruposOrganizados[item.grupo].add(item.subgrupo);
-                });
+                }
                 
                 // Construir dropdown
                 const select = document.getElementById('documentType');
@@ -373,26 +391,32 @@
                     'E': 'GRUPO E - FIXADORES'
                 };
                 
+                let totalSubgrupos = 0;
+                
                 Object.keys(gruposOrganizados).sort().forEach(grupo => {
-                    // Adicionar cabeçalho do grupo
-                    const headerOption = document.createElement('option');
-                    headerOption.value = '';
-                    headerOption.textContent = `═══ ${nomeGrupos[grupo] || 'GRUPO ' + grupo} ═══`;
-                    headerOption.disabled = true;
-                    headerOption.style.fontWeight = 'bold';
-                    headerOption.style.backgroundColor = '#f3f4f6';
-                    select.appendChild(headerOption);
-                    
-                    // Adicionar subgrupos
-                    Array.from(gruposOrganizados[grupo]).sort().forEach(subgrupo => {
-                        const option = document.createElement('option');
-                        option.value = subgrupo;
-                        option.textContent = `  ${subgrupo}`;
-                        select.appendChild(option);
-                    });
+                    if (gruposOrganizados[grupo] && gruposOrganizados[grupo].length > 0) {
+                        // Adicionar cabeçalho do grupo
+                        const headerOption = document.createElement('option');
+                        headerOption.value = '';
+                        headerOption.textContent = `═══ ${nomeGrupos[grupo] || 'GRUPO ' + grupo} ═══`;
+                        headerOption.disabled = true;
+                        headerOption.style.fontWeight = 'bold';
+                        headerOption.style.backgroundColor = '#f3f4f6';
+                        select.appendChild(headerOption);
+                        
+                        // Adicionar subgrupos
+                        gruposOrganizados[grupo].sort().forEach(subgrupo => {
+                            const option = document.createElement('option');
+                            option.value = subgrupo;
+                            option.textContent = `  ${subgrupo}`;
+                            select.appendChild(option);
+                            totalSubgrupos++;
+                        });
+                    }
                 });
                 
-                console.log('Subgrupos carregados:', gruposOrganizados);
+                console.log(`✅ Carregamento concluído: ${totalSubgrupos} subgrupos únicos`);
+                console.log('Grupos organizados:', gruposOrganizados);
                 
             } catch (error) {
                 console.error('Erro na conexão:', error);
@@ -790,16 +814,26 @@
             document.querySelector('.main-content').classList.remove('hide');
             document.querySelector('.completion-screen').classList.remove('show');
         }
-    </script>
 
-<script defer src="https://static.cloudflareinsights.com/beacon.min.js/vcd15cbe7772f49c399c6a5babf22c1241717689176015" integrity="sha512-ZpsOmlRQV6y907TI0dKBHq9Md29nnaEIPlkf84rnaERnq6zvWvPUqr2ft8M1aS28oN72PdrCzSjY4U6VaAw1EQ==" data-cf-beacon='{"rayId":"957f7a650c98fd60","serverTiming":{"name":{"cfExtPri":true,"cfEdge":true,"cfOrigin":true,"cfL4":true,"cfSpeedBrain":true,"cfCacheStatus":true}},"version":"2025.6.2","token":"4edd5f8ec12a48cfa682ab8261b80a79"}' crossorigin="anonymous"></script>
+        // Service Worker Registration
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', function() {
+                navigator.serviceWorker.register('data:text/javascript;base64,c2VsZi5hZGRFdmVudExpc3RlbmVyKCdpbnN0YWxsJywgZnVuY3Rpb24oZXZlbnQpIHsKICBzZWxmLnNraXBXYWl0aW5nKCk7Cn0pOwoKc2VsZi5hZGRFdmVudExpc3RlbmVyKCdhY3RpdmF0ZScsIGZ1bmN0aW9uKGV2ZW50KSB7CiAgZXZlbnQud2FpdFVudGlsKHNlbGYuY2xpZW50cy5jbGFpbSgpKTsKfSk7CgpzZWxmLmFkZEV2ZW50TGlzdGVuZXIoJ2ZldGNoJywgZnVuY3Rpb24oZXZlbnQpIHsKICBldmVudC5yZXNwb25kV2l0aChmZXRjaChldmVudC5yZXF1ZXN0KSk7Cn0pOw==')
+                .then(function(registration) {
+                    console.log('ServiceWorker registration successful');
+                }).catch(function(err) {
+                    console.log('ServiceWorker registration failed: ', err);
+                });
+            });
+        }
+    </script>
 </body>
 </html>
     <script id="html_badge_script1">
         window.__genspark_remove_badge_link = "https://www.genspark.ai/api/html_badge/" +
-            "remove_badge?token=To%2FBnjzloZ3UfQdcSaYfDohmgGBWgQpC4Iim%2BuqbpsRMjAxdtgHtK%2BLvpf1%2FnLfLBgWLggrmcOetuQqggGCc%2FO4uuQdcARLkWU3WsMyGoLIiDVsd%2BwtEdjj4uSd5FJ8GqENFqGEYgEwKYbxXYqqyIW%2FnLsZH%2BoXtWrjef%2FVrpJtam7Ym1hSzMmQCis%2BLm8i14PUPcgcRHGmkAZNz8WPX0WJW6g%2FOjJDDjs%2BmQFIlEuCXrl1wUsXnEjH4i0wE8bu5chy4vH2PAQp6w5ht%2FII9e2SwgtrczEqAH4Z9zGyKFbz2lwc6QgmSWo4fbiPVq5UlkQdmcJ8rvM2LuEo%2Fqi0j9HOfd%2BHPI%2FpV3g3ZAXFwUK7kGQkN0Vlxuw6rF5ckdi4%2Fxbl51kfktHg81EV0H9WNoNGqJMw6qLWIgNHXKRMd%2F1E%2BdrsBk1DCZeQp2wfBWVmsuiTCHNxkA%2BkGOA1HBlOQkHttwYC6Mi4C0oq%2FpH0bxSTYMzT18dEsMd5OT99tHz5ob8i8jYou8FeIb%2BJF7HzRzQ%3D%3D";
+            "remove_badge?token=To%2FBnjzloZ3UfQdcSaYfDrBni1rxDOGO9zFc9ITy9OOxj%2F7%2FM6n0mycpKkILoh9IKZxScDrEcDtzOllws4pJpJyxuOLAZuzcMl3hBXbbFnRVM7zR39ZrDAKCHRawLtmoiiav2PK8UZV3aXtkM%2B7oWUnZtz5myP4JvIfVF3%2F1I9L1y4%2F2wVSaFAzMDuv%2FCmo0TcanZ0YyxPrF8jLw9jxGdBT4dv3W3Tk73ahAeJSP1tIxiElKXqIqCI0TkWF0vl71eyjioaTkkPYjHD33tL69Rw1WTdTt0VE9b1ezSyiWtBNwy2S4LrWh%2FpUttaxqoQEBirF5BcS%2FXLUG9Wn51JbY58sIB5y3SWLa3Zt8RoYCvT5t%2Fk%2B8yWvP3dYvmtpOE3M1KMIIg5lb17gjf%2BShG4dgVYT3JvHx%2BUsANC%2BlccQc2erKPeKpwaVaDXKAknpf4kYkL%2F2TdprZ44TUO9CRkQcI%2BijrT9Dc1rrEyh6N6dIiK%2FN%2BwdqtbflARGTcMXHvWdRNDnE2I%2Fon5AJOqleuxk3rTQ%3D%3D";
         window.__genspark_locale = "pt-BR";
-        window.__genspark_token = "To/BnjzloZ3UfQdcSaYfDohmgGBWgQpC4Iim+uqbpsRMjAxdtgHtK+Lvpf1/nLfLBgWLggrmcOetuQqggGCc/O4uuQdcARLkWU3WsMyGoLIiDVsd+wtEdjj4uSd5FJ8GqENFqGEYgEwKYbxXYqqyIW/nLsZH+oXtWrjef/VrpJtam7Ym1hSzMmQCis+Lm8i14PUPcgcRHGmkAZNz8WPX0WJW6g/OjJDDjs+mQFIlEuCXrl1wUsXnEjH4i0wE8bu5chy4vH2PAQp6w5ht/II9e2SwgtrczEqAH4Z9zGyKFbz2lwc6QgmSWo4fbiPVq5UlkQdmcJ8rvM2LuEo/qi0j9HOfd+HPI/pV3g3ZAXFwUK7kGQkN0Vlxuw6rF5ckdi4/xbl51kfktHg81EV0H9WNoNGqJMw6qLWIgNHXKRMd/1E+drsBk1DCZeQp2wfBWVmsuiTCHNxkA+kGOA1HBlOQkHttwYC6Mi4C0oq/pH0bxSTYMzT18dEsMd5OT99tHz5ob8i8jYou8FeIb+JF7HzRzQ==";
+        window.__genspark_token = "To/BnjzloZ3UfQdcSaYfDrBni1rxDOGO9zFc9ITy9OOxj/7/M6n0mycpKkILoh9IKZxScDrEcDtzOllws4pJpJyxuOLAZuzcMl3hBXbbFnRVM7zR39ZrDAKCHRawLtmoiiav2PK8UZV3aXtkM+7oWUnZtz5myP4JvIfVF3/1I9L1y4/2wVSaFAzMDuv/Cmo0TcanZ0YyxPrF8jLw9jxGdBT4dv3W3Tk73ahAeJSP1tIxiElKXqIqCI0TkWF0vl71eyjioaTkkPYjHD33tL69Rw1WTdTt0VE9b1ezSyiWtBNwy2S4LrWh/pUttaxqoQEBirF5BcS/XLUG9Wn51JbY58sIB5y3SWLa3Zt8RoYCvT5t/k+8yWvP3dYvmtpOE3M1KMIIg5lb17gjf+ShG4dgVYT3JvHx+UsANC+lccQc2erKPeKpwaVaDXKAknpf4kYkL/2TdprZ44TUO9CRkQcI+ijrT9Dc1rrEyh6N6dIiK/N+wdqtbflARGTcMXHvWdRNDnE2I/on5AJOqleuxk3rTQ==";
     </script>
     
     <script id="html_notice_dialog_script" src="https://www.genspark.ai/notice_dialog.js"></script>
