@@ -28,6 +28,9 @@
             max-width: 300px;
             margin: 0 auto 1.5rem auto;
             text-align: center;
+            display: flex;
+            justify-content: center;
+            align-items: center;
         }
         
         .logo-image {
@@ -77,8 +80,8 @@
         .qty-controls .flex {
             display: flex;
             align-items: center;
-            gap: 8px;
-            min-width: fit-content;
+            gap: 6px;
+            white-space: nowrap;
         }
         
         .lot-input {
@@ -107,6 +110,7 @@
             display: flex;
             align-items: center;
             justify-content: center;
+            flex-shrink: 0;
         }
         
         .add-lot-btn {
@@ -129,9 +133,10 @@
         
         .lot-row {
             display: flex;
-            gap: 4px;
+            gap: 6px;
             align-items: center;
             margin-top: 4px;
+            flex-wrap: wrap;
         }
         
         @media (max-width: 768px) {
@@ -180,11 +185,15 @@
     
     <!-- Logo -->
     <div class="logo-container pt-6">
-        <img src="https://mateus22072005.github.io/APP-HEXAGON/hexagon-logo.jpg" 
-             alt="HEXAGON" 
-             class="logo-image" 
-             onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
-        <div class="text-3xl font-bold text-blue-600" style="display: none;">HEXAGON</div>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" class="logo-image">
+            <!-- Hexágono com contorno azul escuro -->
+            <polygon points="100,20 170,60 170,140 100,180 30,140 30,60" 
+                     fill="none" stroke="#1e3a8a" stroke-width="12"/>
+            <!-- Letra H azul escuro no centro -->
+            <text x="100" y="100" font-family="Arial, sans-serif" font-size="95" 
+                  font-weight="bold" fill="#1e3a8a" text-anchor="middle" 
+                  dy="0.35em">H</text>
+        </svg>
     </div>
 
     <!-- Title -->
@@ -300,7 +309,7 @@
 
     <!-- Version -->
     <div class="text-center text-gray-500 text-sm py-4">
-        Versão 3.8 - Com Logo Implementado
+        Versão 3.9 - Com Logo HEXAGON Implementado
     </div>
 
     <script>
@@ -669,152 +678,10 @@
             }
         }
         
-        // PDF and WhatsApp - FUNÇÃO ATUALIZADA COM LOGO
+        // PDF and WhatsApp - FUNÇÃO ATUALIZADA COM LOGO HEXAGON
         function generatePDF(operationData, operationNumber) {
             const { jsPDF } = window.jspdf;
             const doc = new jsPDF();
             
-            // Adicionar logo ao PDF
-            try {
-                // Tentar carregar o logo do GitHub
-                const logoImg = new Image();
-                logoImg.crossOrigin = 'anonymous';
-                logoImg.onload = function() {
-                    // Logo carregado com sucesso, adicionar ao PDF
-                    doc.addImage(logoImg, 'JPEG', 20, 10, 60, 20);
-                    finalizePDF();
-                };
-                logoImg.onerror = function() {
-                    // Se falhar, continuar sem logo
-                    console.log('Logo não pôde ser carregado no PDF');
-                    finalizePDF();
-                };
-                logoImg.src = 'https://mateus22072005.github.io/APP-HEXAGON/hexagon-logo.jpg';
-            } catch (error) {
-                console.log('Erro ao tentar carregar logo:', error);
-                finalizePDF();
-            }
-            
-            function finalizePDF() {
-                doc.setFontSize(14);
-                doc.text('REGISTRO DE CONSUMO DE MATERIAIS CONSIGNADOS', 105, 45, { align: 'center' });
-                
-                let yPos = 65;
-                doc.setFontSize(10);
-                doc.text(`Usuário: ${operationData.userField || ''}`, 20, yPos);
-                yPos += 10;
-                doc.text(`Hospital: ${operationData.hospitalSelect || ''}`, 20, yPos);
-                yPos += 10;
-                doc.text(`Nome do Paciente: ${operationData.patientName || ''}`, 20, yPos);
-                yPos += 10;
-                doc.text(`Num Prontuário: ${operationData.recordNumber || ''}`, 20, yPos);
-                yPos += 10;
-                doc.text(`Data da Cirurgia: ${operationData.surgeryDate || ''}`, 20, yPos);
-                yPos += 10;
-                doc.text(`Outras Informações: ${operationData.otherInfo || ''}`, 20, yPos);
-                
-                yPos += 20;
-                doc.setFontSize(12);
-                doc.text('MATERIAIS:', 20, yPos);
-                yPos += 10;
-                
-                doc.setFontSize(9);
-                if (operationData.selectedProducts && operationData.selectedProducts.length > 0) {
-                    operationData.selectedProducts.forEach(product => {
-                        product.lots.forEach(lot => {
-                            doc.text(`Codigo: ${product.codigo}`, 20, yPos);
-                            yPos += 7;
-                            doc.text(`Produto: ${product.nome}`, 20, yPos);
-                            yPos += 7;
-                            doc.text(`Lote: ${lot.lot}`, 20, yPos);
-                            yPos += 7;
-                            doc.text(`Quantidade: ${lot.qty}`, 20, yPos);
-                            yPos += 10;
-                            
-                            if (yPos > 250) {
-                                doc.addPage();
-                                yPos = 20;
-                            }
-                        });
-                    });
-                }
-            }
-            
-            return doc;
-        }
-        
-        function sendReport() {
-            saveOperationData();
-            
-            let message = '';
-            
-            operations.forEach((operation, index) => {
-                if (index > 0) message += '\n\n==============================================\n\n';
-                
-                message += 'REGISTRO DE CONSUMO DE MATERIAIS CONSIGNADOS\n\n';
-                message += `Usuário: ${operation.userField || ''}\n`;
-                message += `Hospital: ${operation.hospitalSelect || ''}\n`;
-                message += `Nome do Paciente: ${operation.patientName || ''}\n`;
-                message += `Num Prontuário: ${operation.recordNumber || ''}\n`;
-                message += `Data da Cirurgia: ${operation.surgeryDate || ''}\n`;
-                message += `Outras Informações: ${operation.otherInfo || ''}\n\n`;
-                
-                message += 'MATERIAIS:\n';
-                if (operation.selectedProducts && operation.selectedProducts.length > 0) {
-                    operation.selectedProducts.forEach(product => {
-                        product.lots.forEach(lot => {
-                            message += `Codigo: ${product.codigo}\n`;
-                            message += `Produto: ${product.nome}\n`;
-                            message += `Lote: ${lot.lot}\n`;
-                            message += `Quantidade: ${lot.qty}\n\n`;
-                        });
-                    });
-                }
-                
-                const pdf = generatePDF(operation, index + 1);
-                const pdfBlob = pdf.output('blob');
-                const pdfUrl = URL.createObjectURL(pdfBlob);
-                
-                const link = document.createElement('a');
-                link.href = pdfUrl;
-                link.download = `Registro_Operacao_${index + 1}.pdf`;
-                document.body.appendChild(link);
-                link.click();
-                document.body.removeChild(link);
-            });
-            
-            message += '\nPDF salvo no seu dispositivo';
-            
-            const whatsappUrl = `https://wa.me/5519998935452?text=${encodeURIComponent(message)}`;
-            window.open(whatsappUrl, '_blank');
-            
-            showCompletionScreen();
-        }
-        
-        function showCompletionScreen() {
-            document.querySelector('.main-content').classList.add('hide');
-            document.querySelector('.completion-screen').classList.add('show');
-        }
-        
-        function startNewOperation() {
-            operations = [{}];
-            currentOperation = 1;
-            updateOperationTabs();
-            loadOperationData();
-            document.getElementById('productsContainer').innerHTML = '<div class="text-center p-4 text-gray-500">Selecione um subgrupo para visualizar os produtos</div>';
-            
-            document.querySelector('.main-content').classList.remove('hide');
-            document.querySelector('.completion-screen').classList.remove('show');
-        }
-    </script>
-</body>
-</html>
-    <script id="html_badge_script1">
-        window.__genspark_remove_badge_link = "https://www.genspark.ai/api/html_badge/" +
-            "remove_badge?token=To%2FBnjzloZ3UfQdcSaYfDtR5DB73lD55pYDdnHbKqlTIJzNhTDhNS%2BJUqFYH%2Fy9EF5tx%2B2ueeW1JJDVyJ6vJIZxROVo3xzz%2FBjcESf%2FKz1SPpxvjCWhrp0B%2BfOkUoFHHgYyosy2UtFQyJKV0hj5k6OFnlARW9X2hApYUPwL0kkX6G8eAqKGRlKXeYNSqRAa1W8%2BPFZ6FTe%2F%2FrTflmi8f1C%2Fp4D38kbVoOk%2F4gtICBb0bufifwF8Nxo4WfJ87ERLFITf7X6XonmeZhhEVdfumiaMV%2Brh2icVGxHjv1Gj6M%2FAQnuRrVH7kt525UDvNGDHH99dnENKeboKB7Wp6YeAU5qm%2FV1RUyeZyOxKfVlKkxES1S%2FMZ6HHLvRE6B83LAiVXxldeHRvI6LLqpkUp1Sji3MKJ%2BAhCyddi6en%2FYMxHvH7uEZ%2F7Hs%2F66ZMftXdnJMMs1c%2FCJYVHuXuZbV0fLpSdMopyVkQcLKCxdjTi5Jc8nqWHeB7NcvlUssOWYuPpM9Ki328HigDWnjw7eN2u5azIfw%3D%3D";
-        window.__genspark_locale = "pt-BR";
-        window.__genspark_token = "To/BnjzloZ3UfQdcSaYfDtR5DB73lD55pYDdnHbKqlTIJzNhTDhNS+JUqFYH/y9EF5tx+2ueeW1JJDVyJ6vJIZxROVo3xzz/BjcESf/Kz1SPpxvjCWhrp0B+fOkUoFHHgYyosy2UtFQyJKV0hj5k6OFnlARW9X2hApYUPwL0kkX6G8eAqKGRlKXeYNSqRAa1W8+PFZ6FTe//rTflmi8f1C/p4D38kbVoOk/4gtICBb0bufifwF8Nxo4WfJ87ERLFITf7X6XonmeZhhEVdfumiaMV+rh2icVGxHjv1Gj6M/AQnuRrVH7kt525UDvNGDHH99dnENKeboKB7Wp6YeAU5qm/V1RUyeZyOxKfVlKkxES1S/MZ6HHLvRE6B83LAiVXxldeHRvI6LLqpkUp1Sji3MKJ+AhCyddi6en/YMxHvH7uEZ/7Hs/66ZMftXdnJMMs1c/CJYVHuXuZbV0fLpSdMopyVkQcLKCxdjTi5Jc8nqWHeB7NcvlUssOWYuPpM9Ki328HigDWnjw7eN2u5azIfw==";
-    </script>
-    
-    <script id="html_notice_dialog_script" src="https://www.genspark.ai/notice_dialog.js"></script>
-    
+            // Logo HEXAGON em Base64
+            const logoSVG = `data:image/
