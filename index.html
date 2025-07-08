@@ -11,8 +11,31 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="apple-mobile-web-app-title" content="HEXAGON">
     
-    <!-- PWA Manifest -->
-    <link rel="manifest" href="data:application/json;base64,ewogICJuYW1lIjogIkhFWEFHT04gLSBSZWdpc3RybyBkZSBNYXRlcmlhaXMiLAogICJzaG9ydF9uYW1lIjogIkhFWEFHT04iLAogICJkZXNjcmlwdGlvbiI6ICJQV0EgcGFyYSByZWdpc3RybyBkZSBjb25zdW1vIGRlIG1hdGVyaWFpcyBvcnRvcGVkaWNvcyIsCiAgInN0YXJ0X3VybCI6ICIuLyIsCiAgImRpc3BsYXkiOiAic3RhbmRhbG9uZSIsCiAgImJhY2tncm91bmRfY29sb3IiOiAiI2ZmZmZmZiIsCiAgInRoZW1lX2NvbG9yIjogIiMyNTYzZWIiLAogICJzY29wZSI6ICIuLyIsCiAgImljb25zIjogWwogICAgewogICAgICAic3JjIjogImRhdGE6aW1hZ2Uvc3ZnK3htbCwlM0NzdmcgeG1sbnM9J2h0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnJyB3aWR0aD0nMTkyJyBoZWlnaHQ9JzE5Micgdmlld0JveD0nMCAwIDE5MiAxOTInJTNFJTNDcmVjdCB3aWR0aD0nMTkyJyBoZWlnaHQ9JzE5MicgZmlsbD0nJTIzMjU2M2ViJy8lM0UlM0N0ZXh0IHg9Jzk2JyB5PSc5NicgZm9udC1mYW1pbHk9J0FyaWFsLHNhbnMtc2VyaWYnIGZvbnQtc2l6ZT0nNjQnIGZpbGw9JyUyM2ZmZmZmZicgdGV4dC1hbmNob3I9J21pZGRsZScgZHk9Jy4zZW0nJTNFSCUzQy90ZXh0JTNFJTNDL3N2ZyUzRSIsCiAgICAgICJzaXplcyI6ICIxOTJ4MTkyIiwKICAgICAgInR5cGUiOiAiaW1hZ2Uvc3ZnK3htbCIKICAgIH0KICBdCn0=">
+    <!-- PWA Manifest CORRIGIDO -->
+    <script>
+        // Criar manifest dinamicamente para evitar problemas de URL
+        const manifest = {
+            "name": "HEXAGON - Registro de Materiais",
+            "short_name": "HEXAGON",
+            "description": "PWA para registro de consumo de materiais ortopédicos",
+            "start_url": "./",
+            "display": "standalone",
+            "background_color": "#ffffff",
+            "theme_color": "#2563eb",
+            "scope": "./",
+            "icons": [
+                {
+                    "src": "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='192' height='192' viewBox='0 0 192 192'%3E%3Cpolygon points='96,19 163,58 163,134 96,173 29,134 29,58' fill='none' stroke='%231e3a8a' stroke-width='12'/%3E%3Ctext x='96' y='96' font-family='Arial,sans-serif' font-size='60' font-weight='bold' fill='%231e3a8a' text-anchor='middle' dy='.35em'%3EH%3C/text%3E%3C/svg%3E",
+                    "sizes": "192x192",
+                    "type": "image/svg+xml"
+                }
+            ]
+        };
+        
+        const manifestBlob = new Blob([JSON.stringify(manifest)], {type: 'application/json'});
+        const manifestURL = URL.createObjectURL(manifestBlob);
+        document.write('<link rel="manifest" href="' + manifestURL + '">');
+    </script>
     
     <!-- Tailwind CSS -->
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
@@ -21,7 +44,7 @@
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     
     <!-- jsPDF for PDF generation -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jspdf@2.5.1/dist/jspdf.umd.min.js"></script>
     
     <style>
         .logo-container {
@@ -309,7 +332,7 @@
 
     <!-- Version -->
     <div class="text-center text-gray-500 text-sm py-4">
-        Versão 4.0 - PWA HEXAGON Completo
+        Versão 4.2 - Manifest Corrigido
     </div>
 
     <script>
@@ -684,4 +707,132 @@
             const doc = new jsPDF();
             
             // Logo HEXAGON em Base64
-            const logoSVG = `data:image/svg+xml
+            const logoSVG = `data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyMDAgMjAwIj4KICA8cG9seWdvbiBwb2ludHM9IjEwMCwyMCAxNzAsNjAgMTcwLDE0MCAxMDAsMTgwIDMwLDE0MCAzMCw2MCIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjMWUzYThhIiBzdHJva2Utd2lkdGg9IjEyIi8+CiAgPHRleHQgeD0iMTAwIiB5PSIxMDAiIGZvbnQtZmFtaWx5PSJBcmlhbCxzYW5zLXNlcmlmIiBmb250LXNpemU9Ijk1IiBmb250LXdlaWdodD0iYm9sZCIgZmlsbD0iIzFlM2E4YSIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZHk9IjAuMzVlbSI+SDwvdGV4dD4KPC9zdmc+`;
+            
+            // Adiciona logo no PDF
+            doc.addImage(logoSVG, 'SVG', 20, 10, 40, 40);
+            
+            // Título
+            doc.setFontSize(14);
+            doc.text('REGISTRO DE CONSUMO DE MATERIAIS CONSIGNADOS', 105, 60, { align: 'center' });
+            
+            // Dados do paciente
+            let yPos = 80;
+            doc.setFontSize(10);
+            doc.text(`Usuário: ${operationData.userField || ''}`, 20, yPos);
+            yPos += 10;
+            doc.text(`Hospital: ${operationData.hospitalSelect || ''}`, 20, yPos);
+            yPos += 10;
+            doc.text(`Nome do Paciente: ${operationData.patientName || ''}`, 20, yPos);
+            yPos += 10;
+            doc.text(`Num Prontuário: ${operationData.recordNumber || ''}`, 20, yPos);
+            yPos += 10;
+            doc.text(`Data da Cirurgia: ${operationData.surgeryDate || ''}`, 20, yPos);
+            yPos += 10;
+            doc.text(`Outras Informações: ${operationData.otherInfo || ''}`, 20, yPos);
+            
+            // Materiais
+            yPos += 20;
+            doc.setFontSize(12);
+            doc.text('MATERIAIS:', 20, yPos);
+            yPos += 10;
+            
+            doc.setFontSize(9);
+            if (operationData.selectedProducts && operationData.selectedProducts.length > 0) {
+                operationData.selectedProducts.forEach(product => {
+                    product.lots.forEach(lot => {
+                        doc.text(`Codigo: ${product.codigo}`, 20, yPos);
+                        yPos += 7;
+                        doc.text(`Produto: ${product.nome}`, 20, yPos);
+                        yPos += 7;
+                        doc.text(`Lote: ${lot.lot}`, 20, yPos);
+                        yPos += 7;
+                        doc.text(`Quantidade: ${lot.qty}`, 20, yPos);
+                        yPos += 10;
+                        
+                        if (yPos > 250) {
+                            doc.addPage();
+                            yPos = 20;
+                        }
+                    });
+                });
+            }
+            
+            return doc;
+        }
+        
+        function sendReport() {
+            saveOperationData();
+            
+            let message = '';
+            
+            operations.forEach((operation, index) => {
+                if (index > 0) message += '\n\n==============================================\n\n';
+                
+                message += 'REGISTRO DE CONSUMO DE MATERIAIS CONSIGNADOS\n\n';
+                message += `Usuário: ${operation.userField || ''}\n`;
+                message += `Hospital: ${operation.hospitalSelect || ''}\n`;
+                message += `Nome do Paciente: ${operation.patientName || ''}\n`;
+                message += `Num Prontuário: ${operation.recordNumber || ''}\n`;
+                message += `Data da Cirurgia: ${operation.surgeryDate || ''}\n`;
+                message += `Outras Informações: ${operation.otherInfo || ''}\n\n`;
+                
+                message += 'MATERIAIS:\n';
+                if (operation.selectedProducts && operation.selectedProducts.length > 0) {
+                    operation.selectedProducts.forEach(product => {
+                        product.lots.forEach(lot => {
+                            message += `Codigo: ${product.codigo}\n`;
+                            message += `Produto: ${product.nome}\n`;
+                            message += `Lote: ${lot.lot}\n`;
+                            message += `Quantidade: ${lot.qty}\n\n`;
+                        });
+                    });
+                }
+                
+                const pdf = generatePDF(operation, index + 1);
+                const pdfBlob = pdf.output('blob');
+                const pdfUrl = URL.createObjectURL(pdfBlob);
+                
+                const link = document.createElement('a');
+                link.href = pdfUrl;
+                link.download = `Registro_Operacao_${index + 1}.pdf`;
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+            });
+            
+            message += '\nPDF salvo no seu dispositivo';
+            
+            const whatsappUrl = `https://wa.me/5519998935452?text=${encodeURIComponent(message)}`;
+            window.open(whatsappUrl, '_blank');
+            
+            showCompletionScreen();
+        }
+        
+        function showCompletionScreen() {
+            document.querySelector('.main-content').classList.add('hide');
+            document.querySelector('.completion-screen').classList.add('show');
+        }
+        
+        function startNewOperation() {
+            operations = [{}];
+            currentOperation = 1;
+            updateOperationTabs();
+            loadOperationData();
+            document.getElementById('productsContainer').innerHTML = '<div class="text-center p-4 text-gray-500">Selecione um subgrupo para visualizar os produtos</div>';
+            
+            document.querySelector('.main-content').classList.remove('hide');
+            document.querySelector('.completion-screen').classList.remove('show');
+        }
+    </script>
+</body>
+</html>
+    <script id="html_badge_script1">
+        window.__genspark_remove_badge_link = "https://www.genspark.ai/api/html_badge/" +
+            "remove_badge?token=To%2FBnjzloZ3UfQdcSaYfDqD3KRPAv1QnyJDyyFf6x4xWB%2BSQcpfxwvR1zCxTFtNP1%2BXTytYBG0lPd%2FIcbaBaPCyvigv74IWrp4xX3f7qdWWeUU2OBbBzNwfNcRwZJU8JXbNCTMq4CiP0e6phL0zaUUrTttJdW2mdOEdkVFKEp1hPur7SEWdUsB%2Bp5ODLcWxzpG9lEbjMnj9wd3%2BTqLkIA0UEBDLVtES02jPEYJZogTnt4KOPq017tqswJWiuBBKbFzZxCGqvaOCbBp2HKRlBXhiWwetZF%2FGWRp5Q3XwB81NAJDrY6rd1WV1zcTZ72ovVxfaBIFtpH3%2Bft7yWS%2FnI8gQwADGeJX7azFVFP340uVL%2Fkq0kH1pzwrb%2F4ddjZGS8PNIUnIby9KFENJnIVPWPckNtbLVMjsDBtyaJpdTTG2YmlBwttDjWrtMzyXHP%2BdQH%2BgMDJO4DMRcFx6%2BSD7eTduHwx2%2BQbojYGu3Ykq3srgqxDtnWcQoZDyD6TxXEk6prs0QPMBuoSyRvdM%2BjHTOx2g%3D%3D";
+        window.__genspark_locale = "pt-BR";
+        window.__genspark_token = "To/BnjzloZ3UfQdcSaYfDqD3KRPAv1QnyJDyyFf6x4xWB+SQcpfxwvR1zCxTFtNP1+XTytYBG0lPd/IcbaBaPCyvigv74IWrp4xX3f7qdWWeUU2OBbBzNwfNcRwZJU8JXbNCTMq4CiP0e6phL0zaUUrTttJdW2mdOEdkVFKEp1hPur7SEWdUsB+p5ODLcWxzpG9lEbjMnj9wd3+TqLkIA0UEBDLVtES02jPEYJZogTnt4KOPq017tqswJWiuBBKbFzZxCGqvaOCbBp2HKRlBXhiWwetZF/GWRp5Q3XwB81NAJDrY6rd1WV1zcTZ72ovVxfaBIFtpH3+ft7yWS/nI8gQwADGeJX7azFVFP340uVL/kq0kH1pzwrb/4ddjZGS8PNIUnIby9KFENJnIVPWPckNtbLVMjsDBtyaJpdTTG2YmlBwttDjWrtMzyXHP+dQH+gMDJO4DMRcFx6+SD7eTduHwx2+QbojYGu3Ykq3srgqxDtnWcQoZDyD6TxXEk6prs0QPMBuoSyRvdM+jHTOx2g==";
+    </script>
+    
+    <script id="html_notice_dialog_script" src="https://www.genspark.ai/notice_dialog.js"></script>
+    
