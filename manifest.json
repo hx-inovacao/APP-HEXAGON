@@ -1,0 +1,17 @@
+{
+  "name": "HEXAGON - Registro de Materiais",
+  "short_name": "HEXAGON",
+  "description": "PWA para registro de consumo de materiais ortopédicos",
+  "start_url": "./",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#2563eb",
+  "scope": "./",
+  "icons": [
+    {
+      "src": "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='192' height='192' viewBox='0 0 192 192'%3E%3Cpolygon points='96,19 163,58 163,134 96,173 29,134 29,58' fill='none' stroke='%231e3a8a' stroke-width='12'/%3E%3Ctext x='96' y='96' font-family='Arial,sans-serif' font-size='60' font-weight='bold' fill='%231e3a8a' text-anchor='middle' dy='.35em'%3EH%3C/text%3E%3C/svg%3E",
+      "sizes": "192x192",
+      "type": "image/svg+xml"
+    }
+  ]
+}
