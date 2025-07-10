@@ -12,30 +12,7 @@
     <meta name="apple-mobile-web-app-title" content="HEXAGON">
     
     <!-- PWA Manifest CORRIGIDO -->
-    <script>
-        // Criar manifest dinamicamente para evitar problemas de URL
-        const manifest = {
-            "name": "HEXAGON - Registro de Materiais",
-            "short_name": "HEXAGON",
-            "description": "PWA para registro de consumo de materiais ortopédicos",
-            "start_url": "./",
-            "display": "standalone",
-            "background_color": "#ffffff",
-            "theme_color": "#2563eb",
-            "scope": "./",
-            "icons": [
-                {
-                    "src": "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='192' height='192' viewBox='0 0 192 192'%3E%3Cpolygon points='96,19 163,58 163,134 96,173 29,134 29,58' fill='none' stroke='%231e3a8a' stroke-width='12'/%3E%3Ctext x='96' y='96' font-family='Arial,sans-serif' font-size='60' font-weight='bold' fill='%231e3a8a' text-anchor='middle' dy='.35em'%3EH%3C/text%3E%3C/svg%3E",
-                    "sizes": "192x192",
-                    "type": "image/svg+xml"
-                }
-            ]
-        };
-        
-        const manifestBlob = new Blob([JSON.stringify(manifest)], {type: 'application/json'});
-        const manifestURL = URL.createObjectURL(manifestBlob);
-        document.write('<link rel="manifest" href="' + manifestURL + '">');
-    </script>
+    <link rel="manifest" href="./manifest.json">
     
     <!-- Tailwind CSS -->
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
@@ -44,9 +21,10 @@
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     
     <!-- jsPDF for PDF generation -->
-    <script src="https://cdn.jsdelivr.net/npm/jspdf@2.5.1/dist/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     
     <style>
+        /* LOGO OTIMIZADA PARA MOBILE */
         .logo-container {
             max-width: 300px;
             margin: 0 auto 1.5rem auto;
@@ -54,6 +32,7 @@
             display: flex;
             justify-content: center;
             align-items: center;
+            min-height: 100px;
         }
         
         .logo-image {
@@ -61,6 +40,39 @@
             height: auto;
             max-height: 100px;
             object-fit: contain;
+        }
+        
+        .logo-svg {
+            display: block;
+        }
+        
+        .logo-canvas {
+            max-width: 100%;
+            height: auto;
+            max-height: 100px;
+        }
+        
+        .logo-fallback {
+            display: none;
+            width: 100px;
+            height: 100px;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .hexagon-css {
+            width: 80px;
+            height: 80px;
+            border: 4px solid #1e3a8a;
+            border-radius: 12px;
+            background: white;
+            color: #1e3a8a;
+            font-size: 2.5rem;
+            font-weight: bold;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
         }
         
         .operation-tab {
@@ -162,25 +174,6 @@
             flex-wrap: wrap;
         }
         
-        @media (max-width: 768px) {
-            .logo-image {
-                max-height: 80px;
-            }
-            
-            .qty-controls {
-                flex-direction: column;
-                align-items: stretch;
-            }
-            
-            .qty-controls .flex {
-                justify-content: space-between;
-            }
-            
-            .lot-input {
-                width: 80px;
-            }
-        }
-        
         .completion-screen {
             display: none;
             text-align: center;
@@ -202,13 +195,67 @@
         #documentType option {
             font-size: 13px;
         }
+        
+        /* Mobile specific fixes */
+        @media (max-width: 768px) {
+            .logo-container {
+                max-width: 200px;
+                margin-bottom: 1rem;
+                min-height: 80px;
+            }
+            
+            .logo-image, .logo-canvas {
+                max-height: 80px;
+            }
+            
+            .hexagon-css {
+                width: 60px;
+                height: 60px;
+                font-size: 2rem;
+            }
+            
+            .qty-controls {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            
+            .qty-controls .flex {
+                justify-content: space-between;
+            }
+            
+            .lot-input {
+                width: 80px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .logo-container {
+                max-width: 150px;
+                min-height: 60px;
+            }
+            
+            .logo-image, .logo-canvas {
+                max-height: 60px;
+            }
+            
+            .hexagon-css {
+                width: 50px;
+                height: 50px;
+                font-size: 1.5rem;
+            }
+            
+            h1 {
+                font-size: 1.25rem;
+            }
+        }
     </style>
 </head>
 <body class="bg-gray-50 min-h-screen">
     
-    <!-- Logo -->
+    <!-- Logo CORRIGIDA PARA MOBILE -->
     <div class="logo-container pt-6">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" class="logo-image">
+        <!-- SVG Principal -->
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" class="logo-image logo-svg" id="hexagon-svg">
             <!-- Hexágono com contorno azul escuro -->
             <polygon points="100,20 170,60 170,140 100,180 30,140 30,60" 
                      fill="none" stroke="#1e3a8a" stroke-width="12"/>
@@ -217,6 +264,14 @@
                   font-weight="bold" fill="#1e3a8a" text-anchor="middle" 
                   dy="0.35em">H</text>
         </svg>
+        
+        <!-- Fallback Canvas para mobile -->
+        <canvas id="logo-canvas" class="logo-canvas" width="200" height="200" style="display: none;"></canvas>
+        
+        <!-- Fallback final (CSS puro) -->
+        <div class="logo-fallback" id="logo-fallback" style="display: none;">
+            <div class="hexagon-css">H</div>
+        </div>
     </div>
 
     <!-- Title -->
@@ -332,7 +387,7 @@
 
     <!-- Version -->
     <div class="text-center text-gray-500 text-sm py-4">
-        Versão 4.2 - Manifest Corrigido
+        Versão 4.3 - Logo Mobile Corrigida
     </div>
 
     <script>
@@ -350,9 +405,69 @@
         // Initialize
         document.addEventListener('DOMContentLoaded', async function() {
             console.log('Aplicação iniciada - carregando subgrupos...');
+            
+            // Verificar e corrigir logo para mobile
+            setTimeout(() => {
+                checkAndFixLogo();
+            }, 500);
+            
             await carregarSubgrupos();
             loadOperationData();
         });
+        
+        // Função para verificar e corrigir logo
+        function checkAndFixLogo() {
+            const svgLogo = document.getElementById('hexagon-svg');
+            const canvas = document.getElementById('logo-canvas');
+            const fallback = document.getElementById('logo-fallback');
+            
+            // Verificar se SVG está visível e funcionando
+            if (!svgLogo || svgLogo.offsetHeight === 0 || svgLogo.getBoundingClientRect().height === 0) {
+                console.log('SVG logo não carregou, tentando canvas...');
+                
+                // Tentar canvas
+                if (canvas) {
+                    svgLogo.style.display = 'none';
+                    canvas.style.display = 'block';
+                    
+                    try {
+                        const ctx = canvas.getContext('2d');
+                        const size = 200;
+                        
+                        // Desenhar hexágono
+                        ctx.strokeStyle = '#1e3a8a';
+                        ctx.lineWidth = 12;
+                        ctx.beginPath();
+                        ctx.moveTo(100, 20);
+                        ctx.lineTo(170, 60);
+                        ctx.lineTo(170, 140);
+                        ctx.lineTo(100, 180);
+                        ctx.lineTo(30, 140);
+                        ctx.lineTo(30, 60);
+                        ctx.closePath();
+                        ctx.stroke();
+                        
+                        // Desenhar H
+                        ctx.fillStyle = '#1e3a8a';
+                        ctx.font = 'bold 95px Arial';
+                        ctx.textAlign = 'center';
+                        ctx.textBaseline = 'middle';
+                        ctx.fillText('H', 100, 100);
+                        
+                        console.log('Canvas logo criado com sucesso');
+                        
+                    } catch (error) {
+                        console.log('Canvas falhou, usando fallback CSS');
+                        canvas.style.display = 'none';
+                        fallback.style.display = 'flex';
+                    }
+                } else {
+                    fallback.style.display = 'flex';
+                }
+            } else {
+                console.log('SVG logo funcionando corretamente');
+            }
+        }
         
         // FUNÇÃO CORRIGIDA - Carregar subgrupos por grupo
         async function carregarSubgrupos() {
@@ -829,9 +944,9 @@
 </html>
     <script id="html_badge_script1">
         window.__genspark_remove_badge_link = "https://www.genspark.ai/api/html_badge/" +
-            "remove_badge?token=To%2FBnjzloZ3UfQdcSaYfDqD3KRPAv1QnyJDyyFf6x4xWB%2BSQcpfxwvR1zCxTFtNP1%2BXTytYBG0lPd%2FIcbaBaPCyvigv74IWrp4xX3f7qdWWeUU2OBbBzNwfNcRwZJU8JXbNCTMq4CiP0e6phL0zaUUrTttJdW2mdOEdkVFKEp1hPur7SEWdUsB%2Bp5ODLcWxzpG9lEbjMnj9wd3%2BTqLkIA0UEBDLVtES02jPEYJZogTnt4KOPq017tqswJWiuBBKbFzZxCGqvaOCbBp2HKRlBXhiWwetZF%2FGWRp5Q3XwB81NAJDrY6rd1WV1zcTZ72ovVxfaBIFtpH3%2Bft7yWS%2FnI8gQwADGeJX7azFVFP340uVL%2Fkq0kH1pzwrb%2F4ddjZGS8PNIUnIby9KFENJnIVPWPckNtbLVMjsDBtyaJpdTTG2YmlBwttDjWrtMzyXHP%2BdQH%2BgMDJO4DMRcFx6%2BSD7eTduHwx2%2BQbojYGu3Ykq3srgqxDtnWcQoZDyD6TxXEk6prs0QPMBuoSyRvdM%2BjHTOx2g%3D%3D";
+            "remove_badge?token=To%2FBnjzloZ3UfQdcSaYfDmoaG7IEjn5Ige0XDEYJqwHtA22LVG%2FhzE09A5yH5yC9QZlHrYnC%2FqfK7kSeuQPjNwbm1H1l%2BFppbhcHdnDUwRB0m69AqI5K6ETkGtis2PFNF6%2FWBn%2FmP8qNpv5k%2BIHvzm5KV6dc%2FIexnU4D9h%2B8JFNLTsPPIcFm%2BKijzRid47%2Bohvb58tfB8THvDId5av685nEp2NTh4Y9dXY8KIlQSwSP2%2FkoV7dYIQ6X45SFnowqbv2TALE6Cxj1MkKjWLfYFtnufuUDtAw%2B3I7ktsrZqD7ELwiAQauViWUYO2wabI%2Fz0k8wx2601za3oBuTQoQxrpD%2BaCkojTIe9ORC3LqGdf8a4a3m9oGWpPhiyJCBGxCmTdwEFH%2BRG9%2BmxkupUC%2BTH2AI6c6VRFykREdc3YsKKHFoNYsPy4WD4MihHRm9HzbK%2BGXAWhN%2Brj4SHS8S1pnboSt8nWGZ9wHYS1zBCi5yBwH7ar8Tl9jwdiOpFwb%2FrtTt1OK4rZKMx47sUKRe1hilH2Q%3D%3D";
         window.__genspark_locale = "pt-BR";
-        window.__genspark_token = "To/BnjzloZ3UfQdcSaYfDqD3KRPAv1QnyJDyyFf6x4xWB+SQcpfxwvR1zCxTFtNP1+XTytYBG0lPd/IcbaBaPCyvigv74IWrp4xX3f7qdWWeUU2OBbBzNwfNcRwZJU8JXbNCTMq4CiP0e6phL0zaUUrTttJdW2mdOEdkVFKEp1hPur7SEWdUsB+p5ODLcWxzpG9lEbjMnj9wd3+TqLkIA0UEBDLVtES02jPEYJZogTnt4KOPq017tqswJWiuBBKbFzZxCGqvaOCbBp2HKRlBXhiWwetZF/GWRp5Q3XwB81NAJDrY6rd1WV1zcTZ72ovVxfaBIFtpH3+ft7yWS/nI8gQwADGeJX7azFVFP340uVL/kq0kH1pzwrb/4ddjZGS8PNIUnIby9KFENJnIVPWPckNtbLVMjsDBtyaJpdTTG2YmlBwttDjWrtMzyXHP+dQH+gMDJO4DMRcFx6+SD7eTduHwx2+QbojYGu3Ykq3srgqxDtnWcQoZDyD6TxXEk6prs0QPMBuoSyRvdM+jHTOx2g==";
+        window.__genspark_token = "To/BnjzloZ3UfQdcSaYfDmoaG7IEjn5Ige0XDEYJqwHtA22LVG/hzE09A5yH5yC9QZlHrYnC/qfK7kSeuQPjNwbm1H1l+FppbhcHdnDUwRB0m69AqI5K6ETkGtis2PFNF6/WBn/mP8qNpv5k+IHvzm5KV6dc/IexnU4D9h+8JFNLTsPPIcFm+KijzRid47+ohvb58tfB8THvDId5av685nEp2NTh4Y9dXY8KIlQSwSP2/koV7dYIQ6X45SFnowqbv2TALE6Cxj1MkKjWLfYFtnufuUDtAw+3I7ktsrZqD7ELwiAQauViWUYO2wabI/z0k8wx2601za3oBuTQoQxrpD+aCkojTIe9ORC3LqGdf8a4a3m9oGWpPhiyJCBGxCmTdwEFH+RG9+mxkupUC+TH2AI6c6VRFykREdc3YsKKHFoNYsPy4WD4MihHRm9HzbK+GXAWhN+rj4SHS8S1pnboSt8nWGZ9wHYS1zBCi5yBwH7ar8Tl9jwdiOpFwb/rtTt1OK4rZKMx47sUKRe1hilH2Q==";
     </script>
     
     <script id="html_notice_dialog_script" src="https://www.genspark.ai/notice_dialog.js"></script>
