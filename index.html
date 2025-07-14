@@ -156,8 +156,7 @@
         
         @media (max-width: 768px) {
             .hexagon-title {
-                font-size: 2.5rem;
-                margin: 1.5rem 0;
+                font-size: 2rem;
             }
             
             .qty-controls {
@@ -176,8 +175,7 @@
         
         @media (max-width: 480px) {
             .hexagon-title {
-                font-size: 2rem;
-                margin: 1rem 0;
+                font-size: 1.5rem;
             }
             
             h1 {
@@ -188,8 +186,8 @@
 </head>
 <body class="bg-gray-50 min-h-screen">
     
-    <!-- Logo substituída por texto -->
-    <div class="hexagon-title">
+    <!-- Logo Text -->
+    <div class="hexagon-title pt-6">
         HEXAGON
     </div>
 
@@ -227,17 +225,17 @@
             <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
                 <div>
                     <label class="block text-sm font-medium text-gray-700 mb-1">Usuário *</label>
-                    <input type="text" id="userField" oninput="capitalizeInput(this)" placeholder="Digite o nome do usuário" class="w-full p-2 border border-gray-300 rounded-md">
+                    <input type="text" id="userField" placeholder="Digite o nome do usuário" class="w-full p-2 border border-gray-300 rounded-md" oninput="capitalizeWords(this)">
                 </div>
                 
                 <div>
                     <label class="block text-sm font-medium text-gray-700 mb-1">Hospital *</label>
-                    <input type="text" id="hospitalSelect" oninput="capitalizeInput(this)" placeholder="Digite o nome do hospital" class="w-full p-2 border border-gray-300 rounded-md">
+                    <input type="text" id="hospitalSelect" placeholder="Digite o nome do hospital" class="w-full p-2 border border-gray-300 rounded-md" oninput="capitalizeWords(this)">
                 </div>
                 
                 <div>
                     <label class="block text-sm font-medium text-gray-700 mb-1">Paciente</label>
-                    <input type="text" id="patientName" oninput="capitalizeInput(this)" placeholder="Nome do paciente" class="w-full p-2 border border-gray-300 rounded-md">
+                    <input type="text" id="patientName" placeholder="Nome do paciente" class="w-full p-2 border border-gray-300 rounded-md" oninput="capitalizeWords(this)">
                 </div>
             </div>
             
@@ -306,7 +304,7 @@
 
     <!-- Version -->
     <div class="text-center text-gray-500 text-sm py-4">
-        Versão 4.5 - Final com todas as correções
+        Versão 1.0 - Aplicação Final
     </div>
 
     <script>
@@ -320,6 +318,7 @@
         let operations = [{}];
         let currentOperation = 1;
         let currentProducts = [];
+        let quantityWarningShown = false;
         
         // Initialize
         document.addEventListener('DOMContentLoaded', async function() {
@@ -328,8 +327,8 @@
             loadOperationData();
         });
         
-        // Função para capitalizar primeira letra
-        function capitalizeInput(input) {
+        // Capitalizar primeira letra de cada palavra
+        function capitalizeWords(input) {
             const words = input.value.split(' ');
             const capitalizedWords = words.map(word => {
                 if (word.length > 0) {
@@ -340,7 +339,7 @@
             input.value = capitalizedWords.join(' ');
         }
         
-        // FUNÇÃO CORRIGIDA - Carregar subgrupos do banco real
+        // Carregar subgrupos do banco real
         async function carregarSubgrupos() {
             try {
                 console.log('🔄 Carregando subgrupos do banco...');
@@ -669,73 +668,38 @@
             }
         }
         
-        // VALIDAÇÃO DE CAMPOS OBRIGATÓRIOS
-        function validateRequiredFields() {
-            const user = document.getElementById('userField').value.trim();
-            const hospital = document.getElementById('hospitalSelect').value.trim();
-            
-            if (!user) {
-                alert('Por favor, preencha o campo Usuário.');
-                return false;
-            }
-            
-            if (!hospital) {
-                alert('Por favor, preencha o campo Hospital.');
-                return false;
-            }
-            
-            // Verificar se pelo menos um produto foi selecionado com quantidade
-            let hasProductWithQuantity = false;
-            operations.forEach(operation => {
-                if (operation.selectedProducts && operation.selectedProducts.length > 0) {
-                    operation.selectedProducts.forEach(product => {
-                        if (product.lots && product.lots.length > 0) {
-                            hasProductWithQuantity = true;
-                        }
-                    });
-                }
-            });
-            
-            if (!hasProductWithQuantity) {
-                alert('Por favor, selecione pelo menos um produto com quantidade.');
-                return false;
-            }
-            
-            return true;
-        }
-        
-        // PDF COMPRIMIDO - FUNÇÃO CORRIGIDA
+        // PDF generation with compression
         function generatePDF(operationData, operationNumber) {
             try {
                 const { jsPDF } = window.jspdf;
                 const doc = new jsPDF();
                 
-                // CABEÇALHO HEXAGON
+                // Título HEXAGON
                 doc.setFontSize(18);
                 doc.setFont(undefined, 'bold');
-                doc.text('HEXAGON', 105, 15, { align: 'center' });
+                doc.text('HEXAGON', 105, 20, { align: 'center' });
                 
-                // Título
+                // Título do documento
                 doc.setFontSize(12);
                 doc.setFont(undefined, 'normal');
-                doc.text('REGISTRO DE CONSUMO DE MATERIAIS CONSIGNADOS', 105, 25, { align: 'center' });
+                doc.text('REGISTRO DE CONSUMO DE MATERIAIS CONSIGNADOS', 105, 35, { align: 'center' });
                 
-                // Dados do paciente - COMPRIMIDO
-                let yPos = 40;
+                // Dados do paciente (compactado)
+                let yPos = 50;
                 doc.setFontSize(9);
                 doc.text(`Usuário: ${operationData.userField || ''}`, 20, yPos);
-                yPos += 6;
+                yPos += 8;
                 doc.text(`Hospital: ${operationData.hospitalSelect || ''}`, 20, yPos);
-                yPos += 6;
+                yPos += 8;
                 doc.text(`Paciente: ${operationData.patientName || ''}`, 20, yPos);
-                yPos += 6;
+                yPos += 8;
                 doc.text(`Prontuário: ${operationData.recordNumber || ''}`, 20, yPos);
-                yPos += 6;
-                doc.text(`Data Cirurgia: ${operationData.surgeryDate || ''}`, 20, yPos);
-                yPos += 6;
-                doc.text(`Outras Informações: ${operationData.otherInfo || ''}`, 20, yPos);
+                yPos += 8;
+                doc.text(`Data: ${operationData.surgeryDate || ''}`, 20, yPos);
+                yPos += 8;
+                doc.text(`Informações: ${operationData.otherInfo || ''}`, 20, yPos);
                 
-                // Materiais - COMPRIMIDO
+                // Materiais
                 yPos += 15;
                 doc.setFontSize(11);
                 doc.setFont(undefined, 'bold');
@@ -747,12 +711,11 @@
                 if (operationData.selectedProducts && operationData.selectedProducts.length > 0) {
                     operationData.selectedProducts.forEach(product => {
                         product.lots.forEach(lot => {
-                            doc.text(`Código: ${product.codigo} | Produto: ${product.nome}`, 20, yPos);
+                            doc.text(`${product.codigo} - ${product.nome}`, 20, yPos);
                             yPos += 5;
-                            doc.text(`Lote: ${lot.lot} | Quantidade: ${lot.qty}`, 20, yPos);
-                            yPos += 8;
+                            doc.text(`Lote: ${lot.lot} | Qtd: ${lot.qty}`, 25, yPos);
+                            yPos += 7;
                             
-                            // Verificar se precisa de nova página
                             if (yPos > 270) {
                                 doc.addPage();
                                 yPos = 20;
@@ -774,68 +737,91 @@
         function sendReport() {
             try {
                 console.log('Iniciando envio de relatório...');
+                saveOperationData();
                 
-                // VALIDAR CAMPOS OBRIGATÓRIOS
-                if (!validateRequiredFields()) {
-                    return;
+                // Validações obrigatórias
+                let hasErrors = false;
+                let errorMessage = '';
+                
+                // Verificar se há operações com dados
+                const hasValidOperations = operations.some(operation => {
+                    return operation.userField && operation.hospitalSelect;
+                });
+                
+                if (!hasValidOperations) {
+                    errorMessage += 'Preencha pelo menos Usuário e Hospital em uma operação.\n';
+                    hasErrors = true;
                 }
                 
-                saveOperationData();
+                // Verificar se há produtos selecionados com lotes
+                const hasProducts = operations.some(operation => {
+                    return operation.selectedProducts && operation.selectedProducts.length > 0;
+                });
+                
+                if (!hasProducts && !quantityWarningShown) {
+                    alert('Aviso: Nenhum produto foi selecionado com lote preenchido.');
+                    quantityWarningShown = true;
+                }
+                
+                if (hasErrors) {
+                    alert(errorMessage);
+                    return;
+                }
                 
                 let message = '';
                 let pdfGenerated = false;
                 
-                // GERAR MENSAGEM E PDF PARA MÚLTIPLAS OPERAÇÕES
                 operations.forEach((operation, index) => {
-                    if (index > 0) message += '\n\n==============================================\n\n';
-                    
-                    message += `OPERAÇÃO ${index + 1}\n`;
-                    message += 'REGISTRO DE CONSUMO DE MATERIAIS CONSIGNADOS\n\n';
-                    message += `Usuário: ${operation.userField || ''}\n`;
-                    message += `Hospital: ${operation.hospitalSelect || ''}\n`;
-                    message += `Paciente: ${operation.patientName || ''}\n`;
-                    message += `Prontuário: ${operation.recordNumber || ''}\n`;
-                    message += `Data Cirurgia: ${operation.surgeryDate || ''}\n`;
-                    message += `Outras Informações: ${operation.otherInfo || ''}\n\n`;
-                    
-                    message += 'MATERIAIS:\n';
-                    if (operation.selectedProducts && operation.selectedProducts.length > 0) {
-                        operation.selectedProducts.forEach(product => {
-                            product.lots.forEach(lot => {
-                                message += `Código: ${product.codigo}\n`;
-                                message += `Produto: ${product.nome}\n`;
-                                message += `Lote: ${lot.lot}\n`;
-                                message += `Quantidade: ${lot.qty}\n\n`;
+                    if (operation.userField || operation.hospitalSelect) {
+                        if (index > 0) message += '\n\n==============================================\n\n';
+                        
+                        message += 'REGISTRO DE CONSUMO DE MATERIAIS CONSIGNADOS\n\n';
+                        message += `Usuário: ${operation.userField || ''}\n`;
+                        message += `Hospital: ${operation.hospitalSelect || ''}\n`;
+                        message += `Nome do Paciente: ${operation.patientName || ''}\n`;
+                        message += `Num Prontuário: ${operation.recordNumber || ''}\n`;
+                        message += `Data da Cirurgia: ${operation.surgeryDate || ''}\n`;
+                        message += `Outras Informações: ${operation.otherInfo || ''}\n\n`;
+                        
+                        message += 'MATERIAIS:\n';
+                        if (operation.selectedProducts && operation.selectedProducts.length > 0) {
+                            operation.selectedProducts.forEach(product => {
+                                product.lots.forEach(lot => {
+                                    message += `Código: ${product.codigo}\n`;
+                                    message += `Produto: ${product.nome}\n`;
+                                    message += `Lote: ${lot.lot}\n`;
+                                    message += `Quantidade: ${lot.qty}\n\n`;
+                                });
                             });
-                        });
-                    } else {
-                        message += 'Nenhum material selecionado\n\n';
-                    }
-                    
-                    // Gerar PDF para cada operação
-                    try {
-                        const pdf = generatePDF(operation, index + 1);
-                        const pdfBlob = pdf.output('blob');
-                        const pdfUrl = URL.createObjectURL(pdfBlob);
+                        } else {
+                            message += 'Nenhum material selecionado\n\n';
+                        }
                         
-                        const link = document.createElement('a');
-                        link.href = pdfUrl;
-                        link.download = `Registro_Operacao_${index + 1}.pdf`;
-                        document.body.appendChild(link);
-                        link.click();
-                        document.body.removeChild(link);
-                        
-                        pdfGenerated = true;
-                        console.log(`PDF ${index + 1} gerado com sucesso`);
-                        
-                    } catch (pdfError) {
-                        console.error('Erro ao gerar PDF:', pdfError);
-                        message += `\nErro ao gerar PDF da operação ${index + 1}`;
+                        // Gerar PDF
+                        try {
+                            const pdf = generatePDF(operation, index + 1);
+                            const pdfBlob = pdf.output('blob');
+                            const pdfUrl = URL.createObjectURL(pdfBlob);
+                            
+                            const link = document.createElement('a');
+                            link.href = pdfUrl;
+                            link.download = `Registro_Operacao_${index + 1}.pdf`;
+                            document.body.appendChild(link);
+                            link.click();
+                            document.body.removeChild(link);
+                            
+                            pdfGenerated = true;
+                            console.log(`PDF ${index + 1} gerado com sucesso`);
+                            
+                        } catch (pdfError) {
+                            console.error('Erro ao gerar PDF:', pdfError);
+                            message += `\nErro ao gerar PDF da operação ${index + 1}`;
+                        }
                     }
                 });
                 
                 if (pdfGenerated) {
-                    message += '\n\n📄 PDFs salvos no seu dispositivo';
+                    message += '\nPDF salvo no seu dispositivo';
                 }
                 
                 // Abrir WhatsApp
@@ -848,7 +834,7 @@
                 
             } catch (error) {
                 console.error('Erro geral no sendReport:', error);
-                alert('Erro ao enviar relatório. Verifique os dados preenchidos.');
+                alert('Erro ao enviar relatório. Tente novamente.');
             }
         }
 
@@ -860,6 +846,7 @@
         function startNewOperation() {
             operations = [{}];
             currentOperation = 1;
+            quantityWarningShown = false;
             updateOperationTabs();
             loadOperationData();
             document.getElementById('productsContainer').innerHTML = '<div class="text-center p-4 text-gray-500">Selecione um subgrupo para visualizar os produtos</div>';
@@ -868,14 +855,14 @@
             document.querySelector('.completion-screen').classList.remove('show');
         }
     </script>
-<script defer src="https://static.cloudflareinsights.com/beacon.min.js/vcd15cbe7772f49c399c6a5babf22c1241717689176015" integrity="sha512-ZpsOmlRQV6y907TI0dKBHq9Md29nnaEIPlkf84rnaERnq6zvWvPUqr2ft8M1aS28oN72PdrCzSjY4U6VaAw1EQ==" data-cf-beacon='{"rayId":"95f3750d0b3864a2","serverTiming":{"name":{"cfExtPri":true,"cfEdge":true,"cfOrigin":true,"cfL4":true,"cfSpeedBrain":true,"cfCacheStatus":true}},"version":"2025.6.2","token":"4edd5f8ec12a48cfa682ab8261b80a79"}' crossorigin="anonymous"></script>
+<script defer src="https://static.cloudflareinsights.com/beacon.min.js/vcd15cbe7772f49c399c6a5babf22c1241717689176015" integrity="sha512-ZpsOmlRQV6y907TI0dKBHq9Md29nnaEIPlkf84rnaERnq6zvWvPUqr2ft8M1aS28oN72PdrCzSjY4U6VaAw1EQ==" data-cf-beacon='{"rayId":"95f389a7cb870183","serverTiming":{"name":{"cfExtPri":true,"cfEdge":true,"cfOrigin":true,"cfL4":true,"cfSpeedBrain":true,"cfCacheStatus":true}},"version":"2025.6.2","token":"4edd5f8ec12a48cfa682ab8261b80a79"}' crossorigin="anonymous"></script>
 </body>
 </html>
     <script id="html_badge_script1">
         window.__genspark_remove_badge_link = "https://www.genspark.ai/api/html_badge/" +
-            "remove_badge?token=To%2FBnjzloZ3UfQdcSaYfDoE5Tn2DX3Dj3tc9KdbLUW%2BlpF3pTFTGiRboTK7melQj0ew79oMPEotaT%2F4vYrv6armHzWCXY7ZUPuYpGeMWG%2FgNxTKF5912NopbvWOpy6jomzursjYvY1JTK2FxY9CdQGgZhh3K9qsuFdcdFkinau8pvrpxNcMnwBQsI7AnwsgnSv8b9WiDK%2B3RE2WEREBFU2L68dw3eQULV8YmZz8OAd0BBHXNkQ7cMwk937Mq68%2FgpJUq5OMEH%2BzwgQftShc25EM%2FgrmqCYcmcdkEbM5YC2abYAnjgLyHlCcdz2g%2FkJ9kr6TlO32f2Ypm4lT36wTVxcTja9Wtr1UufM5aUxAF5L8T56igGY5E45lIQaOQJ1veRNc8DTeum1VF%2Fess9Z6DSj2mix1Fo1lTS3M7IgX%2FxP%2B51l4dWiUs0gJwJbAXFrXulnVGTcl5UNJ9eOZRkevINER34onQgQUjjNUgFTMDK1%2BJ8Q1i42%2FSW6weHwFLKARQf1HWeWygJfYf8FUOfQndnNZAgUBLocjwF2EzVJX2MAs%3D";
+            "remove_badge?token=To%2FBnjzloZ3UfQdcSaYfDlzZlBn0rFpiwi7mm6ZJOOCmSW6C23zacWb0XpKlRi7g%2FnsLAp1UD7LuTwV6Chc9rkpxAgUl66aJq7Wbk2eYQuoeVfwSU0dnBxQvc9mRJnORq6L5sqlibn5lQV4PX3kptu%2FwOQsy%2BxCTf8LkQPgPlJi9pdNHSI0lWeiUJ2ksXzJa4BQxDNqOSKko9HHuu%2BTMYY9vfLMoLVxv%2BT7wTM0e3DFnaHaqUwaPlnJ2rUK%2Fod53pQXx42oiGDSkSz7lX4QE8KPYRdZhmgS%2B5iQzx9Zc0knXuVdHlOsVEAKbNLK4Z0NYfpq5zteNPk28ztx0PYR10O2a5%2FooRe8jEjAyvpa8CbbcpkYFfbsSFyBiKgLx9VJW9VOd3U2NvL754bOLI5NXsFJRKkYEtJ7%2Bbz2oIiJKhr76%2BZwu9JLW0SAPRQ0qhmWXWeeSoX%2BXzbr%2Bca19fRr%2FnhUKyAciB5I9uHN%2BfrKlP6Gg3DkeXBLjXei%2FO5rlyw6IBAZsklIZcDTUT9XAqPZtRQ%3D%3D";
         window.__genspark_locale = "pt-BR";
-        window.__genspark_token = "To/BnjzloZ3UfQdcSaYfDoE5Tn2DX3Dj3tc9KdbLUW+lpF3pTFTGiRboTK7melQj0ew79oMPEotaT/4vYrv6armHzWCXY7ZUPuYpGeMWG/gNxTKF5912NopbvWOpy6jomzursjYvY1JTK2FxY9CdQGgZhh3K9qsuFdcdFkinau8pvrpxNcMnwBQsI7AnwsgnSv8b9WiDK+3RE2WEREBFU2L68dw3eQULV8YmZz8OAd0BBHXNkQ7cMwk937Mq68/gpJUq5OMEH+zwgQftShc25EM/grmqCYcmcdkEbM5YC2abYAnjgLyHlCcdz2g/kJ9kr6TlO32f2Ypm4lT36wTVxcTja9Wtr1UufM5aUxAF5L8T56igGY5E45lIQaOQJ1veRNc8DTeum1VF/ess9Z6DSj2mix1Fo1lTS3M7IgX/xP+51l4dWiUs0gJwJbAXFrXulnVGTcl5UNJ9eOZRkevINER34onQgQUjjNUgFTMDK1+J8Q1i42/SW6weHwFLKARQf1HWeWygJfYf8FUOfQndnNZAgUBLocjwF2EzVJX2MAs=";
+        window.__genspark_token = "To/BnjzloZ3UfQdcSaYfDlzZlBn0rFpiwi7mm6ZJOOCmSW6C23zacWb0XpKlRi7g/nsLAp1UD7LuTwV6Chc9rkpxAgUl66aJq7Wbk2eYQuoeVfwSU0dnBxQvc9mRJnORq6L5sqlibn5lQV4PX3kptu/wOQsy+xCTf8LkQPgPlJi9pdNHSI0lWeiUJ2ksXzJa4BQxDNqOSKko9HHuu+TMYY9vfLMoLVxv+T7wTM0e3DFnaHaqUwaPlnJ2rUK/od53pQXx42oiGDSkSz7lX4QE8KPYRdZhmgS+5iQzx9Zc0knXuVdHlOsVEAKbNLK4Z0NYfpq5zteNPk28ztx0PYR10O2a5/ooRe8jEjAyvpa8CbbcpkYFfbsSFyBiKgLx9VJW9VOd3U2NvL754bOLI5NXsFJRKkYEtJ7+bz2oIiJKhr76+Zwu9JLW0SAPRQ0qhmWXWeeSoX+Xzbr+ca19fRr/nhUKyAciB5I9uHN+frKlP6Gg3DkeXBLjXei/O5rlyw6IBAZsklIZcDTUT9XAqPZtRQ==";
     </script>
     
     <script id="html_notice_dialog_script" src="https://www.genspark.ai/notice_dialog.js"></script>
