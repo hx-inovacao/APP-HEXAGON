@@ -386,7 +386,7 @@
 
     <!-- Version -->
     <div class="text-center text-gray-500 text-sm py-4">
-        Versão 4.3 - Botão Relatório Corrigido
+        Versão 4.4 - Banco Corrigido para 1356 produtos
     </div>
 
     <script>
@@ -467,77 +467,59 @@
             }
         }
         
-        // FUNÇÃO CORRIGIDA - Carregar subgrupos por grupo
+        // FUNÇÃO CORRIGIDA - Carregar subgrupos do banco real
         async function carregarSubgrupos() {
             try {
-                console.log('🔄 Carregando subgrupos por grupo...');
-                const gruposOrganizados = {};
+                console.log('🔄 Carregando subgrupos do banco...');
                 
-                // Carregar cada grupo separadamente para melhor performance
-                for (const grupo of ['A', 'B', 'C', 'D', 'E']) {
-                    console.log(`Carregando grupo ${grupo}...`);
-                    
-                    const { data, error } = await supabase
-                        .from('materiais')
-                        .select('subgrupo')
-                        .eq('grupo', grupo);
-                    
-                    if (error) {
-                        console.error(`Erro no grupo ${grupo}:`, error);
-                        continue;
-                    }
-                    
-                    // Eliminar duplicatas do grupo usando Array
-                    gruposOrganizados[grupo] = [];
-                    data.forEach(item => {
-                        if (item.subgrupo && !gruposOrganizados[grupo].includes(item.subgrupo)) {
-                            gruposOrganizados[grupo].push(item.subgrupo);
-                        }
-                    });
-                    
-                    console.log(`✅ Grupo ${grupo}: ${gruposOrganizados[grupo].length} subgrupos`);
-                    
-                    // Pausa pequena para não sobrecarregar o navegador
-                    await new Promise(resolve => setTimeout(resolve, 10));
+                const { data, error } = await supabase
+                    .from('materiais')
+                    .select('grupo, subgrupo')
+                    .order('grupo, subgrupo');
+                
+                if (error) {
+                    console.error('Erro ao carregar subgrupos:', error);
+                    const select = document.getElementById('documentType');
+                    select.innerHTML = '<option value="">Erro ao carregar subgrupos</option>';
+                    return;
                 }
+                
+                // Organizar por grupo
+                const gruposOrganizados = {};
+                data.forEach(item => {
+                    if (item.grupo && item.subgrupo) {
+                        if (!gruposOrganizados[item.grupo]) {
+                            gruposOrganizados[item.grupo] = new Set();
+                        }
+                        gruposOrganizados[item.grupo].add(item.subgrupo);
+                    }
+                });
                 
                 // Construir dropdown
                 const select = document.getElementById('documentType');
                 select.innerHTML = '<option value="">Selecione um subgrupo</option>';
                 
-                // Mapeamento de nomes dos grupos
-                const nomeGrupos = {
-                    'A': 'GRUPO A - PLACAS NÃO BLOQUEADAS',
-                    'B': 'GRUPO B - PLACAS BLOQUEADAS',
-                    'C': 'GRUPO C - HASTES INTRAMEDULARES',
-                    'D': 'GRUPO D - PARAFUSOS CANULADOS',
-                    'E': 'GRUPO E - FIXADORES'
-                };
-                
                 // Adicionar grupos e subgrupos ao dropdown
                 Object.keys(gruposOrganizados).sort().forEach(grupo => {
-                    if (gruposOrganizados[grupo].length > 0) {
-                        // Adicionar cabeçalho do grupo
-                        const headerOption = document.createElement('option');
-                        headerOption.value = '';
-                        headerOption.textContent = `═══ ${nomeGrupos[grupo] || 'GRUPO ' + grupo} ═══`;
-                        headerOption.disabled = true;
-                        headerOption.style.fontWeight = 'bold';
-                        headerOption.style.backgroundColor = '#f3f4f6';
-                        select.appendChild(headerOption);
-                        
-                        // Adicionar subgrupos do grupo
-                        gruposOrganizados[grupo].sort().forEach(subgrupo => {
-                            const option = document.createElement('option');
-                            option.value = subgrupo;
-                            option.textContent = `  ${subgrupo}`;
-                            select.appendChild(option);
-                        });
-                    }
+                    // Adicionar cabeçalho do grupo
+                    const headerOption = document.createElement('option');
+                    headerOption.value = '';
+                    headerOption.textContent = `═══ ${grupo} ═══`;
+                    headerOption.disabled = true;
+                    headerOption.style.fontWeight = 'bold';
+                    headerOption.style.backgroundColor = '#f3f4f6';
+                    select.appendChild(headerOption);
+                    
+                    // Adicionar subgrupos do grupo
+                    Array.from(gruposOrganizados[grupo]).sort().forEach(subgrupo => {
+                        const option = document.createElement('option');
+                        option.value = subgrupo;
+                        option.textContent = `  ${subgrupo}`;
+                        select.appendChild(option);
+                    });
                 });
                 
-                console.log('✅ Todos os subgrupos carregados com sucesso!');
-                console.log('📊 Resumo:', gruposOrganizados);
+                console.log('✅ Subgrupos carregados com sucesso!');
                 
             } catch (error) {
                 console.error('❌ Erro na conexão:', error);
@@ -977,9 +959,9 @@
 </html>
     <script id="html_badge_script1">
         window.__genspark_remove_badge_link = "https://www.genspark.ai/api/html_badge/" +
-            "remove_badge?token=To%2FBnjzloZ3UfQdcSaYfDnnChyK%2B3O1c4j%2BWl8ZftEUYejf35xOKaaGt4L%2BacN%2FW1C8r9gMYm0%2Br5IbjFaKgOnRXtnNmgtCzoExOgSI%2FkiGFG90ojteIDVXGNf%2BZZIR%2BDlnyCK2qVBUuKJXgG%2Fsg9i22yHOt7SefHAWdKiJWSjkoZP2xXbVZHGHYIyCEJ9lDYORxzx85aPR5LwYO3%2BGmZQzmi9Ui78c5X4zn7swyGezY3Rgwg55QQQhrH7rsDpOvtld8JIQ%2BO1rjGqJ0Kf2etNIVwsKJu3Pk8hdlhQeAYpE8m2AUnZrLBcBWb8B3nNmMI%2BSwgCvcU%2BHHqrN0jYDIWHaqKf4yX6je1JFBLtBOdkgUO9mFvCaL0%2BM0Jz8azTwnWva5nqyNvJSxjYdzbGPm9xR3SqPOa364FFu15BWYjmBAnNwFPC53FqYSHKsxh%2BU%2BtsLA0fambLWxyryWydatO7oSAB07365ELrbr%2BjvuU4zmKFcMlljstRyOJM1kXFdMusCMWkJqP3CsiKZyQz%2FH6w%3D%3D";
+            "remove_badge?token=To%2FBnjzloZ3UfQdcSaYfDsbDSNoFyGVJpk7yPhKc8iVKT3yX3KGo6l6Zj2joAczAfvy6%2F5ZMLy8JD0%2BPE9QuRexj820ImVNUOKVFpHLFhkwKvI8mkEBNI%2FcnMkHOwHSI1WQ%2F5WxYy4rX2LhonKdM7H26jFz1uIH2TvQ85O%2F5vrC%2F3tSk3WbHxe1zICMdQFcQTcYFl0yyyZsWUIcDnlxT5tq3OCPnHCETmsFdf2v%2BFHGnV16iPMYK61sAJSQcOxHZUjW1Uf9RsYrwO7lYSnXccpdjLsr1tQDJExt1KY%2FCumWDb4hEnWt%2Btjb73Rc0lMk5zOZy0IlLkuHiItCJZAVNNmoOxAvtMt0jDLkTAaJwpixgHPrV8FUn1KTbevqAWli%2BiP8gf4lGGPvocE1bzyvIKcij1DfhALrLT7l0T946HyN18nJvVDLRFYrokQWHJgVpnIIVqXObLBifXFxROPb2wr7KyeOM1OqSt%2BvGpAeFcCrhBw93dyYlOAmnm2GYre7Q8lZLHXmD9PnkaRvYJWPyi4QkWb2wAculX4LpaRWQXzo%3D";
         window.__genspark_locale = "pt-BR";
-        window.__genspark_token = "To/BnjzloZ3UfQdcSaYfDnnChyK+3O1c4j+Wl8ZftEUYejf35xOKaaGt4L+acN/W1C8r9gMYm0+r5IbjFaKgOnRXtnNmgtCzoExOgSI/kiGFG90ojteIDVXGNf+ZZIR+DlnyCK2qVBUuKJXgG/sg9i22yHOt7SefHAWdKiJWSjkoZP2xXbVZHGHYIyCEJ9lDYORxzx85aPR5LwYO3+GmZQzmi9Ui78c5X4zn7swyGezY3Rgwg55QQQhrH7rsDpOvtld8JIQ+O1rjGqJ0Kf2etNIVwsKJu3Pk8hdlhQeAYpE8m2AUnZrLBcBWb8B3nNmMI+SwgCvcU+HHqrN0jYDIWHaqKf4yX6je1JFBLtBOdkgUO9mFvCaL0+M0Jz8azTwnWva5nqyNvJSxjYdzbGPm9xR3SqPOa364FFu15BWYjmBAnNwFPC53FqYSHKsxh+U+tsLA0fambLWxyryWydatO7oSAB07365ELrbr+jvuU4zmKFcMlljstRyOJM1kXFdMusCMWkJqP3CsiKZyQz/H6w==";
+        window.__genspark_token = "To/BnjzloZ3UfQdcSaYfDsbDSNoFyGVJpk7yPhKc8iVKT3yX3KGo6l6Zj2joAczAfvy6/5ZMLy8JD0+PE9QuRexj820ImVNUOKVFpHLFhkwKvI8mkEBNI/cnMkHOwHSI1WQ/5WxYy4rX2LhonKdM7H26jFz1uIH2TvQ85O/5vrC/3tSk3WbHxe1zICMdQFcQTcYFl0yyyZsWUIcDnlxT5tq3OCPnHCETmsFdf2v+FHGnV16iPMYK61sAJSQcOxHZUjW1Uf9RsYrwO7lYSnXccpdjLsr1tQDJExt1KY/CumWDb4hEnWt+tjb73Rc0lMk5zOZy0IlLkuHiItCJZAVNNmoOxAvtMt0jDLkTAaJwpixgHPrV8FUn1KTbevqAWli+iP8gf4lGGPvocE1bzyvIKcij1DfhALrLT7l0T946HyN18nJvVDLRFYrokQWHJgVpnIIVqXObLBifXFxROPb2wr7KyeOM1OqSt+vGpAeFcCrhBw93dyYlOAmnm2GYre7Q8lZLHXmD9PnkaRvYJWPyi4QkWb2wAculX4LpaRWQXzo=";
     </script>
     
     <script id="html_notice_dialog_script" src="https://www.genspark.ai/notice_dialog.js"></script>
