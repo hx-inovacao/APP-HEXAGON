@@ -1,7 +1,7 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
-<head>
-    <meta charset="UTF-8">
+<!-- saved from url=(0052)https://www.genspark.ai/api/page_private?id=jcabafsg -->
+<html lang="pt-BR"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Registro de Consumo de Materiais Consignados</title>
     
@@ -12,69 +12,18 @@
     <meta name="apple-mobile-web-app-title" content="HEXAGON">
     
     <!-- PWA Manifest -->
-    <link rel="manifest" href="./manifest.json">
+    <link rel="manifest" href="https://www.genspark.ai/api/manifest.json">
     
     <!-- Tailwind CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link href="./index_files/tailwind.min.css" rel="stylesheet">
     
     <!-- Supabase -->
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="./index_files/supabase-js@2"></script><style type="text/css" id="operaUserStyle"></style>
     
     <!-- jsPDF for PDF generation -->
-    <script src="https://cdn.jsdelivr.net/npm/jspdf@2.5.1/dist/jspdf.umd.min.js"></script>
+    <script src="./index_files/jspdf.umd.min.js.download"></script>
     
     <style>
-        .logo-container {
-            max-width: 300px;
-            margin: 0 auto 1.5rem auto;
-            text-align: center;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100px;
-        }
-        
-        .logo-image {
-            max-width: 100%;
-            height: auto;
-            max-height: 100px;
-            object-fit: contain;
-        }
-        
-        .logo-svg {
-            display: block;
-        }
-        
-        .logo-canvas {
-            max-width: 100%;
-            height: auto;
-            max-height: 100px;
-            display: none;
-        }
-        
-        .logo-fallback {
-            display: none;
-            width: 100px;
-            height: 100px;
-            justify-content: center;
-            align-items: center;
-        }
-        
-        .hexagon-css {
-            width: 80px;
-            height: 80px;
-            border: 4px solid #1e3a8a;
-            border-radius: 12px;
-            background: white;
-            color: #1e3a8a;
-            font-size: 2.5rem;
-            font-weight: bold;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            position: relative;
-        }
-        
         .operation-tab {
             transition: all 0.3s ease;
         }
@@ -196,21 +145,19 @@
             font-size: 13px;
         }
         
+        .hexagon-title {
+            font-size: 3rem;
+            font-weight: bold;
+            color: #1e3a8a;
+            text-align: center;
+            margin: 2rem 0;
+            letter-spacing: 0.1em;
+        }
+        
         @media (max-width: 768px) {
-            .logo-container {
-                max-width: 200px;
-                margin-bottom: 1rem;
-                min-height: 80px;
-            }
-            
-            .logo-image, .logo-canvas {
-                max-height: 80px;
-            }
-            
-            .hexagon-css {
-                width: 60px;
-                height: 60px;
-                font-size: 2rem;
+            .hexagon-title {
+                font-size: 2.5rem;
+                margin: 1.5rem 0;
             }
             
             .qty-controls {
@@ -228,19 +175,9 @@
         }
         
         @media (max-width: 480px) {
-            .logo-container {
-                max-width: 150px;
-                min-height: 60px;
-            }
-            
-            .logo-image, .logo-canvas {
-                max-height: 60px;
-            }
-            
-            .hexagon-css {
-                width: 50px;
-                height: 50px;
-                font-size: 1.5rem;
+            .hexagon-title {
+                font-size: 2rem;
+                margin: 1rem 0;
             }
             
             h1 {
@@ -248,29 +185,112 @@
             }
         }
     </style>
-</head>
+<style>
+    .genspark-notice-dialog {
+      display: flex;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.5);
+      z-index: 10001;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .genspark-notice-content {
+      background-color: white;
+      border-radius: 8px;
+      max-width: 600px;
+      width: 90%;
+      box-sizing: border-box;
+      padding: 10px 30px 30px 30px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      font-size: 16px;
+    }
+
+    .genspark-notice-title {
+      color: #000;
+      font-family: Arial;
+      font-size: 20px;
+      font-style: normal;
+      font-weight: 700;
+      line-height: 150%; 
+    }
+
+    .genspark-notice-list {
+      margin: 24px 0;
+      
+      color: #606366;
+      font-family: Arial;
+      font-size: 14px;
+      font-style: normal;
+      font-weight: 400;
+      line-height: 150%;
+      padding-left: 12px;
+    }
+
+    .genspark-notice-list li {
+      margin-bottom: 12px;
+      list-style-type: disc;
+    }
+
+    .genspark-notice-list li a {
+      color: #606366;
+      text-decoration: underline;
+    }
+
+    .genspark-notice-checkbox {
+      display: flex;
+      align-items: center;
+      margin-top: 20px;
+      gap: 10px;
+
+      color: #232425;
+
+      font-family: Arial;
+      font-size: 14px;
+      font-style: normal;
+      font-weight: 400;
+      line-height: normal;
+    }
+
+    .genspark-notice-actions {
+      display: flex;
+      justify-content: center;
+      margin-top: 20px;
+    }
+      
+    .genspark-notice-ok {
+      color: #232425;
+
+      text-align: center;
+      font-family: Arial;
+      font-size: 16px;
+      font-style: normal;
+      font-weight: 700;
+      line-height: 150%; 
+
+      cursor: pointer;
+      display: flex;
+      height: 40px;
+      padding: 6px 14px;
+      justify-content: center;
+      align-items: center;
+      gap: 10px;
+      align-self: stretch;
+      border-radius: 8px;
+      border: 1px solid #000;
+      box-sizing: border-box;
+      width: 100%;
+    }
+  </style><style type="text/css">:root [href^="//mage98rquewz.com/"], :root [href^="//x4pollyxxpush.com/"], :root span[id^="ezoic-pub-ad-placeholder-"], :root ins.adsbygoogle[data-ad-slot], :root ins.adsbygoogle[data-ad-client], :root img[src^="https://s-img.adskeeper.com/"], :root guj-ad, :root gpt-ad, :root div[id^="zergnet-widget"], :root div[id^="vuukle-ad-"], :root div[id^="taboola-stream-"], :root div[id^="sticky_ad_"], :root div[id^="st"][style^="z-index: 999999999;"], :root div[id^="gpt_ad_"], :root div[id^="ezoic-pub-ad-"], :root div[id^="dfp-ad-"], :root div[id^="crt-"][style], :root div[id^="adspot-"], :root div[id^="adrotate_widgets-"], :root ps-connatix-module, :root div[id^="ad_position_"], :root div[id^="ad-div-"], :root div[id*="ScriptRoot"], :root div[id*="MarketGid"], :root div[data-id-advertdfpconf], :root div[data-dfp-id], :root hl-adsense, :root div[data-contentexchange-widget], :root div[data-alias="300x250 Ad 2"], :root div[data-adzone], :root div[data-adunit-path], :root div[data-adname], :root div[data-ad-targeting], :root div[data-ad-region], :root div[data-ad-placeholder], :root div[aria-label="Ads"], :root display-ads, :root display-ad-component, :root atf-ad-slot, :root aside[id^="adrotate_widgets-"], :root amp-fx-flying-carpet, :root amp-embed[type="taboola"], :root amp-connatix-player, :root amp-ad-custom, :root amp-ad, :root div[id^="google_dfp_"], :root ad-slot, :root ad-shield-ads, :root a[style="width:100%;height:100%;z-index:10000000000000000;position:absolute;top:0;left:0;"], :root a[onmousedown^="this.href='https://paid.outbrain.com/network/redir?"] + .ob_source, :root a[href^="https://xbet-4.com/"], :root div[id^="ad-position-"], :root a[href^="https://www.toprevenuegate.com/"], :root a[href^="https://www.purevpn.com/"][href*="&utm_source=aff-"], :root a[href^="https://www.privateinternetaccess.com/"] > img, :root a[href^="https://www.onlineusershielder.com/"], :root a[href^="https://financeads.net/tc.php?"], :root a[href^="https://www.mrskin.com/tour"], :root a[href^="https://www.infowarsstore.com/"] > img, :root a[href^="https://www.highperformancecpmgate.com/"], :root a[href^="https://www.highcpmrevenuenetwork.com/"], :root a[href^="https://www.get-express-vpn.com/offer/"], :root a[href^="https://lnkxt.bannerator.com/"], :root a[href^="https://www.geekbuying.com/dynamic-ads/"], :root a[href^="https://www.financeads.net/tc.php?"], :root a[href^="https://www.effectiveratecpm.com/"], :root [href^="https://www.herbanomic.com/"] > img, :root a[href^="https://maymooth-stopic.com/"], :root a[href^="https://www.dql2clk.com/"], :root a[href^="https://www.nutaku.net/signup/landing/"], :root a[href^="https://www.dating-finder.com/signup/?ai_d="], :root a[href^="https://explore-site.com/"], :root a[href^="https://www.brazzersnetwork.com/landing/"], :root a[href^="https://www.adxsrve.com/"], :root [data-template-type="nativead"], :root a[href^="https://www.endorico.com/Smartlink/"], :root a[href^="https://www.adultempire.com/"][href*="?partner_id="], :root a[href^="https://voluum.prom-xcams.com/"], :root a[href^="https://twinrdsyte.com/"], :root a[href^="https://twinrdsrv.com/"], :root a[href^="https://trk.nfl-online-streams.club/"], :root a[href^="https://tracking.avapartner.com/"], :root a[href^="https://track.wg-aff.com"], :root a[href^="https://track.ultravpn.com/"], :root a[href^="https://track.afcpatrk.com/"], :root a[href^="https://torguard.net/aff.php"] > img, :root [data-identity="adhesive-ad"], :root a[href^="https://tc.tradetracker.net/"] > img, :root a[href^="https://tatrck.com/"], :root a[href^="https://click.candyoffers.com/"], :root [href^="https://zstacklife.com/"] img, :root a[href^="https://t.aslnk.link/"], :root a[href^="https://t.adating.link/"], :root a[href^="https://go.trackitalltheway.com/"], :root [href^="https://track.fiverr.com/visit/"] > img, :root a[href^="https://syndication.exoclick.com/"], :root a[href^="https://syndication.dynsrvtbg.com/"], :root div[data-alias="300x250 Ad 1"], :root a[href^="https://syndicate.contentsserved.com/"], :root a[href^="https://svb-analytics.trackerrr.com/"], :root a[href^="https://ad.doubleclick.net/"], :root a[href^="https://static.fleshlight.com/images/banners/"], :root a[href^="https://slkmis.com/"], :root bottomadblock, :root a[href^="https://s.zlinkd.com/"], :root a[href^="https://s.zlink3.com/"], :root a[href^="https://www.mrskin.com/account/"], :root a[href^="https://s.optzsrv.com/"], :root a[href^="https://s.ma3ion.com/"], :root a[href^="https://s.eunow4u.com/"], :root #kt_player > div[style$="display: block;"][style*="inset: 0px;"], :root [href$="/sexdating.php"], :root a[href^="https://quotationfirearmrevision.com/"], :root a[href^="https://pubads.g.doubleclick.net/"], :root a[href^="https://prf.hn/click/"][href*="/camref:"] > img, :root a[href^="https://www.dating-finder.com/?ai_d="], :root a[href^="https://serve.awmdelivery.com/"], :root a[href^="https://prf.hn/click/"][href*="/adref:"] > img, :root app-ad, :root [href^="https://ap.octopuspop.com/click/"] > img, :root a[href^="https://postback1win.com/"], :root a[href^="https://mmwebhandler.aff-online.com/"], :root a[href^="https://www.bet365.com/"][href*="affiliate="], :root a[href^="https://pb-track.com/"], :root a[href^="https://pb-front.com/"], :root a[href^="https://paid.outbrain.com/network/redir?"], :root a[href^="https://streamate.com/landing/click/"], :root div[class^="Adstyled__AdWrapper-"], :root a[href^="https://osfultrbriolenai.info/"], :root a[href^="https://upsups.click/"], :root a[href^="https://ndt5.net/"], :root a[href^="https://natour.naughtyamerica.com/track/"], :root a[href^="https://mediaserver.entainpartners.com/renderBanner.do?"], :root a[href^="https://m.do.co/c/"] > img, :root a[href^="https://lead1.pl/"], :root a[href^="https://landing.brazzersnetwork.com/"], :root a[href^="https://join.virtuallust3d.com/"], :root a[href^="https://kiksajex.com/"], :root a[href^="https://juicyads.in/"], :root a[href^="https://snowdayonline.xyz/"], :root a[href^="https://mediaserver.gvcaffiliates.com/renderBanner.do?"], :root a[href^="https://join.dreamsexworld.com/"], :root a[href^="https://jaxofuna.com/"], :root a[href^="https://italarizege.xyz/"], :root a[href^="https://iqbroker.com/"][href*="?aff="], :root a[href^="https://identicaldrench.com/"], :root a[href^="https://hot-growngames.life/"], :root a[href^="https://helmethomicidal.com/"], :root a[href^="https://golinks.work/"], :root ark-top-ad, :root a[href^="https://s.zlinkn.com/"], :root a[href^="https://go.xxxvjmp.com/"], :root [class^="tile-picker__CitrusBannerContainer-sc-"], :root a[href^="https://go.xxxiijmp.com"], :root a[href^="https://go.xtbaffiliates.com/"], :root [data-role="tile-ads-module"], :root a[href^="https://go.xlviirdr.com"], :root div[class$="-adlabel"], :root a[href^="https://go.xlviiirdr.com"], :root a[href^="https://ismlks.com/"], :root [href^="https://www.mypillow.com/"] > img, :root a[href^="https://go.xlirdr.com"], :root [data-css-class="dfp-inarticle"], :root a[href^="https://l.hyenadata.com/"], :root a[href^="https://go.tmrjmp.com"], :root a[href^="https://zirdough.net/"], :root a[href^="https://s.deltraff.com/"], :root a[href^="https://go.markets.com/visit/?bta="], :root a[href^="https://billing.purevpn.com/aff.php"] > img, :root a[href^="https://go.hpyrdr.com/"], :root a[href^="https://lijavaxa.com/"], :root a[href^="https://go.goaserv.com/"], :root a[href^="https://t.hrtye.com/"], :root a[href^="https://go.etoro.com/"] > img, :root a[href^="https://go.dmzjmp.com"], :root a[href^="https://www.bang.com/?aff="], :root #mgb-container > #mgb, :root a[href^="https://go.admjmp.com"], :root a[href^="https://ak.stikroltiltoowi.net/"], :root a[href^="https://get.surfshark.net/aff_c?"][href*="&aff_id="] > img, :root a[href^="https://www.adskeeper.com"], :root a[data-redirect^="https://paid.outbrain.com/network/redir?"], :root [href^="https://clicks.affstrack.com/"] > img, :root a[href^="https://ak.hauchiwu.com/"], :root a[href^="https://engine.phn.doublepimp.com/"], :root a[href^="https://engine.blueistheneworanges.com/"], :root a[href^="https://drumskilxoa.click/"], :root a[href^="https://dl-protect.net/"], :root a[href*=".foxqck.com/"], :root a[href^="https://ctosrd.com/"], :root a[href^="https://clixtrac.com/"], :root [href^="https://noqreport.com/"] > img, :root a[href^="https://clicks.pipaffiliates.com/"], :root app-advertisement, :root a[href^="https://getmatchedlocally.com/"], :root a[href^="https://clickins.slixa.com/"], :root a[href^="https://datewhisper.life/"], :root a[href^="https://get-link.xyz/"], :root a[href^="https://click.linksynergy.com/fs-bin/"] > img, :root a[href^="https://combodef.com/"], :root a[href^="https://click.hoolig.app/"], :root a[href^="https://click.ggpickaff.com/"], :root a[href^="https://track.totalav.com/"], :root a[href^="https://ctrdwm.com/"], :root img[src^="https://images.purevpnaffiliates.com"], :root a[href^="https://porntubemate.com/"], :root a[href^="https://clickadilla.com/"], :root a[href^="https://click.dtiserv2.com/"], :root a[href^="https://go.xlvirdr.com"], :root a[href^="http://www.iyalc.com/"], :root a[href^="https://claring-loccelkin.com/"], :root a[href^="https://bongacams2.com/track?"], :root a[href^="https://t.ajrkm1.com/"], :root a[href^="https://bongacams10.com/track?"], :root a[href^="https://www.sheetmusicplus.com/"][href*="?aff_id="], :root a[href^="https://bngpt.com/"], :root a[href^="https://black77854.com/"], :root a[href^="https://rixofa.com/"], :root #ads[style^="position: absolute; z-index: 30; width: 100%; height"], :root a[href^="https://disobediencecalculatormaiden.com/"], :root a[href^="https://best-experience-cool.com/"], :root a[href^="https://banners.livepartners.com/"], :root a[href^="https://myclick-2.com/"], :root a[href^="https://sexynearme.com/"], :root a[href^="https://baipahanoop.net/"], :root a[href^="http://revolvemockerycopper.com/"], :root a[href^="https://awptjmp.com/"], :root a[href^="https://join.sexworld3d.com/track/"], :root a[href^="https://aweptjmp.com/"], :root a[href^="https://ausoafab.net/"], :root a[href^="https://adclick.g.doubleclick.net/"], :root a[href^="https://aj1070.online/"], :root a[href^="https://bc.game/"], :root a[href^="https://ak.oalsauwy.net/"], :root a[href^="https://a.bestcontentoperation.top/"], :root a[href^="https://adultfriendfinder.com/go/"], :root a[href^="https://ads.planetwin365affiliate.com/"], :root a[href^="https://ads.leovegas.com/"], :root .nya-slot[style], :root a[href^="https://a.bestcontentweb.top/"], :root a[href^="https://a2.adform.net/"], :root a[href^="https://a.candyai.love/"], :root a[href^="https://playnano.online/offerwalls/?ref="], :root a[href^="https://a.adtng.com/"], :root .banner-img > .pbl, :root [data-m-ad-id], :root a[href^="https://a-ads.com/"], :root [id^="ad_slider"], :root a[href^="https://click.ggpickyaff.com/"], :root broadstreet-zone-container, :root a[href^="https://ak.psaltauw.net/"], :root a[href^="https://1winpb.com/"], :root div[id^="rc-widget-"], :root a[href^="http://eslp34af.click/"], :root a[href^="https://turnstileunavailablesite.com/"], :root a[href^="https://chaturbate.com/in/?"], :root a[href^="https://prf.hn/click/"][href*="/creativeref:"] > img, :root a[href*="&maxads="], :root a[href^="http://www.adultempire.com/unlimited/promo?"][href*="&partner_id="], :root a[href^="https://1betandgonow.com/"], :root a[href^="https://eergortu.net/"], :root div[id^="optidigital-adslot"], :root a[href^="https://123-stream.org/"], :root a[href^="https://in.rabbtrk.com/"], :root a[href^="http://www.h4trck.com/"], :root a[href^="http://www.friendlyduck.com/AF_"], :root a[href^="https://go.rmhfrtnd.com"], :root a[href^="https://allhost.shop/aff.php?"], :root [data-dynamic-ads], :root a[href^="http://vnte9urn.click/"], :root a[href^="http://troopsassistedstupidity.com/"], :root a[href^="http://trk.globwo.online/"], :root a[href^="https://random-affiliate.atimaze.com/"], :root a-ad, :root a[href^="https://offhandpump.com/"], :root a[href^="http://stickingrepute.com/"], :root #slashboxes > .deals-rail, :root a[href^="http://roadcontagion.com/"], :root a[href^="http://premonitioninventdisagree.com/"], :root a[href^="http://cam4com.go2cloud.org/aff_c?"], :root a[href^="https://ads.betfair.com/redirect.aspx?"], :root [href^="https://www.mypatriotsupply.com/"] > img, :root a[href^="https://trk.softonixs.xyz/"], :root [data-advadstrackid], :root a[href^="http://muzzlematrix.com/"], :root a[href^="https://track.adform.net/"], :root a[href^="http://avthelkp.net/"], :root a[href^="https://a.medfoodhome.com/"], :root a[href^="https://engine.flixtrial.com/"], :root [data-type="ad-vertical"], :root [data-taboola-options], :root a[href^="http://annulmentequitycereals.com/"], :root a[href^="//startgaming.net/tienda/" i], :root a[href^="https://join.virtualtaboo.com/track/"], :root [id^="ad_sky"], :root a[href^="http://coefficienttolerategravel.com/"], :root a[href^="https://a.medfoodsafety.com/"], :root a[href^="//go.eabids.com/"], :root a[href^="//ejitsirdosha.net/"], :root a[href^=" https://www.friendlyduck.com/AF_"], :root [data-cl-spot-id], :root a[href*="/jump/next.php?r="], :root a[href^="https://go.rmishe.com/"], :root [href^="https://ilovemyfreedoms.com/landing-"], :root a[href^="https://syndication.optimizesrv.com/"], :root a[href*="//daichoho.com/"], :root a[href^="https://go.nordvpn.net/aff"] > img, :root .\[\&_\.gdprAdTransparencyCogWheelButton\]\:\!pjra-z-\[5\], :root [href^="http://clicks.totemcash.com/"], :root a[href^="https://ad.zanox.com/ppc/"] > img, :root a[href^="https://lone-pack.com/"], :root [data-d-ad-id], :root a[href*=".engine.adglare.net/"], :root a[href^="https://t.ajrkm3.com/"], :root [href^="https://aads.com/campaigns/"], :root a[href^="//stighoazon.com/"], :root [href^="https://www.profitablegatecpm.com/"], :root div[id^="lazyad-"], :root a[href^="http://com-1.pro/"], :root a[href*=".cfm?domain="][href*="&fp="], :root [data-ad-name], :root a[href^="https://loboclick.com/"], :root a[data-url^="https://vulpix.bet/?ref="], :root a[href^="https://ab.advertiserurl.com/aff/"], :root a[data-oburl^="https://paid.outbrain.com/network/redir?"], :root a[href^="https://go.xlivrdr.com"], :root [onclick^="location.href='https://1337x.vpnonly.site/"], :root [name^="google_ads_iframe"], :root [id^="section-ad-banner"], :root a[href^="https://www.goldenfrog.com/vyprvpn?offer_id="][href*="&aff_id="], :root a[href*="//jjgirls.com/sex/Chaturbate"], :root [id^="ad-wrap-"], :root [href^="https://zone.gotrackier.com/"], :root a[href^="http://sarcasmadvisor.com/"], :root [href^="https://www.restoro.com/"], :root [href^="https://www.targetingpartner.com/"], :root .section-subheader > .section-hotel-prices-header, :root [href^="https://www.hostg.xyz/"] > img, :root a[href^="http://adultfriendfinder.com/go/"], :root a[href^="https://fastestvpn.com/lifetime-special-deal?a_aid="], :root a[href^="https://tour.mrskin.com/"], :root [href^="https://www.brighteonstore.com/products/"] img, :root citrus-ad-wrapper, :root a[href^="https://go.grinsbest.com/"], :root a[href^="https://vo2.qrlsx.com/"], :root [href^="https://www.avantlink.com/click.php"] img, :root a[href^="https://t.acam.link/"], :root a[href^="https://go.strpjmp.com/"], :root [href^="https://url.totaladblock.com/"], :root div[id^="div-ads-"], :root [href^="https://rapidgator.net/article/premium/ref/"], :root [href^="https://join.girlsoutwest.com/"], :root a[href^="https://activate-game.com/"], :root .scroll-fixable.rail-right > .deals-rail, :root [data-wpas-zoneid], :root a[href^="https://track.aftrk3.com/"], :root [href^="https://join3.bannedsextapes.com"], :root a[href^="https://bodelen.com/"], :root a[href*=".g2afse.com/"], :root div[id^="adngin-"], :root [data-rc-widget], :root span[data-ez-ph-id], :root [href^="https://track.aftrk1.com/"], :root [href^="https://join.playboyplus.com/track/"], :root a[href^="https://go.xxxijmp.com"], :root [href^="https://istlnkcl.com/"], :root a[href^="https://tm-offers.gamingadult.com/"], :root [href^="https://charmingdatings.life/"], :root [href^="https://glersakr.com/"], :root a[href^="https://a.bestcontentfood.top/"], :root [href^="https://cpa.10kfreesilver.com/"], :root [data-id^="div-gpt-ad"], :root a[href^="https://tracker.loropartners.com/"], :root [href^="https://awbbjmp.com/"], :root div[ow-ad-unit-wrapper], :root a[data-href^="http://ads.trafficjunky.net/"], :root a[href^="http://partners.etoro.com/"], :root a[href^="https://www.friendlyduck.com/AF_"], :root [href^="https://ad1.adfarm1.adition.com/"], :root a[href^="https://bngprm.com/"], :root [href^="https://shiftnetwork.infusionsoft.com/go/"] > img, :root a[href^="https://go.bushheel.com/"], :root a[href^="https://ctjdwm.com/"], :root a[href^="https://camfapr.com/landing/click/"], :root div[data-ad-wrapper], :root .gnt_em_vp_c[data-g-s="vp_dk"], :root [href="//sexcams.plus/"], :root [href^="http://www.mypillow.com/"] > img, :root a[href^="https://promerycergerful.com/"], :root #kt_player > a[target="_blank"], :root a[href^="http://bongacams.com/track?"], :root [href^="http://mypillow.com/"] > img, :root [href="https://ourgoldguy.com/contact/"] img, :root .ob_container .item-container-obpd, :root [id^="div-gpt-ad"], :root a[href^="https://go.rmhfrtnd.com/"], :root [href="https://jdrucker.com/gold"] > img, :root a[href^="https://www.liquidfire.mobi/"], :root .grid > .container > #aside-promotion, :root DFP-AD, :root [href^="https://go.xlrdr.com"], :root a[href^="https://s.cant3am.com/"], :root [data-testid^="taboola-"], :root a[href^="https://track.1234sd123.com/"], :root zeus-ad, :root [data-testid="prism-ad-wrapper"], :root [href^="https://ad.admitad.com/"], :root [href^="https://mypillow.com/"] > img, :root [data-testid="ad_testID"], :root [href^="https://antiagingbed.com/discount/"] > img, :root a[href*=".adsrv.eacdn.com/"], :root [href^="https://optimizedelite.com/"] > img, :root [data-name="adaptiveConstructorAd"], :root a[href^="https://go.cmtaffiliates.com/"], :root [data-testid="adBanner-wrapper"], :root [href^="https://mylead.global/stl/"] > img, :root [href^="https://mypatriotsupply.com/"] > img, :root a[href^="https://go.hpyjmp.com"], :root iframe[scrolling="no"][sandbox*="allow-popups allow-modals"][style^="width: 100%; height: 100%; border: none;"], :root [href^="https://mystore.com/"] > img, :root a[href^="https://81ac.xyz/"], :root [href^="https://wct.link/click?"], :root div[data-adunit], :root app-large-ad, :root [href^="https://turtlebids.irauctions.com/"] img, :root a[href^="https://believessway.com/"], :root a[href^="https://witnessjacket.com/"], :root [data-mobile-ad-id], :root [class^="amp-ad-"], :root a[href^="http://handgripvegetationhols.com/"], :root a[href^="https://go.bbrdbr.com"], :root a[href^="https://fc.lc/ref/"], :root [data-adshim], :root topadblock, :root a[href^="//s.zlinkd.com/"], :root #teaser1[style^="width:autopx;"], :root [href^="https://www.cloudways.com/en/?id"], :root [data-asg-ins], :root a[href^="https://gamingadlt.com/?offer="], :root [data-desktop-ad-id], :root [data-adbridg-ad-class], :root #teaser3[style^="width:autopx;"], :root [data-adblockkey], :root [data-block-type="ad"], :root [data-ad-width], :root [onclick*="content.ad/"], :root [data-ad-manager-id], :root AMP-AD, :root [data-ad-cls], :root [data-ez-name], :root a[href^="https://go.mnaspm.com/"], :root a[href^="https://service.bv-aff-trx.com/"], :root a[href^="https://6-partner.com/"], :root [class^="s2nPlayer"], :root a[href^="https://traffdaq.com/"], :root [data-testid="commercial-label-taboola"], :root [class^="div-gpt-ad"], :root a[href^="http://tc.tradetracker.net/"] > img, :root a[href^="https://www8.smartadserver.com/"], :root a[href^="https://pb-imc.com/"], :root [href^="https://affiliate.fastcomet.com/"] > img, :root [class^="adDisplay-module"], :root [data-freestar-ad][id], :root AD-SLOT, :root a[href^="https://www.googleadservices.com/pagead/aclk?"] > img, :root [data-ad-module], :root a[href^="https://go.skinstrip.net"][href*="?campaignId="], :root #teaser2[style^="width:autopx;"], :root [data-revive-zoneid], :root a[href^="https://losingoldfry.com/"], :root div[id^="div-gpt-"], :root a[href^="https://gml-grp.com/"], :root .ob_dual_right > .ob_ads_header ~ .odb_div, :root a[href^="https://cam4com.go2cloud.org/"], :root a[href^="http://li.blogtrottr.com/click?"], :root a[onmousedown^="this.href='https://paid.outbrain.com/network/redir?"], :root a[href^="https://t.ajump1.com/"], :root a[href^="https://go.xxxjmp.com"], :root #leader-companion > a[href], :root a[href^="https://wittered-mainging.com/"], :root #teaser3[style="width: 100%;text-align: center;display: scroll;position:fixed;bottom: 0;margin: 0 auto;z-index: 103;"], :root [href^="https://wwp.hoqodd.com/redirect-zone/"] { display: none !important; }</style></head>
 <body class="bg-gray-50 min-h-screen">
     
-    <!-- Logo -->
-    <div class="logo-container pt-6">
-        <!-- SVG Principal -->
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" class="logo-image logo-svg" id="hexagon-svg">
-            <!-- Hexágono com contorno azul escuro -->
-            <polygon points="100,20 170,60 170,140 100,180 30,140 30,60" 
-                     fill="none" stroke="#1e3a8a" stroke-width="12"/>
-            <!-- Letra H azul escuro no centro -->
-            <text x="100" y="100" font-family="Arial, sans-serif" font-size="95" 
-                  font-weight="bold" fill="#1e3a8a" text-anchor="middle" 
-                  dy="0.35em">H</text>
-        </svg>
-        
-        <!-- Fallback Canvas para mobile -->
-        <canvas id="logo-canvas" class="logo-canvas" width="200" height="200"></canvas>
-        
-        <!-- Fallback final (CSS puro) -->
-        <div class="logo-fallback" id="logo-fallback">
-            <div class="hexagon-css">H</div>
-        </div>
+    <!-- Logo substituída por texto -->
+    <div class="hexagon-title">
+        HEXAGON
     </div>
 
     <!-- Title -->
@@ -306,18 +326,18 @@
             
             <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
                 <div>
-                    <label class="block text-sm font-medium text-gray-700 mb-1">Usuário</label>
-                    <input type="text" id="userField" placeholder="Digite o nome do usuário" class="w-full p-2 border border-gray-300 rounded-md">
+                    <label class="block text-sm font-medium text-gray-700 mb-1">Usuário *</label>
+                    <input type="text" id="userField" oninput="capitalizeInput(this)" placeholder="Digite o nome do usuário" class="w-full p-2 border border-gray-300 rounded-md">
                 </div>
                 
                 <div>
-                    <label class="block text-sm font-medium text-gray-700 mb-1">Hospital</label>
-                    <input type="text" id="hospitalSelect" placeholder="Digite o nome do hospital" class="w-full p-2 border border-gray-300 rounded-md">
+                    <label class="block text-sm font-medium text-gray-700 mb-1">Hospital *</label>
+                    <input type="text" id="hospitalSelect" oninput="capitalizeInput(this)" placeholder="Digite o nome do hospital" class="w-full p-2 border border-gray-300 rounded-md">
                 </div>
                 
                 <div>
                     <label class="block text-sm font-medium text-gray-700 mb-1">Paciente</label>
-                    <input type="text" id="patientName" placeholder="Nome do paciente" class="w-full p-2 border border-gray-300 rounded-md">
+                    <input type="text" id="patientName" oninput="capitalizeInput(this)" placeholder="Nome do paciente" class="w-full p-2 border border-gray-300 rounded-md">
                 </div>
             </div>
             
@@ -343,17 +363,655 @@
         <div class="bg-white p-6 rounded-lg shadow-md mb-6">
             <div class="mb-4">
                 <label class="block text-sm font-medium text-gray-700 mb-2">Tipo de Documento:</label>
-                <select id="documentType" onchange="filterProducts()" class="w-full p-2 border border-gray-300 rounded-md">
-                    <option value="">Carregando subgrupos...</option>
-                </select>
+                <select id="documentType" onchange="filterProducts()" class="w-full p-2 border border-gray-300 rounded-md"><option value="">Selecione um subgrupo</option><option value="" disabled="" style="font-weight: bold; background-color: rgb(243, 244, 246);">═══ FIXADORES EXTERNOS ═══</option><option value="FIXADOR ILIZAROV">  FIXADOR ILIZAROV</option><option value="FIXADOR MODULAR B13">  FIXADOR MODULAR B13</option><option value="" disabled="" style="font-weight: bold; background-color: rgb(243, 244, 246);">═══ HASTES INTRAM FEMUR ═══</option><option value="HASTE FEMORAL A/R">  HASTE FEMORAL A/R</option><option value="HASTE FEMORAL LATERAL RECON">  HASTE FEMORAL LATERAL RECON</option><option value="HASTE FMORAL PROXIMAL PFN">  HASTE FMORAL PROXIMAL PFN</option><option value="" disabled="" style="font-weight: bold; background-color: rgb(243, 244, 246);">═══ HASTES INTRAM TIBIA ═══</option><option value="HASTE TIBIAL 335 GERAÇÃO I">  HASTE TIBIAL 335 GERAÇÃO I</option><option value="HASTE TIBIAL MULTIPLA">  HASTE TIBIAL MULTIPLA</option><option value="HASTE TIBIAL UTN 335.2">  HASTE TIBIAL UTN 335.2</option><option value="" disabled="" style="font-weight: bold; background-color: rgb(243, 244, 246);">═══ HASTES INTRAM UMERO ═══</option><option value="HASTE UMERAL">  HASTE UMERAL</option><option value="" disabled="" style="font-weight: bold; background-color: rgb(243, 244, 246);">═══ MICRO PLACAS COM BLOQUEIO  ═══</option><option value="MICRO FRAG (2.0) BLOQU">  MICRO FRAG (2.0) BLOQU</option><option value="" disabled="" style="font-weight: bold; background-color: rgb(243, 244, 246);">═══ PARAFUSOS CANULADOS ═══</option><option value="PARAFUSOS CANUL COMPR HEBBERT ">  PARAFUSOS CANUL COMPR HEBBERT </option><option value="PARAFUSOS CANULADOS Ø3,5mm">  PARAFUSOS CANULADOS Ø3,5mm</option><option value="PARAFUSOS CANULADOS Ø4,5mm">  PARAFUSOS CANULADOS Ø4,5mm</option><option value="PARAFUSOS CANULADOS Ø7mm">  PARAFUSOS CANULADOS Ø7mm</option><option value="" disabled="" style="font-weight: bold; background-color: rgb(243, 244, 246);">═══ PLACAS COM BLOQUEIO GR FRAG ═══</option><option value="PLACAS FEMUR DISTAL CONDILAR (4,5) BLOQU">  PLACAS FEMUR DISTAL CONDILAR (4,5) BLOQU</option><option value="PLACAS RETAS GR FRAG (4,5) BLOQU">  PLACAS RETAS GR FRAG (4,5) BLOQU</option><option value="PLACAS TIBIA PROXIMAL GF (4,5) BLOQU">  PLACAS TIBIA PROXIMAL GF (4,5) BLOQU</option><option value="" disabled="" style="font-weight: bold; background-color: rgb(243, 244, 246);">═══ PLACAS COM BLOQUEIO PEQU FRAG ═══</option><option value="PLACAS P/CLAVICULA (2,7/3,5) BLOQU">  PLACAS P/CLAVICULA (2,7/3,5) BLOQU</option><option value="PLACAS PARA FIBULA (2,7/3,5) BLOQU">  PLACAS PARA FIBULA (2,7/3,5) BLOQU</option><option value="PLACAS RETAS PEQU FRAG (3,5) BLOQU">  PLACAS RETAS PEQU FRAG (3,5) BLOQU</option><option value="PLACAS TIBIA DISTAL ANTEROLATERAL (3,5) BLOQU">  PLACAS TIBIA DISTAL ANTEROLATERAL (3,5) BLOQU</option><option value="PLACAS TIBIA DISTAL MEDIAL (3,5) BLOQU">  PLACAS TIBIA DISTAL MEDIAL (3,5) BLOQU</option><option value="PLACAS UMERO DISTAL (2,7-3,5) BLOQU">  PLACAS UMERO DISTAL (2,7-3,5) BLOQU</option><option value="PLACAS UMERO PROXIMAL PF (3.5) BLOQU">  PLACAS UMERO PROXIMAL PF (3.5) BLOQU</option><option value="" disabled="" style="font-weight: bold; background-color: rgb(243, 244, 246);">═══ PLACAS SEM BLOQUEIO GR FRAG ═══</option><option value="PLACAS DHS/DCS GR FRAG (4,5)">  PLACAS DHS/DCS GR FRAG (4,5)</option></select>
             </div>
 
             <!-- Products Container -->
-            <div id="productsContainer">
-                <div class="text-center p-4 text-gray-500">
-                    Selecione um subgrupo para visualizar os produtos
-                </div>
-            </div>
+            <div id="productsContainer"><div class="product-card">
+                    <div class="flex items-start gap-3">
+                        <input type="checkbox" onchange="toggleProductSelection(0)" class="mt-1 w-4 h-4" id="checkbox-0">
+                        <div class="flex-1">
+                            <div class="font-medium text-gray-900">ARRUELA P/ PARAFUSO 3,5</div>
+                            <div class="text-sm text-gray-500">Código: 132135</div>
+                        </div>
+                    </div>
+                    <div class="qty-controls" id="qty-controls-0">
+                        <div class="flex items-center gap-2">
+                            <label class="text-sm font-medium">Qtd:</label>
+                            <select class="qty-select">
+                                <option value="">-</option>
+                                <option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option><option value="6">6</option><option value="7">7</option><option value="8">8</option><option value="9">9</option><option value="10">10</option>
+                            </select>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <label class="text-sm font-medium">Lote:</label>
+                            <input type="text" class="lot-input" placeholder="Lote" maxlength="12">
+                            <button onclick="addLot(0)" class="add-lot-btn">+</button>
+                        </div>
+                        <div id="additional-lots-0"></div>
+                    </div>
+                </div><div class="product-card">
+                    <div class="flex items-start gap-3">
+                        <input type="checkbox" onchange="toggleProductSelection(1)" class="mt-1 w-4 h-4" id="checkbox-1">
+                        <div class="flex-1">
+                            <div class="font-medium text-gray-900">FIO GUIA 1,2X150MM </div>
+                            <div class="text-sm text-gray-500">Código: 2.001.12150</div>
+                        </div>
+                    </div>
+                    <div class="qty-controls" id="qty-controls-1">
+                        <div class="flex items-center gap-2">
+                            <label class="text-sm font-medium">Qtd:</label>
+                            <select class="qty-select">
+                                <option value="">-</option>
+                                <option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option><option value="6">6</option><option value="7">7</option><option value="8">8</option><option value="9">9</option><option value="10">10</option>
+                            </select>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <label class="text-sm font-medium">Lote:</label>
+                            <input type="text" class="lot-input" placeholder="Lote" maxlength="12">
+                            <button onclick="addLot(1)" class="add-lot-btn">+</button>
+                        </div>
+                        <div id="additional-lots-1"></div>
+                    </div>
+                </div><div class="product-card">
+                    <div class="flex items-start gap-3">
+                        <input type="checkbox" onchange="toggleProductSelection(2)" class="mt-1 w-4 h-4" id="checkbox-2">
+                        <div class="flex-1">
+                            <div class="font-medium text-gray-900">PLACA "8" P/ ALINHAMENTO PEDIATRICO 12MM</div>
+                            <div class="text-sm text-gray-500">Código: 216312</div>
+                        </div>
+                    </div>
+                    <div class="qty-controls" id="qty-controls-2">
+                        <div class="flex items-center gap-2">
+                            <label class="text-sm font-medium">Qtd:</label>
+                            <select class="qty-select">
+                                <option value="">-</option>
+                                <option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option><option value="6">6</option><option value="7">7</option><option value="8">8</option><option value="9">9</option><option value="10">10</option>
+                            </select>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <label class="text-sm font-medium">Lote:</label>
+                            <input type="text" class="lot-input" placeholder="Lote" maxlength="12">
+                            <button onclick="addLot(2)" class="add-lot-btn">+</button>
+                        </div>
+                        <div id="additional-lots-2"></div>
+                    </div>
+                </div><div class="product-card">
+                    <div class="flex items-start gap-3">
+                        <input type="checkbox" onchange="toggleProductSelection(3)" class="mt-1 w-4 h-4" id="checkbox-3">
+                        <div class="flex-1">
+                            <div class="font-medium text-gray-900">PLACA "8" P/ ALINHAMENTO PEDIATRICO 16MM</div>
+                            <div class="text-sm text-gray-500">Código: 216316</div>
+                        </div>
+                    </div>
+                    <div class="qty-controls" id="qty-controls-3">
+                        <div class="flex items-center gap-2">
+                            <label class="text-sm font-medium">Qtd:</label>
+                            <select class="qty-select">
+                                <option value="">-</option>
+                                <option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option><option value="6">6</option><option value="7">7</option><option value="8">8</option><option value="9">9</option><option value="10">10</option>
+                            </select>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <label class="text-sm font-medium">Lote:</label>
+                            <input type="text" class="lot-input" placeholder="Lote" maxlength="12">
+                            <button onclick="addLot(3)" class="add-lot-btn">+</button>
+                        </div>
+                        <div id="additional-lots-3"></div>
+                    </div>
+                </div><div class="product-card">
+                    <div class="flex items-start gap-3">
+                        <input type="checkbox" onchange="toggleProductSelection(4)" class="mt-1 w-4 h-4" id="checkbox-4">
+                        <div class="flex-1">
+                            <div class="font-medium text-gray-900">PARAF.CANULADO (rosca parcial) 3,5X16</div>
+                            <div class="text-sm text-gray-500">Código: 40316</div>
+                        </div>
+                    </div>
+                    <div class="qty-controls" id="qty-controls-4">
+                        <div class="flex items-center gap-2">
+                            <label class="text-sm font-medium">Qtd:</label>
+                            <select class="qty-select">
+                                <option value="">-</option>
+                                <option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option><option value="6">6</option><option value="7">7</option><option value="8">8</option><option value="9">9</option><option value="10">10</option>
+                            </select>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <label class="text-sm font-medium">Lote:</label>
+                            <input type="text" class="lot-input" placeholder="Lote" maxlength="12">
+                            <button onclick="addLot(4)" class="add-lot-btn">+</button>
+                        </div>
+                        <div id="additional-lots-4"></div>
+                    </div>
+                </div><div class="product-card">
+                    <div class="flex items-start gap-3">
+                        <input type="checkbox" onchange="toggleProductSelection(5)" class="mt-1 w-4 h-4" id="checkbox-5">
+                        <div class="flex-1">
+                            <div class="font-medium text-gray-900">PARAF.CANULADO (rosca parcial) 3,5X18</div>
+                            <div class="text-sm text-gray-500">Código: 40318</div>
+                        </div>
+                    </div>
+                    <div class="qty-controls" id="qty-controls-5">
+                        <div class="flex items-center gap-2">
+                            <label class="text-sm font-medium">Qtd:</label>
+                            <select class="qty-select">
+                                <option value="">-</option>
+                                <option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option><option value="6">6</option><option value="7">7</option><option value="8">8</option><option value="9">9</option><option value="10">10</option>
+                            </select>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <label class="text-sm font-medium">Lote:</label>
+                            <input type="text" class="lot-input" placeholder="Lote" maxlength="12">
+                            <button onclick="addLot(5)" class="add-lot-btn">+</button>
+                        </div>
+                        <div id="additional-lots-5"></div>
+                    </div>
+                </div><div class="product-card">
+                    <div class="flex items-start gap-3">
+                        <input type="checkbox" onchange="toggleProductSelection(6)" class="mt-1 w-4 h-4" id="checkbox-6">
+                        <div class="flex-1">
+                            <div class="font-medium text-gray-900">PARAF.CANULADO (rosca parcial) 3,5X20</div>
+                            <div class="text-sm text-gray-500">Código: 40320</div>
+                        </div>
+                    </div>
+                    <div class="qty-controls" id="qty-controls-6">
+                        <div class="flex items-center gap-2">
+                            <label class="text-sm font-medium">Qtd:</label>
+                            <select class="qty-select">
+                                <option value="">-</option>
+                                <option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option><option value="6">6</option><option value="7">7</option><option value="8">8</option><option value="9">9</option><option value="10">10</option>
+                            </select>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <label class="text-sm font-medium">Lote:</label>
+                            <input type="text" class="lot-input" placeholder="Lote" maxlength="12">
+                            <button onclick="addLot(6)" class="add-lot-btn">+</button>
+                        </div>
+                        <div id="additional-lots-6"></div>
+                    </div>
+                </div><div class="product-card">
+                    <div class="flex items-start gap-3">
+                        <input type="checkbox" onchange="toggleProductSelection(7)" class="mt-1 w-4 h-4" id="checkbox-7">
+                        <div class="flex-1">
+                            <div class="font-medium text-gray-900">PARAF.CANULADO (rosca parcial) 3,5X22</div>
+                            <div class="text-sm text-gray-500">Código: 40322</div>
+                        </div>
+                    </div>
+                    <div class="qty-controls" id="qty-controls-7">
+                        <div class="flex items-center gap-2">
+                            <label class="text-sm font-medium">Qtd:</label>
+                            <select class="qty-select">
+                                <option value="">-</option>
+                                <option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option><option value="6">6</option><option value="7">7</option><option value="8">8</option><option value="9">9</option><option value="10">10</option>
+                            </select>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <label class="text-sm font-medium">Lote:</label>
+                            <input type="text" class="lot-input" placeholder="Lote" maxlength="12">
+                            <button onclick="addLot(7)" class="add-lot-btn">+</button>
+                        </div>
+                        <div id="additional-lots-7"></div>
+                    </div>
+                </div><div class="product-card">
+                    <div class="flex items-start gap-3">
+                        <input type="checkbox" onchange="toggleProductSelection(8)" class="mt-1 w-4 h-4" id="checkbox-8">
+                        <div class="flex-1">
+                            <div class="font-medium text-gray-900">PARAF.CANULADO (rosca parcial) 3,5X24</div>
+                            <div class="text-sm text-gray-500">Código: 40324</div>
+                        </div>
+                    </div>
+                    <div class="qty-controls" id="qty-controls-8">
+                        <div class="flex items-center gap-2">
+                            <label class="text-sm font-medium">Qtd:</label>
+                            <select class="qty-select">
+                                <option value="">-</option>
+                                <option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option><option value="6">6</option><option value="7">7</option><option value="8">8</option><option value="9">9</option><option value="10">10</option>
+                            </select>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <label class="text-sm font-medium">Lote:</label>
+                            <input type="text" class="lot-input" placeholder="Lote" maxlength="12">
+                            <button onclick="addLot(8)" class="add-lot-btn">+</button>
+                        </div>
+                        <div id="additional-lots-8"></div>
+                    </div>
+                </div><div class="product-card">
+                    <div class="flex items-start gap-3">
+                        <input type="checkbox" onchange="toggleProductSelection(9)" class="mt-1 w-4 h-4" id="checkbox-9">
+                        <div class="flex-1">
+                            <div class="font-medium text-gray-900">PARAF.CANULADO (rosca parcial) 3,5X26</div>
+                            <div class="text-sm text-gray-500">Código: 40326</div>
+                        </div>
+                    </div>
+                    <div class="qty-controls" id="qty-controls-9">
+                        <div class="flex items-center gap-2">
+                            <label class="text-sm font-medium">Qtd:</label>
+                            <select class="qty-select">
+                                <option value="">-</option>
+                                <option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option><option value="6">6</option><option value="7">7</option><option value="8">8</option><option value="9">9</option><option value="10">10</option>
+                            </select>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <label class="text-sm font-medium">Lote:</label>
+                            <input type="text" class="lot-input" placeholder="Lote" maxlength="12">
+                            <button onclick="addLot(9)" class="add-lot-btn">+</button>
+                        </div>
+                        <div id="additional-lots-9"></div>
+                    </div>
+                </div><div class="product-card">
+                    <div class="flex items-start gap-3">
+                        <input type="checkbox" onchange="toggleProductSelection(10)" class="mt-1 w-4 h-4" id="checkbox-10">
+                        <div class="flex-1">
+                            <div class="font-medium text-gray-900">PARAF.CANULADO (rosca parcial) 3,5X28</div>
+                            <div class="text-sm text-gray-500">Código: 40328</div>
+                        </div>
+                    </div>
+                    <div class="qty-controls" id="qty-controls-10">
+                        <div class="flex items-center gap-2">
+                            <label class="text-sm font-medium">Qtd:</label>
+                            <select class="qty-select">
+                                <option value="">-</option>
+                                <option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option><option value="6">6</option><option value="7">7</option><option value="8">8</option><option value="9">9</option><option value="10">10</option>
+                            </select>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <label class="text-sm font-medium">Lote:</label>
+                            <input type="text" class="lot-input" placeholder="Lote" maxlength="12">
+                            <button onclick="addLot(10)" class="add-lot-btn">+</button>
+                        </div>
+                        <div id="additional-lots-10"></div>
+                    </div>
+                </div><div class="product-card">
+                    <div class="flex items-start gap-3">
+                        <input type="checkbox" onchange="toggleProductSelection(11)" class="mt-1 w-4 h-4" id="checkbox-11">
+                        <div class="flex-1">
+                            <div class="font-medium text-gray-900">PARAF.CANULADO (rosca parcial) 3,5X30</div>
+                            <div class="text-sm text-gray-500">Código: 40330</div>
+                        </div>
+                    </div>
+                    <div class="qty-controls" id="qty-controls-11">
+                        <div class="flex items-center gap-2">
+                            <label class="text-sm font-medium">Qtd:</label>
+                            <select class="qty-select">
+                                <option value="">-</option>
+                                <option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option><option value="6">6</option><option value="7">7</option><option value="8">8</option><option value="9">9</option><option value="10">10</option>
+                            </select>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <label class="text-sm font-medium">Lote:</label>
+                            <input type="text" class="lot-input" placeholder="Lote" maxlength="12">
+                            <button onclick="addLot(11)" class="add-lot-btn">+</button>
+                        </div>
+                        <div id="additional-lots-11"></div>
+                    </div>
+                </div><div class="product-card">
+                    <div class="flex items-start gap-3">
+                        <input type="checkbox" onchange="toggleProductSelection(12)" class="mt-1 w-4 h-4" id="checkbox-12">
+                        <div class="flex-1">
+                            <div class="font-medium text-gray-900">PARAF.CANULADO (rosca parcial) 3,5X35 </div>
+                            <div class="text-sm text-gray-500">Código: 40335</div>
+                        </div>
+                    </div>
+                    <div class="qty-controls" id="qty-controls-12">
+                        <div class="flex items-center gap-2">
+                            <label class="text-sm font-medium">Qtd:</label>
+                            <select class="qty-select">
+                                <option value="">-</option>
+                                <option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option><option value="6">6</option><option value="7">7</option><option value="8">8</option><option value="9">9</option><option value="10">10</option>
+                            </select>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <label class="text-sm font-medium">Lote:</label>
+                            <input type="text" class="lot-input" placeholder="Lote" maxlength="12">
+                            <button onclick="addLot(12)" class="add-lot-btn">+</button>
+                        </div>
+                        <div id="additional-lots-12"></div>
+                    </div>
+                </div><div class="product-card">
+                    <div class="flex items-start gap-3">
+                        <input type="checkbox" onchange="toggleProductSelection(13)" class="mt-1 w-4 h-4" id="checkbox-13">
+                        <div class="flex-1">
+                            <div class="font-medium text-gray-900">PARAF.CANULADO (rosca parcial) 3,5X40 </div>
+                            <div class="text-sm text-gray-500">Código: 40340</div>
+                        </div>
+                    </div>
+                    <div class="qty-controls" id="qty-controls-13">
+                        <div class="flex items-center gap-2">
+                            <label class="text-sm font-medium">Qtd:</label>
+                            <select class="qty-select">
+                                <option value="">-</option>
+                                <option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option><option value="6">6</option><option value="7">7</option><option value="8">8</option><option value="9">9</option><option value="10">10</option>
+                            </select>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <label class="text-sm font-medium">Lote:</label>
+                            <input type="text" class="lot-input" placeholder="Lote" maxlength="12">
+                            <button onclick="addLot(13)" class="add-lot-btn">+</button>
+                        </div>
+                        <div id="additional-lots-13"></div>
+                    </div>
+                </div><div class="product-card">
+                    <div class="flex items-start gap-3">
+                        <input type="checkbox" onchange="toggleProductSelection(14)" class="mt-1 w-4 h-4" id="checkbox-14">
+                        <div class="flex-1">
+                            <div class="font-medium text-gray-900">PARAF.CANULADO (rosca parcial) 3,5X45 </div>
+                            <div class="text-sm text-gray-500">Código: 40345</div>
+                        </div>
+                    </div>
+                    <div class="qty-controls" id="qty-controls-14">
+                        <div class="flex items-center gap-2">
+                            <label class="text-sm font-medium">Qtd:</label>
+                            <select class="qty-select">
+                                <option value="">-</option>
+                                <option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option><option value="6">6</option><option value="7">7</option><option value="8">8</option><option value="9">9</option><option value="10">10</option>
+                            </select>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <label class="text-sm font-medium">Lote:</label>
+                            <input type="text" class="lot-input" placeholder="Lote" maxlength="12">
+                            <button onclick="addLot(14)" class="add-lot-btn">+</button>
+                        </div>
+                        <div id="additional-lots-14"></div>
+                    </div>
+                </div><div class="product-card">
+                    <div class="flex items-start gap-3">
+                        <input type="checkbox" onchange="toggleProductSelection(15)" class="mt-1 w-4 h-4" id="checkbox-15">
+                        <div class="flex-1">
+                            <div class="font-medium text-gray-900">PARAF.CANULADO (rosca parcial) 3,5X50 </div>
+                            <div class="text-sm text-gray-500">Código: 40350</div>
+                        </div>
+                    </div>
+                    <div class="qty-controls" id="qty-controls-15">
+                        <div class="flex items-center gap-2">
+                            <label class="text-sm font-medium">Qtd:</label>
+                            <select class="qty-select">
+                                <option value="">-</option>
+                                <option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option><option value="6">6</option><option value="7">7</option><option value="8">8</option><option value="9">9</option><option value="10">10</option>
+                            </select>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <label class="text-sm font-medium">Lote:</label>
+                            <input type="text" class="lot-input" placeholder="Lote" maxlength="12">
+                            <button onclick="addLot(15)" class="add-lot-btn">+</button>
+                        </div>
+                        <div id="additional-lots-15"></div>
+                    </div>
+                </div><div class="product-card">
+                    <div class="flex items-start gap-3">
+                        <input type="checkbox" onchange="toggleProductSelection(16)" class="mt-1 w-4 h-4" id="checkbox-16">
+                        <div class="flex-1">
+                            <div class="font-medium text-gray-900">PARAF.CANULADO (rosca total) 3,5X16</div>
+                            <div class="text-sm text-gray-500">Código: 40616</div>
+                        </div>
+                    </div>
+                    <div class="qty-controls" id="qty-controls-16">
+                        <div class="flex items-center gap-2">
+                            <label class="text-sm font-medium">Qtd:</label>
+                            <select class="qty-select">
+                                <option value="">-</option>
+                                <option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option><option value="6">6</option><option value="7">7</option><option value="8">8</option><option value="9">9</option><option value="10">10</option>
+                            </select>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <label class="text-sm font-medium">Lote:</label>
+                            <input type="text" class="lot-input" placeholder="Lote" maxlength="12">
+                            <button onclick="addLot(16)" class="add-lot-btn">+</button>
+                        </div>
+                        <div id="additional-lots-16"></div>
+                    </div>
+                </div><div class="product-card">
+                    <div class="flex items-start gap-3">
+                        <input type="checkbox" onchange="toggleProductSelection(17)" class="mt-1 w-4 h-4" id="checkbox-17">
+                        <div class="flex-1">
+                            <div class="font-medium text-gray-900">PARAF.CANULADO (rosca total) 3,5X18</div>
+                            <div class="text-sm text-gray-500">Código: 40618</div>
+                        </div>
+                    </div>
+                    <div class="qty-controls" id="qty-controls-17">
+                        <div class="flex items-center gap-2">
+                            <label class="text-sm font-medium">Qtd:</label>
+                            <select class="qty-select">
+                                <option value="">-</option>
+                                <option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option><option value="6">6</option><option value="7">7</option><option value="8">8</option><option value="9">9</option><option value="10">10</option>
+                            </select>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <label class="text-sm font-medium">Lote:</label>
+                            <input type="text" class="lot-input" placeholder="Lote" maxlength="12">
+                            <button onclick="addLot(17)" class="add-lot-btn">+</button>
+                        </div>
+                        <div id="additional-lots-17"></div>
+                    </div>
+                </div><div class="product-card">
+                    <div class="flex items-start gap-3">
+                        <input type="checkbox" onchange="toggleProductSelection(18)" class="mt-1 w-4 h-4" id="checkbox-18">
+                        <div class="flex-1">
+                            <div class="font-medium text-gray-900">PARAF.CANULADO (rosca total) 3,5X20</div>
+                            <div class="text-sm text-gray-500">Código: 40620</div>
+                        </div>
+                    </div>
+                    <div class="qty-controls" id="qty-controls-18">
+                        <div class="flex items-center gap-2">
+                            <label class="text-sm font-medium">Qtd:</label>
+                            <select class="qty-select">
+                                <option value="">-</option>
+                                <option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option><option value="6">6</option><option value="7">7</option><option value="8">8</option><option value="9">9</option><option value="10">10</option>
+                            </select>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <label class="text-sm font-medium">Lote:</label>
+                            <input type="text" class="lot-input" placeholder="Lote" maxlength="12">
+                            <button onclick="addLot(18)" class="add-lot-btn">+</button>
+                        </div>
+                        <div id="additional-lots-18"></div>
+                    </div>
+                </div><div class="product-card">
+                    <div class="flex items-start gap-3">
+                        <input type="checkbox" onchange="toggleProductSelection(19)" class="mt-1 w-4 h-4" id="checkbox-19">
+                        <div class="flex-1">
+                            <div class="font-medium text-gray-900">PARAF.CANULADO (rosca total) 3,5X22</div>
+                            <div class="text-sm text-gray-500">Código: 40622</div>
+                        </div>
+                    </div>
+                    <div class="qty-controls" id="qty-controls-19">
+                        <div class="flex items-center gap-2">
+                            <label class="text-sm font-medium">Qtd:</label>
+                            <select class="qty-select">
+                                <option value="">-</option>
+                                <option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option><option value="6">6</option><option value="7">7</option><option value="8">8</option><option value="9">9</option><option value="10">10</option>
+                            </select>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <label class="text-sm font-medium">Lote:</label>
+                            <input type="text" class="lot-input" placeholder="Lote" maxlength="12">
+                            <button onclick="addLot(19)" class="add-lot-btn">+</button>
+                        </div>
+                        <div id="additional-lots-19"></div>
+                    </div>
+                </div><div class="product-card">
+                    <div class="flex items-start gap-3">
+                        <input type="checkbox" onchange="toggleProductSelection(20)" class="mt-1 w-4 h-4" id="checkbox-20">
+                        <div class="flex-1">
+                            <div class="font-medium text-gray-900">PARAF.CANULADO (rosca total) 3,5X24</div>
+                            <div class="text-sm text-gray-500">Código: 40624</div>
+                        </div>
+                    </div>
+                    <div class="qty-controls" id="qty-controls-20">
+                        <div class="flex items-center gap-2">
+                            <label class="text-sm font-medium">Qtd:</label>
+                            <select class="qty-select">
+                                <option value="">-</option>
+                                <option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option><option value="6">6</option><option value="7">7</option><option value="8">8</option><option value="9">9</option><option value="10">10</option>
+                            </select>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <label class="text-sm font-medium">Lote:</label>
+                            <input type="text" class="lot-input" placeholder="Lote" maxlength="12">
+                            <button onclick="addLot(20)" class="add-lot-btn">+</button>
+                        </div>
+                        <div id="additional-lots-20"></div>
+                    </div>
+                </div><div class="product-card">
+                    <div class="flex items-start gap-3">
+                        <input type="checkbox" onchange="toggleProductSelection(21)" class="mt-1 w-4 h-4" id="checkbox-21">
+                        <div class="flex-1">
+                            <div class="font-medium text-gray-900">PARAF.CANULADO (rosca total) 3,5X26</div>
+                            <div class="text-sm text-gray-500">Código: 40626</div>
+                        </div>
+                    </div>
+                    <div class="qty-controls" id="qty-controls-21">
+                        <div class="flex items-center gap-2">
+                            <label class="text-sm font-medium">Qtd:</label>
+                            <select class="qty-select">
+                                <option value="">-</option>
+                                <option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option><option value="6">6</option><option value="7">7</option><option value="8">8</option><option value="9">9</option><option value="10">10</option>
+                            </select>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <label class="text-sm font-medium">Lote:</label>
+                            <input type="text" class="lot-input" placeholder="Lote" maxlength="12">
+                            <button onclick="addLot(21)" class="add-lot-btn">+</button>
+                        </div>
+                        <div id="additional-lots-21"></div>
+                    </div>
+                </div><div class="product-card">
+                    <div class="flex items-start gap-3">
+                        <input type="checkbox" onchange="toggleProductSelection(22)" class="mt-1 w-4 h-4" id="checkbox-22">
+                        <div class="flex-1">
+                            <div class="font-medium text-gray-900">PARAF.CANULADO (rosca total) 3,5X28</div>
+                            <div class="text-sm text-gray-500">Código: 40628</div>
+                        </div>
+                    </div>
+                    <div class="qty-controls" id="qty-controls-22">
+                        <div class="flex items-center gap-2">
+                            <label class="text-sm font-medium">Qtd:</label>
+                            <select class="qty-select">
+                                <option value="">-</option>
+                                <option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option><option value="6">6</option><option value="7">7</option><option value="8">8</option><option value="9">9</option><option value="10">10</option>
+                            </select>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <label class="text-sm font-medium">Lote:</label>
+                            <input type="text" class="lot-input" placeholder="Lote" maxlength="12">
+                            <button onclick="addLot(22)" class="add-lot-btn">+</button>
+                        </div>
+                        <div id="additional-lots-22"></div>
+                    </div>
+                </div><div class="product-card">
+                    <div class="flex items-start gap-3">
+                        <input type="checkbox" onchange="toggleProductSelection(23)" class="mt-1 w-4 h-4" id="checkbox-23">
+                        <div class="flex-1">
+                            <div class="font-medium text-gray-900">PARAF.CANULADO (rosca total) 3,5X30</div>
+                            <div class="text-sm text-gray-500">Código: 40630</div>
+                        </div>
+                    </div>
+                    <div class="qty-controls" id="qty-controls-23">
+                        <div class="flex items-center gap-2">
+                            <label class="text-sm font-medium">Qtd:</label>
+                            <select class="qty-select">
+                                <option value="">-</option>
+                                <option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option><option value="6">6</option><option value="7">7</option><option value="8">8</option><option value="9">9</option><option value="10">10</option>
+                            </select>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <label class="text-sm font-medium">Lote:</label>
+                            <input type="text" class="lot-input" placeholder="Lote" maxlength="12">
+                            <button onclick="addLot(23)" class="add-lot-btn">+</button>
+                        </div>
+                        <div id="additional-lots-23"></div>
+                    </div>
+                </div><div class="product-card">
+                    <div class="flex items-start gap-3">
+                        <input type="checkbox" onchange="toggleProductSelection(24)" class="mt-1 w-4 h-4" id="checkbox-24">
+                        <div class="flex-1">
+                            <div class="font-medium text-gray-900">PARAF.CANULADO (rosca total) 3,5X35</div>
+                            <div class="text-sm text-gray-500">Código: 40635</div>
+                        </div>
+                    </div>
+                    <div class="qty-controls" id="qty-controls-24">
+                        <div class="flex items-center gap-2">
+                            <label class="text-sm font-medium">Qtd:</label>
+                            <select class="qty-select">
+                                <option value="">-</option>
+                                <option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option><option value="6">6</option><option value="7">7</option><option value="8">8</option><option value="9">9</option><option value="10">10</option>
+                            </select>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <label class="text-sm font-medium">Lote:</label>
+                            <input type="text" class="lot-input" placeholder="Lote" maxlength="12">
+                            <button onclick="addLot(24)" class="add-lot-btn">+</button>
+                        </div>
+                        <div id="additional-lots-24"></div>
+                    </div>
+                </div><div class="product-card">
+                    <div class="flex items-start gap-3">
+                        <input type="checkbox" onchange="toggleProductSelection(25)" class="mt-1 w-4 h-4" id="checkbox-25">
+                        <div class="flex-1">
+                            <div class="font-medium text-gray-900">PARAF.CANULADO (rosca total) 3,5X40</div>
+                            <div class="text-sm text-gray-500">Código: 40640</div>
+                        </div>
+                    </div>
+                    <div class="qty-controls" id="qty-controls-25">
+                        <div class="flex items-center gap-2">
+                            <label class="text-sm font-medium">Qtd:</label>
+                            <select class="qty-select">
+                                <option value="">-</option>
+                                <option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option><option value="6">6</option><option value="7">7</option><option value="8">8</option><option value="9">9</option><option value="10">10</option>
+                            </select>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <label class="text-sm font-medium">Lote:</label>
+                            <input type="text" class="lot-input" placeholder="Lote" maxlength="12">
+                            <button onclick="addLot(25)" class="add-lot-btn">+</button>
+                        </div>
+                        <div id="additional-lots-25"></div>
+                    </div>
+                </div><div class="product-card">
+                    <div class="flex items-start gap-3">
+                        <input type="checkbox" onchange="toggleProductSelection(26)" class="mt-1 w-4 h-4" id="checkbox-26">
+                        <div class="flex-1">
+                            <div class="font-medium text-gray-900">PARAF.CANULADO (rosca total) 3,5X45</div>
+                            <div class="text-sm text-gray-500">Código: 40645</div>
+                        </div>
+                    </div>
+                    <div class="qty-controls" id="qty-controls-26">
+                        <div class="flex items-center gap-2">
+                            <label class="text-sm font-medium">Qtd:</label>
+                            <select class="qty-select">
+                                <option value="">-</option>
+                                <option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option><option value="6">6</option><option value="7">7</option><option value="8">8</option><option value="9">9</option><option value="10">10</option>
+                            </select>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <label class="text-sm font-medium">Lote:</label>
+                            <input type="text" class="lot-input" placeholder="Lote" maxlength="12">
+                            <button onclick="addLot(26)" class="add-lot-btn">+</button>
+                        </div>
+                        <div id="additional-lots-26"></div>
+                    </div>
+                </div><div class="product-card">
+                    <div class="flex items-start gap-3">
+                        <input type="checkbox" onchange="toggleProductSelection(27)" class="mt-1 w-4 h-4" id="checkbox-27">
+                        <div class="flex-1">
+                            <div class="font-medium text-gray-900">PARAF.CANULADO (rosca total) 3,5X50</div>
+                            <div class="text-sm text-gray-500">Código: 40650</div>
+                        </div>
+                    </div>
+                    <div class="qty-controls" id="qty-controls-27">
+                        <div class="flex items-center gap-2">
+                            <label class="text-sm font-medium">Qtd:</label>
+                            <select class="qty-select">
+                                <option value="">-</option>
+                                <option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option><option value="6">6</option><option value="7">7</option><option value="8">8</option><option value="9">9</option><option value="10">10</option>
+                            </select>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <label class="text-sm font-medium">Lote:</label>
+                            <input type="text" class="lot-input" placeholder="Lote" maxlength="12">
+                            <button onclick="addLot(27)" class="add-lot-btn">+</button>
+                        </div>
+                        <div id="additional-lots-27"></div>
+                    </div>
+                </div></div>
         </div>
 
         <!-- Filter Buttons -->
@@ -386,7 +1044,7 @@
 
     <!-- Version -->
     <div class="text-center text-gray-500 text-sm py-4">
-        Versão 4.4 - Banco Corrigido para 1356 produtos
+        Versão 4.5 - Final com todas as correções
     </div>
 
     <script>
@@ -404,67 +1062,20 @@
         // Initialize
         document.addEventListener('DOMContentLoaded', async function() {
             console.log('Aplicação iniciada - carregando subgrupos...');
-            
-            // Verificar e corrigir logo para mobile
-            setTimeout(() => {
-                checkAndFixLogo();
-            }, 500);
-            
             await carregarSubgrupos();
             loadOperationData();
         });
         
-        // Função para verificar e corrigir logo
-        function checkAndFixLogo() {
-            const svgLogo = document.getElementById('hexagon-svg');
-            const canvas = document.getElementById('logo-canvas');
-            const fallback = document.getElementById('logo-fallback');
-            
-            // Verificar se SVG está visível e funcionando
-            if (!svgLogo || svgLogo.offsetHeight === 0 || svgLogo.getBoundingClientRect().height === 0) {
-                console.log('SVG logo não carregou, tentando canvas...');
-                
-                // Tentar canvas
-                if (canvas) {
-                    svgLogo.style.display = 'none';
-                    canvas.style.display = 'block';
-                    
-                    try {
-                        const ctx = canvas.getContext('2d');
-                        
-                        // Desenhar hexágono
-                        ctx.strokeStyle = '#1e3a8a';
-                        ctx.lineWidth = 12;
-                        ctx.beginPath();
-                        ctx.moveTo(100, 20);
-                        ctx.lineTo(170, 60);
-                        ctx.lineTo(170, 140);
-                        ctx.lineTo(100, 180);
-                        ctx.lineTo(30, 140);
-                        ctx.lineTo(30, 60);
-                        ctx.closePath();
-                        ctx.stroke();
-                        
-                        // Desenhar H
-                        ctx.fillStyle = '#1e3a8a';
-                        ctx.font = 'bold 95px Arial';
-                        ctx.textAlign = 'center';
-                        ctx.textBaseline = 'middle';
-                        ctx.fillText('H', 100, 100);
-                        
-                        console.log('Canvas logo criado com sucesso');
-                        
-                    } catch (error) {
-                        console.log('Canvas falhou, usando fallback CSS');
-                        canvas.style.display = 'none';
-                        fallback.style.display = 'flex';
-                    }
-                } else {
-                    fallback.style.display = 'flex';
+        // Função para capitalizar primeira letra
+        function capitalizeInput(input) {
+            const words = input.value.split(' ');
+            const capitalizedWords = words.map(word => {
+                if (word.length > 0) {
+                    return word.charAt(0).toUpperCase() + word.slice(1).toLowerCase();
                 }
-            } else {
-                console.log('SVG logo funcionando corretamente');
-            }
+                return word;
+            });
+            input.value = capitalizedWords.join(' ');
         }
         
         // FUNÇÃO CORRIGIDA - Carregar subgrupos do banco real
@@ -796,59 +1407,91 @@
             }
         }
         
-        // PDF CORRIGIDO - FUNÇÃO QUE FUNCIONA
+        // VALIDAÇÃO DE CAMPOS OBRIGATÓRIOS
+        function validateRequiredFields() {
+            const user = document.getElementById('userField').value.trim();
+            const hospital = document.getElementById('hospitalSelect').value.trim();
+            
+            if (!user) {
+                alert('Por favor, preencha o campo Usuário.');
+                return false;
+            }
+            
+            if (!hospital) {
+                alert('Por favor, preencha o campo Hospital.');
+                return false;
+            }
+            
+            // Verificar se pelo menos um produto foi selecionado com quantidade
+            let hasProductWithQuantity = false;
+            operations.forEach(operation => {
+                if (operation.selectedProducts && operation.selectedProducts.length > 0) {
+                    operation.selectedProducts.forEach(product => {
+                        if (product.lots && product.lots.length > 0) {
+                            hasProductWithQuantity = true;
+                        }
+                    });
+                }
+            });
+            
+            if (!hasProductWithQuantity) {
+                alert('Por favor, selecione pelo menos um produto com quantidade.');
+                return false;
+            }
+            
+            return true;
+        }
+        
+        // PDF COMPRIMIDO - FUNÇÃO CORRIGIDA
         function generatePDF(operationData, operationNumber) {
             try {
                 const { jsPDF } = window.jspdf;
                 const doc = new jsPDF();
                 
-                // CABEÇALHO HEXAGON (texto simples que funciona)
-                doc.setFontSize(16);
+                // CABEÇALHO HEXAGON
+                doc.setFontSize(18);
                 doc.setFont(undefined, 'bold');
-                doc.text('HEXAGON', 20, 20);
+                doc.text('HEXAGON', 105, 15, { align: 'center' });
                 
                 // Título
-                doc.setFontSize(14);
+                doc.setFontSize(12);
                 doc.setFont(undefined, 'normal');
-                doc.text('REGISTRO DE CONSUMO DE MATERIAIS CONSIGNADOS', 105, 40, { align: 'center' });
+                doc.text('REGISTRO DE CONSUMO DE MATERIAIS CONSIGNADOS', 105, 25, { align: 'center' });
                 
-                // Dados do paciente
-                let yPos = 60;
-                doc.setFontSize(10);
+                // Dados do paciente - COMPRIMIDO
+                let yPos = 40;
+                doc.setFontSize(9);
                 doc.text(`Usuário: ${operationData.userField || ''}`, 20, yPos);
-                yPos += 10;
+                yPos += 6;
                 doc.text(`Hospital: ${operationData.hospitalSelect || ''}`, 20, yPos);
-                yPos += 10;
-                doc.text(`Nome do Paciente: ${operationData.patientName || ''}`, 20, yPos);
-                yPos += 10;
-                doc.text(`Num Prontuário: ${operationData.recordNumber || ''}`, 20, yPos);
-                yPos += 10;
-                doc.text(`Data da Cirurgia: ${operationData.surgeryDate || ''}`, 20, yPos);
-                yPos += 10;
+                yPos += 6;
+                doc.text(`Paciente: ${operationData.patientName || ''}`, 20, yPos);
+                yPos += 6;
+                doc.text(`Prontuário: ${operationData.recordNumber || ''}`, 20, yPos);
+                yPos += 6;
+                doc.text(`Data Cirurgia: ${operationData.surgeryDate || ''}`, 20, yPos);
+                yPos += 6;
                 doc.text(`Outras Informações: ${operationData.otherInfo || ''}`, 20, yPos);
                 
-                // Materiais
-                yPos += 20;
-                doc.setFontSize(12);
+                // Materiais - COMPRIMIDO
+                yPos += 15;
+                doc.setFontSize(11);
                 doc.setFont(undefined, 'bold');
                 doc.text('MATERIAIS:', 20, yPos);
-                yPos += 10;
+                yPos += 8;
                 
-                doc.setFontSize(9);
+                doc.setFontSize(8);
                 doc.setFont(undefined, 'normal');
                 if (operationData.selectedProducts && operationData.selectedProducts.length > 0) {
                     operationData.selectedProducts.forEach(product => {
                         product.lots.forEach(lot => {
-                            doc.text(`Código: ${product.codigo}`, 20, yPos);
-                            yPos += 7;
-                            doc.text(`Produto: ${product.nome}`, 20, yPos);
-                            yPos += 7;
-                            doc.text(`Lote: ${lot.lot}`, 20, yPos);
-                            yPos += 7;
-                            doc.text(`Quantidade: ${lot.qty}`, 20, yPos);
-                            yPos += 10;
+                            doc.text(`Código: ${product.codigo} | Produto: ${product.nome}`, 20, yPos);
+                            yPos += 5;
+                            doc.text(`Lote: ${lot.lot} | Quantidade: ${lot.qty}`, 20, yPos);
+                            yPos += 8;
                             
-                            if (yPos > 250) {
+                            // Verificar se precisa de nova página
+                            if (yPos > 270) {
                                 doc.addPage();
                                 yPos = 20;
                             }
@@ -869,20 +1512,28 @@
         function sendReport() {
             try {
                 console.log('Iniciando envio de relatório...');
+                
+                // VALIDAR CAMPOS OBRIGATÓRIOS
+                if (!validateRequiredFields()) {
+                    return;
+                }
+                
                 saveOperationData();
                 
                 let message = '';
                 let pdfGenerated = false;
                 
+                // GERAR MENSAGEM E PDF PARA MÚLTIPLAS OPERAÇÕES
                 operations.forEach((operation, index) => {
                     if (index > 0) message += '\n\n==============================================\n\n';
                     
+                    message += `OPERAÇÃO ${index + 1}\n`;
                     message += 'REGISTRO DE CONSUMO DE MATERIAIS CONSIGNADOS\n\n';
                     message += `Usuário: ${operation.userField || ''}\n`;
                     message += `Hospital: ${operation.hospitalSelect || ''}\n`;
-                    message += `Nome do Paciente: ${operation.patientName || ''}\n`;
-                    message += `Num Prontuário: ${operation.recordNumber || ''}\n`;
-                    message += `Data da Cirurgia: ${operation.surgeryDate || ''}\n`;
+                    message += `Paciente: ${operation.patientName || ''}\n`;
+                    message += `Prontuário: ${operation.recordNumber || ''}\n`;
+                    message += `Data Cirurgia: ${operation.surgeryDate || ''}\n`;
                     message += `Outras Informações: ${operation.otherInfo || ''}\n\n`;
                     
                     message += 'MATERIAIS:\n';
@@ -899,7 +1550,7 @@
                         message += 'Nenhum material selecionado\n\n';
                     }
                     
-                    // Gerar PDF
+                    // Gerar PDF para cada operação
                     try {
                         const pdf = generatePDF(operation, index + 1);
                         const pdfBlob = pdf.output('blob');
@@ -922,7 +1573,7 @@
                 });
                 
                 if (pdfGenerated) {
-                    message += '\nPDF salvo no seu dispositivo';
+                    message += '\n\n📄 PDFs salvos no seu dispositivo';
                 }
                 
                 // Abrir WhatsApp
@@ -935,7 +1586,7 @@
                 
             } catch (error) {
                 console.error('Erro geral no sendReport:', error);
-                alert('Erro ao enviar relatório. Verifique se preencheu os dados e selecionou produtos.');
+                alert('Erro ao enviar relatório. Verifique os dados preenchidos.');
             }
         }
 
@@ -955,14 +1606,15 @@
             document.querySelector('.completion-screen').classList.remove('show');
         }
     </script>
-</body>
-</html>
+<script defer="" src="./index_files/vcd15cbe7772f49c399c6a5babf22c1241717689176015" integrity="sha512-ZpsOmlRQV6y907TI0dKBHq9Md29nnaEIPlkf84rnaERnq6zvWvPUqr2ft8M1aS28oN72PdrCzSjY4U6VaAw1EQ==" data-cf-beacon="{&quot;rayId&quot;:&quot;95f35e68d8eeae1a&quot;,&quot;serverTiming&quot;:{&quot;name&quot;:{&quot;cfExtPri&quot;:true,&quot;cfEdge&quot;:true,&quot;cfOrigin&quot;:true,&quot;cfL4&quot;:true,&quot;cfSpeedBrain&quot;:true,&quot;cfCacheStatus&quot;:true}},&quot;version&quot;:&quot;2025.6.2&quot;,&quot;token&quot;:&quot;4edd5f8ec12a48cfa682ab8261b80a79&quot;}" crossorigin="anonymous"></script>
+
+
     <script id="html_badge_script1">
         window.__genspark_remove_badge_link = "https://www.genspark.ai/api/html_badge/" +
-            "remove_badge?token=To%2FBnjzloZ3UfQdcSaYfDsbDSNoFyGVJpk7yPhKc8iVKT3yX3KGo6l6Zj2joAczAfvy6%2F5ZMLy8JD0%2BPE9QuRexj820ImVNUOKVFpHLFhkwKvI8mkEBNI%2FcnMkHOwHSI1WQ%2F5WxYy4rX2LhonKdM7H26jFz1uIH2TvQ85O%2F5vrC%2F3tSk3WbHxe1zICMdQFcQTcYFl0yyyZsWUIcDnlxT5tq3OCPnHCETmsFdf2v%2BFHGnV16iPMYK61sAJSQcOxHZUjW1Uf9RsYrwO7lYSnXccpdjLsr1tQDJExt1KY%2FCumWDb4hEnWt%2Btjb73Rc0lMk5zOZy0IlLkuHiItCJZAVNNmoOxAvtMt0jDLkTAaJwpixgHPrV8FUn1KTbevqAWli%2BiP8gf4lGGPvocE1bzyvIKcij1DfhALrLT7l0T946HyN18nJvVDLRFYrokQWHJgVpnIIVqXObLBifXFxROPb2wr7KyeOM1OqSt%2BvGpAeFcCrhBw93dyYlOAmnm2GYre7Q8lZLHXmD9PnkaRvYJWPyi4QkWb2wAculX4LpaRWQXzo%3D";
+            "remove_badge?token=To%2FBnjzloZ3UfQdcSaYfDoE5Tn2DX3Dj3tc9KdbLUW%2BlpF3pTFTGiRboTK7melQj0ew79oMPEotaT%2F4vYrv6armHzWCXY7ZUPuYpGeMWG%2FgNxTKF5912NopbvWOpy6jomzursjYvY1JTK2FxY9CdQGgZhh3K9qsuFdcdFkinau8pvrpxNcMnwBQsI7AnwsgnSv8b9WiDK%2B3RE2WEREBFU2L68dw3eQULV8YmZz8OAd0BBHXNkQ7cMwk937Mq68%2FgpJUq5OMEH%2BzwgQftShc25EM%2FgrmqCYcmcdkEbM5YC2abYAnjgLyHlCcdz2g%2FkJ9kr6TlO32f2Ypm4lT36wTVxcTja9Wtr1UufM5aUxAF5L8T56igGY5E45lIQaOQJ1veRNc8DTeum1VF%2Fess9Z6DSj2mix1Fo1lTS3M7IgX%2FxP%2B51l4dWiUs0gJwJbAXFrXulnVGTcl5UNJ9eOZRkevINER34onQgQUjjNUgFTMDK1%2BJ8Q1i42%2FSW6weHwFLKARQf1HWeWygJfYf8FUOfQndnNZAgUBLocjwF2EzVJX2MAs%3D";
         window.__genspark_locale = "pt-BR";
-        window.__genspark_token = "To/BnjzloZ3UfQdcSaYfDsbDSNoFyGVJpk7yPhKc8iVKT3yX3KGo6l6Zj2joAczAfvy6/5ZMLy8JD0+PE9QuRexj820ImVNUOKVFpHLFhkwKvI8mkEBNI/cnMkHOwHSI1WQ/5WxYy4rX2LhonKdM7H26jFz1uIH2TvQ85O/5vrC/3tSk3WbHxe1zICMdQFcQTcYFl0yyyZsWUIcDnlxT5tq3OCPnHCETmsFdf2v+FHGnV16iPMYK61sAJSQcOxHZUjW1Uf9RsYrwO7lYSnXccpdjLsr1tQDJExt1KY/CumWDb4hEnWt+tjb73Rc0lMk5zOZy0IlLkuHiItCJZAVNNmoOxAvtMt0jDLkTAaJwpixgHPrV8FUn1KTbevqAWli+iP8gf4lGGPvocE1bzyvIKcij1DfhALrLT7l0T946HyN18nJvVDLRFYrokQWHJgVpnIIVqXObLBifXFxROPb2wr7KyeOM1OqSt+vGpAeFcCrhBw93dyYlOAmnm2GYre7Q8lZLHXmD9PnkaRvYJWPyi4QkWb2wAculX4LpaRWQXzo=";
+        window.__genspark_token = "To/BnjzloZ3UfQdcSaYfDoE5Tn2DX3Dj3tc9KdbLUW+lpF3pTFTGiRboTK7melQj0ew79oMPEotaT/4vYrv6armHzWCXY7ZUPuYpGeMWG/gNxTKF5912NopbvWOpy6jomzursjYvY1JTK2FxY9CdQGgZhh3K9qsuFdcdFkinau8pvrpxNcMnwBQsI7AnwsgnSv8b9WiDK+3RE2WEREBFU2L68dw3eQULV8YmZz8OAd0BBHXNkQ7cMwk937Mq68/gpJUq5OMEH+zwgQftShc25EM/grmqCYcmcdkEbM5YC2abYAnjgLyHlCcdz2g/kJ9kr6TlO32f2Ypm4lT36wTVxcTja9Wtr1UufM5aUxAF5L8T56igGY5E45lIQaOQJ1veRNc8DTeum1VF/ess9Z6DSj2mix1Fo1lTS3M7IgX/xP+51l4dWiUs0gJwJbAXFrXulnVGTcl5UNJ9eOZRkevINER34onQgQUjjNUgFTMDK1+J8Q1i42/SW6weHwFLKARQf1HWeWygJfYf8FUOfQndnNZAgUBLocjwF2EzVJX2MAs=";
     </script>
     
-    <script id="html_notice_dialog_script" src="https://www.genspark.ai/notice_dialog.js"></script>
-    
+    <script id="html_notice_dialog_script" src="./index_files/notice_dialog.js.download"></script>
+    </body></html>
