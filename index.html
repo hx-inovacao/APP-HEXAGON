@@ -145,9 +145,30 @@
             font-size: 13px;
         }
 
-        /* Função para capitalizar primeira letra */
-        .capitalize-input {
-            text-transform: capitalize;
+        .confirm-dialog {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.5);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+
+        .confirm-dialog.show {
+            display: flex;
+        }
+
+        .confirm-content {
+            background: white;
+            padding: 2rem;
+            border-radius: 8px;
+            max-width: 400px;
+            width: 90%;
+            text-align: center;
         }
         
         @media (max-width: 768px) {
@@ -174,15 +195,13 @@
 </head>
 <body class="bg-gray-50 min-h-screen">
     
-    <!-- Logo substituída por texto HEXAGON -->
-    <div class="text-center pt-6 mb-6">
-        <h1 class="text-6xl font-bold text-blue-800 mb-2">HEXAGON</h1>
+    <!-- Header com HEXAGON -->
+    <div class="text-center pt-8 pb-6">
+        <h1 class="text-4xl font-bold text-blue-900 mb-2">HEXAGON</h1>
+        <h2 class="text-xl font-semibold text-gray-800">
+            Registro de Consumo de Materiais Consignados
+        </h2>
     </div>
-
-    <!-- Title -->
-    <h2 class="text-2xl font-bold text-center text-gray-800 mb-6">
-        Registro de Consumo de Materiais Consignados
-    </h2>
 
     <!-- Main Content -->
     <div class="main-content max-w-4xl mx-auto px-4">
@@ -195,7 +214,7 @@
 
         <!-- Control Buttons -->
         <div class="grid grid-cols-3 gap-2 mb-4">
-            <button onclick="deleteOperation()" class="bg-red-500 hover:bg-red-600 text-white py-2 px-4 rounded font-medium">
+            <button onclick="showDeleteConfirmation()" class="bg-red-500 hover:bg-red-600 text-white py-2 px-4 rounded font-medium">
                 Apagar Operação
             </button>
             <button onclick="previousOperation()" class="bg-gray-500 hover:bg-gray-600 text-white py-2 px-4 rounded font-medium">
@@ -282,7 +301,7 @@
     <div class="completion-screen">
         <div class="max-w-md mx-auto bg-white p-8 rounded-lg shadow-lg">
             <div class="text-green-500 text-6xl mb-4">✓</div>
-            <h3 class="text-2xl font-bold text-gray-800 mb-4">Operação Concluída</h3>
+            <h2 class="text-2xl font-bold text-gray-800 mb-4">Operação Concluída</h2>
             <p class="text-gray-600 mb-6">Relatórios enviados com sucesso!</p>
             <button onclick="startNewOperation()" class="w-full bg-blue-500 hover:bg-blue-600 text-white py-3 px-6 rounded-lg font-medium">
                 Iniciar Nova Operação
@@ -290,9 +309,25 @@
         </div>
     </div>
 
+    <!-- Confirmation Dialog -->
+    <div id="confirmDialog" class="confirm-dialog">
+        <div class="confirm-content">
+            <h3 class="text-lg font-semibold mb-4">Confirmar Exclusão</h3>
+            <p class="text-gray-600 mb-6">Deseja realmente apagar esta operação?</p>
+            <div class="flex gap-4 justify-center">
+                <button onclick="cancelDelete()" class="px-6 py-2 bg-gray-500 hover:bg-gray-600 text-white rounded">
+                    Cancelar
+                </button>
+                <button onclick="confirmDelete()" class="px-6 py-2 bg-red-500 hover:bg-red-600 text-white rounded">
+                    Sim, Apagar
+                </button>
+            </div>
+        </div>
+    </div>
+
     <!-- Version -->
     <div class="text-center text-gray-500 text-sm py-4">
-        Versão 1.1 - Ordenação Corrigida
+        Versão 1.2 FINAL - Release Completo
     </div>
 
     <script>
@@ -306,7 +341,6 @@
         let operations = [{}];
         let currentOperation = 1;
         let currentProducts = [];
-        let hasShownQuantityWarning = false;
         
         // Initialize
         document.addEventListener('DOMContentLoaded', async function() {
@@ -315,7 +349,7 @@
             loadOperationData();
         });
         
-        // Função para capitalizar primeira letra de cada palavra
+        // Função para capitalizar primeira letra
         function capitalizeInput(input) {
             const words = input.value.split(' ');
             const capitalizedWords = words.map(word => {
@@ -327,7 +361,14 @@
             input.value = capitalizedWords.join(' ');
         }
         
-        // FUNÇÃO CORRIGIDA - Carregar subgrupos do banco real
+        // Função para formatar data brasileira
+        function formatDateBrazilian(dateString) {
+            if (!dateString) return '';
+            const [year, month, day] = dateString.split('-');
+            return `${day}/${month}/${year}`;
+        }
+        
+        // Carregar subgrupos do banco real
         async function carregarSubgrupos() {
             try {
                 console.log('🔄 Carregando subgrupos do banco...');
@@ -388,7 +429,7 @@
             }
         }
         
-        // Filtrar produtos por subgrupo - CORREÇÃO: ORDER BY id
+        // Filtrar produtos por subgrupo
         async function filterProducts() {
             const subgrupo = document.getElementById('documentType').value;
             const container = document.getElementById('productsContainer');
@@ -408,7 +449,7 @@
                     .from('materiais')
                     .select('codigo, nome')
                     .eq('subgrupo', subgrupo)
-                    .order('id'); // MUDANÇA: de 'codigo' para 'id'
+                    .order('id');
                 
                 if (error) {
                     console.error('Erro ao buscar produtos:', error);
@@ -464,6 +505,9 @@
                 `;
                 container.appendChild(card);
             });
+            
+            // Restaurar seleções da operação atual
+            restoreProductSelection();
         }
         
         function toggleProductSelection(index) {
@@ -522,10 +566,85 @@
             });
         }
         
+        // Função para limpar seleções de produtos
+        function clearProductSelection() {
+            const checkboxes = document.querySelectorAll('.product-card input[type="checkbox"]');
+            checkboxes.forEach(checkbox => {
+                checkbox.checked = false;
+                const controls = document.getElementById(`qty-controls-${checkbox.id.split('-')[1]}`);
+                const card = checkbox.closest('.product-card');
+                if (controls) {
+                    controls.classList.remove('show');
+                }
+                if (card) {
+                    card.classList.remove('selected');
+                }
+            });
+            
+            // Limpar lotes adicionais
+            const additionalLots = document.querySelectorAll('[id^="additional-lots-"]');
+            additionalLots.forEach(container => {
+                container.innerHTML = '';
+            });
+        }
+        
+        // Função para restaurar seleções da operação atual
+        function restoreProductSelection() {
+            const operation = operations[currentOperation - 1] || {};
+            if (!operation.selectedProducts || !currentProducts.length) return;
+            
+            operation.selectedProducts.forEach(selectedProduct => {
+                const productIndex = currentProducts.findIndex(p => p.codigo === selectedProduct.codigo);
+                if (productIndex !== -1) {
+                    const checkbox = document.getElementById(`checkbox-${productIndex}`);
+                    const controls = document.getElementById(`qty-controls-${productIndex}`);
+                    const card = checkbox.closest('.product-card');
+                    
+                    if (checkbox && controls) {
+                        checkbox.checked = true;
+                        controls.classList.add('show');
+                        card.classList.add('selected');
+                        
+                        // Restaurar lotes
+                        if (selectedProduct.lots && selectedProduct.lots.length > 0) {
+                            const firstLot = selectedProduct.lots[0];
+                            const qtySelect = controls.querySelector('.qty-select');
+                            const lotInput = controls.querySelector('.lot-input');
+                            
+                            if (qtySelect && firstLot.qty) {
+                                qtySelect.value = firstLot.qty;
+                            }
+                            if (lotInput && firstLot.lot) {
+                                lotInput.value = firstLot.lot;
+                            }
+                            
+                            // Restaurar lotes adicionais
+                            const additionalContainer = document.getElementById(`additional-lots-${productIndex}`);
+                            for (let i = 1; i < selectedProduct.lots.length; i++) {
+                                const lot = selectedProduct.lots[i];
+                                const lotDiv = document.createElement('div');
+                                lotDiv.className = 'lot-row';
+                                lotDiv.innerHTML = `
+                                    <select class="qty-select">
+                                        <option value="">-</option>
+                                        ${Array.from({length: 10}, (_, j) => `<option value="${j+1}" ${lot.qty == (j+1) ? 'selected' : ''}>${j+1}</option>`).join('')}
+                                    </select>
+                                    <input type="text" class="lot-input" placeholder="Lote" maxlength="12" value="${lot.lot}">
+                                    <button onclick="removeLot(this)" class="remove-lot-btn">-</button>
+                                `;
+                                additionalContainer.appendChild(lotDiv);
+                            }
+                        }
+                    }
+                }
+            });
+        }
+        
         // Operation management
         function switchOperation(operationNumber) {
             saveOperationData();
             currentOperation = operationNumber;
+            clearProductSelection();
             loadOperationData();
             updateOperationTabs();
         }
@@ -541,7 +660,9 @@
                 hospitalSelect: currentHospital
             });
             
+            saveOperationData();
             currentOperation = nextOp;
+            clearProductSelection();
             updateOperationTabs();
             loadOperationData();
         }
@@ -550,23 +671,38 @@
             if (currentOperation > 1) {
                 saveOperationData();
                 currentOperation--;
+                clearProductSelection();
                 loadOperationData();
                 updateOperationTabs();
             }
         }
         
+        function showDeleteConfirmation() {
+            document.getElementById('confirmDialog').classList.add('show');
+        }
+        
+        function cancelDelete() {
+            document.getElementById('confirmDialog').classList.remove('show');
+        }
+        
+        function confirmDelete() {
+            document.getElementById('confirmDialog').classList.remove('show');
+            deleteOperation();
+        }
+        
         function deleteOperation() {
-            if (confirm('Deseja mesmo apagar a operação?')) {
+            if (operations.length > 1) {
                 operations.splice(currentOperation - 1, 1);
-                if (operations.length === 0) {
-                    operations = [{}];
-                    currentOperation = 1;
-                } else if (currentOperation > operations.length) {
+                if (currentOperation > operations.length) {
                     currentOperation = operations.length;
                 }
-                updateOperationTabs();
-                loadOperationData();
+            } else {
+                operations = [{}];
+                currentOperation = 1;
             }
+            clearProductSelection();
+            updateOperationTabs();
+            loadOperationData();
         }
         
         function updateOperationTabs() {
@@ -599,7 +735,6 @@
             operation.selectedProducts = [];
             const checkboxes = document.querySelectorAll('.product-card input[type="checkbox"]:checked');
             checkboxes.forEach(checkbox => {
-                const card = checkbox.closest('.product-card');
                 const index = parseInt(checkbox.id.split('-')[1]);
                 if (currentProducts[index]) {
                     const product = {
@@ -656,40 +791,40 @@
             }
         }
         
-        // PDF CORRIGIDO - FUNÇÃO QUE FUNCIONA
+        // PDF CORRIGIDO - Comprimido para 1 operação por página
         function generatePDF(operationData, operationNumber) {
             try {
                 const { jsPDF } = window.jspdf;
                 const doc = new jsPDF();
                 
-                // CABEÇALHO HEXAGON (texto simples)
+                // CABEÇALHO HEXAGON
                 doc.setFontSize(16);
                 doc.setFont(undefined, 'bold');
-                doc.text('HEXAGON', 20, 20);
+                doc.text('HEXAGON', 105, 20, { align: 'center' });
                 
                 // Título
                 doc.setFontSize(12);
                 doc.setFont(undefined, 'normal');
-                doc.text('REGISTRO DE CONSUMO DE MATERIAIS CONSIGNADOS', 105, 35, { align: 'center' });
+                doc.text('REGISTRO DE CONSUMO DE MATERIAIS CONSIGNADOS', 105, 30, { align: 'center' });
                 
-                // Dados do paciente (espaçamento reduzido)
-                let yPos = 50;
+                // Dados do paciente - Comprimido
+                let yPos = 45;
                 doc.setFontSize(9);
                 doc.text(`Usuário: ${operationData.userField || ''}`, 20, yPos);
-                yPos += 6;
+                yPos += 8;
                 doc.text(`Hospital: ${operationData.hospitalSelect || ''}`, 20, yPos);
-                yPos += 6;
-                doc.text(`Nome do Paciente: ${operationData.patientName || ''}`, 20, yPos);
-                yPos += 6;
-                doc.text(`Num Prontuário: ${operationData.recordNumber || ''}`, 20, yPos);
-                yPos += 6;
-                doc.text(`Data da Cirurgia: ${operationData.surgeryDate || ''}`, 20, yPos);
-                yPos += 6;
-                doc.text(`Outras Informações: ${operationData.otherInfo || ''}`, 20, yPos);
+                yPos += 8;
+                doc.text(`Paciente: ${operationData.patientName || ''}`, 20, yPos);
+                yPos += 8;
+                doc.text(`Prontuário: ${operationData.recordNumber || ''}`, 20, yPos);
+                yPos += 8;
+                doc.text(`Data: ${formatDateBrazilian(operationData.surgeryDate)}`, 20, yPos);
+                yPos += 8;
+                doc.text(`Observações: ${operationData.otherInfo || ''}`, 20, yPos);
                 
-                // Materiais
+                // Materiais - Comprimido
                 yPos += 15;
-                doc.setFontSize(10);
+                doc.setFontSize(11);
                 doc.setFont(undefined, 'bold');
                 doc.text('MATERIAIS:', 20, yPos);
                 yPos += 8;
@@ -729,49 +864,39 @@
         function sendReport() {
             try {
                 console.log('Iniciando envio de relatório...');
-                saveOperationData();
                 
-                // Validação melhorada
-                let hasError = false;
-                let errorMessage = '';
-                
-                // Verificar campos obrigatórios
+                // Validar campos obrigatórios
                 const usuario = document.getElementById('userField').value.trim();
                 const hospital = document.getElementById('hospitalSelect').value.trim();
                 
                 if (!usuario) {
-                    hasError = true;
-                    errorMessage = 'Por favor, preencha o campo Usuário.';
-                } else if (!hospital) {
-                    hasError = true;
-                    errorMessage = 'Por favor, preencha o campo Hospital.';
+                    alert('Por favor, preencha o campo Usuário (obrigatório)');
+                    return;
                 }
                 
-                // Verificar se há pelo menos um produto selecionado com lote
-                let hasValidProduct = false;
+                if (!hospital) {
+                    alert('Por favor, preencha o campo Hospital (obrigatório)');
+                    return;
+                }
+                
+                // Validar se pelo menos um produto com quantidade foi selecionado
+                let hasProductWithQuantity = false;
                 operations.forEach(operation => {
                     if (operation.selectedProducts && operation.selectedProducts.length > 0) {
                         operation.selectedProducts.forEach(product => {
                             if (product.lots && product.lots.length > 0) {
-                                product.lots.forEach(lot => {
-                                    if (lot.lot && lot.lot.trim() !== '') {
-                                        hasValidProduct = true;
-                                    }
-                                });
+                                hasProductWithQuantity = true;
                             }
                         });
                     }
                 });
                 
-                if (!hasValidProduct && !hasShownQuantityWarning) {
-                    hasShownQuantityWarning = true;
-                    alert('Aviso: Nenhum produto foi selecionado com lote preenchido. Verifique se selecionou produtos e preencheu as quantidades.');
-                }
-                
-                if (hasError) {
-                    alert(errorMessage);
+                if (!hasProductWithQuantity) {
+                    alert('Por favor, selecione pelo menos um produto com quantidade');
                     return;
                 }
+                
+                saveOperationData();
                 
                 let message = '';
                 let pdfGenerated = false;
@@ -782,10 +907,10 @@
                     message += 'REGISTRO DE CONSUMO DE MATERIAIS CONSIGNADOS\n\n';
                     message += `Usuário: ${operation.userField || ''}\n`;
                     message += `Hospital: ${operation.hospitalSelect || ''}\n`;
-                    message += `Nome do Paciente: ${operation.patientName || ''}\n`;
-                    message += `Num Prontuário: ${operation.recordNumber || ''}\n`;
-                    message += `Data da Cirurgia: ${operation.surgeryDate || ''}\n`;
-                    message += `Outras Informações: ${operation.otherInfo || ''}\n\n`;
+                    message += `Paciente: ${operation.patientName || ''}\n`;
+                    message += `Prontuário: ${operation.recordNumber || ''}\n`;
+                    message += `Data: ${formatDateBrazilian(operation.surgeryDate)}\n`;
+                    message += `Observações: ${operation.otherInfo || ''}\n\n`;
                     
                     message += 'MATERIAIS:\n';
                     if (operation.selectedProducts && operation.selectedProducts.length > 0) {
@@ -837,7 +962,7 @@
                 
             } catch (error) {
                 console.error('Erro geral no sendReport:', error);
-                alert('Erro ao enviar relatório. Verifique se preencheu os dados e selecionou produtos.');
+                alert('Erro ao enviar relatório. Verifique se preencheu os dados obrigatórios.');
             }
         }
 
@@ -849,7 +974,7 @@
         function startNewOperation() {
             operations = [{}];
             currentOperation = 1;
-            hasShownQuantityWarning = false;
+            clearProductSelection();
             updateOperationTabs();
             loadOperationData();
             document.getElementById('productsContainer').innerHTML = '<div class="text-center p-4 text-gray-500">Selecione um subgrupo para visualizar os produtos</div>';
@@ -858,14 +983,14 @@
             document.querySelector('.completion-screen').classList.remove('show');
         }
     </script>
-<script defer src="https://static.cloudflareinsights.com/beacon.min.js/vcd15cbe7772f49c399c6a5babf22c1241717689176015" integrity="sha512-ZpsOmlRQV6y907TI0dKBHq9Md29nnaEIPlkf84rnaERnq6zvWvPUqr2ft8M1aS28oN72PdrCzSjY4U6VaAw1EQ==" data-cf-beacon='{"rayId":"95f51dd87b42f177","serverTiming":{"name":{"cfExtPri":true,"cfEdge":true,"cfOrigin":true,"cfL4":true,"cfSpeedBrain":true,"cfCacheStatus":true}},"version":"2025.6.2","token":"4edd5f8ec12a48cfa682ab8261b80a79"}' crossorigin="anonymous"></script>
+<script defer src="https://static.cloudflareinsights.com/beacon.min.js/vcd15cbe7772f49c399c6a5babf22c1241717689176015" integrity="sha512-ZpsOmlRQV6y907TI0dKBHq9Md29nnaEIPlkf84rnaERnq6zvWvPUqr2ft8M1aS28oN72PdrCzSjY4U6VaAw1EQ==" data-cf-beacon='{"rayId":"95f591a3add2464c","serverTiming":{"name":{"cfExtPri":true,"cfEdge":true,"cfOrigin":true,"cfL4":true,"cfSpeedBrain":true,"cfCacheStatus":true}},"version":"2025.6.2","token":"4edd5f8ec12a48cfa682ab8261b80a79"}' crossorigin="anonymous"></script>
 </body>
 </html>
     <script id="html_badge_script1">
         window.__genspark_remove_badge_link = "https://www.genspark.ai/api/html_badge/" +
-            "remove_badge?token=To%2FBnjzloZ3UfQdcSaYfDvny9fC1ClGRFJ4KgBWs4Fwl%2FpHn3rAgge5zid0Z7dUWixol0dPu%2F3afEt2i6h0O2MVXEBkRAFe7wKmSgAz65dVa5OdtGsxly6UXsVeogYhoDi2n5XJmWu%2B98Hgb5jDwO%2F88trnrJrCULk6AGS9irK0j%2FlvDMuzDQRNy783q1SZMVbbiM8eDI0%2FNc8dIQkgmTSOpfUm0BS8Al%2FfYpIHpaJca2oOtG6LRSO0ruwcQf7MVJEYYUN%2FazX5p8MTndl6LixnaQ0NgkjjUhuNJw23nN2%2BYm8ySuDHftSiVAooGNEJc7c1dLKfVigZH6CNNolIRFdAwLm%2FyQjw23zVA8naQB3hAq2sB9PUY9Bcak2%2BbQJup6jFiAmNHEVFDwLsrAa6ZToEEKxKX4UTNAZWLIHgWl%2FC5yUHPuU2E2423AjKYd5%2Bjw9s5vygqXwkMDp4dI2Qt%2FQUH0DeJca74%2FztPfJjFcVQh11YhzRltO2%2BVwzuSpzHaF3HvhjtK9Aoa4Ahbu9dupUB%2BiLbwMk1xkRs7lB19IJM%3D";
+            "remove_badge?token=To%2FBnjzloZ3UfQdcSaYfDqJUkWc4uRUZHjQgphnVEEyct8mae90JnwqyBgDs%2FpheM%2BkBOOETbBiWDUnY5nEKYlGCUB6wQ1yb71Q%2F1vHiQeqJUkjoy0%2BZIi3xCzG7sjczL7xN%2B1449l%2B4dUA4wLi48YVmxQCSSTXUqsav6qGQ8kTfpSXHfQzZ%2FnGR0B0z6MyU6lzXaF8ru5XZ3F5LiN3kYiF3NY28stHY9hqZFYnvcl3i5FShpOq%2BGWjzgPH7JkGAyX8RqdxtWYIeNTdKFNAW6yhDpw2GuWfJaLHu8wI7mWdiwqJr%2FuTcia3%2FHZYHnm6Y727pH52oPR5ubvx68FcIKCqPk4CdfoPIM5IjcDmInDqCvql8XZH0j66PhFFtLp3stX0eJZ5OH5zgXR7L7eN9%2Fs%2FoCobZ8bwWZaUabMlEExsOiBP1e34YN1CyuifEUVclhEVQpXxhk%2F31vLxdYyQ9uGLgB5yJHFxChQyyYjH7dG07no4RG%2BcQLuHyQSxh3E%2F5N0thkyWGhEw1niwFWUxNshxFthhGcQYO6f21aLVsbJ8%3D";
         window.__genspark_locale = "pt-BR";
-        window.__genspark_token = "To/BnjzloZ3UfQdcSaYfDvny9fC1ClGRFJ4KgBWs4Fwl/pHn3rAgge5zid0Z7dUWixol0dPu/3afEt2i6h0O2MVXEBkRAFe7wKmSgAz65dVa5OdtGsxly6UXsVeogYhoDi2n5XJmWu+98Hgb5jDwO/88trnrJrCULk6AGS9irK0j/lvDMuzDQRNy783q1SZMVbbiM8eDI0/Nc8dIQkgmTSOpfUm0BS8Al/fYpIHpaJca2oOtG6LRSO0ruwcQf7MVJEYYUN/azX5p8MTndl6LixnaQ0NgkjjUhuNJw23nN2+Ym8ySuDHftSiVAooGNEJc7c1dLKfVigZH6CNNolIRFdAwLm/yQjw23zVA8naQB3hAq2sB9PUY9Bcak2+bQJup6jFiAmNHEVFDwLsrAa6ZToEEKxKX4UTNAZWLIHgWl/C5yUHPuU2E2423AjKYd5+jw9s5vygqXwkMDp4dI2Qt/QUH0DeJca74/ztPfJjFcVQh11YhzRltO2+VwzuSpzHaF3HvhjtK9Aoa4Ahbu9dupUB+iLbwMk1xkRs7lB19IJM=";
+        window.__genspark_token = "To/BnjzloZ3UfQdcSaYfDqJUkWc4uRUZHjQgphnVEEyct8mae90JnwqyBgDs/pheM+kBOOETbBiWDUnY5nEKYlGCUB6wQ1yb71Q/1vHiQeqJUkjoy0+ZIi3xCzG7sjczL7xN+1449l+4dUA4wLi48YVmxQCSSTXUqsav6qGQ8kTfpSXHfQzZ/nGR0B0z6MyU6lzXaF8ru5XZ3F5LiN3kYiF3NY28stHY9hqZFYnvcl3i5FShpOq+GWjzgPH7JkGAyX8RqdxtWYIeNTdKFNAW6yhDpw2GuWfJaLHu8wI7mWdiwqJr/uTcia3/HZYHnm6Y727pH52oPR5ubvx68FcIKCqPk4CdfoPIM5IjcDmInDqCvql8XZH0j66PhFFtLp3stX0eJZ5OH5zgXR7L7eN9/s/oCobZ8bwWZaUabMlEExsOiBP1e34YN1CyuifEUVclhEVQpXxhk/31vLxdYyQ9uGLgB5yJHFxChQyyYjH7dG07no4RG+cQLuHyQSxh3E/5N0thkyWGhEw1niwFWUxNshxFthhGcQYO6f21aLVsbJ8=";
     </script>
     
     <script id="html_notice_dialog_script" src="https://www.genspark.ai/notice_dialog.js"></script>
