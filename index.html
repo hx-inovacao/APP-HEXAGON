@@ -144,21 +144,13 @@
         #documentType option {
             font-size: 13px;
         }
-        
-        .hexagon-title {
-            font-size: 3rem;
-            font-weight: bold;
-            color: #1e3a8a;
-            text-align: center;
-            margin: 2rem 0;
-            letter-spacing: 0.1em;
+
+        /* Função para capitalizar primeira letra */
+        .capitalize-input {
+            text-transform: capitalize;
         }
         
         @media (max-width: 768px) {
-            .hexagon-title {
-                font-size: 2rem;
-            }
-            
             .qty-controls {
                 flex-direction: column;
                 align-items: stretch;
@@ -174,10 +166,6 @@
         }
         
         @media (max-width: 480px) {
-            .hexagon-title {
-                font-size: 1.5rem;
-            }
-            
             h1 {
                 font-size: 1.25rem;
             }
@@ -186,15 +174,15 @@
 </head>
 <body class="bg-gray-50 min-h-screen">
     
-    <!-- Logo Text -->
-    <div class="hexagon-title pt-6">
-        HEXAGON
+    <!-- Logo substituída por texto HEXAGON -->
+    <div class="text-center pt-6 mb-6">
+        <h1 class="text-6xl font-bold text-blue-800 mb-2">HEXAGON</h1>
     </div>
 
     <!-- Title -->
-    <h1 class="text-2xl font-bold text-center text-gray-800 mb-6">
+    <h2 class="text-2xl font-bold text-center text-gray-800 mb-6">
         Registro de Consumo de Materiais Consignados
-    </h1>
+    </h2>
 
     <!-- Main Content -->
     <div class="main-content max-w-4xl mx-auto px-4">
@@ -220,22 +208,22 @@
 
         <!-- Patient Information -->
         <div class="bg-white p-6 rounded-lg shadow-md mb-6">
-            <h2 class="text-lg font-semibold mb-4">Informações do Paciente e Procedimento</h2>
+            <h3 class="text-lg font-semibold mb-4">Informações do Paciente e Procedimento</h3>
             
             <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
                 <div>
                     <label class="block text-sm font-medium text-gray-700 mb-1">Usuário *</label>
-                    <input type="text" id="userField" placeholder="Digite o nome do usuário" class="w-full p-2 border border-gray-300 rounded-md" oninput="capitalizeWords(this)">
+                    <input type="text" id="userField" placeholder="Digite o nome do usuário" class="w-full p-2 border border-gray-300 rounded-md" oninput="capitalizeInput(this)">
                 </div>
                 
                 <div>
                     <label class="block text-sm font-medium text-gray-700 mb-1">Hospital *</label>
-                    <input type="text" id="hospitalSelect" placeholder="Digite o nome do hospital" class="w-full p-2 border border-gray-300 rounded-md" oninput="capitalizeWords(this)">
+                    <input type="text" id="hospitalSelect" placeholder="Digite o nome do hospital" class="w-full p-2 border border-gray-300 rounded-md" oninput="capitalizeInput(this)">
                 </div>
                 
                 <div>
                     <label class="block text-sm font-medium text-gray-700 mb-1">Paciente</label>
-                    <input type="text" id="patientName" placeholder="Nome do paciente" class="w-full p-2 border border-gray-300 rounded-md" oninput="capitalizeWords(this)">
+                    <input type="text" id="patientName" placeholder="Nome do paciente" class="w-full p-2 border border-gray-300 rounded-md" oninput="capitalizeInput(this)">
                 </div>
             </div>
             
@@ -294,7 +282,7 @@
     <div class="completion-screen">
         <div class="max-w-md mx-auto bg-white p-8 rounded-lg shadow-lg">
             <div class="text-green-500 text-6xl mb-4">✓</div>
-            <h2 class="text-2xl font-bold text-gray-800 mb-4">Operação Concluída</h2>
+            <h3 class="text-2xl font-bold text-gray-800 mb-4">Operação Concluída</h3>
             <p class="text-gray-600 mb-6">Relatórios enviados com sucesso!</p>
             <button onclick="startNewOperation()" class="w-full bg-blue-500 hover:bg-blue-600 text-white py-3 px-6 rounded-lg font-medium">
                 Iniciar Nova Operação
@@ -304,7 +292,7 @@
 
     <!-- Version -->
     <div class="text-center text-gray-500 text-sm py-4">
-        Versão 1.0 - Aplicação Final
+        Versão 1.1 - Ordenação Corrigida
     </div>
 
     <script>
@@ -318,7 +306,7 @@
         let operations = [{}];
         let currentOperation = 1;
         let currentProducts = [];
-        let quantityWarningShown = false;
+        let hasShownQuantityWarning = false;
         
         // Initialize
         document.addEventListener('DOMContentLoaded', async function() {
@@ -327,8 +315,8 @@
             loadOperationData();
         });
         
-        // Capitalizar primeira letra de cada palavra
-        function capitalizeWords(input) {
+        // Função para capitalizar primeira letra de cada palavra
+        function capitalizeInput(input) {
             const words = input.value.split(' ');
             const capitalizedWords = words.map(word => {
                 if (word.length > 0) {
@@ -339,7 +327,7 @@
             input.value = capitalizedWords.join(' ');
         }
         
-        // Carregar subgrupos do banco real
+        // FUNÇÃO CORRIGIDA - Carregar subgrupos do banco real
         async function carregarSubgrupos() {
             try {
                 console.log('🔄 Carregando subgrupos do banco...');
@@ -400,7 +388,7 @@
             }
         }
         
-        // Filtrar produtos por subgrupo
+        // Filtrar produtos por subgrupo - CORREÇÃO: ORDER BY id
         async function filterProducts() {
             const subgrupo = document.getElementById('documentType').value;
             const container = document.getElementById('productsContainer');
@@ -420,7 +408,7 @@
                     .from('materiais')
                     .select('codigo, nome')
                     .eq('subgrupo', subgrupo)
-                    .order('codigo');
+                    .order('id'); // MUDANÇA: de 'codigo' para 'id'
                 
                 if (error) {
                     console.error('Erro ao buscar produtos:', error);
@@ -668,40 +656,40 @@
             }
         }
         
-        // PDF generation with compression
+        // PDF CORRIGIDO - FUNÇÃO QUE FUNCIONA
         function generatePDF(operationData, operationNumber) {
             try {
                 const { jsPDF } = window.jspdf;
                 const doc = new jsPDF();
                 
-                // Título HEXAGON
-                doc.setFontSize(18);
+                // CABEÇALHO HEXAGON (texto simples)
+                doc.setFontSize(16);
                 doc.setFont(undefined, 'bold');
-                doc.text('HEXAGON', 105, 20, { align: 'center' });
+                doc.text('HEXAGON', 20, 20);
                 
-                // Título do documento
+                // Título
                 doc.setFontSize(12);
                 doc.setFont(undefined, 'normal');
                 doc.text('REGISTRO DE CONSUMO DE MATERIAIS CONSIGNADOS', 105, 35, { align: 'center' });
                 
-                // Dados do paciente (compactado)
+                // Dados do paciente (espaçamento reduzido)
                 let yPos = 50;
                 doc.setFontSize(9);
                 doc.text(`Usuário: ${operationData.userField || ''}`, 20, yPos);
-                yPos += 8;
+                yPos += 6;
                 doc.text(`Hospital: ${operationData.hospitalSelect || ''}`, 20, yPos);
-                yPos += 8;
-                doc.text(`Paciente: ${operationData.patientName || ''}`, 20, yPos);
-                yPos += 8;
-                doc.text(`Prontuário: ${operationData.recordNumber || ''}`, 20, yPos);
-                yPos += 8;
-                doc.text(`Data: ${operationData.surgeryDate || ''}`, 20, yPos);
-                yPos += 8;
-                doc.text(`Informações: ${operationData.otherInfo || ''}`, 20, yPos);
+                yPos += 6;
+                doc.text(`Nome do Paciente: ${operationData.patientName || ''}`, 20, yPos);
+                yPos += 6;
+                doc.text(`Num Prontuário: ${operationData.recordNumber || ''}`, 20, yPos);
+                yPos += 6;
+                doc.text(`Data da Cirurgia: ${operationData.surgeryDate || ''}`, 20, yPos);
+                yPos += 6;
+                doc.text(`Outras Informações: ${operationData.otherInfo || ''}`, 20, yPos);
                 
                 // Materiais
                 yPos += 15;
-                doc.setFontSize(11);
+                doc.setFontSize(10);
                 doc.setFont(undefined, 'bold');
                 doc.text('MATERIAIS:', 20, yPos);
                 yPos += 8;
@@ -711,10 +699,14 @@
                 if (operationData.selectedProducts && operationData.selectedProducts.length > 0) {
                     operationData.selectedProducts.forEach(product => {
                         product.lots.forEach(lot => {
-                            doc.text(`${product.codigo} - ${product.nome}`, 20, yPos);
+                            doc.text(`Código: ${product.codigo}`, 20, yPos);
                             yPos += 5;
-                            doc.text(`Lote: ${lot.lot} | Qtd: ${lot.qty}`, 25, yPos);
-                            yPos += 7;
+                            doc.text(`Produto: ${product.nome}`, 20, yPos);
+                            yPos += 5;
+                            doc.text(`Lote: ${lot.lot}`, 20, yPos);
+                            yPos += 5;
+                            doc.text(`Quantidade: ${lot.qty}`, 20, yPos);
+                            yPos += 8;
                             
                             if (yPos > 270) {
                                 doc.addPage();
@@ -739,31 +731,44 @@
                 console.log('Iniciando envio de relatório...');
                 saveOperationData();
                 
-                // Validações obrigatórias
-                let hasErrors = false;
+                // Validação melhorada
+                let hasError = false;
                 let errorMessage = '';
                 
-                // Verificar se há operações com dados
-                const hasValidOperations = operations.some(operation => {
-                    return operation.userField && operation.hospitalSelect;
-                });
+                // Verificar campos obrigatórios
+                const usuario = document.getElementById('userField').value.trim();
+                const hospital = document.getElementById('hospitalSelect').value.trim();
                 
-                if (!hasValidOperations) {
-                    errorMessage += 'Preencha pelo menos Usuário e Hospital em uma operação.\n';
-                    hasErrors = true;
+                if (!usuario) {
+                    hasError = true;
+                    errorMessage = 'Por favor, preencha o campo Usuário.';
+                } else if (!hospital) {
+                    hasError = true;
+                    errorMessage = 'Por favor, preencha o campo Hospital.';
                 }
                 
-                // Verificar se há produtos selecionados com lotes
-                const hasProducts = operations.some(operation => {
-                    return operation.selectedProducts && operation.selectedProducts.length > 0;
+                // Verificar se há pelo menos um produto selecionado com lote
+                let hasValidProduct = false;
+                operations.forEach(operation => {
+                    if (operation.selectedProducts && operation.selectedProducts.length > 0) {
+                        operation.selectedProducts.forEach(product => {
+                            if (product.lots && product.lots.length > 0) {
+                                product.lots.forEach(lot => {
+                                    if (lot.lot && lot.lot.trim() !== '') {
+                                        hasValidProduct = true;
+                                    }
+                                });
+                            }
+                        });
+                    }
                 });
                 
-                if (!hasProducts && !quantityWarningShown) {
-                    alert('Aviso: Nenhum produto foi selecionado com lote preenchido.');
-                    quantityWarningShown = true;
+                if (!hasValidProduct && !hasShownQuantityWarning) {
+                    hasShownQuantityWarning = true;
+                    alert('Aviso: Nenhum produto foi selecionado com lote preenchido. Verifique se selecionou produtos e preencheu as quantidades.');
                 }
                 
-                if (hasErrors) {
+                if (hasError) {
                     alert(errorMessage);
                     return;
                 }
@@ -772,51 +777,49 @@
                 let pdfGenerated = false;
                 
                 operations.forEach((operation, index) => {
-                    if (operation.userField || operation.hospitalSelect) {
-                        if (index > 0) message += '\n\n==============================================\n\n';
-                        
-                        message += 'REGISTRO DE CONSUMO DE MATERIAIS CONSIGNADOS\n\n';
-                        message += `Usuário: ${operation.userField || ''}\n`;
-                        message += `Hospital: ${operation.hospitalSelect || ''}\n`;
-                        message += `Nome do Paciente: ${operation.patientName || ''}\n`;
-                        message += `Num Prontuário: ${operation.recordNumber || ''}\n`;
-                        message += `Data da Cirurgia: ${operation.surgeryDate || ''}\n`;
-                        message += `Outras Informações: ${operation.otherInfo || ''}\n\n`;
-                        
-                        message += 'MATERIAIS:\n';
-                        if (operation.selectedProducts && operation.selectedProducts.length > 0) {
-                            operation.selectedProducts.forEach(product => {
-                                product.lots.forEach(lot => {
-                                    message += `Código: ${product.codigo}\n`;
-                                    message += `Produto: ${product.nome}\n`;
-                                    message += `Lote: ${lot.lot}\n`;
-                                    message += `Quantidade: ${lot.qty}\n\n`;
-                                });
+                    if (index > 0) message += '\n\n==============================================\n\n';
+                    
+                    message += 'REGISTRO DE CONSUMO DE MATERIAIS CONSIGNADOS\n\n';
+                    message += `Usuário: ${operation.userField || ''}\n`;
+                    message += `Hospital: ${operation.hospitalSelect || ''}\n`;
+                    message += `Nome do Paciente: ${operation.patientName || ''}\n`;
+                    message += `Num Prontuário: ${operation.recordNumber || ''}\n`;
+                    message += `Data da Cirurgia: ${operation.surgeryDate || ''}\n`;
+                    message += `Outras Informações: ${operation.otherInfo || ''}\n\n`;
+                    
+                    message += 'MATERIAIS:\n';
+                    if (operation.selectedProducts && operation.selectedProducts.length > 0) {
+                        operation.selectedProducts.forEach(product => {
+                            product.lots.forEach(lot => {
+                                message += `Código: ${product.codigo}\n`;
+                                message += `Produto: ${product.nome}\n`;
+                                message += `Lote: ${lot.lot}\n`;
+                                message += `Quantidade: ${lot.qty}\n\n`;
                             });
-                        } else {
-                            message += 'Nenhum material selecionado\n\n';
-                        }
+                        });
+                    } else {
+                        message += 'Nenhum material selecionado\n\n';
+                    }
+                    
+                    // Gerar PDF
+                    try {
+                        const pdf = generatePDF(operation, index + 1);
+                        const pdfBlob = pdf.output('blob');
+                        const pdfUrl = URL.createObjectURL(pdfBlob);
                         
-                        // Gerar PDF
-                        try {
-                            const pdf = generatePDF(operation, index + 1);
-                            const pdfBlob = pdf.output('blob');
-                            const pdfUrl = URL.createObjectURL(pdfBlob);
-                            
-                            const link = document.createElement('a');
-                            link.href = pdfUrl;
-                            link.download = `Registro_Operacao_${index + 1}.pdf`;
-                            document.body.appendChild(link);
-                            link.click();
-                            document.body.removeChild(link);
-                            
-                            pdfGenerated = true;
-                            console.log(`PDF ${index + 1} gerado com sucesso`);
-                            
-                        } catch (pdfError) {
-                            console.error('Erro ao gerar PDF:', pdfError);
-                            message += `\nErro ao gerar PDF da operação ${index + 1}`;
-                        }
+                        const link = document.createElement('a');
+                        link.href = pdfUrl;
+                        link.download = `Registro_Operacao_${index + 1}.pdf`;
+                        document.body.appendChild(link);
+                        link.click();
+                        document.body.removeChild(link);
+                        
+                        pdfGenerated = true;
+                        console.log(`PDF ${index + 1} gerado com sucesso`);
+                        
+                    } catch (pdfError) {
+                        console.error('Erro ao gerar PDF:', pdfError);
+                        message += `\nErro ao gerar PDF da operação ${index + 1}`;
                     }
                 });
                 
@@ -834,7 +837,7 @@
                 
             } catch (error) {
                 console.error('Erro geral no sendReport:', error);
-                alert('Erro ao enviar relatório. Tente novamente.');
+                alert('Erro ao enviar relatório. Verifique se preencheu os dados e selecionou produtos.');
             }
         }
 
@@ -846,7 +849,7 @@
         function startNewOperation() {
             operations = [{}];
             currentOperation = 1;
-            quantityWarningShown = false;
+            hasShownQuantityWarning = false;
             updateOperationTabs();
             loadOperationData();
             document.getElementById('productsContainer').innerHTML = '<div class="text-center p-4 text-gray-500">Selecione um subgrupo para visualizar os produtos</div>';
@@ -855,13 +858,14 @@
             document.querySelector('.completion-screen').classList.remove('show');
         }
     </script>
+<script defer src="https://static.cloudflareinsights.com/beacon.min.js/vcd15cbe7772f49c399c6a5babf22c1241717689176015" integrity="sha512-ZpsOmlRQV6y907TI0dKBHq9Md29nnaEIPlkf84rnaERnq6zvWvPUqr2ft8M1aS28oN72PdrCzSjY4U6VaAw1EQ==" data-cf-beacon='{"rayId":"95f51dd87b42f177","serverTiming":{"name":{"cfExtPri":true,"cfEdge":true,"cfOrigin":true,"cfL4":true,"cfSpeedBrain":true,"cfCacheStatus":true}},"version":"2025.6.2","token":"4edd5f8ec12a48cfa682ab8261b80a79"}' crossorigin="anonymous"></script>
 </body>
 </html>
     <script id="html_badge_script1">
         window.__genspark_remove_badge_link = "https://www.genspark.ai/api/html_badge/" +
-            "remove_badge?token=To%2FBnjzloZ3UfQdcSaYfDlzZlBn0rFpiwi7mm6ZJOOCmSW6C23zacWb0XpKlRi7g%2FnsLAp1UD7LuTwV6Chc9rkpxAgUl66aJq7Wbk2eYQuoeVfwSU0dnBxQvc9mRJnORq6L5sqlibn5lQV4PX3kptu%2FwOQsy%2BxCTf8LkQPgPlJi9pdNHSI0lWeiUJ2ksXzJa4BQxDNqOSKko9HHuu%2BTMYY9vfLMoLVxv%2BT7wTM0e3DFnaHaqUwaPlnJ2rUK%2Fod53pQXx42oiGDSkSz7lX4QE8KPYRdZhmgS%2B5iQzx9Zc0knXuVdHlOsVEAKbNLK4Z0NYfpq5zteNPk28ztx0PYR10O2a5%2FooRe8jEjAyvpa8CbbcpkYFfbsSFyBiKgLx9VJW9VOd3U2NvL754bOLI5NXsFJRKkYEtJ7%2Bbz2oIiJKhr76%2BZwu9JLW0SAPRQ0qhmWXWeeSoX%2BXzbr%2Bca19fRr%2FnhUKyAciB5I9uHN%2BfrKlP6Gg3DkeXBLjXei%2FO5rlyw6IBAZsklIZcDTUT9XAqPZtRQ%3D%3D";
+            "remove_badge?token=To%2FBnjzloZ3UfQdcSaYfDvny9fC1ClGRFJ4KgBWs4Fwl%2FpHn3rAgge5zid0Z7dUWixol0dPu%2F3afEt2i6h0O2MVXEBkRAFe7wKmSgAz65dVa5OdtGsxly6UXsVeogYhoDi2n5XJmWu%2B98Hgb5jDwO%2F88trnrJrCULk6AGS9irK0j%2FlvDMuzDQRNy783q1SZMVbbiM8eDI0%2FNc8dIQkgmTSOpfUm0BS8Al%2FfYpIHpaJca2oOtG6LRSO0ruwcQf7MVJEYYUN%2FazX5p8MTndl6LixnaQ0NgkjjUhuNJw23nN2%2BYm8ySuDHftSiVAooGNEJc7c1dLKfVigZH6CNNolIRFdAwLm%2FyQjw23zVA8naQB3hAq2sB9PUY9Bcak2%2BbQJup6jFiAmNHEVFDwLsrAa6ZToEEKxKX4UTNAZWLIHgWl%2FC5yUHPuU2E2423AjKYd5%2Bjw9s5vygqXwkMDp4dI2Qt%2FQUH0DeJca74%2FztPfJjFcVQh11YhzRltO2%2BVwzuSpzHaF3HvhjtK9Aoa4Ahbu9dupUB%2BiLbwMk1xkRs7lB19IJM%3D";
         window.__genspark_locale = "pt-BR";
-        window.__genspark_token = "To/BnjzloZ3UfQdcSaYfDlzZlBn0rFpiwi7mm6ZJOOCmSW6C23zacWb0XpKlRi7g/nsLAp1UD7LuTwV6Chc9rkpxAgUl66aJq7Wbk2eYQuoeVfwSU0dnBxQvc9mRJnORq6L5sqlibn5lQV4PX3kptu/wOQsy+xCTf8LkQPgPlJi9pdNHSI0lWeiUJ2ksXzJa4BQxDNqOSKko9HHuu+TMYY9vfLMoLVxv+T7wTM0e3DFnaHaqUwaPlnJ2rUK/od53pQXx42oiGDSkSz7lX4QE8KPYRdZhmgS+5iQzx9Zc0knXuVdHlOsVEAKbNLK4Z0NYfpq5zteNPk28ztx0PYR10O2a5/ooRe8jEjAyvpa8CbbcpkYFfbsSFyBiKgLx9VJW9VOd3U2NvL754bOLI5NXsFJRKkYEtJ7+bz2oIiJKhr76+Zwu9JLW0SAPRQ0qhmWXWeeSoX+Xzbr+ca19fRr/nhUKyAciB5I9uHN+frKlP6Gg3DkeXBLjXei/O5rlyw6IBAZsklIZcDTUT9XAqPZtRQ==";
+        window.__genspark_token = "To/BnjzloZ3UfQdcSaYfDvny9fC1ClGRFJ4KgBWs4Fwl/pHn3rAgge5zid0Z7dUWixol0dPu/3afEt2i6h0O2MVXEBkRAFe7wKmSgAz65dVa5OdtGsxly6UXsVeogYhoDi2n5XJmWu+98Hgb5jDwO/88trnrJrCULk6AGS9irK0j/lvDMuzDQRNy783q1SZMVbbiM8eDI0/Nc8dIQkgmTSOpfUm0BS8Al/fYpIHpaJca2oOtG6LRSO0ruwcQf7MVJEYYUN/azX5p8MTndl6LixnaQ0NgkjjUhuNJw23nN2+Ym8ySuDHftSiVAooGNEJc7c1dLKfVigZH6CNNolIRFdAwLm/yQjw23zVA8naQB3hAq2sB9PUY9Bcak2+bQJup6jFiAmNHEVFDwLsrAa6ZToEEKxKX4UTNAZWLIHgWl/C5yUHPuU2E2423AjKYd5+jw9s5vygqXwkMDp4dI2Qt/QUH0DeJca74/ztPfJjFcVQh11YhzRltO2+VwzuSpzHaF3HvhjtK9Aoa4Ahbu9dupUB+iLbwMk1xkRs7lB19IJM=";
     </script>
     
     <script id="html_notice_dialog_script" src="https://www.genspark.ai/notice_dialog.js"></script>
