@@ -24,15 +24,6 @@
     <script src="https://cdn.jsdelivr.net/npm/jspdf@2.5.1/dist/jspdf.umd.min.js"></script>
     
     <style>
-        .operation-tab {
-            transition: all 0.3s ease;
-        }
-        
-        .operation-tab.active {
-            background-color: #2563eb;
-            color: white;
-        }
-        
         .product-card {
             transition: all 0.3s ease;
             border: 1px solid #e5e7eb;
@@ -141,32 +132,6 @@
             display: none;
         }
 
-        .delete-confirmation {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.5);
-            z-index: 1000;
-            justify-content: center;
-            align-items: center;
-        }
-
-        .delete-confirmation.show {
-            display: flex;
-        }
-
-        .delete-confirmation-content {
-            background: white;
-            padding: 2rem;
-            border-radius: 8px;
-            max-width: 400px;
-            width: 90%;
-            text-align: center;
-        }
-
         #documentType option {
             font-size: 13px;
         }
@@ -195,63 +160,49 @@
 </head>
 <body class="bg-gray-50 min-h-screen">
     
-    <!-- Logo -->
-    <div class="text-center py-6">
-        <h1 class="text-4xl font-bold text-blue-900">HEXAGON</h1>
-    </div>
-
     <!-- Title -->
-    <h1 class="text-2xl font-bold text-center text-gray-800 mb-6">
-        Registro de Consumo de Materiais Consignados
+    <h1 class="text-3xl font-bold text-center text-gray-800 mb-6 pt-6">
+        HEXAGON
     </h1>
+    
+    <h2 class="text-xl font-semibold text-center text-gray-700 mb-6">
+        Registro de Consumo de Materiais Consignados
+    </h2>
 
     <!-- Main Content -->
     <div class="main-content max-w-4xl mx-auto px-4">
-        <!-- Operation Tabs -->
-        <div class="flex flex-wrap gap-2 mb-4" id="operationTabs">
-            <button class="operation-tab active px-4 py-2 rounded bg-blue-600 text-white font-medium" onclick="switchOperation(1)">
-                Operação 1
-            </button>
-        </div>
-
-        <!-- Control Buttons -->
-        <div class="grid grid-cols-3 gap-2 mb-4">
-            <button onclick="deleteOperation()" class="bg-red-500 hover:bg-red-600 text-white py-2 px-4 rounded font-medium">
-                Apagar Operação
-            </button>
-            <button onclick="previousOperation()" class="bg-gray-500 hover:bg-gray-600 text-white py-2 px-4 rounded font-medium">
-                Operação Anterior
-            </button>
-            <button onclick="nextOperation()" class="bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded font-medium">
-                Próxima Operação
-            </button>
-        </div>
-
         <!-- Patient Information -->
         <div class="bg-white p-6 rounded-lg shadow-md mb-6">
-            <h2 class="text-lg font-semibold mb-4">Informações do Paciente e Procedimento</h2>
+            <h3 class="text-lg font-semibold mb-4">Informações do Paciente e Procedimento</h3>
             
             <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
                 <div>
                     <label class="block text-sm font-medium text-gray-700 mb-1">Usuário *</label>
-                    <input type="text" id="userField" placeholder="Digite o nome do usuário" class="w-full p-2 border border-gray-300 rounded-md" oninput="capitalizeInput(this)">
+                    <input type="text" id="userField" placeholder="Digite o nome do usuário" 
+                           class="w-full p-2 border border-gray-300 rounded-md"
+                           oninput="capitalizeInput(this)">
                 </div>
                 
                 <div>
                     <label class="block text-sm font-medium text-gray-700 mb-1">Hospital *</label>
-                    <input type="text" id="hospitalSelect" placeholder="Digite o nome do hospital" class="w-full p-2 border border-gray-300 rounded-md" oninput="capitalizeInput(this)">
+                    <input type="text" id="hospitalSelect" placeholder="Digite o nome do hospital" 
+                           class="w-full p-2 border border-gray-300 rounded-md"
+                           oninput="capitalizeInput(this)">
                 </div>
                 
                 <div>
                     <label class="block text-sm font-medium text-gray-700 mb-1">Paciente</label>
-                    <input type="text" id="patientName" placeholder="Nome do paciente" class="w-full p-2 border border-gray-300 rounded-md" oninput="capitalizeInput(this)">
+                    <input type="text" id="patientName" placeholder="Nome do paciente" 
+                           class="w-full p-2 border border-gray-300 rounded-md"
+                           oninput="capitalizeInput(this)">
                 </div>
             </div>
             
             <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
                 <div>
                     <label class="block text-sm font-medium text-gray-700 mb-1">N° Prontuário</label>
-                    <input type="text" id="recordNumber" placeholder="Número do prontuário" class="w-full p-2 border border-gray-300 rounded-md">
+                    <input type="text" id="recordNumber" placeholder="Número do prontuário" 
+                           class="w-full p-2 border border-gray-300 rounded-md">
                 </div>
                 
                 <div>
@@ -261,7 +212,8 @@
                 
                 <div>
                     <label class="block text-sm font-medium text-gray-700 mb-1">Outras Informações</label>
-                    <textarea id="otherInfo" placeholder="Informações adicionais" rows="2" class="w-full p-2 border border-gray-300 rounded-md"></textarea>
+                    <textarea id="otherInfo" placeholder="Informações adicionais" rows="2" 
+                              class="w-full p-2 border border-gray-300 rounded-md"></textarea>
                 </div>
             </div>
         </div>
@@ -293,43 +245,34 @@
             </button>
         </div>
 
+        <!-- Materiais Diversos -->
+        <div class="mb-4">
+            <label class="block text-sm font-medium text-gray-700 mb-2">Materiais Diversos:</label>
+            <textarea id="materiaisDiversos" placeholder="Digite materiais diversos utilizados..." 
+                      rows="3" class="w-full p-3 border border-gray-300 rounded-lg"></textarea>
+        </div>
+
         <!-- Send Report Button -->
         <button onclick="sendReport()" class="w-full bg-green-500 hover:bg-green-600 text-white py-3 px-6 rounded-lg font-medium text-lg mb-4">
             Enviar Relatório
         </button>
     </div>
 
-    <!-- Delete Confirmation Modal -->
-    <div id="deleteConfirmation" class="delete-confirmation">
-        <div class="delete-confirmation-content">
-            <h3 class="text-lg font-semibold mb-4">Confirmar Exclusão</h3>
-            <p class="text-gray-600 mb-6">Deseja realmente apagar esta operação?</p>
-            <div class="flex gap-4 justify-center">
-                <button onclick="confirmDelete()" class="bg-red-500 hover:bg-red-600 text-white px-6 py-2 rounded font-medium">
-                    Sim, Apagar
-                </button>
-                <button onclick="cancelDelete()" class="bg-gray-500 hover:bg-gray-600 text-white px-6 py-2 rounded font-medium">
-                    Cancelar
-                </button>
-            </div>
-        </div>
-    </div>
-
     <!-- Completion Screen -->
     <div class="completion-screen">
         <div class="max-w-md mx-auto bg-white p-8 rounded-lg shadow-lg">
             <div class="text-green-500 text-6xl mb-4">✓</div>
-            <h2 class="text-2xl font-bold text-gray-800 mb-4">Operação Concluída</h2>
-            <p class="text-gray-600 mb-6">Relatórios enviados com sucesso!</p>
-            <button onclick="startNewOperation()" class="w-full bg-blue-500 hover:bg-blue-600 text-white py-3 px-6 rounded-lg font-medium">
-                Iniciar Nova Operação
+            <h2 class="text-2xl font-bold text-gray-800 mb-4">Relatório Enviado</h2>
+            <p class="text-gray-600 mb-6">Relatório enviado com sucesso!</p>
+            <button onclick="startNewReport()" class="w-full bg-blue-500 hover:bg-blue-600 text-white py-3 px-6 rounded-lg font-medium">
+                Novo Relatório
             </button>
         </div>
     </div>
 
     <!-- Version -->
     <div class="text-center text-gray-500 text-sm py-4">
-        Versão 1.5 - Mensagem WhatsApp Simplificada
+        Versão 2.1 - Operação Única com Materiais Diversos
     </div>
 
     <script>
@@ -340,16 +283,12 @@
         const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
         
         // Global variables
-        let operations = [{}];
-        let currentOperation = 1;
         let currentProducts = [];
         
         // Initialize
         document.addEventListener('DOMContentLoaded', async function() {
             console.log('Aplicação iniciada - carregando subgrupos...');
-            
             await carregarSubgrupos();
-            loadOperationData();
         });
         
         // Função para capitalizar primeira letra de cada palavra
@@ -367,8 +306,11 @@
         // Função para formatar data brasileira
         function formatDateBrazilian(dateString) {
             if (!dateString) return '';
-            const [year, month, day] = dateString.split('-');
-            return `${day}/${month}/${year}`;
+            const parts = dateString.split('-');
+            if (parts.length === 3) {
+                return `${parts[2]}/${parts[1]}/${parts[0]}`;
+            }
+            return dateString;
         }
         
         // Carregar subgrupos do banco real
@@ -508,9 +450,6 @@
                 `;
                 container.appendChild(card);
             });
-            
-            // Restaurar seleções da operação atual
-            restoreProductSelection();
         }
         
         function toggleProductSelection(index) {
@@ -527,8 +466,6 @@
                 // Clear additional lots
                 document.getElementById(`additional-lots-${index}`).innerHTML = '';
             }
-            
-            saveOperationData();
         }
         
         function addLot(productIndex) {
@@ -544,12 +481,10 @@
                 <button onclick="removeLot(this)" class="remove-lot-btn">-</button>
             `;
             container.appendChild(lotDiv);
-            saveOperationData();
         }
         
         function removeLot(button) {
             button.closest('.lot-row').remove();
-            saveOperationData();
         }
         
         function showSelectedOnly() {
@@ -569,299 +504,76 @@
             });
         }
         
-        // Função para limpar seleções de produtos
-        function clearProductSelection() {
-            const checkboxes = document.querySelectorAll('.product-card input[type="checkbox"]');
-            checkboxes.forEach(checkbox => {
-                checkbox.checked = false;
-                const controls = document.getElementById(`qty-controls-${checkbox.id.split('-')[1]}`);
-                const card = checkbox.closest('.product-card');
-                if (controls) {
-                    controls.classList.remove('show');
-                }
-                if (card) {
-                    card.classList.remove('selected');
-                }
-            });
-            
-            // Limpar lotes adicionais
-            const additionalLots = document.querySelectorAll('[id^="additional-lots-"]');
-            additionalLots.forEach(container => {
-                container.innerHTML = '';
-            });
-        }
-        
-        // Função para restaurar seleções de produtos
-        function restoreProductSelection() {
-            const operation = operations[currentOperation - 1] || {};
-            if (!operation.selectedProducts) return;
-            
-            operation.selectedProducts.forEach(selectedProduct => {
-                const productIndex = currentProducts.findIndex(p => p.codigo === selectedProduct.codigo);
-                if (productIndex !== -1) {
-                    const checkbox = document.getElementById(`checkbox-${productIndex}`);
-                    const controls = document.getElementById(`qty-controls-${productIndex}`);
-                    const card = checkbox.closest('.product-card');
-                    
-                    // Marcar checkbox
-                    checkbox.checked = true;
-                    controls.classList.add('show');
-                    card.classList.add('selected');
-                    
-                    // Restaurar lotes
-                    selectedProduct.lots.forEach((lot, lotIndex) => {
-                        if (lotIndex === 0) {
-                            // Primeiro lote nos campos principais
-                            const qtySelect = controls.querySelector('.qty-select');
-                            const lotInput = controls.querySelector('.lot-input');
-                            qtySelect.value = lot.qty;
-                            lotInput.value = lot.lot;
-                        } else {
-                            // Lotes adicionais
-                            const container = document.getElementById(`additional-lots-${productIndex}`);
-                            const lotDiv = document.createElement('div');
-                            lotDiv.className = 'lot-row';
-                            lotDiv.innerHTML = `
-                                <select class="qty-select">
-                                    <option value="">-</option>
-                                    ${Array.from({length: 10}, (_, i) => `<option value="${i+1}">${i+1}</option>`).join('')}
-                                </select>
-                                <input type="text" class="lot-input" placeholder="Lote" maxlength="12">
-                                <button onclick="removeLot(this)" class="remove-lot-btn">-</button>
-                            `;
-                            container.appendChild(lotDiv);
-                            
-                            // Definir valores
-                            const qtySelect = lotDiv.querySelector('.qty-select');
-                            const lotInput = lotDiv.querySelector('.lot-input');
-                            qtySelect.value = lot.qty;
-                            lotInput.value = lot.lot;
-                        }
-                    });
-                }
-            });
-        }
-        
-        // Operation management
-        function switchOperation(operationNumber) {
-            saveOperationData();
-            clearProductSelection();
-            currentOperation = operationNumber;
-            loadOperationData();
-            updateOperationTabs();
-        }
-        
-        function nextOperation() {
-            const nextOp = operations.length + 1;
-            
-            const currentUser = document.getElementById('userField').value;
-            const currentHospital = document.getElementById('hospitalSelect').value;
-            const currentPatient = document.getElementById('patientName').value;
-            const currentRecord = document.getElementById('recordNumber').value;
-            const currentDate = document.getElementById('surgeryDate').value;
-            
-            operations.push({
-                userField: currentUser,
-                hospitalSelect: currentHospital,
-                patientName: currentPatient,
-                recordNumber: currentRecord,
-                surgeryDate: currentDate
-            });
-            
-            saveOperationData();
-            clearProductSelection();
-            currentOperation = nextOp;
-            updateOperationTabs();
-            loadOperationData();
-        }
-        
-        function previousOperation() {
-            if (currentOperation > 1) {
-                saveOperationData();
-                clearProductSelection();
-                currentOperation--;
-                loadOperationData();
-                updateOperationTabs();
-            }
-        }
-        
-        function deleteOperation() {
-            document.getElementById('deleteConfirmation').classList.add('show');
-        }
-        
-        function confirmDelete() {
-            document.getElementById('deleteConfirmation').classList.remove('show');
-            
-            try {
-                operations.splice(currentOperation - 1, 1);
-                if (operations.length === 0) {
-                    operations = [{}];
-                    currentOperation = 1;
-                } else if (currentOperation > operations.length) {
-                    currentOperation = operations.length;
-                }
-                
-                clearProductSelection();
-                updateOperationTabs();
-                loadOperationData();
-            } catch (error) {
-                console.error('Erro ao apagar operação:', error);
-                alert('Erro ao apagar operação. Tente novamente.');
-            }
-        }
-        
-        function cancelDelete() {
-            document.getElementById('deleteConfirmation').classList.remove('show');
-        }
-        
-        function updateOperationTabs() {
-            const tabsContainer = document.getElementById('operationTabs');
-            tabsContainer.innerHTML = '';
-            
-            operations.forEach((_, index) => {
-                const tab = document.createElement('button');
-                tab.className = `operation-tab px-4 py-2 rounded font-medium ${
-                    index + 1 === currentOperation ? 'active bg-blue-600 text-white' : 'bg-gray-200 text-gray-700'
-                }`;
-                tab.textContent = `Operação ${index + 1}`;
-                tab.onclick = () => switchOperation(index + 1);
-                tabsContainer.appendChild(tab);
-            });
-        }
-        
-        function saveOperationData() {
-            const operation = {
-                userField: document.getElementById('userField').value,
-                hospitalSelect: document.getElementById('hospitalSelect').value,
-                patientName: document.getElementById('patientName').value,
-                recordNumber: document.getElementById('recordNumber').value,
-                surgeryDate: document.getElementById('surgeryDate').value,
-                otherInfo: document.getElementById('otherInfo').value,
-                documentType: document.getElementById('documentType').value
-            };
-            
-            // Save selected products
-            operation.selectedProducts = [];
-            const checkboxes = document.querySelectorAll('.product-card input[type="checkbox"]:checked');
-            checkboxes.forEach(checkbox => {
-                const card = checkbox.closest('.product-card');
-                const index = parseInt(checkbox.id.split('-')[1]);
-                if (currentProducts[index]) {
-                    const product = {
-                        ...currentProducts[index],
-                        lots: []
-                    };
-                    
-                    const qtyControls = document.getElementById(`qty-controls-${index}`);
-                    const qtySelect = qtyControls.querySelector('.qty-select');
-                    const lotInput = qtyControls.querySelector('.lot-input');
-                    
-                    if (lotInput.value) {
-                        product.lots.push({
-                            lot: lotInput.value,
-                            qty: qtySelect.value || '1'
-                        });
-                    }
-                    
-                    // Additional lots
-                    const additionalLots = document.querySelectorAll(`#additional-lots-${index} .lot-row`);
-                    additionalLots.forEach(row => {
-                        const qty = row.querySelector('.qty-select').value;
-                        const lot = row.querySelector('.lot-input').value;
-                        if (lot) {
-                            product.lots.push({
-                                lot: lot,
-                                qty: qty || '1'
-                            });
-                        }
-                    });
-                    
-                    if (product.lots.length > 0) {
-                        operation.selectedProducts.push(product);
-                    }
-                }
-            });
-            
-            operations[currentOperation - 1] = operation;
-        }
-        
-        function loadOperationData() {
-            const operation = operations[currentOperation - 1] || {};
-            
-            document.getElementById('userField').value = operation.userField || '';
-            document.getElementById('hospitalSelect').value = operation.hospitalSelect || '';
-            document.getElementById('patientName').value = operation.patientName || '';
-            document.getElementById('recordNumber').value = operation.recordNumber || '';
-            document.getElementById('surgeryDate').value = operation.surgeryDate || '';
-            document.getElementById('otherInfo').value = operation.otherInfo || '';
-            document.getElementById('documentType').value = operation.documentType || '';
-            
-            if (operation.documentType) {
-                filterProducts();
-            }
-        }
-        
-        // PDF generation
-        function generatePDF(operationData, operationNumber) {
+        // Função para gerar PDF
+        function generatePDF() {
             try {
                 const { jsPDF } = window.jspdf;
                 const doc = new jsPDF();
                 
-                // CABEÇALHO HEXAGON
-                doc.setFontSize(16);
+                // Título HEXAGON centralizado
+                doc.setFontSize(20);
                 doc.setFont(undefined, 'bold');
-                doc.text('HEXAGON', 20, 20);
+                doc.text('HEXAGON', 105, 20, { align: 'center' });
                 
-                // Título
-                doc.setFontSize(14);
-                doc.setFont(undefined, 'normal');
-                doc.text('REGISTRO DE CONSUMO DE MATERIAIS CONSIGNADOS', 105, 35, { align: 'center' });
-                
-                // Dados do paciente
-                let yPos = 50;
-                doc.setFontSize(10);
-                doc.text(`Usuário: ${operationData.userField || ''}`, 20, yPos);
-                yPos += 7;
-                doc.text(`Hospital: ${operationData.hospitalSelect || ''}`, 20, yPos);
-                yPos += 7;
-                doc.text(`Nome do Paciente: ${operationData.patientName || ''}`, 20, yPos);
-                yPos += 7;
-                doc.text(`Num Prontuário: ${operationData.recordNumber || ''}`, 20, yPos);
-                yPos += 7;
-                doc.text(`Data da Cirurgia: ${formatDateBrazilian(operationData.surgeryDate) || ''}`, 20, yPos);
-                yPos += 7;
-                doc.text(`Outras Informações: ${operationData.otherInfo || ''}`, 20, yPos);
-                
-                // Materiais
-                yPos += 15;
+                // Conteúdo igual ao WhatsApp
                 doc.setFontSize(12);
-                doc.setFont(undefined, 'bold');
-                doc.text('MATERIAIS:', 20, yPos);
-                yPos += 10;
-                
-                doc.setFontSize(9);
                 doc.setFont(undefined, 'normal');
-                if (operationData.selectedProducts && operationData.selectedProducts.length > 0) {
-                    operationData.selectedProducts.forEach(product => {
-                        product.lots.forEach(lot => {
-                            doc.text(`Código: ${product.codigo}`, 20, yPos);
-                            yPos += 5;
-                            doc.text(`Produto: ${product.nome}`, 20, yPos);
-                            yPos += 5;
-                            doc.text(`Lote: ${lot.lot}`, 20, yPos);
-                            yPos += 5;
-                            doc.text(`Quantidade: ${lot.qty}`, 20, yPos);
-                            yPos += 8;
+                
+                let message = 'REGISTRO DE CONSUMO DE MATERIAIS CONSIGNADOS\n';
+                message += '================\n\n';
+                message += `Usuário: ${document.getElementById('userField').value || ''}\n`;
+                message += `Hospital: ${document.getElementById('hospitalSelect').value || ''}\n`;
+                message += `Nome do Paciente: ${document.getElementById('patientName').value || ''}\n`;
+                message += `Num Prontuario: ${document.getElementById('recordNumber').value || ''}\n`;
+                message += `Data da Cirurgia: ${formatDateBrazilian(document.getElementById('surgeryDate').value) || ''}\n`;
+                message += `Outras Informações: ${document.getElementById('otherInfo').value || ''}\n`;
+                
+                // Produtos selecionados
+                const checkboxes = document.querySelectorAll('.product-card input[type="checkbox"]:checked');
+                if (checkboxes.length > 0) {
+                    checkboxes.forEach(checkbox => {
+                        const index = parseInt(checkbox.id.split('-')[1]);
+                        if (currentProducts[index]) {
+                            const product = currentProducts[index];
+                            const qtyControls = document.getElementById(`qty-controls-${index}`);
+                            const qtySelect = qtyControls.querySelector('.qty-select');
+                            const lotInput = qtyControls.querySelector('.lot-input');
                             
-                            if (yPos > 250) {
-                                doc.addPage();
-                                yPos = 20;
-                            }
-                        });
+                            message += '================\n';
+                            message += `Codigo: ${product.codigo}\n`;
+                            message += `Produto: ${product.nome}\n`;
+                            message += `Lote: ${lotInput.value || ''}\n`;
+                            message += `Quantidade: ${qtySelect.value || ''}\n`;
+                            
+                            // Additional lots
+                            const additionalLots = document.querySelectorAll(`#additional-lots-${index} .lot-row`);
+                            additionalLots.forEach(row => {
+                                const qty = row.querySelector('.qty-select').value;
+                                const lot = row.querySelector('.lot-input').value;
+                                if (lot) {
+                                    message += '================\n';
+                                    message += `Codigo: ${product.codigo}\n`;
+                                    message += `Produto: ${product.nome}\n`;
+                                    message += `Lote: ${lot}\n`;
+                                    message += `Quantidade: ${qty || ''}\n`;
+                                }
+                            });
+                        }
                     });
-                } else {
-                    doc.text('Nenhum material selecionado', 20, yPos);
                 }
+                
+                // Materiais diversos
+                const materiaisDiversos = document.getElementById('materiaisDiversos').value;
+                if (materiaisDiversos) {
+                    message += '================\n';
+                    message += `Materiais Diversos:\n${materiaisDiversos}\n`;
+                }
+                
+                message += '================';
+                
+                // Adicionar texto ao PDF
+                const lines = doc.splitTextToSize(message, 180);
+                doc.text(lines, 15, 40);
                 
                 return doc;
                 
@@ -874,77 +586,96 @@
         function sendReport() {
             try {
                 console.log('Iniciando envio de relatório...');
-                saveOperationData();
                 
                 // Validar campos obrigatórios
                 const userField = document.getElementById('userField').value.trim();
                 const hospitalSelect = document.getElementById('hospitalSelect').value.trim();
                 
                 if (!userField) {
-                    alert('Por favor, preencha o campo Usuário.');
+                    alert('Por favor, preencha o campo Usuário');
                     return;
                 }
                 
                 if (!hospitalSelect) {
-                    alert('Por favor, preencha o campo Hospital.');
+                    alert('Por favor, preencha o campo Hospital');
                     return;
                 }
                 
-                let message = '';
-                let pdfGenerated = false;
+                // Gerar mensagem para WhatsApp
+                let message = 'REGISTRO DE CONSUMO DE MATERIAIS CONSIGNADOS\n';
+                message += '================\n\n';
+                message += `Usuário: ${userField}\n`;
+                message += `Hospital: ${hospitalSelect}\n`;
+                message += `Nome do Paciente: ${document.getElementById('patientName').value || ''}\n`;
+                message += `Num Prontuario: ${document.getElementById('recordNumber').value || ''}\n`;
+                message += `Data da Cirurgia: ${formatDateBrazilian(document.getElementById('surgeryDate').value) || ''}\n`;
+                message += `Outras Informações: ${document.getElementById('otherInfo').value || ''}\n`;
                 
-                operations.forEach((operation, index) => {
-                    if (index > 0) message += '\n===============================================\n\n';
-                    
-                    message += 'REGISTRO DE CONSUMO DE MATERIAIS CONSIGNADOS\n';
-                    message += '===============================================\n\n';
-                    message += `Usuário: ${operation.userField || ''}\n`;
-                    message += `Hospital: ${operation.hospitalSelect || ''}\n`;
-                    message += `Nome do Paciente: ${operation.patientName || ''}\n`;
-                    message += `Num Prontuário: ${operation.recordNumber || ''}\n`;
-                    message += `Data da Cirurgia: ${formatDateBrazilian(operation.surgeryDate) || ''}\n`;
-                    message += `Outras Informações: ${operation.otherInfo || ''}\n`;
-                    message += '===============================================\n';
-                    
-                    if (operation.selectedProducts && operation.selectedProducts.length > 0) {
-                        operation.selectedProducts.forEach(product => {
-                            product.lots.forEach(lot => {
-                                message += `Código: ${product.codigo}\n`;
+                // Produtos selecionados
+                const checkboxes = document.querySelectorAll('.product-card input[type="checkbox"]:checked');
+                checkboxes.forEach(checkbox => {
+                    const index = parseInt(checkbox.id.split('-')[1]);
+                    if (currentProducts[index]) {
+                        const product = currentProducts[index];
+                        const qtyControls = document.getElementById(`qty-controls-${index}`);
+                        const qtySelect = qtyControls.querySelector('.qty-select');
+                        const lotInput = qtyControls.querySelector('.lot-input');
+                        
+                        message += '================\n';
+                        message += `Codigo: ${product.codigo}\n`;
+                        message += `Produto: ${product.nome}\n`;
+                        message += `Lote: ${lotInput.value || ''}\n`;
+                        message += `Quantidade: ${qtySelect.value || ''}\n`;
+                        
+                        // Additional lots
+                        const additionalLots = document.querySelectorAll(`#additional-lots-${index} .lot-row`);
+                        additionalLots.forEach(row => {
+                            const qty = row.querySelector('.qty-select').value;
+                            const lot = row.querySelector('.lot-input').value;
+                            if (lot) {
+                                message += '================\n';
+                                message += `Codigo: ${product.codigo}\n`;
                                 message += `Produto: ${product.nome}\n`;
-                                message += `Lote: ${lot.lot}\n`;
-                                message += `Quantidade: ${lot.qty}\n`;
-                                message += '===============================================\n';
-                            });
+                                message += `Lote: ${lot}\n`;
+                                message += `Quantidade: ${qty || ''}\n`;
+                            }
                         });
-                    } else {
-                        message += 'Nenhum material selecionado\n';
-                        message += '===============================================\n';
-                    }
-                    
-                    // Gerar PDF
-                    try {
-                        const pdf = generatePDF(operation, index + 1);
-                        const pdfBlob = pdf.output('blob');
-                        const pdfUrl = URL.createObjectURL(pdfBlob);
-                        
-                        const link = document.createElement('a');
-                        link.href = pdfUrl;
-                        link.download = `Registro_Operacao_${index + 1}.pdf`;
-                        document.body.appendChild(link);
-                        link.click();
-                        document.body.removeChild(link);
-                        
-                        pdfGenerated = true;
-                        console.log(`PDF ${index + 1} gerado com sucesso`);
-                        
-                    } catch (pdfError) {
-                        console.error('Erro ao gerar PDF:', pdfError);
-                        message += `\nErro ao gerar PDF da operação ${index + 1}`;
                     }
                 });
                 
+                // Materiais diversos
+                const materiaisDiversos = document.getElementById('materiaisDiversos').value;
+                if (materiaisDiversos) {
+                    message += '================\n';
+                    message += `Materiais Diversos:\n${materiaisDiversos}\n`;
+                }
+                
+                message += '================';
+                
+                // Gerar PDF
+                let pdfGenerated = false;
+                try {
+                    const pdf = generatePDF();
+                    const pdfBlob = pdf.output('blob');
+                    const pdfUrl = URL.createObjectURL(pdfBlob);
+                    
+                    const link = document.createElement('a');
+                    link.href = pdfUrl;
+                    link.download = 'Registro_Materiais_Consignados.pdf';
+                    document.body.appendChild(link);
+                    link.click();
+                    document.body.removeChild(link);
+                    
+                    pdfGenerated = true;
+                    console.log('PDF gerado com sucesso');
+                    
+                } catch (pdfError) {
+                    console.error('Erro ao gerar PDF:', pdfError);
+                    message += '\n\nErro ao gerar PDF';
+                }
+                
                 if (pdfGenerated) {
-                    message += '\nPDF salvo no seu dispositivo';
+                    message += '\n\nPDF salvo no seu dispositivo';
                 }
                 
                 // Abrir WhatsApp
@@ -966,25 +697,32 @@
             document.querySelector('.completion-screen').classList.add('show');
         }
 
-        function startNewOperation() {
-            operations = [{}];
-            currentOperation = 1;
-            updateOperationTabs();
-            loadOperationData();
-            document.getElementById('productsContainer').innerHTML = '<div class="text-center p-4 text-gray-500">Selecione um subgrupo para visualizar os produtos</div>';
+        function startNewReport() {
+            // Limpar apenas campos específicos (manter Usuário e Hospital)
+            document.getElementById('patientName').value = '';
+            document.getElementById('recordNumber').value = '';
+            document.getElementById('surgeryDate').value = '';
+            document.getElementById('otherInfo').value = '';
+            document.getElementById('materiaisDiversos').value = '';
+            document.getElementById('documentType').value = '';
             
+            // Limpar produtos
+            const container = document.getElementById('productsContainer');
+            container.innerHTML = '<div class="text-center p-4 text-gray-500">Selecione um subgrupo para visualizar os produtos</div>';
+            
+            // Voltar para tela principal
             document.querySelector('.main-content').classList.remove('hide');
             document.querySelector('.completion-screen').classList.remove('show');
         }
     </script>
-<script defer src="https://static.cloudflareinsights.com/beacon.min.js/vcd15cbe7772f49c399c6a5babf22c1241717689176015" integrity="sha512-ZpsOmlRQV6y907TI0dKBHq9Md29nnaEIPlkf84rnaERnq6zvWvPUqr2ft8M1aS28oN72PdrCzSjY4U6VaAw1EQ==" data-cf-beacon='{"rayId":"95fdc32deaaf02f7","serverTiming":{"name":{"cfExtPri":true,"cfEdge":true,"cfOrigin":true,"cfL4":true,"cfSpeedBrain":true,"cfCacheStatus":true}},"version":"2025.6.2","token":"4edd5f8ec12a48cfa682ab8261b80a79"}' crossorigin="anonymous"></script>
+<script defer src="https://static.cloudflareinsights.com/beacon.min.js/vcd15cbe7772f49c399c6a5babf22c1241717689176015" integrity="sha512-ZpsOmlRQV6y907TI0dKBHq9Md29nnaEIPlkf84rnaERnq6zvWvPUqr2ft8M1aS28oN72PdrCzSjY4U6VaAw1EQ==" data-cf-beacon='{"rayId":"960314a90df8b9d5","serverTiming":{"name":{"cfExtPri":true,"cfEdge":true,"cfOrigin":true,"cfL4":true,"cfSpeedBrain":true,"cfCacheStatus":true}},"version":"2025.6.2","token":"4edd5f8ec12a48cfa682ab8261b80a79"}' crossorigin="anonymous"></script>
 </body>
 </html>
     <script id="html_badge_script1">
         window.__genspark_remove_badge_link = "https://www.genspark.ai/api/html_badge/" +
-            "remove_badge?token=To%2FBnjzloZ3UfQdcSaYfDgyUqIFHtK513HDyyKd0JcqObJoaJTET1A8%2FaSbRALLrd1Pd5j4pVhpjABFfol%2FdSVUwOHmiI6oG8uvuA%2BNeFekP4ZxHAHdx81%2BHxr4qmPeqNREvJCInwYVtQ4bCdkjmdFxdW9yMJtf9944%2FH%2Bwvy8pqDg7XHBCgk1oqZJ0rVn7xcvLbPHDVPAeaBlQj8Q56C2nIz%2F0tLMNzFKG3mg9qG5tuKJpHYs38KaMt9EutFaytM%2FSqDlSh3%2F8Ph2QfnlP9XHGco7wdNWmh2drpOmegnJvA7Yq4DgJDYlL6Bv%2BmkEkpVgm7gTQVVAxlnmRKC4EllQ8zEW1v1%2FvCpjtJy%2BSLo1HE1zGuOyQBwKVt%2BgS0rIKa0SVXsMfuE%2B19HzEFSsG9C4zlDNtwXY8mAlcHwbj1MDzVtpQ7Khnlubkj0siUeLBrsdF3r70I7JjJ1DCUduaPjG%2BBInI88KwLz29tMZtkEXFn1WF2Rpwavew1EVTRlt%2BIjTAcb7JNnRYpz5uTKbR5vQdCGxyha7uib7n%2FKJT3Q6M%3D";
+            "remove_badge?token=To%2FBnjzloZ3UfQdcSaYfDl5OruCAXWZ939T3evCGXZTXD%2Bm4Qb8EK300j%2F%2BlKxP6%2BzABRr2Xt9gPFoiaxoqg%2FL5axpOEA2TPsmyuQA8n3kpXvvXcQEWm3DdvyxxRxqMPuuzbX74pjrdReqSYfoAHutY9vHsN2pkCIji0QUSZ%2BgouZMLwDauxAQqHlgd7nu98v%2BFubIHibiKhIkoj93%2BAI2rhEZsyCxAi8vYTIGLmPJKNsZgRZELw6U%2BES%2FNx3vsTr%2BnJ5deiAvz8Uufu7cCac61NADOzT6ryRILcV9nR7NIJAuvE5kpowy%2Fuams%2FORGrIyfpehjQvvM6NVhAJ25DJeqlH5w5HsgPu%2Bnnx9aRzMDF6k2nuvAbedwJZ14q6ySnfRBTiSfj0FuA8f%2BAhVPTt7A8ErVfZeTQqBEy6RkcqHAtabddzbMfipWPoIY8wcqKFNIWkC8dfT4ocVLSJY67j32bZRFx%2B3i4Tzq8idq68xmLT3v8%2B%2BEY2nMwlx4Shat7pLQ07ymyOnpAECA25%2FuAWvPdcnC5bxkDQlRhjCzn2o4%3D";
         window.__genspark_locale = "pt-BR";
-        window.__genspark_token = "To/BnjzloZ3UfQdcSaYfDgyUqIFHtK513HDyyKd0JcqObJoaJTET1A8/aSbRALLrd1Pd5j4pVhpjABFfol/dSVUwOHmiI6oG8uvuA+NeFekP4ZxHAHdx81+Hxr4qmPeqNREvJCInwYVtQ4bCdkjmdFxdW9yMJtf9944/H+wvy8pqDg7XHBCgk1oqZJ0rVn7xcvLbPHDVPAeaBlQj8Q56C2nIz/0tLMNzFKG3mg9qG5tuKJpHYs38KaMt9EutFaytM/SqDlSh3/8Ph2QfnlP9XHGco7wdNWmh2drpOmegnJvA7Yq4DgJDYlL6Bv+mkEkpVgm7gTQVVAxlnmRKC4EllQ8zEW1v1/vCpjtJy+SLo1HE1zGuOyQBwKVt+gS0rIKa0SVXsMfuE+19HzEFSsG9C4zlDNtwXY8mAlcHwbj1MDzVtpQ7Khnlubkj0siUeLBrsdF3r70I7JjJ1DCUduaPjG+BInI88KwLz29tMZtkEXFn1WF2Rpwavew1EVTRlt+IjTAcb7JNnRYpz5uTKbR5vQdCGxyha7uib7n/KJT3Q6M=";
+        window.__genspark_token = "To/BnjzloZ3UfQdcSaYfDl5OruCAXWZ939T3evCGXZTXD+m4Qb8EK300j/+lKxP6+zABRr2Xt9gPFoiaxoqg/L5axpOEA2TPsmyuQA8n3kpXvvXcQEWm3DdvyxxRxqMPuuzbX74pjrdReqSYfoAHutY9vHsN2pkCIji0QUSZ+gouZMLwDauxAQqHlgd7nu98v+FubIHibiKhIkoj93+AI2rhEZsyCxAi8vYTIGLmPJKNsZgRZELw6U+ES/Nx3vsTr+nJ5deiAvz8Uufu7cCac61NADOzT6ryRILcV9nR7NIJAuvE5kpowy/uams/ORGrIyfpehjQvvM6NVhAJ25DJeqlH5w5HsgPu+nnx9aRzMDF6k2nuvAbedwJZ14q6ySnfRBTiSfj0FuA8f+AhVPTt7A8ErVfZeTQqBEy6RkcqHAtabddzbMfipWPoIY8wcqKFNIWkC8dfT4ocVLSJY67j32bZRFx+3i4Tzq8idq68xmLT3v8++EY2nMwlx4Shat7pLQ07ymyOnpAECA25/uAWvPdcnC5bxkDQlRhjCzn2o4=";
     </script>
     
     <script id="html_notice_dialog_script" src="https://www.genspark.ai/notice_dialog.js"></script>
