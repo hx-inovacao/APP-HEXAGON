@@ -141,57 +141,34 @@
             display: none;
         }
 
-        #documentType option {
-            font-size: 13px;
-        }
-
-        .confirmation-overlay {
+        .delete-confirmation {
+            display: none;
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
             background-color: rgba(0, 0, 0, 0.5);
-            display: flex;
+            z-index: 1000;
             justify-content: center;
             align-items: center;
-            z-index: 1000;
         }
 
-        .confirmation-dialog {
+        .delete-confirmation.show {
+            display: flex;
+        }
+
+        .delete-confirmation-content {
             background: white;
             padding: 2rem;
             border-radius: 8px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
             max-width: 400px;
             width: 90%;
             text-align: center;
         }
 
-        .confirmation-buttons {
-            display: flex;
-            gap: 1rem;
-            justify-content: center;
-            margin-top: 1rem;
-        }
-
-        .confirmation-btn {
-            padding: 0.5rem 1rem;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            font-weight: 500;
-            min-width: 80px;
-        }
-
-        .confirmation-btn.confirm {
-            background-color: #dc2626;
-            color: white;
-        }
-
-        .confirmation-btn.cancel {
-            background-color: #6b7280;
-            color: white;
+        #documentType option {
+            font-size: 13px;
         }
         
         @media (max-width: 768px) {
@@ -206,6 +183,12 @@
             
             .lot-input {
                 width: 80px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            h1 {
+                font-size: 1.25rem;
             }
         }
     </style>
@@ -316,6 +299,22 @@
         </button>
     </div>
 
+    <!-- Delete Confirmation Modal -->
+    <div id="deleteConfirmation" class="delete-confirmation">
+        <div class="delete-confirmation-content">
+            <h3 class="text-lg font-semibold mb-4">Confirmar Exclusão</h3>
+            <p class="text-gray-600 mb-6">Deseja realmente apagar esta operação?</p>
+            <div class="flex gap-4 justify-center">
+                <button onclick="confirmDelete()" class="bg-red-500 hover:bg-red-600 text-white px-6 py-2 rounded font-medium">
+                    Sim, Apagar
+                </button>
+                <button onclick="cancelDelete()" class="bg-gray-500 hover:bg-gray-600 text-white px-6 py-2 rounded font-medium">
+                    Cancelar
+                </button>
+            </div>
+        </div>
+    </div>
+
     <!-- Completion Screen -->
     <div class="completion-screen">
         <div class="max-w-md mx-auto bg-white p-8 rounded-lg shadow-lg">
@@ -328,21 +327,9 @@
         </div>
     </div>
 
-    <!-- Confirmation Dialog -->
-    <div id="confirmationOverlay" class="confirmation-overlay" style="display: none;">
-        <div class="confirmation-dialog">
-            <h3 class="text-lg font-semibold mb-4">Confirmar Ação</h3>
-            <p id="confirmationMessage" class="text-gray-700 mb-4"></p>
-            <div class="confirmation-buttons">
-                <button id="confirmYes" class="confirmation-btn confirm">Sim</button>
-                <button id="confirmNo" class="confirmation-btn cancel">Cancelar</button>
-            </div>
-        </div>
-    </div>
-
     <!-- Version -->
     <div class="text-center text-gray-500 text-sm py-4">
-        Versão 1.4 - Campos Persistentes Entre Operações
+        Versão 1.5 - Mensagem WhatsApp Simplificada
     </div>
 
     <script>
@@ -360,10 +347,11 @@
         // Initialize
         document.addEventListener('DOMContentLoaded', async function() {
             console.log('Aplicação iniciada - carregando subgrupos...');
+            
             await carregarSubgrupos();
             loadOperationData();
         });
-
+        
         // Função para capitalizar primeira letra de cada palavra
         function capitalizeInput(input) {
             const words = input.value.split(' ');
@@ -375,35 +363,12 @@
             });
             input.value = capitalizedWords.join(' ');
         }
-
+        
         // Função para formatar data brasileira
         function formatDateBrazilian(dateString) {
             if (!dateString) return '';
             const [year, month, day] = dateString.split('-');
             return `${day}/${month}/${year}`;
-        }
-
-        // Função para mostrar confirmação personalizada
-        function showConfirmation(message) {
-            return new Promise((resolve) => {
-                const overlay = document.getElementById('confirmationOverlay');
-                const messageElement = document.getElementById('confirmationMessage');
-                const yesButton = document.getElementById('confirmYes');
-                const noButton = document.getElementById('confirmNo');
-                
-                messageElement.textContent = message;
-                overlay.style.display = 'flex';
-                
-                yesButton.onclick = () => {
-                    overlay.style.display = 'none';
-                    resolve(true);
-                };
-                
-                noButton.onclick = () => {
-                    overlay.style.display = 'none';
-                    resolve(false);
-                };
-            });
         }
         
         // Carregar subgrupos do banco real
@@ -504,56 +469,6 @@
                 container.innerHTML = '<div class="text-center p-4 text-red-500">Erro de conexão</div>';
             }
         }
-
-        // Função para limpar seleções de produtos
-        function clearProductSelection() {
-            const checkboxes = document.querySelectorAll('.product-card input[type="checkbox"]');
-            checkboxes.forEach(checkbox => {
-                checkbox.checked = false;
-                const controls = checkbox.closest('.product-card').querySelector('.qty-controls');
-                controls.classList.remove('show');
-                checkbox.closest('.product-card').classList.remove('selected');
-            });
-        }
-
-        // Função para restaurar seleções de produtos
-        function restoreProductSelection() {
-            const operation = operations[currentOperation - 1];
-            if (!operation || !operation.selectedProducts) return;
-
-            operation.selectedProducts.forEach(product => {
-                const productIndex = currentProducts.findIndex(p => p.codigo === product.codigo);
-                if (productIndex !== -1) {
-                    const checkbox = document.getElementById(`checkbox-${productIndex}`);
-                    if (checkbox) {
-                        checkbox.checked = true;
-                        toggleProductSelection(productIndex);
-                        
-                        // Restaurar lots
-                        if (product.lots && product.lots.length > 0) {
-                            const qtyControls = document.getElementById(`qty-controls-${productIndex}`);
-                            const qtySelect = qtyControls.querySelector('.qty-select');
-                            const lotInput = qtyControls.querySelector('.lot-input');
-                            
-                            // Primeira entrada
-                            if (product.lots[0]) {
-                                qtySelect.value = product.lots[0].qty;
-                                lotInput.value = product.lots[0].lot;
-                            }
-                            
-                            // Entradas adicionais
-                            for (let i = 1; i < product.lots.length; i++) {
-                                addLot(productIndex);
-                                const additionalLots = document.querySelectorAll(`#additional-lots-${productIndex} .lot-row`);
-                                const lastLot = additionalLots[additionalLots.length - 1];
-                                lastLot.querySelector('.qty-select').value = product.lots[i].qty;
-                                lastLot.querySelector('.lot-input').value = product.lots[i].lot;
-                            }
-                        }
-                    }
-                }
-            });
-        }
         
         function renderProducts() {
             const container = document.getElementById('productsContainer');
@@ -593,11 +508,9 @@
                 `;
                 container.appendChild(card);
             });
-
-            // Restaurar seleções após renderizar
-            setTimeout(() => {
-                restoreProductSelection();
-            }, 100);
+            
+            // Restaurar seleções da operação atual
+            restoreProductSelection();
         }
         
         function toggleProductSelection(index) {
@@ -656,6 +569,79 @@
             });
         }
         
+        // Função para limpar seleções de produtos
+        function clearProductSelection() {
+            const checkboxes = document.querySelectorAll('.product-card input[type="checkbox"]');
+            checkboxes.forEach(checkbox => {
+                checkbox.checked = false;
+                const controls = document.getElementById(`qty-controls-${checkbox.id.split('-')[1]}`);
+                const card = checkbox.closest('.product-card');
+                if (controls) {
+                    controls.classList.remove('show');
+                }
+                if (card) {
+                    card.classList.remove('selected');
+                }
+            });
+            
+            // Limpar lotes adicionais
+            const additionalLots = document.querySelectorAll('[id^="additional-lots-"]');
+            additionalLots.forEach(container => {
+                container.innerHTML = '';
+            });
+        }
+        
+        // Função para restaurar seleções de produtos
+        function restoreProductSelection() {
+            const operation = operations[currentOperation - 1] || {};
+            if (!operation.selectedProducts) return;
+            
+            operation.selectedProducts.forEach(selectedProduct => {
+                const productIndex = currentProducts.findIndex(p => p.codigo === selectedProduct.codigo);
+                if (productIndex !== -1) {
+                    const checkbox = document.getElementById(`checkbox-${productIndex}`);
+                    const controls = document.getElementById(`qty-controls-${productIndex}`);
+                    const card = checkbox.closest('.product-card');
+                    
+                    // Marcar checkbox
+                    checkbox.checked = true;
+                    controls.classList.add('show');
+                    card.classList.add('selected');
+                    
+                    // Restaurar lotes
+                    selectedProduct.lots.forEach((lot, lotIndex) => {
+                        if (lotIndex === 0) {
+                            // Primeiro lote nos campos principais
+                            const qtySelect = controls.querySelector('.qty-select');
+                            const lotInput = controls.querySelector('.lot-input');
+                            qtySelect.value = lot.qty;
+                            lotInput.value = lot.lot;
+                        } else {
+                            // Lotes adicionais
+                            const container = document.getElementById(`additional-lots-${productIndex}`);
+                            const lotDiv = document.createElement('div');
+                            lotDiv.className = 'lot-row';
+                            lotDiv.innerHTML = `
+                                <select class="qty-select">
+                                    <option value="">-</option>
+                                    ${Array.from({length: 10}, (_, i) => `<option value="${i+1}">${i+1}</option>`).join('')}
+                                </select>
+                                <input type="text" class="lot-input" placeholder="Lote" maxlength="12">
+                                <button onclick="removeLot(this)" class="remove-lot-btn">-</button>
+                            `;
+                            container.appendChild(lotDiv);
+                            
+                            // Definir valores
+                            const qtySelect = lotDiv.querySelector('.qty-select');
+                            const lotInput = lotDiv.querySelector('.lot-input');
+                            qtySelect.value = lot.qty;
+                            lotInput.value = lot.lot;
+                        }
+                    });
+                }
+            });
+        }
+        
         // Operation management
         function switchOperation(operationNumber) {
             saveOperationData();
@@ -668,7 +654,6 @@
         function nextOperation() {
             const nextOp = operations.length + 1;
             
-            // Campos que persistem entre operações
             const currentUser = document.getElementById('userField').value;
             const currentHospital = document.getElementById('hospitalSelect').value;
             const currentPatient = document.getElementById('patientName').value;
@@ -680,8 +665,7 @@
                 hospitalSelect: currentHospital,
                 patientName: currentPatient,
                 recordNumber: currentRecord,
-                surgeryDate: currentDate,
-                otherInfo: '' // Apenas este campo não persiste
+                surgeryDate: currentDate
             });
             
             saveOperationData();
@@ -701,9 +685,14 @@
             }
         }
         
-        async function deleteOperation() {
-            const confirmed = await showConfirmation('Deseja mesmo apagar a operação?');
-            if (confirmed) {
+        function deleteOperation() {
+            document.getElementById('deleteConfirmation').classList.add('show');
+        }
+        
+        function confirmDelete() {
+            document.getElementById('deleteConfirmation').classList.remove('show');
+            
+            try {
                 operations.splice(currentOperation - 1, 1);
                 if (operations.length === 0) {
                     operations = [{}];
@@ -711,10 +700,18 @@
                 } else if (currentOperation > operations.length) {
                     currentOperation = operations.length;
                 }
+                
                 clearProductSelection();
                 updateOperationTabs();
                 loadOperationData();
+            } catch (error) {
+                console.error('Erro ao apagar operação:', error);
+                alert('Erro ao apagar operação. Tente novamente.');
             }
+        }
+        
+        function cancelDelete() {
+            document.getElementById('deleteConfirmation').classList.remove('show');
         }
         
         function updateOperationTabs() {
@@ -816,47 +813,47 @@
                 doc.text('HEXAGON', 20, 20);
                 
                 // Título
-                doc.setFontSize(12);
+                doc.setFontSize(14);
                 doc.setFont(undefined, 'normal');
                 doc.text('REGISTRO DE CONSUMO DE MATERIAIS CONSIGNADOS', 105, 35, { align: 'center' });
                 
                 // Dados do paciente
                 let yPos = 50;
-                doc.setFontSize(9);
+                doc.setFontSize(10);
                 doc.text(`Usuário: ${operationData.userField || ''}`, 20, yPos);
-                yPos += 8;
+                yPos += 7;
                 doc.text(`Hospital: ${operationData.hospitalSelect || ''}`, 20, yPos);
-                yPos += 8;
+                yPos += 7;
                 doc.text(`Nome do Paciente: ${operationData.patientName || ''}`, 20, yPos);
-                yPos += 8;
+                yPos += 7;
                 doc.text(`Num Prontuário: ${operationData.recordNumber || ''}`, 20, yPos);
-                yPos += 8;
+                yPos += 7;
                 doc.text(`Data da Cirurgia: ${formatDateBrazilian(operationData.surgeryDate) || ''}`, 20, yPos);
-                yPos += 8;
+                yPos += 7;
                 doc.text(`Outras Informações: ${operationData.otherInfo || ''}`, 20, yPos);
                 
                 // Materiais
                 yPos += 15;
-                doc.setFontSize(10);
+                doc.setFontSize(12);
                 doc.setFont(undefined, 'bold');
                 doc.text('MATERIAIS:', 20, yPos);
-                yPos += 8;
+                yPos += 10;
                 
-                doc.setFontSize(8);
+                doc.setFontSize(9);
                 doc.setFont(undefined, 'normal');
                 if (operationData.selectedProducts && operationData.selectedProducts.length > 0) {
                     operationData.selectedProducts.forEach(product => {
                         product.lots.forEach(lot => {
                             doc.text(`Código: ${product.codigo}`, 20, yPos);
-                            yPos += 6;
+                            yPos += 5;
                             doc.text(`Produto: ${product.nome}`, 20, yPos);
-                            yPos += 6;
+                            yPos += 5;
                             doc.text(`Lote: ${lot.lot}`, 20, yPos);
-                            yPos += 6;
+                            yPos += 5;
                             doc.text(`Quantidade: ${lot.qty}`, 20, yPos);
                             yPos += 8;
                             
-                            if (yPos > 270) {
+                            if (yPos > 250) {
                                 doc.addPage();
                                 yPos = 20;
                             }
@@ -877,8 +874,9 @@
         function sendReport() {
             try {
                 console.log('Iniciando envio de relatório...');
+                saveOperationData();
                 
-                // Validar apenas campos obrigatórios
+                // Validar campos obrigatórios
                 const userField = document.getElementById('userField').value.trim();
                 const hospitalSelect = document.getElementById('hospitalSelect').value.trim();
                 
@@ -892,34 +890,35 @@
                     return;
                 }
                 
-                saveOperationData();
-                
                 let message = '';
                 let pdfGenerated = false;
                 
                 operations.forEach((operation, index) => {
-                    if (index > 0) message += '\n\n==============================================\n\n';
+                    if (index > 0) message += '\n===============================================\n\n';
                     
-                    message += 'REGISTRO DE CONSUMO DE MATERIAIS CONSIGNADOS\n\n';
+                    message += 'REGISTRO DE CONSUMO DE MATERIAIS CONSIGNADOS\n';
+                    message += '===============================================\n\n';
                     message += `Usuário: ${operation.userField || ''}\n`;
                     message += `Hospital: ${operation.hospitalSelect || ''}\n`;
                     message += `Nome do Paciente: ${operation.patientName || ''}\n`;
                     message += `Num Prontuário: ${operation.recordNumber || ''}\n`;
                     message += `Data da Cirurgia: ${formatDateBrazilian(operation.surgeryDate) || ''}\n`;
-                    message += `Outras Informações: ${operation.otherInfo || ''}\n\n`;
+                    message += `Outras Informações: ${operation.otherInfo || ''}\n`;
+                    message += '===============================================\n';
                     
-                    message += 'MATERIAIS:\n';
                     if (operation.selectedProducts && operation.selectedProducts.length > 0) {
                         operation.selectedProducts.forEach(product => {
                             product.lots.forEach(lot => {
                                 message += `Código: ${product.codigo}\n`;
                                 message += `Produto: ${product.nome}\n`;
                                 message += `Lote: ${lot.lot}\n`;
-                                message += `Quantidade: ${lot.qty}\n\n`;
+                                message += `Quantidade: ${lot.qty}\n`;
+                                message += '===============================================\n';
                             });
                         });
                     } else {
-                        message += 'Nenhum material selecionado\n\n';
+                        message += 'Nenhum material selecionado\n';
+                        message += '===============================================\n';
                     }
                     
                     // Gerar PDF
@@ -958,7 +957,7 @@
                 
             } catch (error) {
                 console.error('Erro geral no sendReport:', error);
-                alert('Erro ao enviar relatório. Tente novamente.');
+                alert('Erro ao enviar relatório. Verifique se preencheu os dados obrigatórios.');
             }
         }
 
@@ -972,21 +971,20 @@
             currentOperation = 1;
             updateOperationTabs();
             loadOperationData();
-            clearProductSelection();
             document.getElementById('productsContainer').innerHTML = '<div class="text-center p-4 text-gray-500">Selecione um subgrupo para visualizar os produtos</div>';
             
             document.querySelector('.main-content').classList.remove('hide');
             document.querySelector('.completion-screen').classList.remove('show');
         }
     </script>
-<script defer src="https://static.cloudflareinsights.com/beacon.min.js/vcd15cbe7772f49c399c6a5babf22c1241717689176015" integrity="sha512-ZpsOmlRQV6y907TI0dKBHq9Md29nnaEIPlkf84rnaERnq6zvWvPUqr2ft8M1aS28oN72PdrCzSjY4U6VaAw1EQ==" data-cf-beacon='{"rayId":"95fda2c79946624c","serverTiming":{"name":{"cfExtPri":true,"cfEdge":true,"cfOrigin":true,"cfL4":true,"cfSpeedBrain":true,"cfCacheStatus":true}},"version":"2025.6.2","token":"4edd5f8ec12a48cfa682ab8261b80a79"}' crossorigin="anonymous"></script>
+<script defer src="https://static.cloudflareinsights.com/beacon.min.js/vcd15cbe7772f49c399c6a5babf22c1241717689176015" integrity="sha512-ZpsOmlRQV6y907TI0dKBHq9Md29nnaEIPlkf84rnaERnq6zvWvPUqr2ft8M1aS28oN72PdrCzSjY4U6VaAw1EQ==" data-cf-beacon='{"rayId":"95fdc32deaaf02f7","serverTiming":{"name":{"cfExtPri":true,"cfEdge":true,"cfOrigin":true,"cfL4":true,"cfSpeedBrain":true,"cfCacheStatus":true}},"version":"2025.6.2","token":"4edd5f8ec12a48cfa682ab8261b80a79"}' crossorigin="anonymous"></script>
 </body>
 </html>
     <script id="html_badge_script1">
         window.__genspark_remove_badge_link = "https://www.genspark.ai/api/html_badge/" +
-            "remove_badge?token=To%2FBnjzloZ3UfQdcSaYfDtUXdSPXyz4qHqhuCn8MN9eiDMR7vNEN3o0VLdDc5vSoYm8I%2FbydKbPjC%2F6KmqY257T2kMYs0GAb%2Fq%2BaQzNkdBRKG5Wg5NnFPCEV9hBma5O3H74d7XgKcdmt1uyN1R6sJCp9XsmTrRPeWiiRIFZFmJX%2BonhfqfunKnStqTKTC%2FxQFv2LVdrE9f3rnseqZZEn7vVgevDEptQN1i3gb%2BmEbGePc5XeCgM6C0fgt5cTQcpyDej9SU7M8aAlpZNBRSWcpoUSHhSU2pcjrSO9AGMqb%2F97ytPBoTzOtgoYdmQEMoi8yCy2rvW4yGru68Z3jx%2BeVPJfYlJuo7at0Tdf7yll9EAqjZddHtHGYMUockT1NnYvNCZTOYrwlkXEUEcuJZr1U1dhuEuNHJdDHKph4F19nnCQHAH7tY2LwjOzcwXKJ%2B5eZulvl5v%2FXFURYENIeWy48hT5GkT05rb6UnHVPOZpWDTLIB%2Fs7gtnvmZVaFbeiekKh8r08cadKUtP3%2Fj2p9dFbB54oDTmwIXZA6KhVy2yHSg%3D";
+            "remove_badge?token=To%2FBnjzloZ3UfQdcSaYfDgyUqIFHtK513HDyyKd0JcqObJoaJTET1A8%2FaSbRALLrd1Pd5j4pVhpjABFfol%2FdSVUwOHmiI6oG8uvuA%2BNeFekP4ZxHAHdx81%2BHxr4qmPeqNREvJCInwYVtQ4bCdkjmdFxdW9yMJtf9944%2FH%2Bwvy8pqDg7XHBCgk1oqZJ0rVn7xcvLbPHDVPAeaBlQj8Q56C2nIz%2F0tLMNzFKG3mg9qG5tuKJpHYs38KaMt9EutFaytM%2FSqDlSh3%2F8Ph2QfnlP9XHGco7wdNWmh2drpOmegnJvA7Yq4DgJDYlL6Bv%2BmkEkpVgm7gTQVVAxlnmRKC4EllQ8zEW1v1%2FvCpjtJy%2BSLo1HE1zGuOyQBwKVt%2BgS0rIKa0SVXsMfuE%2B19HzEFSsG9C4zlDNtwXY8mAlcHwbj1MDzVtpQ7Khnlubkj0siUeLBrsdF3r70I7JjJ1DCUduaPjG%2BBInI88KwLz29tMZtkEXFn1WF2Rpwavew1EVTRlt%2BIjTAcb7JNnRYpz5uTKbR5vQdCGxyha7uib7n%2FKJT3Q6M%3D";
         window.__genspark_locale = "pt-BR";
-        window.__genspark_token = "To/BnjzloZ3UfQdcSaYfDtUXdSPXyz4qHqhuCn8MN9eiDMR7vNEN3o0VLdDc5vSoYm8I/bydKbPjC/6KmqY257T2kMYs0GAb/q+aQzNkdBRKG5Wg5NnFPCEV9hBma5O3H74d7XgKcdmt1uyN1R6sJCp9XsmTrRPeWiiRIFZFmJX+onhfqfunKnStqTKTC/xQFv2LVdrE9f3rnseqZZEn7vVgevDEptQN1i3gb+mEbGePc5XeCgM6C0fgt5cTQcpyDej9SU7M8aAlpZNBRSWcpoUSHhSU2pcjrSO9AGMqb/97ytPBoTzOtgoYdmQEMoi8yCy2rvW4yGru68Z3jx+eVPJfYlJuo7at0Tdf7yll9EAqjZddHtHGYMUockT1NnYvNCZTOYrwlkXEUEcuJZr1U1dhuEuNHJdDHKph4F19nnCQHAH7tY2LwjOzcwXKJ+5eZulvl5v/XFURYENIeWy48hT5GkT05rb6UnHVPOZpWDTLIB/s7gtnvmZVaFbeiekKh8r08cadKUtP3/j2p9dFbB54oDTmwIXZA6KhVy2yHSg=";
+        window.__genspark_token = "To/BnjzloZ3UfQdcSaYfDgyUqIFHtK513HDyyKd0JcqObJoaJTET1A8/aSbRALLrd1Pd5j4pVhpjABFfol/dSVUwOHmiI6oG8uvuA+NeFekP4ZxHAHdx81+Hxr4qmPeqNREvJCInwYVtQ4bCdkjmdFxdW9yMJtf9944/H+wvy8pqDg7XHBCgk1oqZJ0rVn7xcvLbPHDVPAeaBlQj8Q56C2nIz/0tLMNzFKG3mg9qG5tuKJpHYs38KaMt9EutFaytM/SqDlSh3/8Ph2QfnlP9XHGco7wdNWmh2drpOmegnJvA7Yq4DgJDYlL6Bv+mkEkpVgm7gTQVVAxlnmRKC4EllQ8zEW1v1/vCpjtJy+SLo1HE1zGuOyQBwKVt+gS0rIKa0SVXsMfuE+19HzEFSsG9C4zlDNtwXY8mAlcHwbj1MDzVtpQ7Khnlubkj0siUeLBrsdF3r70I7JjJ1DCUduaPjG+BInI88KwLz29tMZtkEXFn1WF2Rpwavew1EVTRlt+IjTAcb7JNnRYpz5uTKbR5vQdCGxyha7uib7n/KJT3Q6M=";
     </script>
     
     <script id="html_notice_dialog_script" src="https://www.genspark.ai/notice_dialog.js"></script>
