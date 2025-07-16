@@ -145,30 +145,51 @@
             font-size: 13px;
         }
 
-        .confirm-dialog {
+        .confirmation-dialog {
             position: fixed;
             top: 0;
             left: 0;
-            right: 0;
-            bottom: 0;
-            background: rgba(0, 0, 0, 0.5);
-            display: none;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            display: flex;
             justify-content: center;
             align-items: center;
             z-index: 1000;
         }
 
-        .confirm-dialog.show {
-            display: flex;
-        }
-
-        .confirm-content {
+        .confirmation-content {
             background: white;
-            padding: 2rem;
+            padding: 20px;
             border-radius: 8px;
             max-width: 400px;
             width: 90%;
             text-align: center;
+        }
+
+        .confirmation-buttons {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            margin-top: 20px;
+        }
+
+        .confirmation-buttons button {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: medium;
+        }
+
+        .btn-confirm {
+            background-color: #dc2626;
+            color: white;
+        }
+
+        .btn-cancel {
+            background-color: #6b7280;
+            color: white;
         }
         
         @media (max-width: 768px) {
@@ -185,22 +206,14 @@
                 width: 80px;
             }
         }
-        
-        @media (max-width: 480px) {
-            h1 {
-                font-size: 1.25rem;
-            }
-        }
     </style>
 </head>
 <body class="bg-gray-50 min-h-screen">
     
-    <!-- Header com HEXAGON -->
-    <div class="text-center pt-8 pb-6">
-        <h1 class="text-4xl font-bold text-blue-900 mb-2">HEXAGON</h1>
-        <h2 class="text-xl font-semibold text-gray-800">
-            Registro de Consumo de Materiais Consignados
-        </h2>
+    <!-- Title -->
+    <div class="text-center py-6">
+        <h1 class="text-3xl font-bold text-blue-900">HEXAGON</h1>
+        <h2 class="text-lg font-medium text-gray-800 mt-2">Registro de Consumo de Materiais Consignados</h2>
     </div>
 
     <!-- Main Content -->
@@ -214,7 +227,7 @@
 
         <!-- Control Buttons -->
         <div class="grid grid-cols-3 gap-2 mb-4">
-            <button onclick="showDeleteConfirmation()" class="bg-red-500 hover:bg-red-600 text-white py-2 px-4 rounded font-medium">
+            <button onclick="deleteOperation()" class="bg-red-500 hover:bg-red-600 text-white py-2 px-4 rounded font-medium">
                 Apagar Operação
             </button>
             <button onclick="previousOperation()" class="bg-gray-500 hover:bg-gray-600 text-white py-2 px-4 rounded font-medium">
@@ -227,22 +240,22 @@
 
         <!-- Patient Information -->
         <div class="bg-white p-6 rounded-lg shadow-md mb-6">
-            <h3 class="text-lg font-semibold mb-4">Informações do Paciente e Procedimento</h3>
+            <h2 class="text-lg font-semibold mb-4">Informações do Paciente e Procedimento</h2>
             
             <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
                 <div>
                     <label class="block text-sm font-medium text-gray-700 mb-1">Usuário *</label>
-                    <input type="text" id="userField" placeholder="Digite o nome do usuário" class="w-full p-2 border border-gray-300 rounded-md" oninput="capitalizeInput(this)">
+                    <input type="text" id="userField" placeholder="Digite o nome do usuário" class="w-full p-2 border border-gray-300 rounded-md" oninput="capitalizeName(this)">
                 </div>
                 
                 <div>
                     <label class="block text-sm font-medium text-gray-700 mb-1">Hospital *</label>
-                    <input type="text" id="hospitalSelect" placeholder="Digite o nome do hospital" class="w-full p-2 border border-gray-300 rounded-md" oninput="capitalizeInput(this)">
+                    <input type="text" id="hospitalSelect" placeholder="Digite o nome do hospital" class="w-full p-2 border border-gray-300 rounded-md" oninput="capitalizeName(this)">
                 </div>
                 
                 <div>
                     <label class="block text-sm font-medium text-gray-700 mb-1">Paciente</label>
-                    <input type="text" id="patientName" placeholder="Nome do paciente" class="w-full p-2 border border-gray-300 rounded-md" oninput="capitalizeInput(this)">
+                    <input type="text" id="patientName" placeholder="Nome do paciente" class="w-full p-2 border border-gray-300 rounded-md" oninput="capitalizeName(this)">
                 </div>
             </div>
             
@@ -310,24 +323,20 @@
     </div>
 
     <!-- Confirmation Dialog -->
-    <div id="confirmDialog" class="confirm-dialog">
-        <div class="confirm-content">
+    <div id="confirmationDialog" class="confirmation-dialog" style="display: none;">
+        <div class="confirmation-content">
             <h3 class="text-lg font-semibold mb-4">Confirmar Exclusão</h3>
-            <p class="text-gray-600 mb-6">Deseja realmente apagar esta operação?</p>
-            <div class="flex gap-4 justify-center">
-                <button onclick="cancelDelete()" class="px-6 py-2 bg-gray-500 hover:bg-gray-600 text-white rounded">
-                    Cancelar
-                </button>
-                <button onclick="confirmDelete()" class="px-6 py-2 bg-red-500 hover:bg-red-600 text-white rounded">
-                    Sim, Apagar
-                </button>
+            <p class="text-gray-600 mb-4">Deseja mesmo apagar esta operação?</p>
+            <div class="confirmation-buttons">
+                <button class="btn-confirm" onclick="confirmDelete()">Sim, Apagar</button>
+                <button class="btn-cancel" onclick="cancelDelete()">Cancelar</button>
             </div>
         </div>
     </div>
 
     <!-- Version -->
     <div class="text-center text-gray-500 text-sm py-4">
-        Versão 1.2 FINAL - Release Completo
+        Versão 1.3 - Validação de quantidade removida
     </div>
 
     <script>
@@ -349,8 +358,8 @@
             loadOperationData();
         });
         
-        // Função para capitalizar primeira letra
-        function capitalizeInput(input) {
+        // Função para capitalizar nomes
+        function capitalizeName(input) {
             const words = input.value.split(' ');
             const capitalizedWords = words.map(word => {
                 if (word.length > 0) {
@@ -364,8 +373,11 @@
         // Função para formatar data brasileira
         function formatDateBrazilian(dateString) {
             if (!dateString) return '';
-            const [year, month, day] = dateString.split('-');
-            return `${day}/${month}/${year}`;
+            const parts = dateString.split('-');
+            if (parts.length === 3) {
+                return `${parts[2]}/${parts[1]}/${parts[0]}`;
+            }
+            return dateString;
         }
         
         // Carregar subgrupos do banco real
@@ -467,6 +479,67 @@
             }
         }
         
+        // Limpar seleções de produtos
+        function clearProductSelection() {
+            const checkboxes = document.querySelectorAll('.product-card input[type="checkbox"]');
+            checkboxes.forEach(checkbox => {
+                checkbox.checked = false;
+                const card = checkbox.closest('.product-card');
+                card.classList.remove('selected');
+                const controls = card.querySelector('.qty-controls');
+                controls.classList.remove('show');
+                // Limpar lotes adicionais
+                const index = parseInt(checkbox.id.split('-')[1]);
+                const additionalLots = document.getElementById(`additional-lots-${index}`);
+                if (additionalLots) {
+                    additionalLots.innerHTML = '';
+                }
+            });
+        }
+        
+        // Restaurar seleções de produtos
+        function restoreProductSelection() {
+            const operation = operations[currentOperation - 1] || {};
+            if (operation.selectedProducts) {
+                operation.selectedProducts.forEach(product => {
+                    const productIndex = currentProducts.findIndex(p => p.codigo === product.codigo);
+                    if (productIndex !== -1) {
+                        const checkbox = document.getElementById(`checkbox-${productIndex}`);
+                        if (checkbox) {
+                            checkbox.checked = true;
+                            const card = checkbox.closest('.product-card');
+                            card.classList.add('selected');
+                            const controls = document.getElementById(`qty-controls-${productIndex}`);
+                            controls.classList.add('show');
+                            
+                            // Restaurar lotes
+                            if (product.lots && product.lots.length > 0) {
+                                const firstLot = product.lots[0];
+                                const qtySelect = controls.querySelector('.qty-select');
+                                const lotInput = controls.querySelector('.lot-input');
+                                
+                                if (qtySelect) qtySelect.value = firstLot.qty || '';
+                                if (lotInput) lotInput.value = firstLot.lot || '';
+                                
+                                // Restaurar lotes adicionais
+                                for (let i = 1; i < product.lots.length; i++) {
+                                    addLot(productIndex);
+                                    const additionalLots = document.querySelectorAll(`#additional-lots-${productIndex} .lot-row`);
+                                    const lastLotRow = additionalLots[additionalLots.length - 1];
+                                    if (lastLotRow) {
+                                        const qtySelect = lastLotRow.querySelector('.qty-select');
+                                        const lotInput = lastLotRow.querySelector('.lot-input');
+                                        if (qtySelect) qtySelect.value = product.lots[i].qty || '';
+                                        if (lotInput) lotInput.value = product.lots[i].lot || '';
+                                    }
+                                }
+                            }
+                        }
+                    }
+                });
+            }
+        }
+        
         function renderProducts() {
             const container = document.getElementById('productsContainer');
             container.innerHTML = '';
@@ -506,7 +579,7 @@
                 container.appendChild(card);
             });
             
-            // Restaurar seleções da operação atual
+            // Restaurar seleções após renderizar
             restoreProductSelection();
         }
         
@@ -566,90 +639,18 @@
             });
         }
         
-        // Função para limpar seleções de produtos
-        function clearProductSelection() {
-            const checkboxes = document.querySelectorAll('.product-card input[type="checkbox"]');
-            checkboxes.forEach(checkbox => {
-                checkbox.checked = false;
-                const controls = document.getElementById(`qty-controls-${checkbox.id.split('-')[1]}`);
-                const card = checkbox.closest('.product-card');
-                if (controls) {
-                    controls.classList.remove('show');
-                }
-                if (card) {
-                    card.classList.remove('selected');
-                }
-            });
-            
-            // Limpar lotes adicionais
-            const additionalLots = document.querySelectorAll('[id^="additional-lots-"]');
-            additionalLots.forEach(container => {
-                container.innerHTML = '';
-            });
-        }
-        
-        // Função para restaurar seleções da operação atual
-        function restoreProductSelection() {
-            const operation = operations[currentOperation - 1] || {};
-            if (!operation.selectedProducts || !currentProducts.length) return;
-            
-            operation.selectedProducts.forEach(selectedProduct => {
-                const productIndex = currentProducts.findIndex(p => p.codigo === selectedProduct.codigo);
-                if (productIndex !== -1) {
-                    const checkbox = document.getElementById(`checkbox-${productIndex}`);
-                    const controls = document.getElementById(`qty-controls-${productIndex}`);
-                    const card = checkbox.closest('.product-card');
-                    
-                    if (checkbox && controls) {
-                        checkbox.checked = true;
-                        controls.classList.add('show');
-                        card.classList.add('selected');
-                        
-                        // Restaurar lotes
-                        if (selectedProduct.lots && selectedProduct.lots.length > 0) {
-                            const firstLot = selectedProduct.lots[0];
-                            const qtySelect = controls.querySelector('.qty-select');
-                            const lotInput = controls.querySelector('.lot-input');
-                            
-                            if (qtySelect && firstLot.qty) {
-                                qtySelect.value = firstLot.qty;
-                            }
-                            if (lotInput && firstLot.lot) {
-                                lotInput.value = firstLot.lot;
-                            }
-                            
-                            // Restaurar lotes adicionais
-                            const additionalContainer = document.getElementById(`additional-lots-${productIndex}`);
-                            for (let i = 1; i < selectedProduct.lots.length; i++) {
-                                const lot = selectedProduct.lots[i];
-                                const lotDiv = document.createElement('div');
-                                lotDiv.className = 'lot-row';
-                                lotDiv.innerHTML = `
-                                    <select class="qty-select">
-                                        <option value="">-</option>
-                                        ${Array.from({length: 10}, (_, j) => `<option value="${j+1}" ${lot.qty == (j+1) ? 'selected' : ''}>${j+1}</option>`).join('')}
-                                    </select>
-                                    <input type="text" class="lot-input" placeholder="Lote" maxlength="12" value="${lot.lot}">
-                                    <button onclick="removeLot(this)" class="remove-lot-btn">-</button>
-                                `;
-                                additionalContainer.appendChild(lotDiv);
-                            }
-                        }
-                    }
-                }
-            });
-        }
-        
         // Operation management
         function switchOperation(operationNumber) {
             saveOperationData();
-            currentOperation = operationNumber;
             clearProductSelection();
+            currentOperation = operationNumber;
             loadOperationData();
             updateOperationTabs();
         }
         
         function nextOperation() {
+            saveOperationData();
+            
             const nextOp = operations.length + 1;
             
             const currentUser = document.getElementById('userField').value;
@@ -660,9 +661,8 @@
                 hospitalSelect: currentHospital
             });
             
-            saveOperationData();
-            currentOperation = nextOp;
             clearProductSelection();
+            currentOperation = nextOp;
             updateOperationTabs();
             loadOperationData();
         }
@@ -670,39 +670,35 @@
         function previousOperation() {
             if (currentOperation > 1) {
                 saveOperationData();
-                currentOperation--;
                 clearProductSelection();
+                currentOperation--;
                 loadOperationData();
                 updateOperationTabs();
             }
         }
         
-        function showDeleteConfirmation() {
-            document.getElementById('confirmDialog').classList.add('show');
-        }
-        
-        function cancelDelete() {
-            document.getElementById('confirmDialog').classList.remove('show');
+        function deleteOperation() {
+            document.getElementById('confirmationDialog').style.display = 'flex';
         }
         
         function confirmDelete() {
-            document.getElementById('confirmDialog').classList.remove('show');
-            deleteOperation();
-        }
-        
-        function deleteOperation() {
-            if (operations.length > 1) {
-                operations.splice(currentOperation - 1, 1);
-                if (currentOperation > operations.length) {
-                    currentOperation = operations.length;
-                }
-            } else {
+            document.getElementById('confirmationDialog').style.display = 'none';
+            
+            operations.splice(currentOperation - 1, 1);
+            if (operations.length === 0) {
                 operations = [{}];
                 currentOperation = 1;
+            } else if (currentOperation > operations.length) {
+                currentOperation = operations.length;
             }
+            
             clearProductSelection();
             updateOperationTabs();
             loadOperationData();
+        }
+        
+        function cancelDelete() {
+            document.getElementById('confirmationDialog').style.display = 'none';
         }
         
         function updateOperationTabs() {
@@ -735,6 +731,7 @@
             operation.selectedProducts = [];
             const checkboxes = document.querySelectorAll('.product-card input[type="checkbox"]:checked');
             checkboxes.forEach(checkbox => {
+                const card = checkbox.closest('.product-card');
                 const index = parseInt(checkbox.id.split('-')[1]);
                 if (currentProducts[index]) {
                     const product = {
@@ -791,7 +788,7 @@
             }
         }
         
-        // PDF CORRIGIDO - Comprimido para 1 operação por página
+        // PDF generation
         function generatePDF(operationData, operationNumber) {
             try {
                 const { jsPDF } = window.jspdf;
@@ -800,29 +797,29 @@
                 // CABEÇALHO HEXAGON
                 doc.setFontSize(16);
                 doc.setFont(undefined, 'bold');
-                doc.text('HEXAGON', 105, 20, { align: 'center' });
+                doc.text('HEXAGON', 20, 20);
                 
                 // Título
-                doc.setFontSize(12);
+                doc.setFontSize(14);
                 doc.setFont(undefined, 'normal');
-                doc.text('REGISTRO DE CONSUMO DE MATERIAIS CONSIGNADOS', 105, 30, { align: 'center' });
+                doc.text('REGISTRO DE CONSUMO DE MATERIAIS CONSIGNADOS', 105, 35, { align: 'center' });
                 
-                // Dados do paciente - Comprimido
-                let yPos = 45;
+                // Dados do paciente
+                let yPos = 50;
                 doc.setFontSize(9);
                 doc.text(`Usuário: ${operationData.userField || ''}`, 20, yPos);
                 yPos += 8;
                 doc.text(`Hospital: ${operationData.hospitalSelect || ''}`, 20, yPos);
                 yPos += 8;
-                doc.text(`Paciente: ${operationData.patientName || ''}`, 20, yPos);
+                doc.text(`Nome do Paciente: ${operationData.patientName || ''}`, 20, yPos);
                 yPos += 8;
-                doc.text(`Prontuário: ${operationData.recordNumber || ''}`, 20, yPos);
+                doc.text(`Num Prontuário: ${operationData.recordNumber || ''}`, 20, yPos);
                 yPos += 8;
-                doc.text(`Data: ${formatDateBrazilian(operationData.surgeryDate)}`, 20, yPos);
+                doc.text(`Data da Cirurgia: ${formatDateBrazilian(operationData.surgeryDate) || ''}`, 20, yPos);
                 yPos += 8;
-                doc.text(`Observações: ${operationData.otherInfo || ''}`, 20, yPos);
+                doc.text(`Outras Informações: ${operationData.otherInfo || ''}`, 20, yPos);
                 
-                // Materiais - Comprimido
+                // Materiais
                 yPos += 15;
                 doc.setFontSize(11);
                 doc.setFont(undefined, 'bold');
@@ -835,11 +832,11 @@
                     operationData.selectedProducts.forEach(product => {
                         product.lots.forEach(lot => {
                             doc.text(`Código: ${product.codigo}`, 20, yPos);
-                            yPos += 5;
+                            yPos += 6;
                             doc.text(`Produto: ${product.nome}`, 20, yPos);
-                            yPos += 5;
+                            yPos += 6;
                             doc.text(`Lote: ${lot.lot}`, 20, yPos);
-                            yPos += 5;
+                            yPos += 6;
                             doc.text(`Quantidade: ${lot.qty}`, 20, yPos);
                             yPos += 8;
                             
@@ -864,39 +861,21 @@
         function sendReport() {
             try {
                 console.log('Iniciando envio de relatório...');
-                
-                // Validar campos obrigatórios
-                const usuario = document.getElementById('userField').value.trim();
-                const hospital = document.getElementById('hospitalSelect').value.trim();
-                
-                if (!usuario) {
-                    alert('Por favor, preencha o campo Usuário (obrigatório)');
-                    return;
-                }
-                
-                if (!hospital) {
-                    alert('Por favor, preencha o campo Hospital (obrigatório)');
-                    return;
-                }
-                
-                // Validar se pelo menos um produto com quantidade foi selecionado
-                let hasProductWithQuantity = false;
-                operations.forEach(operation => {
-                    if (operation.selectedProducts && operation.selectedProducts.length > 0) {
-                        operation.selectedProducts.forEach(product => {
-                            if (product.lots && product.lots.length > 0) {
-                                hasProductWithQuantity = true;
-                            }
-                        });
-                    }
-                });
-                
-                if (!hasProductWithQuantity) {
-                    alert('Por favor, selecione pelo menos um produto com quantidade');
-                    return;
-                }
-                
                 saveOperationData();
+                
+                // Validar apenas campos obrigatórios
+                const userField = document.getElementById('userField').value.trim();
+                const hospitalSelect = document.getElementById('hospitalSelect').value.trim();
+                
+                if (!userField) {
+                    alert('Por favor, preencha o campo Usuário.');
+                    return;
+                }
+                
+                if (!hospitalSelect) {
+                    alert('Por favor, preencha o campo Hospital.');
+                    return;
+                }
                 
                 let message = '';
                 let pdfGenerated = false;
@@ -907,10 +886,10 @@
                     message += 'REGISTRO DE CONSUMO DE MATERIAIS CONSIGNADOS\n\n';
                     message += `Usuário: ${operation.userField || ''}\n`;
                     message += `Hospital: ${operation.hospitalSelect || ''}\n`;
-                    message += `Paciente: ${operation.patientName || ''}\n`;
-                    message += `Prontuário: ${operation.recordNumber || ''}\n`;
-                    message += `Data: ${formatDateBrazilian(operation.surgeryDate)}\n`;
-                    message += `Observações: ${operation.otherInfo || ''}\n\n`;
+                    message += `Nome do Paciente: ${operation.patientName || ''}\n`;
+                    message += `Num Prontuário: ${operation.recordNumber || ''}\n`;
+                    message += `Data da Cirurgia: ${formatDateBrazilian(operation.surgeryDate) || ''}\n`;
+                    message += `Outras Informações: ${operation.otherInfo || ''}\n\n`;
                     
                     message += 'MATERIAIS:\n';
                     if (operation.selectedProducts && operation.selectedProducts.length > 0) {
@@ -962,7 +941,7 @@
                 
             } catch (error) {
                 console.error('Erro geral no sendReport:', error);
-                alert('Erro ao enviar relatório. Verifique se preencheu os dados obrigatórios.');
+                alert('Erro ao enviar relatório. Tente novamente.');
             }
         }
 
@@ -974,23 +953,23 @@
         function startNewOperation() {
             operations = [{}];
             currentOperation = 1;
-            clearProductSelection();
             updateOperationTabs();
             loadOperationData();
+            clearProductSelection();
             document.getElementById('productsContainer').innerHTML = '<div class="text-center p-4 text-gray-500">Selecione um subgrupo para visualizar os produtos</div>';
             
             document.querySelector('.main-content').classList.remove('hide');
             document.querySelector('.completion-screen').classList.remove('show');
         }
     </script>
-<script defer src="https://static.cloudflareinsights.com/beacon.min.js/vcd15cbe7772f49c399c6a5babf22c1241717689176015" integrity="sha512-ZpsOmlRQV6y907TI0dKBHq9Md29nnaEIPlkf84rnaERnq6zvWvPUqr2ft8M1aS28oN72PdrCzSjY4U6VaAw1EQ==" data-cf-beacon='{"rayId":"95f591a3add2464c","serverTiming":{"name":{"cfExtPri":true,"cfEdge":true,"cfOrigin":true,"cfL4":true,"cfSpeedBrain":true,"cfCacheStatus":true}},"version":"2025.6.2","token":"4edd5f8ec12a48cfa682ab8261b80a79"}' crossorigin="anonymous"></script>
+<script defer src="https://static.cloudflareinsights.com/beacon.min.js/vcd15cbe7772f49c399c6a5babf22c1241717689176015" integrity="sha512-ZpsOmlRQV6y907TI0dKBHq9Md29nnaEIPlkf84rnaERnq6zvWvPUqr2ft8M1aS28oN72PdrCzSjY4U6VaAw1EQ==" data-cf-beacon='{"rayId":"95fd84ef29d1e01c","serverTiming":{"name":{"cfExtPri":true,"cfEdge":true,"cfOrigin":true,"cfL4":true,"cfSpeedBrain":true,"cfCacheStatus":true}},"version":"2025.6.2","token":"4edd5f8ec12a48cfa682ab8261b80a79"}' crossorigin="anonymous"></script>
 </body>
 </html>
     <script id="html_badge_script1">
         window.__genspark_remove_badge_link = "https://www.genspark.ai/api/html_badge/" +
-            "remove_badge?token=To%2FBnjzloZ3UfQdcSaYfDqJUkWc4uRUZHjQgphnVEEyct8mae90JnwqyBgDs%2FpheM%2BkBOOETbBiWDUnY5nEKYlGCUB6wQ1yb71Q%2F1vHiQeqJUkjoy0%2BZIi3xCzG7sjczL7xN%2B1449l%2B4dUA4wLi48YVmxQCSSTXUqsav6qGQ8kTfpSXHfQzZ%2FnGR0B0z6MyU6lzXaF8ru5XZ3F5LiN3kYiF3NY28stHY9hqZFYnvcl3i5FShpOq%2BGWjzgPH7JkGAyX8RqdxtWYIeNTdKFNAW6yhDpw2GuWfJaLHu8wI7mWdiwqJr%2FuTcia3%2FHZYHnm6Y727pH52oPR5ubvx68FcIKCqPk4CdfoPIM5IjcDmInDqCvql8XZH0j66PhFFtLp3stX0eJZ5OH5zgXR7L7eN9%2Fs%2FoCobZ8bwWZaUabMlEExsOiBP1e34YN1CyuifEUVclhEVQpXxhk%2F31vLxdYyQ9uGLgB5yJHFxChQyyYjH7dG07no4RG%2BcQLuHyQSxh3E%2F5N0thkyWGhEw1niwFWUxNshxFthhGcQYO6f21aLVsbJ8%3D";
+            "remove_badge?token=To%2FBnjzloZ3UfQdcSaYfDr2qX9wQCvH8CaiFbZaQWwXtfcUt1FOpCCOJP%2BhrBerYTbIvYaN313D2eJ%2Bd4qrigZ8vlRV6J17lsHCeFOPopz%2FCxkxN7N7e6coL%2FzbEESOJTO8umuBZloG%2BFOfd%2F%2BGQwEQcXtz6ELNHi11An%2F0kmeLHiziFlINjhvLU9Pr6dGHphJ4k0UjBn0r7ZOuWqw2HQoaBVZtDAXmOS19E5ET%2Fy9bQcMDcGhDOsR9eB8OijqLvVhwBCxyScQpFBsn3NJoTWxQuHHxm8aawIFc06M8lO0rNy2m6KZTlpXiM3G%2BtZCiYwqxeuqvIN8NrS4Gq3hQjIycXS60GmXHWkIVpFmz%2BAvutXKBQoP%2BiJL2rE7k3JO4daQ4NaGb8h1A0VftkhRI1W6XYDe9UoV%2F82X%2BnUVaUxo5SpRXaOXSgTAHdJAHaPTSIpJMv7En2uoCGQcxSkCxGQtoT0nxt1df%2BeSq1Y%2BuFs5CI9MhuuAt9fhzva67NRVmzgqirTmMV7vFAVIjXbSxTrgpndabiY5Tuhg7miMJLQjo%3D";
         window.__genspark_locale = "pt-BR";
-        window.__genspark_token = "To/BnjzloZ3UfQdcSaYfDqJUkWc4uRUZHjQgphnVEEyct8mae90JnwqyBgDs/pheM+kBOOETbBiWDUnY5nEKYlGCUB6wQ1yb71Q/1vHiQeqJUkjoy0+ZIi3xCzG7sjczL7xN+1449l+4dUA4wLi48YVmxQCSSTXUqsav6qGQ8kTfpSXHfQzZ/nGR0B0z6MyU6lzXaF8ru5XZ3F5LiN3kYiF3NY28stHY9hqZFYnvcl3i5FShpOq+GWjzgPH7JkGAyX8RqdxtWYIeNTdKFNAW6yhDpw2GuWfJaLHu8wI7mWdiwqJr/uTcia3/HZYHnm6Y727pH52oPR5ubvx68FcIKCqPk4CdfoPIM5IjcDmInDqCvql8XZH0j66PhFFtLp3stX0eJZ5OH5zgXR7L7eN9/s/oCobZ8bwWZaUabMlEExsOiBP1e34YN1CyuifEUVclhEVQpXxhk/31vLxdYyQ9uGLgB5yJHFxChQyyYjH7dG07no4RG+cQLuHyQSxh3E/5N0thkyWGhEw1niwFWUxNshxFthhGcQYO6f21aLVsbJ8=";
+        window.__genspark_token = "To/BnjzloZ3UfQdcSaYfDr2qX9wQCvH8CaiFbZaQWwXtfcUt1FOpCCOJP+hrBerYTbIvYaN313D2eJ+d4qrigZ8vlRV6J17lsHCeFOPopz/CxkxN7N7e6coL/zbEESOJTO8umuBZloG+FOfd/+GQwEQcXtz6ELNHi11An/0kmeLHiziFlINjhvLU9Pr6dGHphJ4k0UjBn0r7ZOuWqw2HQoaBVZtDAXmOS19E5ET/y9bQcMDcGhDOsR9eB8OijqLvVhwBCxyScQpFBsn3NJoTWxQuHHxm8aawIFc06M8lO0rNy2m6KZTlpXiM3G+tZCiYwqxeuqvIN8NrS4Gq3hQjIycXS60GmXHWkIVpFmz+AvutXKBQoP+iJL2rE7k3JO4daQ4NaGb8h1A0VftkhRI1W6XYDe9UoV/82X+nUVaUxo5SpRXaOXSgTAHdJAHaPTSIpJMv7En2uoCGQcxSkCxGQtoT0nxt1df+eSq1Y+uFs5CI9MhuuAt9fhzva67NRVmzgqirTmMV7vFAVIjXbSxTrgpndabiY5Tuhg7miMJLQjo=";
     </script>
     
     <script id="html_notice_dialog_script" src="https://www.genspark.ai/notice_dialog.js"></script>
