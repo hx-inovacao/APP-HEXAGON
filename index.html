@@ -349,6 +349,7 @@
                     .from('materiais')
                     .select('grupo, subgrupo')
                     .order('ordem');
+                    .limit(1500);
                 
                 if (error) {
                     console.error('Erro ao carregar subgrupos:', error);
@@ -422,6 +423,7 @@
                     .select('codigo, nome')
                     .eq('subgrupo', subgrupo)
                     .order('ordem');
+                    .limit(1500);
                 
                 if (error) {
                     console.error('Erro ao buscar produtos:', error);
