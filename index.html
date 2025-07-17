@@ -135,6 +135,54 @@
         #documentType option {
             font-size: 13px;
         }
+
+        .confirmation-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+
+        .confirmation-dialog {
+            background: white;
+            padding: 2rem;
+            border-radius: 8px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+            max-width: 400px;
+            width: 90%;
+            text-align: center;
+        }
+
+        .confirmation-dialog h3 {
+            margin-bottom: 1rem;
+            font-size: 1.25rem;
+            font-weight: 600;
+        }
+
+        .confirmation-dialog button {
+            margin: 0.5rem;
+            padding: 0.75rem 1.5rem;
+            border: none;
+            border-radius: 4px;
+            font-weight: 500;
+            cursor: pointer;
+        }
+
+        .confirm-yes {
+            background-color: #dc2626;
+            color: white;
+        }
+
+        .confirm-no {
+            background-color: #6b7280;
+            color: white;
+        }
         
         @media (max-width: 768px) {
             .qty-controls {
@@ -160,17 +208,15 @@
 </head>
 <body class="bg-gray-50 min-h-screen">
     
-    <!-- Title -->
-    <h1 class="text-3xl font-bold text-center text-gray-800 mb-6 pt-6">
-        HEXAGON
-    </h1>
-    
-    <h2 class="text-xl font-semibold text-center text-gray-700 mb-6">
-        Registro de Consumo de Materiais Consignados
-    </h2>
+    <!-- HEXAGON Title -->
+    <div class="pt-8 pb-6 text-center">
+        <h1 class="text-4xl font-bold text-gray-800 mb-2">HEXAGON</h1>
+        <h2 class="text-xl font-semibold text-gray-700">Registro de Consumo de Materiais Consignados</h2>
+    </div>
 
     <!-- Main Content -->
     <div class="main-content max-w-4xl mx-auto px-4">
+        
         <!-- Patient Information -->
         <div class="bg-white p-6 rounded-lg shadow-md mb-6">
             <h3 class="text-lg font-semibold mb-4">Informações do Paciente e Procedimento</h3>
@@ -178,31 +224,24 @@
             <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
                 <div>
                     <label class="block text-sm font-medium text-gray-700 mb-1">Usuário *</label>
-                    <input type="text" id="userField" placeholder="Digite o nome do usuário" 
-                           class="w-full p-2 border border-gray-300 rounded-md"
-                           oninput="capitalizeInput(this)">
+                    <input type="text" id="userField" placeholder="Digite o nome do usuário" class="w-full p-2 border border-gray-300 rounded-md" oninput="capitalizeInput(this)">
                 </div>
                 
                 <div>
                     <label class="block text-sm font-medium text-gray-700 mb-1">Hospital *</label>
-                    <input type="text" id="hospitalSelect" placeholder="Digite o nome do hospital" 
-                           class="w-full p-2 border border-gray-300 rounded-md"
-                           oninput="capitalizeInput(this)">
+                    <input type="text" id="hospitalSelect" placeholder="Digite o nome do hospital" class="w-full p-2 border border-gray-300 rounded-md" oninput="capitalizeInput(this)">
                 </div>
                 
                 <div>
                     <label class="block text-sm font-medium text-gray-700 mb-1">Paciente</label>
-                    <input type="text" id="patientName" placeholder="Nome do paciente" 
-                           class="w-full p-2 border border-gray-300 rounded-md"
-                           oninput="capitalizeInput(this)">
+                    <input type="text" id="patientName" placeholder="Nome do paciente" class="w-full p-2 border border-gray-300 rounded-md" oninput="capitalizeInput(this)">
                 </div>
             </div>
             
             <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
                 <div>
                     <label class="block text-sm font-medium text-gray-700 mb-1">N° Prontuário</label>
-                    <input type="text" id="recordNumber" placeholder="Número do prontuário" 
-                           class="w-full p-2 border border-gray-300 rounded-md">
+                    <input type="text" id="recordNumber" placeholder="Número do prontuário" class="w-full p-2 border border-gray-300 rounded-md">
                 </div>
                 
                 <div>
@@ -212,8 +251,7 @@
                 
                 <div>
                     <label class="block text-sm font-medium text-gray-700 mb-1">Outras Informações</label>
-                    <textarea id="otherInfo" placeholder="Informações adicionais" rows="2" 
-                              class="w-full p-2 border border-gray-300 rounded-md"></textarea>
+                    <textarea id="otherInfo" placeholder="Informações adicionais" rows="2" class="w-full p-2 border border-gray-300 rounded-md"></textarea>
                 </div>
             </div>
         </div>
@@ -248,8 +286,7 @@
         <!-- Materiais Diversos -->
         <div class="mb-4">
             <label class="block text-sm font-medium text-gray-700 mb-2">Materiais Diversos:</label>
-            <textarea id="materiaisDiversos" placeholder="Digite materiais diversos utilizados..." 
-                      rows="3" class="w-full p-3 border border-gray-300 rounded-lg"></textarea>
+            <textarea id="materiaisDiversos" placeholder="Digite materiais diversos utilizados..." rows="3" class="w-full p-3 border border-gray-300 rounded-lg font-medium text-lg"></textarea>
         </div>
 
         <!-- Send Report Button -->
@@ -272,7 +309,7 @@
 
     <!-- Version -->
     <div class="text-center text-gray-500 text-sm py-4">
-        Versão 2.1 - Operação Única com Materiais Diversos
+        Versão 2.2 - Com coluna ordem implementada
     </div>
 
     <script>
@@ -291,29 +328,19 @@
             await carregarSubgrupos();
         });
         
-        // Função para capitalizar primeira letra de cada palavra
+        // Função para capitalizar input
         function capitalizeInput(input) {
-            const words = input.value.split(' ');
+            const words = input.value.toLowerCase().split(' ');
             const capitalizedWords = words.map(word => {
                 if (word.length > 0) {
-                    return word.charAt(0).toUpperCase() + word.slice(1).toLowerCase();
+                    return word.charAt(0).toUpperCase() + word.slice(1);
                 }
                 return word;
             });
             input.value = capitalizedWords.join(' ');
         }
         
-        // Função para formatar data brasileira
-        function formatDateBrazilian(dateString) {
-            if (!dateString) return '';
-            const parts = dateString.split('-');
-            if (parts.length === 3) {
-                return `${parts[2]}/${parts[1]}/${parts[0]}`;
-            }
-            return dateString;
-        }
-        
-        // Carregar subgrupos do banco real
+        // FUNÇÃO ATUALIZADA - Carregar subgrupos do banco usando coluna ordem
         async function carregarSubgrupos() {
             try {
                 console.log('🔄 Carregando subgrupos do banco...');
@@ -321,7 +348,7 @@
                 const { data, error } = await supabase
                     .from('materiais')
                     .select('grupo, subgrupo')
-                    .order('grupo, subgrupo');
+                    .order('ordem');
                 
                 if (error) {
                     console.error('Erro ao carregar subgrupos:', error);
@@ -374,7 +401,7 @@
             }
         }
         
-        // Filtrar produtos por subgrupo
+        // FUNÇÃO ATUALIZADA - Filtrar produtos usando coluna ordem
         async function filterProducts() {
             const subgrupo = document.getElementById('documentType').value;
             const container = document.getElementById('productsContainer');
@@ -394,7 +421,7 @@
                     .from('materiais')
                     .select('codigo, nome')
                     .eq('subgrupo', subgrupo)
-                    .order('id');
+                    .order('ordem');
                 
                 if (error) {
                     console.error('Erro ao buscar produtos:', error);
@@ -504,76 +531,127 @@
             });
         }
         
-        // Função para gerar PDF
+        // Função para formatar data no formato brasileiro
+        function formatDateBrazilian(dateString) {
+            if (!dateString) return '';
+            const date = new Date(dateString + 'T00:00:00');
+            return date.toLocaleDateString('pt-BR');
+        }
+        
+        // Função para gerar PDF corrigido
         function generatePDF() {
             try {
                 const { jsPDF } = window.jspdf;
                 const doc = new jsPDF();
                 
-                // Título HEXAGON centralizado
+                // TÍTULO HEXAGON CENTRALIZADO
                 doc.setFontSize(20);
                 doc.setFont(undefined, 'bold');
                 doc.text('HEXAGON', 105, 20, { align: 'center' });
                 
                 // Conteúdo igual ao WhatsApp
+                let yPos = 40;
                 doc.setFontSize(12);
+                doc.setFont(undefined, 'bold');
+                doc.text('REGISTRO DE CONSUMO DE MATERIAIS CONSIGNADOS', 105, yPos, { align: 'center' });
+                yPos += 10;
+                
+                // Separador
                 doc.setFont(undefined, 'normal');
+                doc.text('================', 105, yPos, { align: 'center' });
+                yPos += 15;
                 
-                let message = 'REGISTRO DE CONSUMO DE MATERIAIS CONSIGNADOS\n';
-                message += '================\n\n';
-                message += `Usuário: ${document.getElementById('userField').value || ''}\n`;
-                message += `Hospital: ${document.getElementById('hospitalSelect').value || ''}\n`;
-                message += `Nome do Paciente: ${document.getElementById('patientName').value || ''}\n`;
-                message += `Num Prontuario: ${document.getElementById('recordNumber').value || ''}\n`;
-                message += `Data da Cirurgia: ${formatDateBrazilian(document.getElementById('surgeryDate').value) || ''}\n`;
-                message += `Outras Informações: ${document.getElementById('otherInfo').value || ''}\n`;
+                // Dados do paciente
+                doc.setFontSize(10);
+                doc.text(`Usuário: ${document.getElementById('userField').value || ''}`, 20, yPos);
+                yPos += 7;
+                doc.text(`Hospital: ${document.getElementById('hospitalSelect').value || ''}`, 20, yPos);
+                yPos += 7;
+                doc.text(`Nome do Paciente: ${document.getElementById('patientName').value || ''}`, 20, yPos);
+                yPos += 7;
+                doc.text(`Num Prontuario: ${document.getElementById('recordNumber').value || ''}`, 20, yPos);
+                yPos += 7;
+                doc.text(`Data da Cirurgia: ${formatDateBrazilian(document.getElementById('surgeryDate').value)}`, 20, yPos);
+                yPos += 7;
+                doc.text(`Outras Informações: ${document.getElementById('otherInfo').value || ''}`, 20, yPos);
+                yPos += 10;
                 
-                // Produtos selecionados
+                // Separador
+                doc.text('================', 105, yPos, { align: 'center' });
+                yPos += 10;
+                
+                // Materiais selecionados
                 const checkboxes = document.querySelectorAll('.product-card input[type="checkbox"]:checked');
-                if (checkboxes.length > 0) {
-                    checkboxes.forEach(checkbox => {
-                        const index = parseInt(checkbox.id.split('-')[1]);
-                        if (currentProducts[index]) {
-                            const product = currentProducts[index];
-                            const qtyControls = document.getElementById(`qty-controls-${index}`);
-                            const qtySelect = qtyControls.querySelector('.qty-select');
-                            const lotInput = qtyControls.querySelector('.lot-input');
+                checkboxes.forEach(checkbox => {
+                    const index = parseInt(checkbox.id.split('-')[1]);
+                    const product = currentProducts[index];
+                    
+                    const qtyControls = document.getElementById(`qty-controls-${index}`);
+                    const qtySelect = qtyControls.querySelector('.qty-select');
+                    const lotInput = qtyControls.querySelector('.lot-input');
+                    
+                    if (lotInput.value) {
+                        doc.text(`Codigo: ${product.codigo}`, 20, yPos);
+                        yPos += 5;
+                        doc.text(`Produto: ${product.nome}`, 20, yPos);
+                        yPos += 5;
+                        doc.text(`Lote: ${lotInput.value}`, 20, yPos);
+                        yPos += 5;
+                        doc.text(`Quantidade: ${qtySelect.value || '1'}`, 20, yPos);
+                        yPos += 8;
+                        
+                        // Separador
+                        doc.text('================', 105, yPos, { align: 'center' });
+                        yPos += 8;
+                        
+                        if (yPos > 250) {
+                            doc.addPage();
+                            yPos = 20;
+                        }
+                    }
+                    
+                    // Additional lots
+                    const additionalLots = document.querySelectorAll(`#additional-lots-${index} .lot-row`);
+                    additionalLots.forEach(row => {
+                        const qty = row.querySelector('.qty-select').value;
+                        const lot = row.querySelector('.lot-input').value;
+                        if (lot) {
+                            doc.text(`Codigo: ${product.codigo}`, 20, yPos);
+                            yPos += 5;
+                            doc.text(`Produto: ${product.nome}`, 20, yPos);
+                            yPos += 5;
+                            doc.text(`Lote: ${lot}`, 20, yPos);
+                            yPos += 5;
+                            doc.text(`Quantidade: ${qty || '1'}`, 20, yPos);
+                            yPos += 8;
                             
-                            message += '================\n';
-                            message += `Codigo: ${product.codigo}\n`;
-                            message += `Produto: ${product.nome}\n`;
-                            message += `Lote: ${lotInput.value || ''}\n`;
-                            message += `Quantidade: ${qtySelect.value || ''}\n`;
+                            // Separador
+                            doc.text('================', 105, yPos, { align: 'center' });
+                            yPos += 8;
                             
-                            // Additional lots
-                            const additionalLots = document.querySelectorAll(`#additional-lots-${index} .lot-row`);
-                            additionalLots.forEach(row => {
-                                const qty = row.querySelector('.qty-select').value;
-                                const lot = row.querySelector('.lot-input').value;
-                                if (lot) {
-                                    message += '================\n';
-                                    message += `Codigo: ${product.codigo}\n`;
-                                    message += `Produto: ${product.nome}\n`;
-                                    message += `Lote: ${lot}\n`;
-                                    message += `Quantidade: ${qty || ''}\n`;
-                                }
-                            });
+                            if (yPos > 250) {
+                                doc.addPage();
+                                yPos = 20;
+                            }
                         }
                     });
-                }
+                });
                 
                 // Materiais diversos
                 const materiaisDiversos = document.getElementById('materiaisDiversos').value;
                 if (materiaisDiversos) {
-                    message += '================\n';
-                    message += `Materiais Diversos:\n${materiaisDiversos}\n`;
+                    doc.text('Materiais Diversos:', 20, yPos);
+                    yPos += 5;
+                    
+                    const lines = doc.splitTextToSize(materiaisDiversos, 170);
+                    lines.forEach(line => {
+                        doc.text(line, 20, yPos);
+                        yPos += 5;
+                    });
+                    
+                    yPos += 5;
+                    doc.text('================', 105, yPos, { align: 'center' });
                 }
-                
-                message += '================';
-                
-                // Adicionar texto ao PDF
-                const lines = doc.splitTextToSize(message, 180);
-                doc.text(lines, 15, 40);
                 
                 return doc;
                 
@@ -587,73 +665,75 @@
             try {
                 console.log('Iniciando envio de relatório...');
                 
-                // Validar campos obrigatórios
+                // Validações obrigatórias
                 const userField = document.getElementById('userField').value.trim();
                 const hospitalSelect = document.getElementById('hospitalSelect').value.trim();
                 
                 if (!userField) {
-                    alert('Por favor, preencha o campo Usuário');
+                    alert('Por favor, preencha o campo Usuário.');
                     return;
                 }
                 
                 if (!hospitalSelect) {
-                    alert('Por favor, preencha o campo Hospital');
+                    alert('Por favor, preencha o campo Hospital.');
                     return;
                 }
                 
-                // Gerar mensagem para WhatsApp
-                let message = 'REGISTRO DE CONSUMO DE MATERIAIS CONSIGNADOS\n';
+                let message = '';
+                let pdfGenerated = false;
+                
+                // Gerar mensagem
+                message += 'REGISTRO DE CONSUMO DE MATERIAIS CONSIGNADOS\n';
                 message += '================\n\n';
                 message += `Usuário: ${userField}\n`;
                 message += `Hospital: ${hospitalSelect}\n`;
                 message += `Nome do Paciente: ${document.getElementById('patientName').value || ''}\n`;
                 message += `Num Prontuario: ${document.getElementById('recordNumber').value || ''}\n`;
-                message += `Data da Cirurgia: ${formatDateBrazilian(document.getElementById('surgeryDate').value) || ''}\n`;
+                message += `Data da Cirurgia: ${formatDateBrazilian(document.getElementById('surgeryDate').value)}\n`;
                 message += `Outras Informações: ${document.getElementById('otherInfo').value || ''}\n`;
+                message += '================\n';
                 
-                // Produtos selecionados
+                // Adicionar materiais selecionados
                 const checkboxes = document.querySelectorAll('.product-card input[type="checkbox"]:checked');
                 checkboxes.forEach(checkbox => {
                     const index = parseInt(checkbox.id.split('-')[1]);
-                    if (currentProducts[index]) {
-                        const product = currentProducts[index];
-                        const qtyControls = document.getElementById(`qty-controls-${index}`);
-                        const qtySelect = qtyControls.querySelector('.qty-select');
-                        const lotInput = qtyControls.querySelector('.lot-input');
-                        
-                        message += '================\n';
+                    const product = currentProducts[index];
+                    
+                    const qtyControls = document.getElementById(`qty-controls-${index}`);
+                    const qtySelect = qtyControls.querySelector('.qty-select');
+                    const lotInput = qtyControls.querySelector('.lot-input');
+                    
+                    if (lotInput.value) {
                         message += `Codigo: ${product.codigo}\n`;
                         message += `Produto: ${product.nome}\n`;
-                        message += `Lote: ${lotInput.value || ''}\n`;
-                        message += `Quantidade: ${qtySelect.value || ''}\n`;
-                        
-                        // Additional lots
-                        const additionalLots = document.querySelectorAll(`#additional-lots-${index} .lot-row`);
-                        additionalLots.forEach(row => {
-                            const qty = row.querySelector('.qty-select').value;
-                            const lot = row.querySelector('.lot-input').value;
-                            if (lot) {
-                                message += '================\n';
-                                message += `Codigo: ${product.codigo}\n`;
-                                message += `Produto: ${product.nome}\n`;
-                                message += `Lote: ${lot}\n`;
-                                message += `Quantidade: ${qty || ''}\n`;
-                            }
-                        });
+                        message += `Lote: ${lotInput.value}\n`;
+                        message += `Quantidade: ${qtySelect.value || '1'}\n`;
+                        message += '================\n';
                     }
+                    
+                    // Additional lots
+                    const additionalLots = document.querySelectorAll(`#additional-lots-${index} .lot-row`);
+                    additionalLots.forEach(row => {
+                        const qty = row.querySelector('.qty-select').value;
+                        const lot = row.querySelector('.lot-input').value;
+                        if (lot) {
+                            message += `Codigo: ${product.codigo}\n`;
+                            message += `Produto: ${product.nome}\n`;
+                            message += `Lote: ${lot}\n`;
+                            message += `Quantidade: ${qty || '1'}\n`;
+                            message += '================\n';
+                        }
+                    });
                 });
                 
-                // Materiais diversos
+                // Adicionar materiais diversos
                 const materiaisDiversos = document.getElementById('materiaisDiversos').value;
                 if (materiaisDiversos) {
-                    message += '================\n';
                     message += `Materiais Diversos:\n${materiaisDiversos}\n`;
+                    message += '================\n';
                 }
                 
-                message += '================';
-                
                 // Gerar PDF
-                let pdfGenerated = false;
                 try {
                     const pdf = generatePDF();
                     const pdfBlob = pdf.output('blob');
@@ -661,7 +741,7 @@
                     
                     const link = document.createElement('a');
                     link.href = pdfUrl;
-                    link.download = 'Registro_Materiais_Consignados.pdf';
+                    link.download = `Registro_Hexagon.pdf`;
                     document.body.appendChild(link);
                     link.click();
                     document.body.removeChild(link);
@@ -671,11 +751,11 @@
                     
                 } catch (pdfError) {
                     console.error('Erro ao gerar PDF:', pdfError);
-                    message += '\n\nErro ao gerar PDF';
+                    message += '\nErro ao gerar PDF';
                 }
                 
                 if (pdfGenerated) {
-                    message += '\n\nPDF salvo no seu dispositivo';
+                    message += '\nPDF salvo no seu dispositivo';
                 }
                 
                 // Abrir WhatsApp
@@ -688,7 +768,7 @@
                 
             } catch (error) {
                 console.error('Erro geral no sendReport:', error);
-                alert('Erro ao enviar relatório. Verifique se preencheu os dados obrigatórios.');
+                alert('Erro ao enviar relatório. Verifique os dados e tente novamente.');
             }
         }
 
@@ -698,30 +778,26 @@
         }
 
         function startNewReport() {
-            // Limpar apenas campos específicos (manter Usuário e Hospital)
-            document.getElementById('patientName').value = '';
-            document.getElementById('recordNumber').value = '';
-            document.getElementById('surgeryDate').value = '';
+            // Limpar apenas outros informações e materiais diversos
             document.getElementById('otherInfo').value = '';
             document.getElementById('materiaisDiversos').value = '';
+            
+            // Limpar seleções de produtos
             document.getElementById('documentType').value = '';
+            document.getElementById('productsContainer').innerHTML = '<div class="text-center p-4 text-gray-500">Selecione um subgrupo para visualizar os produtos</div>';
             
-            // Limpar produtos
-            const container = document.getElementById('productsContainer');
-            container.innerHTML = '<div class="text-center p-4 text-gray-500">Selecione um subgrupo para visualizar os produtos</div>';
-            
-            // Voltar para tela principal
             document.querySelector('.main-content').classList.remove('hide');
             document.querySelector('.completion-screen').classList.remove('show');
         }
     </script>
+<script defer src="https://static.cloudflareinsights.com/beacon.min.js/vcd15cbe7772f49c399c6a5babf22c1241717689176015" integrity="sha512-ZpsOmlRQV6y907TI0dKBHq9Md29nnaEIPlkf84rnaERnq6zvWvPUqr2ft8M1aS28oN72PdrCzSjY4U6VaAw1EQ==" data-cf-beacon='{"rayId":"9605a08fac770e9a","serverTiming":{"name":{"cfExtPri":true,"cfEdge":true,"cfOrigin":true,"cfL4":true,"cfSpeedBrain":true,"cfCacheStatus":true}},"version":"2025.7.0","token":"4edd5f8ec12a48cfa682ab8261b80a79"}' crossorigin="anonymous"></script>
 </body>
 </html>
     <script id="html_badge_script1">
         window.__genspark_remove_badge_link = "https://www.genspark.ai/api/html_badge/" +
-            "remove_badge?token=To%2FBnjzloZ3UfQdcSaYfDl5OruCAXWZ939T3evCGXZTXD%2Bm4Qb8EK300j%2F%2BlKxP6%2BzABRr2Xt9gPFoiaxoqg%2FL5axpOEA2TPsmyuQA8n3kpXvvXcQEWm3DdvyxxRxqMPuuzbX74pjrdReqSYfoAHutY9vHsN2pkCIji0QUSZ%2BgouZMLwDauxAQqHlgd7nu98v%2BFubIHibiKhIkoj93%2BAI2rhEZsyCxAi8vYTIGLmPJKNsZgRZELw6U%2BES%2FNx3vsTr%2BnJ5deiAvz8Uufu7cCac61NADOzT6ryRILcV9nR7NIJAuvE5kpowy%2Fuams%2FORGrIyfpehjQvvM6NVhAJ25DJeqlH5w5HsgPu%2Bnnx9aRzMDF6k2nuvAbedwJZ14q6ySnfRBTiSfj0FuA8f%2BAhVPTt7A8ErVfZeTQqBEy6RkcqHAtabddzbMfipWPoIY8wcqKFNIWkC8dfT4ocVLSJY67j32bZRFx%2B3i4Tzq8idq68xmLT3v8%2B%2BEY2nMwlx4Shat7pLQ07ymyOnpAECA25%2FuAWvPdcnC5bxkDQlRhjCzn2o4%3D";
+            "remove_badge?token=To%2FBnjzloZ3UfQdcSaYfDlV%2FBKhaKYkh3aTahcMMS%2BAjgafq0KAQtVXixXZTmvHYkIAtXEoYYJzWLJn5fVP2VmOLAiGnY2ocMR1GjLa1m2lQNr6WsRrxiD%2Fs3UpA66V0h678D71buaInhXKFqncsGeTUHvlqEBZ79jiYBFwkuqR9HGLXmaH9MKzQYB4UH4NAU6%2Fs3r7f8hUBVFVU738PNIYYLDwdnYL5wmZMAgvRZTEl7bc%2FAiOfwNMoTDDCmg%2FD7s0iHLyQHJYMtYPWdzcpwQvjjViROjuGWzeY7czg7VLF7MkeSBbwMj%2BWjk3ycxA9uFlgfLECYhuQfg7N8ry3X7R1W54q5cgd25qWdjxatCYiJfmVQduTKxa9xhdSJ8aulMt3rqmFbfmsYkUs%2FT4J%2BBZUc%2FC1VIJE2I8kFRZT%2F9xgPO0VeEenQgxubLKb9SXWv%2FZsq%2FrInhql1vNMbM1JSOVzMT5iuRMlXYTHJWJx3TtvQeLmHsfHorJjYek6FK3zMu50fNDqhwoRViT2XWXsTicBr8Um57ANkqPiqQQU2xk%3D";
         window.__genspark_locale = "pt-BR";
-        window.__genspark_token = "To/BnjzloZ3UfQdcSaYfDl5OruCAXWZ939T3evCGXZTXD+m4Qb8EK300j/+lKxP6+zABRr2Xt9gPFoiaxoqg/L5axpOEA2TPsmyuQA8n3kpXvvXcQEWm3DdvyxxRxqMPuuzbX74pjrdReqSYfoAHutY9vHsN2pkCIji0QUSZ+gouZMLwDauxAQqHlgd7nu98v+FubIHibiKhIkoj93+AI2rhEZsyCxAi8vYTIGLmPJKNsZgRZELw6U+ES/Nx3vsTr+nJ5deiAvz8Uufu7cCac61NADOzT6ryRILcV9nR7NIJAuvE5kpowy/uams/ORGrIyfpehjQvvM6NVhAJ25DJeqlH5w5HsgPu+nnx9aRzMDF6k2nuvAbedwJZ14q6ySnfRBTiSfj0FuA8f+AhVPTt7A8ErVfZeTQqBEy6RkcqHAtabddzbMfipWPoIY8wcqKFNIWkC8dfT4ocVLSJY67j32bZRFx+3i4Tzq8idq68xmLT3v8++EY2nMwlx4Shat7pLQ07ymyOnpAECA25/uAWvPdcnC5bxkDQlRhjCzn2o4=";
+        window.__genspark_token = "To/BnjzloZ3UfQdcSaYfDlV/BKhaKYkh3aTahcMMS+Ajgafq0KAQtVXixXZTmvHYkIAtXEoYYJzWLJn5fVP2VmOLAiGnY2ocMR1GjLa1m2lQNr6WsRrxiD/s3UpA66V0h678D71buaInhXKFqncsGeTUHvlqEBZ79jiYBFwkuqR9HGLXmaH9MKzQYB4UH4NAU6/s3r7f8hUBVFVU738PNIYYLDwdnYL5wmZMAgvRZTEl7bc/AiOfwNMoTDDCmg/D7s0iHLyQHJYMtYPWdzcpwQvjjViROjuGWzeY7czg7VLF7MkeSBbwMj+Wjk3ycxA9uFlgfLECYhuQfg7N8ry3X7R1W54q5cgd25qWdjxatCYiJfmVQduTKxa9xhdSJ8aulMt3rqmFbfmsYkUs/T4J+BZUc/C1VIJE2I8kFRZT/9xgPO0VeEenQgxubLKb9SXWv/Zsq/rInhql1vNMbM1JSOVzMT5iuRMlXYTHJWJx3TtvQeLmHsfHorJjYek6FK3zMu50fNDqhwoRViT2XWXsTicBr8Um57ANkqPiqQQU2xk=";
     </script>
     
     <script id="html_notice_dialog_script" src="https://www.genspark.ai/notice_dialog.js"></script>
