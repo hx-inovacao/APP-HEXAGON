@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- saved from url=(0140)https://gensparkpublicblob.blob.core.windows.net/user-upload-image/page/toolu_01K41nqZ15My7pzs8SfFTu63/hexagon_layout_antigo_restaurado.html -->
+<!-- saved from url=(0137)https://gensparkpublicblob.blob.core.windows.net/user-upload-image/page/toolu_01MuvxZDiGZKDr57rDkzuz2S/hexagon_css_interno_corrigido.html -->
 <html lang="pt-BR"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -11,25 +11,248 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="apple-mobile-web-app-title" content="HEXAGON">
     
-    <!-- PWA Manifest -->
-    <link rel="manifest" href="https://gensparkpublicblob.blob.core.windows.net/user-upload-image/page/toolu_01K41nqZ15My7pzs8SfFTu63/manifest.json">
-    
-    <!-- Tailwind CSS -->
-    <link href="./index_files/tailwind.min.css" rel="stylesheet">
-    
     <!-- Supabase -->
-    <script src="./index_files/supabase-js@2"></script><style type="text/css" id="operaUserStyle"></style>
+    <script src="./Registro de Consumo de Materiais Consignados_files/supabase-js@2"></script><style type="text/css" id="operaUserStyle"></style>
     
     <!-- jsPDF for PDF generation -->
-    <script src="./index_files/jspdf.umd.min.js.download"></script>
+    <script src="./Registro de Consumo de Materiais Consignados_files/jspdf.umd.min.js.download"></script>
     
     <style>
+        /* Reset and base styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background-color: #f9fafb;
+            color: #111827;
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+
+        /* Container and layout */
+        .container {
+            max-width: 1024px;
+            margin: 0 auto;
+            padding: 0 1rem;
+        }
+
+        .grid {
+            display: grid;
+            gap: 1rem;
+        }
+
+        .grid-cols-1 {
+            grid-template-columns: repeat(1, 1fr);
+        }
+
+        .grid-cols-2 {
+            grid-template-columns: repeat(2, 1fr);
+        }
+
+        .grid-cols-3 {
+            grid-template-columns: repeat(3, 1fr);
+        }
+
+        @media (min-width: 768px) {
+            .md\:grid-cols-3 {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+
+        /* Typography */
+        h1 {
+            font-size: 2.25rem;
+            font-weight: 700;
+            color: #1f2937;
+            margin-bottom: 0.5rem;
+        }
+
+        h2 {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: #4b5563;
+        }
+
+        h3 {
+            font-size: 1.125rem;
+            font-weight: 600;
+            color: #1f2937;
+            margin-bottom: 1rem;
+        }
+
+        /* Spacing */
+        .pt-8 { padding-top: 2rem; }
+        .pb-6 { padding-bottom: 1.5rem; }
+        .px-4 { padding-left: 1rem; padding-right: 1rem; }
+        .p-2 { padding: 0.5rem; }
+        .p-3 { padding: 0.75rem; }
+        .p-6 { padding: 1.5rem; }
+        .p-8 { padding: 2rem; }
+        .py-2 { padding-top: 0.5rem; padding-bottom: 0.5rem; }
+        .py-3 { padding-top: 0.75rem; padding-bottom: 0.75rem; }
+        .py-4 { padding-top: 1rem; padding-bottom: 1rem; }
+        .px-4 { padding-left: 1rem; padding-right: 1rem; }
+        .px-6 { padding-left: 1.5rem; padding-right: 1.5rem; }
+        .mb-1 { margin-bottom: 0.25rem; }
+        .mb-2 { margin-bottom: 0.5rem; }
+        .mb-4 { margin-bottom: 1rem; }
+        .mb-6 { margin-bottom: 1.5rem; }
+        .mt-1 { margin-top: 0.25rem; }
+        .mt-4 { margin-top: 1rem; }
+        .gap-2 { gap: 0.5rem; }
+        .gap-3 { gap: 0.75rem; }
+        .gap-4 { gap: 1rem; }
+
+        /* Text alignment */
+        .text-center { text-align: center; }
+        .text-left { text-align: left; }
+
+        /* Background colors */
+        .bg-gray-50 { background-color: #f9fafb; }
+        .bg-white { background-color: #ffffff; }
+        .bg-blue-500 { background-color: #3b82f6; }
+        .bg-green-500 { background-color: #10b981; }
+        .bg-red-500 { background-color: #ef4444; }
+        .bg-gray-500 { background-color: #6b7280; }
+        .bg-blue-600 { background-color: #2563eb; }
+        .bg-green-600 { background-color: #059669; }
+
+        /* Hover states */
+        .hover\:bg-blue-600:hover { background-color: #2563eb; }
+        .hover\:bg-green-600:hover { background-color: #059669; }
+
+        /* Text colors */
+        .text-white { color: #ffffff; }
+        .text-gray-500 { color: #6b7280; }
+        .text-gray-700 { color: #374151; }
+        .text-gray-800 { color: #1f2937; }
+        .text-gray-900 { color: #111827; }
+        .text-blue-500 { color: #3b82f6; }
+        .text-red-500 { color: #ef4444; }
+        .text-green-500 { color: #10b981; }
+        .text-sm { font-size: 0.875rem; }
+        .text-lg { font-size: 1.125rem; }
+        .text-xl { font-size: 1.25rem; }
+        .text-4xl { font-size: 2.25rem; }
+        .text-6xl { font-size: 3.75rem; }
+        .text-2xl { font-size: 1.5rem; }
+
+        /* Font weights */
+        .font-medium { font-weight: 500; }
+        .font-semibold { font-weight: 600; }
+        .font-bold { font-weight: 700; }
+
+        /* Borders */
+        .border { border: 1px solid #d1d5db; }
+        .border-gray-300 { border-color: #d1d5db; }
+        .rounded { border-radius: 0.25rem; }
+        .rounded-md { border-radius: 0.375rem; }
+        .rounded-lg { border-radius: 0.5rem; }
+
+        /* Shadows */
+        .shadow-md { box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06); }
+        .shadow-lg { box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05); }
+
+        /* Width */
+        .w-full { width: 100%; }
+        .w-4 { width: 1rem; }
+        .h-4 { height: 1rem; }
+        .max-w-md { max-width: 28rem; }
+        .max-w-4xl { max-width: 56rem; }
+
+        /* Display */
+        .block { display: block; }
+        .flex { display: flex; }
+        .hidden { display: none; }
+
+        /* Flex */
+        .items-center { align-items: center; }
+        .items-start { align-items: flex-start; }
+        .justify-center { justify-content: center; }
+        .justify-between { justify-content: space-between; }
+        .flex-1 { flex: 1; }
+        .flex-wrap { flex-wrap: wrap; }
+        .flex-shrink-0 { flex-shrink: 0; }
+
+        /* Position */
+        .fixed { position: fixed; }
+        .relative { position: relative; }
+        .absolute { position: absolute; }
+        .top-0 { top: 0; }
+        .left-0 { left: 0; }
+
+        /* Z-index */
+        .z-1000 { z-index: 1000; }
+
+        /* Cursor */
+        .cursor-pointer { cursor: pointer; }
+
+        /* Form elements */
+        input, textarea, select {
+            width: 100%;
+            padding: 0.5rem;
+            border: 1px solid #d1d5db;
+            border-radius: 0.375rem;
+            font-size: 1rem;
+            transition: border-color 0.15s ease-in-out;
+        }
+
+        input:focus, textarea:focus, select:focus {
+            outline: none;
+            border-color: #3b82f6;
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+        }
+
+        label {
+            display: block;
+            font-size: 0.875rem;
+            font-weight: 500;
+            color: #374151;
+            margin-bottom: 0.25rem;
+        }
+
+        /* Buttons */
+        button {
+            padding: 0.5rem 1rem;
+            border: none;
+            border-radius: 0.375rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.15s ease-in-out;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .btn-primary {
+            background-color: #3b82f6;
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background-color: #2563eb;
+        }
+
+        .btn-success {
+            background-color: #10b981;
+            color: white;
+        }
+
+        .btn-success:hover {
+            background-color: #059669;
+        }
+
+        /* Custom components */
         .product-card {
             transition: all 0.3s ease;
             border: 1px solid #e5e7eb;
-            border-radius: 8px;
-            padding: 12px;
-            margin-bottom: 8px;
+            border-radius: 0.5rem;
+            padding: 0.75rem;
+            margin-bottom: 0.5rem;
             background: white;
         }
         
@@ -40,46 +263,46 @@
         
         .qty-controls {
             display: none;
-            margin-top: 8px;
+            margin-top: 0.5rem;
         }
         
         .qty-controls.show {
             display: flex;
-            gap: 12px;
+            gap: 0.75rem;
             align-items: center;
             flex-wrap: wrap;
             justify-content: flex-start;
-            padding: 8px 0;
+            padding: 0.5rem 0;
         }
         
         .qty-controls .flex {
             display: flex;
             align-items: center;
-            gap: 6px;
+            gap: 0.375rem;
             white-space: nowrap;
         }
         
         .lot-input {
             width: 100px;
-            padding: 6px 8px;
+            padding: 0.375rem 0.5rem;
             border: 1px solid #d1d5db;
-            border-radius: 4px;
-            font-size: 14px;
+            border-radius: 0.25rem;
+            font-size: 0.875rem;
         }
         
         .qty-select {
             width: 60px;
-            padding: 6px;
+            padding: 0.375rem;
             border: 1px solid #d1d5db;
-            border-radius: 4px;
-            font-size: 14px;
+            border-radius: 0.25rem;
+            font-size: 0.875rem;
         }
         
         .add-lot-btn, .remove-lot-btn {
             width: 32px;
             height: 32px;
-            font-size: 16px;
-            border-radius: 4px;
+            font-size: 1rem;
+            border-radius: 0.25rem;
             border: none;
             cursor: pointer;
             display: flex;
@@ -108,9 +331,9 @@
         
         .lot-row {
             display: flex;
-            gap: 6px;
+            gap: 0.375rem;
             align-items: center;
-            margin-top: 4px;
+            margin-top: 0.25rem;
             flex-wrap: wrap;
         }
         
@@ -133,7 +356,7 @@
         }
 
         #documentType option {
-            font-size: 13px;
+            font-size: 0.8125rem;
         }
 
         .confirmation-overlay {
@@ -152,7 +375,7 @@
         .confirmation-dialog {
             background: white;
             padding: 2rem;
-            border-radius: 8px;
+            border-radius: 0.5rem;
             box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
             max-width: 400px;
             width: 90%;
@@ -169,7 +392,7 @@
             margin: 0.5rem;
             padding: 0.75rem 1.5rem;
             border: none;
-            border-radius: 4px;
+            border-radius: 0.25rem;
             font-weight: 500;
             cursor: pointer;
         }
@@ -183,8 +406,12 @@
             background-color: #6b7280;
             color: white;
         }
-        
+
         @media (max-width: 768px) {
+            .grid-cols-1 { grid-template-columns: 1fr; }
+            .grid-cols-2 { grid-template-columns: 1fr; }
+            .grid-cols-3 { grid-template-columns: 1fr; }
+            
             .qty-controls {
                 flex-direction: column;
                 align-items: stretch;
@@ -197,9 +424,7 @@
             .lot-input {
                 width: 80px;
             }
-        }
-        
-        @media (max-width: 480px) {
+            
             h1 {
                 font-size: 1.25rem;
             }
@@ -306,7 +531,7 @@
       width: 100%;
     }
   </style><style type="text/css">:root [href^="//mage98rquewz.com/"], :root [href^="//x4pollyxxpush.com/"], :root span[id^="ezoic-pub-ad-placeholder-"], :root ins.adsbygoogle[data-ad-slot], :root ins.adsbygoogle[data-ad-client], :root img[src^="https://s-img.adskeeper.com/"], :root guj-ad, :root gpt-ad, :root div[id^="zergnet-widget"], :root div[id^="vuukle-ad-"], :root div[id^="taboola-stream-"], :root div[id^="sticky_ad_"], :root div[id^="st"][style^="z-index: 999999999;"], :root div[id^="gpt_ad_"], :root div[id^="ezoic-pub-ad-"], :root div[id^="dfp-ad-"], :root div[id^="crt-"][style], :root div[id^="adspot-"], :root div[id^="adrotate_widgets-"], :root ps-connatix-module, :root div[id^="ad_position_"], :root div[id^="ad-div-"], :root div[id*="ScriptRoot"], :root div[id*="MarketGid"], :root div[data-id-advertdfpconf], :root div[data-dfp-id], :root hl-adsense, :root div[data-contentexchange-widget], :root div[data-alias="300x250 Ad 2"], :root div[data-adzone], :root div[data-adunit-path], :root div[data-adname], :root div[data-ad-targeting], :root div[data-ad-region], :root div[data-ad-placeholder], :root div[aria-label="Ads"], :root display-ads, :root display-ad-component, :root atf-ad-slot, :root aside[id^="adrotate_widgets-"], :root amp-fx-flying-carpet, :root amp-embed[type="taboola"], :root amp-connatix-player, :root amp-ad-custom, :root amp-ad, :root div[id^="google_dfp_"], :root ad-slot, :root ad-shield-ads, :root a[style="width:100%;height:100%;z-index:10000000000000000;position:absolute;top:0;left:0;"], :root a[onmousedown^="this.href='https://paid.outbrain.com/network/redir?"] + .ob_source, :root a[href^="https://xbet-4.com/"], :root div[id^="ad-position-"], :root a[href^="https://www.toprevenuegate.com/"], :root a[href^="https://www.purevpn.com/"][href*="&utm_source=aff-"], :root a[href^="https://www.privateinternetaccess.com/"] > img, :root a[href^="https://www.onlineusershielder.com/"], :root a[href^="https://financeads.net/tc.php?"], :root a[href^="https://www.mrskin.com/tour"], :root a[href^="https://www.infowarsstore.com/"] > img, :root a[href^="https://www.highperformancecpmgate.com/"], :root a[href^="https://www.highcpmrevenuenetwork.com/"], :root a[href^="https://www.get-express-vpn.com/offer/"], :root a[href^="https://lnkxt.bannerator.com/"], :root a[href^="https://www.geekbuying.com/dynamic-ads/"], :root a[href^="https://www.financeads.net/tc.php?"], :root a[href^="https://www.effectiveratecpm.com/"], :root [href^="https://www.herbanomic.com/"] > img, :root a[href^="https://maymooth-stopic.com/"], :root a[href^="https://www.dql2clk.com/"], :root a[href^="https://www.nutaku.net/signup/landing/"], :root a[href^="https://www.dating-finder.com/signup/?ai_d="], :root a[href^="https://explore-site.com/"], :root a[href^="https://www.brazzersnetwork.com/landing/"], :root a[href^="https://www.adxsrve.com/"], :root [data-template-type="nativead"], :root a[href^="https://www.endorico.com/Smartlink/"], :root a[href^="https://www.adultempire.com/"][href*="?partner_id="], :root a[href^="https://voluum.prom-xcams.com/"], :root a[href^="https://twinrdsyte.com/"], :root a[href^="https://twinrdsrv.com/"], :root a[href^="https://trk.nfl-online-streams.club/"], :root a[href^="https://tracking.avapartner.com/"], :root a[href^="https://track.wg-aff.com"], :root a[href^="https://track.ultravpn.com/"], :root a[href^="https://track.afcpatrk.com/"], :root a[href^="https://torguard.net/aff.php"] > img, :root [data-identity="adhesive-ad"], :root a[href^="https://tc.tradetracker.net/"] > img, :root a[href^="https://tatrck.com/"], :root a[href^="https://click.candyoffers.com/"], :root [href^="https://zstacklife.com/"] img, :root a[href^="https://t.aslnk.link/"], :root a[href^="https://t.adating.link/"], :root a[href^="https://go.trackitalltheway.com/"], :root [href^="https://track.fiverr.com/visit/"] > img, :root a[href^="https://syndication.exoclick.com/"], :root a[href^="https://syndication.dynsrvtbg.com/"], :root div[data-alias="300x250 Ad 1"], :root a[href^="https://syndicate.contentsserved.com/"], :root a[href^="https://svb-analytics.trackerrr.com/"], :root a[href^="https://ad.doubleclick.net/"], :root a[href^="https://static.fleshlight.com/images/banners/"], :root a[href^="https://slkmis.com/"], :root bottomadblock, :root a[href^="https://s.zlinkd.com/"], :root a[href^="https://s.zlink3.com/"], :root a[href^="https://www.mrskin.com/account/"], :root a[href^="https://s.optzsrv.com/"], :root a[href^="https://s.ma3ion.com/"], :root a[href^="https://s.eunow4u.com/"], :root #kt_player > div[style$="display: block;"][style*="inset: 0px;"], :root [href$="/sexdating.php"], :root a[href^="https://quotationfirearmrevision.com/"], :root a[href^="https://pubads.g.doubleclick.net/"], :root a[href^="https://prf.hn/click/"][href*="/camref:"] > img, :root a[href^="https://www.dating-finder.com/?ai_d="], :root a[href^="https://serve.awmdelivery.com/"], :root a[href^="https://prf.hn/click/"][href*="/adref:"] > img, :root app-ad, :root [href^="https://ap.octopuspop.com/click/"] > img, :root a[href^="https://postback1win.com/"], :root a[href^="https://mmwebhandler.aff-online.com/"], :root a[href^="https://www.bet365.com/"][href*="affiliate="], :root a[href^="https://pb-track.com/"], :root a[href^="https://pb-front.com/"], :root a[href^="https://paid.outbrain.com/network/redir?"], :root a[href^="https://streamate.com/landing/click/"], :root div[class^="Adstyled__AdWrapper-"], :root a[href^="https://osfultrbriolenai.info/"], :root a[href^="https://upsups.click/"], :root a[href^="https://ndt5.net/"], :root a[href^="https://natour.naughtyamerica.com/track/"], :root a[href^="https://mediaserver.entainpartners.com/renderBanner.do?"], :root a[href^="https://m.do.co/c/"] > img, :root a[href^="https://lead1.pl/"], :root a[href^="https://landing.brazzersnetwork.com/"], :root a[href^="https://join.virtuallust3d.com/"], :root a[href^="https://kiksajex.com/"], :root a[href^="https://juicyads.in/"], :root a[href^="https://snowdayonline.xyz/"], :root a[href^="https://mediaserver.gvcaffiliates.com/renderBanner.do?"], :root a[href^="https://join.dreamsexworld.com/"], :root a[href^="https://jaxofuna.com/"], :root a[href^="https://italarizege.xyz/"], :root a[href^="https://iqbroker.com/"][href*="?aff="], :root a[href^="https://identicaldrench.com/"], :root a[href^="https://hot-growngames.life/"], :root a[href^="https://helmethomicidal.com/"], :root a[href^="https://golinks.work/"], :root ark-top-ad, :root a[href^="https://s.zlinkn.com/"], :root a[href^="https://go.xxxvjmp.com/"], :root [class^="tile-picker__CitrusBannerContainer-sc-"], :root a[href^="https://go.xxxiijmp.com"], :root a[href^="https://go.xtbaffiliates.com/"], :root [data-role="tile-ads-module"], :root a[href^="https://go.xlviirdr.com"], :root div[class$="-adlabel"], :root a[href^="https://go.xlviiirdr.com"], :root a[href^="https://ismlks.com/"], :root [href^="https://www.mypillow.com/"] > img, :root a[href^="https://go.xlirdr.com"], :root [data-css-class="dfp-inarticle"], :root a[href^="https://l.hyenadata.com/"], :root a[href^="https://go.tmrjmp.com"], :root a[href^="https://zirdough.net/"], :root a[href^="https://s.deltraff.com/"], :root a[href^="https://go.markets.com/visit/?bta="], :root a[href^="https://billing.purevpn.com/aff.php"] > img, :root a[href^="https://go.hpyrdr.com/"], :root a[href^="https://lijavaxa.com/"], :root a[href^="https://go.goaserv.com/"], :root a[href^="https://t.hrtye.com/"], :root a[href^="https://go.etoro.com/"] > img, :root a[href^="https://go.dmzjmp.com"], :root a[href^="https://www.bang.com/?aff="], :root #mgb-container > #mgb, :root a[href^="https://go.admjmp.com"], :root a[href^="https://ak.stikroltiltoowi.net/"], :root a[href^="https://get.surfshark.net/aff_c?"][href*="&aff_id="] > img, :root a[href^="https://www.adskeeper.com"], :root a[data-redirect^="https://paid.outbrain.com/network/redir?"], :root [href^="https://clicks.affstrack.com/"] > img, :root a[href^="https://ak.hauchiwu.com/"], :root a[href^="https://engine.phn.doublepimp.com/"], :root a[href^="https://engine.blueistheneworanges.com/"], :root a[href^="https://drumskilxoa.click/"], :root a[href^="https://dl-protect.net/"], :root a[href*=".foxqck.com/"], :root a[href^="https://ctosrd.com/"], :root a[href^="https://clixtrac.com/"], :root [href^="https://noqreport.com/"] > img, :root a[href^="https://clicks.pipaffiliates.com/"], :root app-advertisement, :root a[href^="https://getmatchedlocally.com/"], :root a[href^="https://clickins.slixa.com/"], :root a[href^="https://datewhisper.life/"], :root a[href^="https://get-link.xyz/"], :root a[href^="https://click.linksynergy.com/fs-bin/"] > img, :root a[href^="https://combodef.com/"], :root a[href^="https://click.hoolig.app/"], :root a[href^="https://click.ggpickaff.com/"], :root a[href^="https://track.totalav.com/"], :root a[href^="https://ctrdwm.com/"], :root img[src^="https://images.purevpnaffiliates.com"], :root a[href^="https://porntubemate.com/"], :root a[href^="https://clickadilla.com/"], :root a[href^="https://click.dtiserv2.com/"], :root a[href^="https://go.xlvirdr.com"], :root a[href^="http://www.iyalc.com/"], :root a[href^="https://claring-loccelkin.com/"], :root a[href^="https://bongacams2.com/track?"], :root a[href^="https://t.ajrkm1.com/"], :root a[href^="https://bongacams10.com/track?"], :root a[href^="https://www.sheetmusicplus.com/"][href*="?aff_id="], :root a[href^="https://bngpt.com/"], :root a[href^="https://black77854.com/"], :root a[href^="https://rixofa.com/"], :root #ads[style^="position: absolute; z-index: 30; width: 100%; height"], :root a[href^="https://disobediencecalculatormaiden.com/"], :root a[href^="https://best-experience-cool.com/"], :root a[href^="https://banners.livepartners.com/"], :root a[href^="https://myclick-2.com/"], :root a[href^="https://sexynearme.com/"], :root a[href^="https://baipahanoop.net/"], :root a[href^="http://revolvemockerycopper.com/"], :root a[href^="https://awptjmp.com/"], :root a[href^="https://join.sexworld3d.com/track/"], :root a[href^="https://aweptjmp.com/"], :root a[href^="https://ausoafab.net/"], :root a[href^="https://adclick.g.doubleclick.net/"], :root a[href^="https://aj1070.online/"], :root a[href^="https://bc.game/"], :root a[href^="https://ak.oalsauwy.net/"], :root a[href^="https://a.bestcontentoperation.top/"], :root a[href^="https://adultfriendfinder.com/go/"], :root a[href^="https://ads.planetwin365affiliate.com/"], :root a[href^="https://ads.leovegas.com/"], :root .nya-slot[style], :root a[href^="https://a.bestcontentweb.top/"], :root a[href^="https://a2.adform.net/"], :root a[href^="https://a.candyai.love/"], :root a[href^="https://playnano.online/offerwalls/?ref="], :root a[href^="https://a.adtng.com/"], :root .banner-img > .pbl, :root [data-m-ad-id], :root a[href^="https://a-ads.com/"], :root [id^="ad_slider"], :root a[href^="https://click.ggpickyaff.com/"], :root broadstreet-zone-container, :root a[href^="https://ak.psaltauw.net/"], :root a[href^="https://1winpb.com/"], :root div[id^="rc-widget-"], :root a[href^="http://eslp34af.click/"], :root a[href^="https://turnstileunavailablesite.com/"], :root a[href^="https://chaturbate.com/in/?"], :root a[href^="https://prf.hn/click/"][href*="/creativeref:"] > img, :root a[href*="&maxads="], :root a[href^="http://www.adultempire.com/unlimited/promo?"][href*="&partner_id="], :root a[href^="https://1betandgonow.com/"], :root a[href^="https://eergortu.net/"], :root div[id^="optidigital-adslot"], :root a[href^="https://123-stream.org/"], :root a[href^="https://in.rabbtrk.com/"], :root a[href^="http://www.h4trck.com/"], :root a[href^="http://www.friendlyduck.com/AF_"], :root a[href^="https://go.rmhfrtnd.com"], :root a[href^="https://allhost.shop/aff.php?"], :root [data-dynamic-ads], :root a[href^="http://vnte9urn.click/"], :root a[href^="http://troopsassistedstupidity.com/"], :root a[href^="http://trk.globwo.online/"], :root a[href^="https://random-affiliate.atimaze.com/"], :root a-ad, :root a[href^="https://offhandpump.com/"], :root a[href^="http://stickingrepute.com/"], :root #slashboxes > .deals-rail, :root a[href^="http://roadcontagion.com/"], :root a[href^="http://premonitioninventdisagree.com/"], :root a[href^="http://cam4com.go2cloud.org/aff_c?"], :root a[href^="https://ads.betfair.com/redirect.aspx?"], :root [href^="https://www.mypatriotsupply.com/"] > img, :root a[href^="https://trk.softonixs.xyz/"], :root [data-advadstrackid], :root a[href^="http://muzzlematrix.com/"], :root a[href^="https://track.adform.net/"], :root a[href^="http://avthelkp.net/"], :root a[href^="https://a.medfoodhome.com/"], :root a[href^="https://engine.flixtrial.com/"], :root [data-type="ad-vertical"], :root [data-taboola-options], :root a[href^="http://annulmentequitycereals.com/"], :root a[href^="//startgaming.net/tienda/" i], :root a[href^="https://join.virtualtaboo.com/track/"], :root [id^="ad_sky"], :root a[href^="http://coefficienttolerategravel.com/"], :root a[href^="https://a.medfoodsafety.com/"], :root a[href^="//go.eabids.com/"], :root a[href^="//ejitsirdosha.net/"], :root a[href^=" https://www.friendlyduck.com/AF_"], :root [data-cl-spot-id], :root a[href*="/jump/next.php?r="], :root a[href^="https://go.rmishe.com/"], :root [href^="https://ilovemyfreedoms.com/landing-"], :root a[href^="https://syndication.optimizesrv.com/"], :root a[href*="//daichoho.com/"], :root a[href^="https://go.nordvpn.net/aff"] > img, :root .\[\&_\.gdprAdTransparencyCogWheelButton\]\:\!pjra-z-\[5\], :root [href^="http://clicks.totemcash.com/"], :root a[href^="https://ad.zanox.com/ppc/"] > img, :root a[href^="https://lone-pack.com/"], :root [data-d-ad-id], :root a[href*=".engine.adglare.net/"], :root a[href^="https://t.ajrkm3.com/"], :root [href^="https://aads.com/campaigns/"], :root a[href^="//stighoazon.com/"], :root [href^="https://www.profitablegatecpm.com/"], :root div[id^="lazyad-"], :root a[href^="http://com-1.pro/"], :root a[href*=".cfm?domain="][href*="&fp="], :root [data-ad-name], :root a[href^="https://loboclick.com/"], :root a[data-url^="https://vulpix.bet/?ref="], :root a[href^="https://ab.advertiserurl.com/aff/"], :root a[data-oburl^="https://paid.outbrain.com/network/redir?"], :root a[href^="https://go.xlivrdr.com"], :root [onclick^="location.href='https://1337x.vpnonly.site/"], :root [name^="google_ads_iframe"], :root [id^="section-ad-banner"], :root a[href^="https://www.goldenfrog.com/vyprvpn?offer_id="][href*="&aff_id="], :root a[href*="//jjgirls.com/sex/Chaturbate"], :root [id^="ad-wrap-"], :root [href^="https://zone.gotrackier.com/"], :root a[href^="http://sarcasmadvisor.com/"], :root [href^="https://www.restoro.com/"], :root [href^="https://www.targetingpartner.com/"], :root .section-subheader > .section-hotel-prices-header, :root [href^="https://www.hostg.xyz/"] > img, :root a[href^="http://adultfriendfinder.com/go/"], :root a[href^="https://fastestvpn.com/lifetime-special-deal?a_aid="], :root a[href^="https://tour.mrskin.com/"], :root [href^="https://www.brighteonstore.com/products/"] img, :root citrus-ad-wrapper, :root a[href^="https://go.grinsbest.com/"], :root a[href^="https://vo2.qrlsx.com/"], :root [href^="https://www.avantlink.com/click.php"] img, :root a[href^="https://t.acam.link/"], :root a[href^="https://go.strpjmp.com/"], :root [href^="https://url.totaladblock.com/"], :root div[id^="div-ads-"], :root [href^="https://rapidgator.net/article/premium/ref/"], :root [href^="https://join.girlsoutwest.com/"], :root a[href^="https://activate-game.com/"], :root .scroll-fixable.rail-right > .deals-rail, :root [data-wpas-zoneid], :root a[href^="https://track.aftrk3.com/"], :root [href^="https://join3.bannedsextapes.com"], :root a[href^="https://bodelen.com/"], :root a[href*=".g2afse.com/"], :root div[id^="adngin-"], :root [data-rc-widget], :root span[data-ez-ph-id], :root [href^="https://track.aftrk1.com/"], :root [href^="https://join.playboyplus.com/track/"], :root a[href^="https://go.xxxijmp.com"], :root [href^="https://istlnkcl.com/"], :root a[href^="https://tm-offers.gamingadult.com/"], :root [href^="https://charmingdatings.life/"], :root [href^="https://glersakr.com/"], :root a[href^="https://a.bestcontentfood.top/"], :root [href^="https://cpa.10kfreesilver.com/"], :root [data-id^="div-gpt-ad"], :root a[href^="https://tracker.loropartners.com/"], :root [href^="https://awbbjmp.com/"], :root div[ow-ad-unit-wrapper], :root a[data-href^="http://ads.trafficjunky.net/"], :root a[href^="http://partners.etoro.com/"], :root a[href^="https://www.friendlyduck.com/AF_"], :root [href^="https://ad1.adfarm1.adition.com/"], :root a[href^="https://bngprm.com/"], :root [href^="https://shiftnetwork.infusionsoft.com/go/"] > img, :root a[href^="https://go.bushheel.com/"], :root a[href^="https://ctjdwm.com/"], :root a[href^="https://camfapr.com/landing/click/"], :root div[data-ad-wrapper], :root .gnt_em_vp_c[data-g-s="vp_dk"], :root [href="//sexcams.plus/"], :root [href^="http://www.mypillow.com/"] > img, :root a[href^="https://promerycergerful.com/"], :root #kt_player > a[target="_blank"], :root a[href^="http://bongacams.com/track?"], :root [href^="http://mypillow.com/"] > img, :root [href="https://ourgoldguy.com/contact/"] img, :root .ob_container .item-container-obpd, :root [id^="div-gpt-ad"], :root a[href^="https://go.rmhfrtnd.com/"], :root [href="https://jdrucker.com/gold"] > img, :root a[href^="https://www.liquidfire.mobi/"], :root .grid > .container > #aside-promotion, :root DFP-AD, :root [href^="https://go.xlrdr.com"], :root a[href^="https://s.cant3am.com/"], :root [data-testid^="taboola-"], :root a[href^="https://track.1234sd123.com/"], :root zeus-ad, :root [data-testid="prism-ad-wrapper"], :root [href^="https://ad.admitad.com/"], :root [href^="https://mypillow.com/"] > img, :root [data-testid="ad_testID"], :root [href^="https://antiagingbed.com/discount/"] > img, :root a[href*=".adsrv.eacdn.com/"], :root [href^="https://optimizedelite.com/"] > img, :root [data-name="adaptiveConstructorAd"], :root a[href^="https://go.cmtaffiliates.com/"], :root [data-testid="adBanner-wrapper"], :root [href^="https://mylead.global/stl/"] > img, :root [href^="https://mypatriotsupply.com/"] > img, :root a[href^="https://go.hpyjmp.com"], :root iframe[scrolling="no"][sandbox*="allow-popups allow-modals"][style^="width: 100%; height: 100%; border: none;"], :root [href^="https://mystore.com/"] > img, :root a[href^="https://81ac.xyz/"], :root [href^="https://wct.link/click?"], :root div[data-adunit], :root app-large-ad, :root [href^="https://turtlebids.irauctions.com/"] img, :root a[href^="https://believessway.com/"], :root a[href^="https://witnessjacket.com/"], :root [data-mobile-ad-id], :root [class^="amp-ad-"], :root a[href^="http://handgripvegetationhols.com/"], :root a[href^="https://go.bbrdbr.com"], :root a[href^="https://fc.lc/ref/"], :root [data-adshim], :root topadblock, :root a[href^="//s.zlinkd.com/"], :root #teaser1[style^="width:autopx;"], :root [href^="https://www.cloudways.com/en/?id"], :root [data-asg-ins], :root a[href^="https://gamingadlt.com/?offer="], :root [data-desktop-ad-id], :root [data-adbridg-ad-class], :root #teaser3[style^="width:autopx;"], :root [data-adblockkey], :root [data-block-type="ad"], :root [data-ad-width], :root [onclick*="content.ad/"], :root [data-ad-manager-id], :root AMP-AD, :root [data-ad-cls], :root [data-ez-name], :root a[href^="https://go.mnaspm.com/"], :root a[href^="https://service.bv-aff-trx.com/"], :root a[href^="https://6-partner.com/"], :root [class^="s2nPlayer"], :root a[href^="https://traffdaq.com/"], :root [data-testid="commercial-label-taboola"], :root [class^="div-gpt-ad"], :root a[href^="http://tc.tradetracker.net/"] > img, :root a[href^="https://www8.smartadserver.com/"], :root a[href^="https://pb-imc.com/"], :root [href^="https://affiliate.fastcomet.com/"] > img, :root [class^="adDisplay-module"], :root [data-freestar-ad][id], :root AD-SLOT, :root a[href^="https://www.googleadservices.com/pagead/aclk?"] > img, :root [data-ad-module], :root a[href^="https://go.skinstrip.net"][href*="?campaignId="], :root #teaser2[style^="width:autopx;"], :root [data-revive-zoneid], :root a[href^="https://losingoldfry.com/"], :root div[id^="div-gpt-"], :root a[href^="https://gml-grp.com/"], :root .ob_dual_right > .ob_ads_header ~ .odb_div, :root a[href^="https://cam4com.go2cloud.org/"], :root a[href^="http://li.blogtrottr.com/click?"], :root a[onmousedown^="this.href='https://paid.outbrain.com/network/redir?"], :root a[href^="https://t.ajump1.com/"], :root a[href^="https://go.xxxjmp.com"], :root #leader-companion > a[href], :root a[href^="https://wittered-mainging.com/"], :root #teaser3[style="width: 100%;text-align: center;display: scroll;position:fixed;bottom: 0;margin: 0 auto;z-index: 103;"], :root [href^="https://wwp.hoqodd.com/redirect-zone/"] { display: none !important; }</style></head>
-<body class="bg-gray-50 min-h-screen">
+<body class="bg-gray-50">
     
     <!-- HEXAGON Title -->
     <div class="pt-8 pb-6 text-center">
@@ -315,7 +540,7 @@
     </div>
 
     <!-- Main Content -->
-    <div class="main-content max-w-4xl mx-auto px-4">
+    <div class="main-content container">
         
         <!-- Patient Information -->
         <div class="bg-white p-6 rounded-lg shadow-md mb-6">
@@ -324,34 +549,34 @@
             <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
                 <div>
                     <label class="block text-sm font-medium text-gray-700 mb-1">Usuário *</label>
-                    <input type="text" id="userField" placeholder="Digite o nome do usuário" class="w-full p-2 border border-gray-300 rounded-md" oninput="capitalizeInput(this)">
+                    <input type="text" id="userField" placeholder="Digite o nome do usuário" oninput="capitalizeInput(this)">
                 </div>
                 
                 <div>
                     <label class="block text-sm font-medium text-gray-700 mb-1">Hospital *</label>
-                    <input type="text" id="hospitalSelect" placeholder="Digite o nome do hospital" class="w-full p-2 border border-gray-300 rounded-md" oninput="capitalizeInput(this)">
+                    <input type="text" id="hospitalSelect" placeholder="Digite o nome do hospital" oninput="capitalizeInput(this)">
                 </div>
                 
                 <div>
                     <label class="block text-sm font-medium text-gray-700 mb-1">Paciente</label>
-                    <input type="text" id="patientName" placeholder="Nome do paciente" class="w-full p-2 border border-gray-300 rounded-md" oninput="capitalizeInput(this)">
+                    <input type="text" id="patientName" placeholder="Nome do paciente" oninput="capitalizeInput(this)">
                 </div>
             </div>
             
             <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
                 <div>
                     <label class="block text-sm font-medium text-gray-700 mb-1">N° Prontuário</label>
-                    <input type="text" id="recordNumber" placeholder="Número do prontuário" class="w-full p-2 border border-gray-300 rounded-md">
+                    <input type="text" id="recordNumber" placeholder="Número do prontuário">
                 </div>
                 
                 <div>
                     <label class="block text-sm font-medium text-gray-700 mb-1">Data Cirurgia</label>
-                    <input type="date" id="surgeryDate" class="w-full p-2 border border-gray-300 rounded-md">
+                    <input type="date" id="surgeryDate">
                 </div>
                 
                 <div>
                     <label class="block text-sm font-medium text-gray-700 mb-1">Outras Informações</label>
-                    <textarea id="otherInfo" placeholder="Informações adicionais" rows="2" class="w-full p-2 border border-gray-300 rounded-md"></textarea>
+                    <textarea id="otherInfo" placeholder="Informações adicionais" rows="2"></textarea>
                 </div>
             </div>
         </div>
@@ -360,7 +585,7 @@
         <div class="bg-white p-6 rounded-lg shadow-md mb-6">
             <div class="mb-4">
                 <label class="block text-sm font-medium text-gray-700 mb-2">Tipo de Documento:</label>
-                <select id="documentType" onchange="filterProducts()" class="w-full p-2 border border-gray-300 rounded-md"><option value="">Selecione um subgrupo</option><option value="" disabled="" style="font-weight: bold; background-color: rgb(243, 244, 246);">═══ HASTES INTRAM FEMUR ═══</option><option value="HASTE FEMORAL A/R">  HASTE FEMORAL A/R</option><option value="HASTE FEMORAL LATERAL RECON">  HASTE FEMORAL LATERAL RECON</option><option value="HASTE FMORAL PROXIMAL PFN">  HASTE FMORAL PROXIMAL PFN</option><option value="" disabled="" style="font-weight: bold; background-color: rgb(243, 244, 246);">═══ HASTES INTRAM TIBIA ═══</option><option value="HASTE TIBIAL 335 GERAÇÃO I">  HASTE TIBIAL 335 GERAÇÃO I</option><option value="HASTE TIBIAL MULTIPLA">  HASTE TIBIAL MULTIPLA</option><option value="HASTE TIBIAL UTN 335.2">  HASTE TIBIAL UTN 335.2</option><option value="" disabled="" style="font-weight: bold; background-color: rgb(243, 244, 246);">═══ HASTES INTRAM UMERO ═══</option><option value="HASTE UMERAL">  HASTE UMERAL</option><option value="" disabled="" style="font-weight: bold; background-color: rgb(243, 244, 246);">═══ MICRO PLACAS COM BLOQUEIO  ═══</option><option value="MICRO FRAG (2.0) BLOQU">  MICRO FRAG (2.0) BLOQU</option><option value="" disabled="" style="font-weight: bold; background-color: rgb(243, 244, 246);">═══ PLACAS COM BLOQUEIO GR FRAG ═══</option><option value="PLACAS FEMUR DISTAL CONDILAR (4,5) BLOQU">  PLACAS FEMUR DISTAL CONDILAR (4,5) BLOQU</option><option value="PLACAS RETAS GR FRAG (4,5) BLOQU">  PLACAS RETAS GR FRAG (4,5) BLOQU</option><option value="PLACAS TIBIA PROXIMAL GF (4,5) BLOQU">  PLACAS TIBIA PROXIMAL GF (4,5) BLOQU</option><option value="" disabled="" style="font-weight: bold; background-color: rgb(243, 244, 246);">═══ PLACAS COM BLOQUEIO PEQU FRAG ═══</option><option value="PLACAS P/CLAVICULA (2,7/3,5) BLOQU">  PLACAS P/CLAVICULA (2,7/3,5) BLOQU</option><option value="PLACAS PARA FIBULA (2,7/3,5) BLOQU">  PLACAS PARA FIBULA (2,7/3,5) BLOQU</option><option value="PLACAS RETAS PEQU FRAG (3,5) BLOQU">  PLACAS RETAS PEQU FRAG (3,5) BLOQU</option><option value="PLACAS TIBIA DISTAL ANTEROLATERAL (3,5) BLOQU">  PLACAS TIBIA DISTAL ANTEROLATERAL (3,5) BLOQU</option><option value="PLACAS TIBIA DISTAL MEDIAL (3,5) BLOQU">  PLACAS TIBIA DISTAL MEDIAL (3,5) BLOQU</option><option value="" disabled="" style="font-weight: bold; background-color: rgb(243, 244, 246);">═══ PLACAS SEM BLOQUEIO GR FRAG ═══</option><option value="PLACAS DHS/DCS GR FRAG (4,5)">  PLACAS DHS/DCS GR FRAG (4,5)</option><option value="PLACAS EXTREMIDADES GR FRAG (4,5)">  PLACAS EXTREMIDADES GR FRAG (4,5)</option><option value="PLACAS RETAS GR FRAG (4,5)">  PLACAS RETAS GR FRAG (4,5)</option><option value="" disabled="" style="font-weight: bold; background-color: rgb(243, 244, 246);">═══ PLACAS SEM BLOQUEIO PEQU FRAG ═══</option><option value="PLACAS EXTREMIDADES PEQU FRAG (3,5)">  PLACAS EXTREMIDADES PEQU FRAG (3,5)</option><option value="PLACAS RECONSTRUÇÃO BACIA PF (3,5)">  PLACAS RECONSTRUÇÃO BACIA PF (3,5)</option><option value="PLACAS RETAS PEQU FRAG (3,5)">  PLACAS RETAS PEQU FRAG (3,5)</option></select>
+                <select id="documentType" onchange="filterProducts()"><option value="">Selecione um subgrupo</option><option value="" disabled="" style="font-weight: bold; background-color: rgb(243, 244, 246);">═══ HASTES INTRAM FEMUR ═══</option><option value="HASTE FEMORAL A/R">  HASTE FEMORAL A/R</option><option value="HASTE FEMORAL LATERAL RECON">  HASTE FEMORAL LATERAL RECON</option><option value="HASTE FMORAL PROXIMAL PFN">  HASTE FMORAL PROXIMAL PFN</option><option value="" disabled="" style="font-weight: bold; background-color: rgb(243, 244, 246);">═══ HASTES INTRAM TIBIA ═══</option><option value="HASTE TIBIAL 335 GERAÇÃO I">  HASTE TIBIAL 335 GERAÇÃO I</option><option value="HASTE TIBIAL MULTIPLA">  HASTE TIBIAL MULTIPLA</option><option value="HASTE TIBIAL UTN 335.2">  HASTE TIBIAL UTN 335.2</option><option value="" disabled="" style="font-weight: bold; background-color: rgb(243, 244, 246);">═══ HASTES INTRAM UMERO ═══</option><option value="HASTE UMERAL">  HASTE UMERAL</option><option value="" disabled="" style="font-weight: bold; background-color: rgb(243, 244, 246);">═══ MICRO PLACAS COM BLOQUEIO  ═══</option><option value="MICRO FRAG (2.0) BLOQU">  MICRO FRAG (2.0) BLOQU</option><option value="" disabled="" style="font-weight: bold; background-color: rgb(243, 244, 246);">═══ PLACAS COM BLOQUEIO GR FRAG ═══</option><option value="PLACAS FEMUR DISTAL CONDILAR (4,5) BLOQU">  PLACAS FEMUR DISTAL CONDILAR (4,5) BLOQU</option><option value="PLACAS RETAS GR FRAG (4,5) BLOQU">  PLACAS RETAS GR FRAG (4,5) BLOQU</option><option value="PLACAS TIBIA PROXIMAL GF (4,5) BLOQU">  PLACAS TIBIA PROXIMAL GF (4,5) BLOQU</option><option value="" disabled="" style="font-weight: bold; background-color: rgb(243, 244, 246);">═══ PLACAS COM BLOQUEIO PEQU FRAG ═══</option><option value="PLACAS P/CLAVICULA (2,7/3,5) BLOQU">  PLACAS P/CLAVICULA (2,7/3,5) BLOQU</option><option value="PLACAS PARA FIBULA (2,7/3,5) BLOQU">  PLACAS PARA FIBULA (2,7/3,5) BLOQU</option><option value="PLACAS RETAS PEQU FRAG (3,5) BLOQU">  PLACAS RETAS PEQU FRAG (3,5) BLOQU</option><option value="PLACAS TIBIA DISTAL ANTEROLATERAL (3,5) BLOQU">  PLACAS TIBIA DISTAL ANTEROLATERAL (3,5) BLOQU</option><option value="PLACAS TIBIA DISTAL MEDIAL (3,5) BLOQU">  PLACAS TIBIA DISTAL MEDIAL (3,5) BLOQU</option><option value="" disabled="" style="font-weight: bold; background-color: rgb(243, 244, 246);">═══ PLACAS SEM BLOQUEIO GR FRAG ═══</option><option value="PLACAS DHS/DCS GR FRAG (4,5)">  PLACAS DHS/DCS GR FRAG (4,5)</option><option value="PLACAS EXTREMIDADES GR FRAG (4,5)">  PLACAS EXTREMIDADES GR FRAG (4,5)</option><option value="PLACAS RETAS GR FRAG (4,5)">  PLACAS RETAS GR FRAG (4,5)</option><option value="" disabled="" style="font-weight: bold; background-color: rgb(243, 244, 246);">═══ PLACAS SEM BLOQUEIO PEQU FRAG ═══</option><option value="PLACAS EXTREMIDADES PEQU FRAG (3,5)">  PLACAS EXTREMIDADES PEQU FRAG (3,5)</option><option value="PLACAS RECONSTRUÇÃO BACIA PF (3,5)">  PLACAS RECONSTRUÇÃO BACIA PF (3,5)</option><option value="PLACAS RETAS PEQU FRAG (3,5)">  PLACAS RETAS PEQU FRAG (3,5)</option></select>
             </div>
 
             <!-- Products Container -->
@@ -373,10 +598,10 @@
 
         <!-- Filter Buttons -->
         <div class="grid grid-cols-2 gap-2 mb-4">
-            <button onclick="showSelectedOnly()" class="bg-green-500 hover:bg-green-600 text-white py-2 px-4 rounded font-medium">
+            <button onclick="showSelectedOnly()" class="btn-success py-2 px-4 rounded font-medium">
                 Filtrar Selecionados
             </button>
-            <button onclick="showAllProducts()" class="bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded font-medium">
+            <button onclick="showAllProducts()" class="btn-primary py-2 px-4 rounded font-medium">
                 Mostrar Todos
             </button>
         </div>
@@ -384,11 +609,11 @@
         <!-- Materiais Diversos -->
         <div class="mb-4">
             <label class="block text-sm font-medium text-gray-700 mb-2">Materiais Diversos:</label>
-            <textarea id="materiaisDiversos" placeholder="Digite materiais diversos utilizados..." rows="3" class="w-full p-3 border border-gray-300 rounded-lg font-medium text-lg"></textarea>
+            <textarea id="materiaisDiversos" placeholder="Digite materiais diversos utilizados..." rows="3" class="p-3 text-lg" style="width: 986px; height: 109px;"></textarea>
         </div>
 
         <!-- Send Report Button -->
-        <button onclick="sendReport()" class="w-full bg-green-500 hover:bg-green-600 text-white py-3 px-6 rounded-lg font-medium text-lg mb-4">
+        <button onclick="sendReport()" class="w-full btn-success py-3 px-6 rounded-lg font-medium text-lg mb-4">
             Enviar Relatório
         </button>
     </div>
@@ -399,7 +624,7 @@
             <div class="text-green-500 text-6xl mb-4">✓</div>
             <h2 class="text-2xl font-bold text-gray-800 mb-4">Relatório Enviado</h2>
             <p class="text-gray-600 mb-6">Relatório enviado com sucesso!</p>
-            <button onclick="startNewReport()" class="w-full bg-blue-500 hover:bg-blue-600 text-white py-3 px-6 rounded-lg font-medium">
+            <button onclick="startNewReport()" class="w-full btn-primary py-3 px-6 rounded-lg font-medium">
                 Novo Relatório
             </button>
         </div>
@@ -894,10 +1119,10 @@
 
     <script id="html_badge_script1">
         window.__genspark_remove_badge_link = "https://www.genspark.ai/api/html_badge/" +
-            "remove_badge?token=To%2FBnjzloZ3UfQdcSaYfDsGgvTTozubj%2FHl5V8SeDqbaXDE3iDkU5ZelbM9Xh3Cf8yg4DygK3PnKIFj7rBP6sOAYIR89Ux%2BL5l6s6PAFr1THNygw5Hdy5QlRFlqCVDkChwjv5pckIudz3LXJwuweWj%2FTnKECvkT%2FsKmqeLjXOuLQJYCVeBPj%2BHOBMhx9wkZ01N4sASyEWGaD6JrOpsKL4ZJUxVvI5%2FSygAl78eZNNNHyWhWQkF%2FcSwtSSbb8YFDEXb2tm3oVxf1uEk9v7Z9XbpiVfh2qaJ3OXlshN5JlgFcTATA6%2FXMNoK%2BS6zyQEcf8ayTUCDzwEx4VO57B5WA0fp%2FU7hmkGuXubXtvWEld98jR%2FTmVbnRmTq6RQJh2g6gFSmWeyXx2rauzKj1EfkpMgj%2B0HmRbw7b19%2FQd1MLmDvxj%2B8JTH%2Fu00BTGVoOVpKrRdSexqM90BPxKDkCKO0EtkgTf8luE%2BCvL3lLH3p871aw9nJ3SJrbobqgOu%2BQON10ICmF6Jwl7OGjuOPzPtFftNZBUjJa5kE%2BOFUC3lUmA17s%3D";
+            "remove_badge?token=To%2FBnjzloZ3UfQdcSaYfDuEC9AbbxI%2FzgQiy6KgsGk34Dep1r%2BSJ%2B0NWNbghyC9vGDcWyLQad0TAUZx9qGL%2Bm9cxWPu56JP1Qir2qnigMHRnPf0l3vOW19h6txFZo6etXmk0227GyIYDPPQODB0pf0IT%2Bgrw4KJj0EjCGULwO3Lw36pAP3PhRfbAm1nOjcIG%2BXSYT2q1Ihcz3BnzUFLqdF3OXeayfDQgWCPC0KId6JTjw5ETOE%2F8N1wdv2Pb5RpW5ZqXDdPikOE2%2BlmLDbwt8BUSlj%2B7fHvAOfpviLcZ1iKg1Z5%2FJ9RlCb%2FO6f5ecHhMORdFE3JGJ%2BnZVuBnQE5JjZRfHEhQ5AkUhsRu2P45G%2FBWFzB%2Bi7cFdsjSdX94P8I1kan%2B0tVcBu913plUsy4hiWAJbpJvZE4yNF%2B7Zn%2B5eOoo7sJVAVBG388nQSZa%2F8hemusq59YHOmUNrpGlxjdXfqjVxOOAi6Bnp10TVGkADjopLBeSaH9G2RY9y1P%2Bf7r5L3Wl%2Fr3r6k11lMAfOjlc1ira21IUvo6iWVLHlD3W8%2FA%3D";
         window.__genspark_locale = "pt-BR";
-        window.__genspark_token = "To/BnjzloZ3UfQdcSaYfDsGgvTTozubj/Hl5V8SeDqbaXDE3iDkU5ZelbM9Xh3Cf8yg4DygK3PnKIFj7rBP6sOAYIR89Ux+L5l6s6PAFr1THNygw5Hdy5QlRFlqCVDkChwjv5pckIudz3LXJwuweWj/TnKECvkT/sKmqeLjXOuLQJYCVeBPj+HOBMhx9wkZ01N4sASyEWGaD6JrOpsKL4ZJUxVvI5/SygAl78eZNNNHyWhWQkF/cSwtSSbb8YFDEXb2tm3oVxf1uEk9v7Z9XbpiVfh2qaJ3OXlshN5JlgFcTATA6/XMNoK+S6zyQEcf8ayTUCDzwEx4VO57B5WA0fp/U7hmkGuXubXtvWEld98jR/TmVbnRmTq6RQJh2g6gFSmWeyXx2rauzKj1EfkpMgj+0HmRbw7b19/Qd1MLmDvxj+8JTH/u00BTGVoOVpKrRdSexqM90BPxKDkCKO0EtkgTf8luE+CvL3lLH3p871aw9nJ3SJrbobqgOu+QON10ICmF6Jwl7OGjuOPzPtFftNZBUjJa5kE+OFUC3lUmA17s=";
+        window.__genspark_token = "To/BnjzloZ3UfQdcSaYfDuEC9AbbxI/zgQiy6KgsGk34Dep1r+SJ+0NWNbghyC9vGDcWyLQad0TAUZx9qGL+m9cxWPu56JP1Qir2qnigMHRnPf0l3vOW19h6txFZo6etXmk0227GyIYDPPQODB0pf0IT+grw4KJj0EjCGULwO3Lw36pAP3PhRfbAm1nOjcIG+XSYT2q1Ihcz3BnzUFLqdF3OXeayfDQgWCPC0KId6JTjw5ETOE/8N1wdv2Pb5RpW5ZqXDdPikOE2+lmLDbwt8BUSlj+7fHvAOfpviLcZ1iKg1Z5/J9RlCb/O6f5ecHhMORdFE3JGJ+nZVuBnQE5JjZRfHEhQ5AkUhsRu2P45G/BWFzB+i7cFdsjSdX94P8I1kan+0tVcBu913plUsy4hiWAJbpJvZE4yNF+7Zn+5eOoo7sJVAVBG388nQSZa/8hemusq59YHOmUNrpGlxjdXfqjVxOOAi6Bnp10TVGkADjopLBeSaH9G2RY9y1P+f7r5L3Wl/r3r6k11lMAfOjlc1ira21IUvo6iWVLHlD3W8/A=";
     </script>
     
-    <script id="html_notice_dialog_script" src="./index_files/notice_dialog.js.download"></script>
+    <script id="html_notice_dialog_script" src="./Registro de Consumo de Materiais Consignados_files/notice_dialog.js.download"></script>
     </body></html>
