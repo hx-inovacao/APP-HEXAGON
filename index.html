@@ -350,7 +350,7 @@
                     .select('grupo, subgrupo')
                     .order('ordem')
                     .range(0, 1499);
-                
+                console.log(data) ;
                 if (error) {
                     console.error('Erro ao carregar subgrupos:', error);
                     const select = document.getElementById('documentType');
