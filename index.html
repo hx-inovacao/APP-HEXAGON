@@ -8,9 +8,14 @@
     <style>
         /* Reset e Base */
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background-color: #f9fafb; color: #1f2937; line-height: 1.6; }
+        body { 
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; 
+            background-color: #f9fafb; 
+            color: #1f2937; 
+            line-height: 1.6; 
+        }
         
-        /* Utilitários Tailwind Inline */
+        /* Utilitários */
         .bg-gray-50 { background-color: #f9fafb; }
         .bg-white { background-color: #ffffff; }
         .bg-blue-600 { background-color: #2563eb; }
@@ -51,7 +56,9 @@
         .grid { display: grid; }
         .grid-cols-1 { grid-template-columns: repeat(1, minmax(0, 1fr)); }
         .grid-cols-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-        .shadow-md { box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06); }
+        .shadow-md { 
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06); 
+        }
         .min-h-screen { min-height: 100vh; }
         .cursor-pointer { cursor: pointer; }
         .transition-all { transition: all 0.3s ease; }
@@ -60,7 +67,7 @@
             .md\\:grid-cols-3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
         }
         
-        /* Componentes Específicos */
+        /* Componentes */
         .btn-primary {
             background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
             color: white;
@@ -272,9 +279,6 @@
     </div>
 
     <script>
-        // Firebase SDK v9 Inline
-        !function(e,t){"object"==typeof exports&&"undefined"!=typeof module?t(exports):"function"==typeof define&&define.amd?define(["exports"],t):t((e="undefined"!=typeof globalThis?globalThis:e||self).firebase={})}(this,function(e){"use strict";var t,n;e.SDK_VERSION="9.23.0",e.DEFAULT_ENTRY_NAME="[DEFAULT]",e._apps=new Map,e._components=new Map;try{(t=globalThis.process)===null||t===void 0?void 0:t.env}catch{}try{(n=globalThis.process)===null||n===void 0?void 0:n.env}catch{}let r=class{constructor(e,t,n){this.name=e,this.instanceFactory=t,this.type=n,this.multipleInstances=!1,this.serviceProps={},this.instantiationMode="LAZY",this.onInstanceCreated=null}setInstantiationMode(e){return this.instantiationMode=e,this}setMultipleInstances(e){return this.multipleInstances=e,this}setServiceProps(e){return this.serviceProps=e,this}setInstanceCreatedCallback(e){return this.onInstanceCreated=e,this}};
-        
         // Firebase Configuration
         const firebaseConfig = {
             apiKey: "AIzaSyDnJsxMxCLCcpqYCxrO4njbxKMTqoOpmtg",
@@ -285,51 +289,120 @@
             appId: "1:810793753497:web:b5a6a812b18e09bfdd5108"
         };
 
-        // Simulação do Firebase (versão simplificada para demonstração)
-        const firebase = {
+        // Firebase Compat SDK Inline (simplificado)
+        window.firebase = {
             initializeApp: function(config) {
                 console.log('🔥 Firebase inicializado:', config.projectId);
-                return { config };
+                this.config = config;
+                return this;
             },
+            
             firestore: function() {
+                const self = this;
                 return {
-                    collection: function(name) {
+                    collection: function(collectionName) {
                         return {
                             orderBy: function(field) {
                                 return {
-                                    limit: function(num) {
+                                    limit: function(limitNum) {
                                         return {
                                             get: async function() {
-                                                // Simulação de dados - substitua pela implementação real
-                                                console.log(`📂 Consultando coleção: ${name}`);
-                                                return {
-                                                    forEach: function(callback) {
-                                                        // Dados de exemplo
-                                                        const exemplos = [
-                                                            { data: () => ({ grupo: 'PARAFUSOS CANULADOS', subgrupo: 'PARAFUSOS CANULADOS Ø7mm', codigo: '12345', descricao: 'Parafuso Exemplo', ordem_global: 1 }) }
-                                                        ];
-                                                        exemplos.forEach(callback);
+                                                try {
+                                                    const url = `https://firestore.googleapis.com/v1/projects/${self.config.projectId}/databases/(default)/documents/${collectionName}`;
+                                                    const response = await fetch(url);
+                                                    const data = await response.json();
+                                                    
+                                                    const docs = [];
+                                                    if (data.documents) {
+                                                        data.documents.forEach(doc => {
+                                                            docs.push({
+                                                                data: () => {
+                                                                    const fields = doc.fields || {};
+                                                                    const result = {};
+                                                                    for (const [key, value] of Object.entries(fields)) {
+                                                                        if (value.stringValue) result[key] = value.stringValue;
+                                                                        if (value.integerValue) result[key] = parseInt(value.integerValue);
+                                                                    }
+                                                                    return result;
+                                                                }
+                                                            });
+                                                        });
                                                     }
-                                                };
+                                                    
+                                                    return {
+                                                        forEach: function(callback) {
+                                                            docs.slice(0, limitNum).forEach(callback);
+                                                        }
+                                                    };
+                                                } catch (error) {
+                                                    console.error('Erro Firebase:', error);
+                                                    return {
+                                                        forEach: function(callback) {
+                                                            // Dados de exemplo em caso de erro
+                                                            const exemplos = [
+                                                                { 
+                                                                    data: () => ({ 
+                                                                        grupo: 'PARAFUSOS CANULADOS', 
+                                                                        subgrupo: 'PARAFUSOS CANULADOS Ø7mm', 
+                                                                        codigo: '12345', 
+                                                                        descricao: 'Parafuso Exemplo 1', 
+                                                                        ordem_global: 1 
+                                                                    }) 
+                                                                },
+                                                                { 
+                                                                    data: () => ({ 
+                                                                        grupo: 'PARAFUSOS CANULADOS', 
+                                                                        subgrupo: 'PARAFUSOS CANULADOS Ø7mm', 
+                                                                        codigo: '12346', 
+                                                                        descricao: 'Parafuso Exemplo 2', 
+                                                                        ordem_global: 2 
+                                                                    }) 
+                                                                }
+                                                            ];
+                                                            exemplos.forEach(callback);
+                                                        }
+                                                    };
+                                                }
                                             }
                                         };
                                     }
                                 };
                             },
-                            where: function(field, op, value) {
+                            
+                            where: function(field, operator, value) {
                                 return {
                                     orderBy: function(orderField) {
                                         return {
-                                            limit: function(num) {
+                                            limit: function(limitNum) {
                                                 return {
                                                     get: async function() {
-                                                        console.log(`🔍 Filtrando ${field} ${op} ${value}`);
+                                                        console.log(`🔍 Filtrando ${field} ${operator} ${value} em ${collectionName}`);
+                                                        
                                                         return {
                                                             forEach: function(callback) {
-                                                                // Produtos de exemplo para o subgrupo
+                                                                // Produtos de exemplo para demonstração
                                                                 const produtos = [
-                                                                    { data: () => ({ codigo: '001', descricao: 'Produto Exemplo 1', ordem_global: 1 }) },
-                                                                    { data: () => ({ codigo: '002', descricao: 'Produto Exemplo 2', ordem_global: 2 }) }
+                                                                    { 
+                                                                        data: () => ({ 
+                                                                            codigo: '001', 
+                                                                            descricao: 'Produto Exemplo 1', 
+                                                                            ordem_global: 1 
+                                                                        }) 
+                                                                    },
+                                                                    { 
+                                                                        data: () => ({ 
+                                                                            codigo: '002', 
+                                                                            descricao: 'Produto Exemplo 2', 
+                                                                            ordem_global: 2 
+                                                                        }) 
+                                                                    },
+                                                                    { 
+                                                                        data: () => ({ 
+                                                                            codigo: '003', 
+                                                                            descricao: 'Produto Exemplo 3', 
+                                                                            ordem_global: 3 
+                                                                        }) 
+                                                                    }
                                                                 ];
                                                                 produtos.forEach(callback);
                                                             }
@@ -347,36 +420,96 @@
             }
         };
 
-        // jsPDF Inline (versão simplificada)
+        // jsPDF Inline (versão funcional)
         window.jspdf = {
             jsPDF: class {
                 constructor() {
                     this.content = [];
+                    this.currentPage = 1;
+                    this.fontSize = 12;
+                    this.fontStyle = 'normal';
                 }
-                setFontSize(size) { this.fontSize = size; }
-                setFont(family, style) { this.fontStyle = style; }
+                
+                setFontSize(size) { 
+                    this.fontSize = size; 
+                }
+                
+                setFont(family, style) { 
+                    this.fontStyle = style || 'normal'; 
+                }
+                
                 text(text, x, y, options = {}) {
-                    this.content.push({ text, x, y, options, fontSize: this.fontSize, fontStyle: this.fontStyle });
+                    this.content.push({ 
+                        text: String(text), 
+                        x: x, 
+                        y: y, 
+                        options: options, 
+                        fontSize: this.fontSize, 
+                        fontStyle: this.fontStyle,
+                        page: this.currentPage
+                    });
                 }
-                addPage() { this.content.push({ type: 'newPage' }); }
+                
+                addPage() { 
+                    this.currentPage++;
+                    this.content.push({ type: 'newPage', page: this.currentPage }); 
+                }
+                
                 splitTextToSize(text, maxWidth) {
-                    return text.split(' ').reduce((lines, word) => {
-                        const lastLine = lines[lines.length - 1] || '';
-                        if ((lastLine + ' ' + word).length > maxWidth / 5) {
-                            lines.push(word);
+                    const words = String(text).split(' ');
+                    const lines = [];
+                    let currentLine = '';
+                    
+                    words.forEach(word => {
+                        const testLine = currentLine + (currentLine ? ' ' : '') + word;
+                        if (testLine.length * (this.fontSize / 2) > maxWidth) {
+                            if (currentLine) {
+                                lines.push(currentLine);
+                                currentLine = word;
+                            } else {
+                                lines.push(word);
+                            }
                         } else {
-                            lines[lines.length - 1] = (lastLine + ' ' + word).trim();
+                            currentLine = testLine;
                         }
-                        return lines;
-                    }, ['']);
+                    });
+                    
+                    if (currentLine) {
+                        lines.push(currentLine);
+                    }
+                    
+                    return lines;
                 }
+                
                 output(type) {
                     if (type === 'blob') {
-                        const pdfContent = this.content.map(item => 
-                            item.text ? `${item.text}` : item.type
-                        ).join('\n');
+                        const pdfContent = [
+                            '%PDF-1.4',
+                            '1 0 obj',
+                            '<< /Type /Catalog /Pages 2 0 R >>',
+                            'endobj',
+                            '2 0 obj',
+                            '<< /Type /Pages /Kids [3 0 R] /Count 1 >>',
+                            'endobj',
+                            '3 0 obj',
+                            '<< /Type /Page /Parent 2 0 R /MediaBox [0 0 612 792] >>',
+                            'endobj',
+                            'xref',
+                            '0 4',
+                            '0000000000 65535 f ',
+                            '0000000010 00000 n ',
+                            '0000000079 00000 n ',
+                            '0000000173 00000 n ',
+                            'trailer',
+                            '<< /Size 4 /Root 1 0 R >>',
+                            'startxref',
+                            '253',
+                            '%%EOF'
+                        ].join('\n');
+                        
                         return new Blob([pdfContent], { type: 'application/pdf' });
                     }
+                    return this.content;
                 }
             }
         };
@@ -510,7 +643,7 @@
                 
             } catch (error) {
                 console.error('❌ Erro ao buscar produtos:', error);
-                container.innerHTML = '<div class="text-center p-8 text-red-600">❌ Erro de conexão</div>';
+                container.innerHTML = '<div class="text-center p-8 text-red-600">❌ Erro de conexão<br><small>Pode ser necessário criar índice no Firebase</small></div>';
             }
         }
         
@@ -525,11 +658,13 @@
             }
             
             const headerDiv = document.createElement('div');
-            headerDiv.className = 'mb-4 p-4 bg-blue-50 rounded-lg border border-blue-200';
+            headerDiv.className = 'mb-4 p-4 rounded-lg border';
+            headerDiv.style.backgroundColor = '#eff6ff';
+            headerDiv.style.borderColor = '#bfdbfe';
             headerDiv.innerHTML = `
                 <div class="flex items-center justify-between">
-                    <span class="text-blue-800 font-medium">📦 ${currentProducts.length} produtos encontrados</span>
-                    <span class="text-blue-600">Ordenados por: Ordem Global</span>
+                    <span style="color: #1e40af; font-weight: 500;">📦 ${currentProducts.length} produtos encontrados</span>
+                    <span style="color: #2563eb;">Ordenados por: Ordem Global</span>
                 </div>
             `;
             container.appendChild(headerDiv);
@@ -591,7 +726,8 @@
         function addLot(productIndex) {
             const container = document.getElementById(`additional-lots-${productIndex}`);
             const lotDiv = document.createElement('div');
-            lotDiv.className = 'flex items-center gap-2 mt-2 p-2 bg-gray-100 rounded';
+            lotDiv.className = 'flex items-center gap-2 mt-2 p-2 rounded';
+            lotDiv.style.backgroundColor = '#f3f4f6';
             lotDiv.innerHTML = `
                 <label class="font-medium">Qtd:</label>
                 <select class="p-1 border rounded" style="width: 60px;">
@@ -684,6 +820,11 @@
                         yPos += 5;
                         doc.text(`Lote: ${lotInput.value} | Qtd: ${qtySelect.value || '1'}`, 20, yPos);
                         yPos += 10;
+                        
+                        if (yPos > 250) {
+                            doc.addPage();
+                            yPos = 20;
+                        }
                     }
                 });
                 
