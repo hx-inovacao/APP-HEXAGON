@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- saved from url=(0144)https://gensparkpublicblob.blob.core.windows.net/user-upload-image/page/toolu_01HCbEF5DnSxyizsk9XCxMer/hexagon_firebase_interface_corrigida.html -->
+<!-- saved from url=(0135)https://gensparkpublicblob.blob.core.windows.net/user-upload-image/page/toolu_01PVqVkft4TM4AhP3x4kLvXg/hexagon_firebase_definitivo.html -->
 <html lang="pt-BR"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -11,14 +11,11 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="apple-mobile-web-app-title" content="HEXAGON">
     
-    <!-- PWA Manifest -->
-    <link rel="manifest" href="https://gensparkpublicblob.blob.core.windows.net/user-upload-image/page/toolu_01HCbEF5DnSxyizsk9XCxMer/manifest.json">
+    <!-- Firebase SDK v9 -->
+    <script src="./Registro de Consumo de Materiais Consignados_files/firebase-app-compat.js.download"></script><style type="text/css" id="operaUserStyle"></style>
+    <script src="./Registro de Consumo de Materiais Consignados_files/firebase-firestore-compat.js.download"></script>
     
-    <!-- Firebase -->
-    <script src="./Registro de Consumo de Materiais Consignados_files/firebase-app.js.download"></script><style type="text/css" id="operaUserStyle"></style>
-    <script src="./Registro de Consumo de Materiais Consignados_files/firebase-firestore.js.download"></script>
-    
-    <!-- jsPDF for PDF generation -->
+    <!-- jsPDF -->
     <script src="./Registro de Consumo de Materiais Consignados_files/jspdf.umd.min.js.download"></script>
     
     <style>
@@ -27,7 +24,7 @@
             padding: 0;
             box-sizing: border-box;
         }
-        
+
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
             background-color: #f9fafb;
@@ -35,102 +32,102 @@
             line-height: 1.6;
             color: #374151;
         }
-        
+
         .container {
             max-width: 64rem;
             margin: 0 auto;
             padding: 0 1rem;
         }
-        
+
         .header {
             padding: 2rem 0 1.5rem;
             text-align: center;
         }
-        
+
         .header h1 {
             font-size: 2.5rem;
             font-weight: 700;
             color: #1f2937;
             margin-bottom: 0.5rem;
         }
-        
+
         .header h2 {
             font-size: 1.25rem;
             font-weight: 600;
             color: #4b5563;
         }
-        
+
         .card {
             background: white;
-            border-radius: 0.5rem;
-            box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1);
             padding: 1.5rem;
+            border-radius: 0.5rem;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
             margin-bottom: 1.5rem;
         }
-        
+
         .card h3 {
             font-size: 1.125rem;
             font-weight: 600;
             margin-bottom: 1rem;
             color: #1f2937;
         }
-        
+
         .grid {
             display: grid;
             gap: 1rem;
         }
-        
+
+        .grid-cols-1 {
+            grid-template-columns: repeat(1, 1fr);
+        }
+
+        .grid-cols-2 {
+            grid-template-columns: repeat(2, 1fr);
+        }
+
         .grid-cols-3 {
             grid-template-columns: repeat(3, 1fr);
         }
-        
+
+        @media (min-width: 768px) {
+            .md\\:grid-cols-3 {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+
         .form-group {
             display: flex;
             flex-direction: column;
         }
-        
+
         .form-label {
+            display: block;
             font-size: 0.875rem;
             font-weight: 500;
             color: #374151;
             margin-bottom: 0.25rem;
         }
-        
-        .form-input {
+
+        .form-input, .form-select, .form-textarea {
             width: 100%;
             padding: 0.5rem;
             border: 1px solid #d1d5db;
             border-radius: 0.375rem;
-            font-size: 0.875rem;
-            transition: border-color 0.15s;
+            font-size: 1rem;
+            transition: border-color 0.15s ease-in-out;
         }
-        
-        .form-input:focus {
+
+        .form-input:focus, .form-select:focus, .form-textarea:focus {
             outline: none;
             border-color: #2563eb;
             box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
         }
-        
-        .form-select {
-            width: 100%;
-            padding: 0.5rem;
-            border: 1px solid #d1d5db;
-            border-radius: 0.375rem;
-            background-color: white;
-            font-size: 0.875rem;
-        }
-        
+
         .form-textarea {
-            width: 100%;
-            padding: 0.75rem;
-            border: 1px solid #d1d5db;
-            border-radius: 0.5rem;
-            font-size: 1rem;
-            font-weight: 500;
             resize: vertical;
-            min-height: 6rem;
+            min-height: 2.5rem;
         }
-        
+
         .btn {
             display: inline-flex;
             align-items: center;
@@ -141,84 +138,72 @@
             font-size: 0.875rem;
             font-weight: 500;
             cursor: pointer;
-            transition: all 0.15s;
+            transition: all 0.15s ease-in-out;
             text-decoration: none;
         }
-        
+
         .btn-primary {
             background-color: #2563eb;
             color: white;
         }
-        
+
         .btn-primary:hover {
             background-color: #1d4ed8;
         }
-        
+
         .btn-success {
             background-color: #059669;
             color: white;
         }
-        
+
         .btn-success:hover {
             background-color: #047857;
         }
-        
+
         .btn-lg {
             padding: 0.75rem 1.5rem;
             font-size: 1.125rem;
         }
-        
-        .btn-block {
+
+        .btn-full {
             width: 100%;
         }
-        
-        .btn-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 0.5rem;
-            margin-bottom: 1rem;
-        }
-        
+
         .product-card {
-            background: white;
+            transition: all 0.3s ease;
             border: 1px solid #e5e7eb;
             border-radius: 0.5rem;
             padding: 0.75rem;
             margin-bottom: 0.5rem;
-            transition: all 0.3s ease;
+            background: white;
         }
-        
+
         .product-card.selected {
             border-color: #2563eb;
             background-color: #f8fafc;
         }
-        
+
         .product-header {
             display: flex;
             align-items: flex-start;
             gap: 0.75rem;
         }
-        
-        .product-checkbox {
-            width: 1rem;
-            height: 1rem;
-            margin-top: 0.25rem;
-        }
-        
+
         .product-info {
             flex: 1;
         }
-        
+
         .product-name {
             font-weight: 500;
             color: #1f2937;
+            margin-bottom: 0.25rem;
         }
-        
+
         .product-code {
             font-size: 0.875rem;
             color: #6b7280;
         }
-        
+
         .qty-controls {
             display: none;
             margin-top: 0.5rem;
@@ -227,23 +212,22 @@
             flex-wrap: wrap;
             padding: 0.5rem 0;
         }
-        
+
         .qty-controls.show {
             display: flex;
         }
-        
+
         .qty-group {
             display: flex;
             align-items: center;
             gap: 0.375rem;
-            white-space: nowrap;
         }
-        
+
         .qty-label {
             font-size: 0.875rem;
             font-weight: 500;
         }
-        
+
         .qty-select {
             width: 3.75rem;
             padding: 0.375rem;
@@ -251,7 +235,7 @@
             border-radius: 0.25rem;
             font-size: 0.875rem;
         }
-        
+
         .lot-input {
             width: 6.25rem;
             padding: 0.375rem 0.5rem;
@@ -259,38 +243,38 @@
             border-radius: 0.25rem;
             font-size: 0.875rem;
         }
-        
+
         .lot-btn {
             width: 2rem;
             height: 2rem;
-            border: none;
-            border-radius: 0.25rem;
             font-size: 1rem;
+            border-radius: 0.25rem;
+            border: none;
             cursor: pointer;
             display: flex;
             align-items: center;
             justify-content: center;
             flex-shrink: 0;
         }
-        
+
         .add-lot-btn {
             background-color: #2563eb;
             color: white;
         }
-        
+
         .add-lot-btn:hover {
             background-color: #1d4ed8;
         }
-        
+
         .remove-lot-btn {
             background-color: #dc2626;
             color: white;
         }
-        
+
         .remove-lot-btn:hover {
             background-color: #b91c1c;
         }
-        
+
         .lot-row {
             display: flex;
             gap: 0.375rem;
@@ -298,17 +282,25 @@
             margin-top: 0.25rem;
             flex-wrap: wrap;
         }
-        
+
         .completion-screen {
             display: none;
             text-align: center;
             padding: 2rem;
         }
-        
+
         .completion-screen.show {
             display: block;
         }
-        
+
+        .main-content {
+            display: block;
+        }
+
+        .main-content.hide {
+            display: none;
+        }
+
         .completion-card {
             max-width: 28rem;
             margin: 0 auto;
@@ -317,90 +309,104 @@
             border-radius: 0.5rem;
             box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
         }
-        
-        .completion-icon {
+
+        .success-icon {
             color: #059669;
             font-size: 4rem;
             margin-bottom: 1rem;
         }
-        
-        .completion-title {
+
+        .success-title {
             font-size: 1.5rem;
             font-weight: 700;
             color: #1f2937;
             margin-bottom: 1rem;
         }
-        
-        .completion-text {
+
+        .success-message {
             color: #6b7280;
             margin-bottom: 1.5rem;
         }
-        
-        .main-content {
-            display: block;
-        }
-        
-        .main-content.hide {
-            display: none;
-        }
-        
-        .text-center {
-            text-align: center;
-        }
-        
-        .text-blue {
-            color: #2563eb;
-        }
-        
-        .text-gray {
-            color: #6b7280;
-        }
-        
-        .text-red {
-            color: #dc2626;
-        }
-        
-        .version {
+
+        .version-info {
             text-align: center;
             color: #6b7280;
             font-size: 0.875rem;
             padding: 1rem 0;
         }
-        
-        .loading {
-            padding: 1rem;
+
+        .text-center {
             text-align: center;
         }
-        
-        #documentType option {
-            font-size: 0.8125rem;
+
+        .text-gray-500 {
+            color: #6b7280;
         }
-        
+
+        .text-blue-500 {
+            color: #3b82f6;
+        }
+
+        .text-red-500 {
+            color: #ef4444;
+        }
+
+        .p-4 {
+            padding: 1rem;
+        }
+
+        .mb-4 {
+            margin-bottom: 1rem;
+        }
+
         @media (max-width: 768px) {
+            .container {
+                padding: 0 0.5rem;
+            }
+
             .header h1 {
-                font-size: 1.25rem;
+                font-size: 2rem;
             }
-            
-            .grid-cols-3 {
-                grid-template-columns: 1fr;
+
+            .header h2 {
+                font-size: 1.125rem;
             }
-            
+
+            .card {
+                padding: 1rem;
+            }
+
             .qty-controls {
                 flex-direction: column;
                 align-items: stretch;
             }
-            
+
             .qty-group {
                 justify-content: space-between;
             }
-            
+
             .lot-input {
                 width: 5rem;
             }
-            
-            .btn-grid {
-                grid-template-columns: 1fr;
-            }
+        }
+
+        #documentType option {
+            font-size: 0.8125rem;
+        }
+
+        .loading {
+            display: inline-block;
+            width: 1rem;
+            height: 1rem;
+            border: 2px solid #f3f3f3;
+            border-top: 2px solid #3498db;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
         }
     </style>
 <style>
@@ -505,7 +511,6 @@
     }
   </style><style type="text/css">:root [href^="//mage98rquewz.com/"], :root [href^="//x4pollyxxpush.com/"], :root span[id^="ezoic-pub-ad-placeholder-"], :root ins.adsbygoogle[data-ad-slot], :root ins.adsbygoogle[data-ad-client], :root img[src^="https://s-img.adskeeper.com/"], :root guj-ad, :root gpt-ad, :root div[id^="zergnet-widget"], :root div[id^="vuukle-ad-"], :root div[id^="taboola-stream-"], :root div[id^="sticky_ad_"], :root div[id^="st"][style^="z-index: 999999999;"], :root div[id^="gpt_ad_"], :root div[id^="ezoic-pub-ad-"], :root div[id^="dfp-ad-"], :root div[id^="crt-"][style], :root div[id^="adspot-"], :root div[id^="adrotate_widgets-"], :root ps-connatix-module, :root div[id^="ad_position_"], :root div[id^="ad-div-"], :root div[id*="ScriptRoot"], :root div[id*="MarketGid"], :root div[data-id-advertdfpconf], :root div[data-dfp-id], :root hl-adsense, :root div[data-contentexchange-widget], :root div[data-alias="300x250 Ad 2"], :root div[data-adzone], :root div[data-adunit-path], :root div[data-adname], :root div[data-ad-targeting], :root div[data-ad-region], :root div[data-ad-placeholder], :root div[aria-label="Ads"], :root display-ads, :root display-ad-component, :root atf-ad-slot, :root aside[id^="adrotate_widgets-"], :root amp-fx-flying-carpet, :root amp-embed[type="taboola"], :root amp-connatix-player, :root amp-ad-custom, :root amp-ad, :root div[id^="google_dfp_"], :root ad-slot, :root ad-shield-ads, :root a[style="width:100%;height:100%;z-index:10000000000000000;position:absolute;top:0;left:0;"], :root a[onmousedown^="this.href='https://paid.outbrain.com/network/redir?"] + .ob_source, :root a[href^="https://xbet-4.com/"], :root div[id^="ad-position-"], :root a[href^="https://www.toprevenuegate.com/"], :root a[href^="https://www.purevpn.com/"][href*="&utm_source=aff-"], :root a[href^="https://www.privateinternetaccess.com/"] > img, :root a[href^="https://www.onlineusershielder.com/"], :root a[href^="https://financeads.net/tc.php?"], :root a[href^="https://www.mrskin.com/tour"], :root a[href^="https://www.infowarsstore.com/"] > img, :root a[href^="https://www.highperformancecpmgate.com/"], :root a[href^="https://www.highcpmrevenuenetwork.com/"], :root a[href^="https://www.get-express-vpn.com/offer/"], :root a[href^="https://lnkxt.bannerator.com/"], :root a[href^="https://www.geekbuying.com/dynamic-ads/"], :root a[href^="https://www.financeads.net/tc.php?"], :root a[href^="https://www.effectiveratecpm.com/"], :root [href^="https://www.herbanomic.com/"] > img, :root a[href^="https://maymooth-stopic.com/"], :root a[href^="https://www.dql2clk.com/"], :root a[href^="https://www.nutaku.net/signup/landing/"], :root a[href^="https://www.dating-finder.com/signup/?ai_d="], :root a[href^="https://explore-site.com/"], :root a[href^="https://www.brazzersnetwork.com/landing/"], :root a[href^="https://www.adxsrve.com/"], :root [data-template-type="nativead"], :root a[href^="https://www.endorico.com/Smartlink/"], :root a[href^="https://www.adultempire.com/"][href*="?partner_id="], :root a[href^="https://voluum.prom-xcams.com/"], :root a[href^="https://twinrdsyte.com/"], :root a[href^="https://twinrdsrv.com/"], :root a[href^="https://trk.nfl-online-streams.club/"], :root a[href^="https://tracking.avapartner.com/"], :root a[href^="https://track.wg-aff.com"], :root a[href^="https://track.ultravpn.com/"], :root a[href^="https://track.afcpatrk.com/"], :root a[href^="https://torguard.net/aff.php"] > img, :root [data-identity="adhesive-ad"], :root a[href^="https://tc.tradetracker.net/"] > img, :root a[href^="https://tatrck.com/"], :root a[href^="https://click.candyoffers.com/"], :root [href^="https://zstacklife.com/"] img, :root a[href^="https://t.aslnk.link/"], :root a[href^="https://t.adating.link/"], :root a[href^="https://go.trackitalltheway.com/"], :root [href^="https://track.fiverr.com/visit/"] > img, :root a[href^="https://syndication.exoclick.com/"], :root a[href^="https://syndication.dynsrvtbg.com/"], :root div[data-alias="300x250 Ad 1"], :root a[href^="https://syndicate.contentsserved.com/"], :root a[href^="https://svb-analytics.trackerrr.com/"], :root a[href^="https://ad.doubleclick.net/"], :root a[href^="https://static.fleshlight.com/images/banners/"], :root a[href^="https://slkmis.com/"], :root bottomadblock, :root a[href^="https://s.zlinkd.com/"], :root a[href^="https://s.zlink3.com/"], :root a[href^="https://www.mrskin.com/account/"], :root a[href^="https://s.optzsrv.com/"], :root a[href^="https://s.ma3ion.com/"], :root a[href^="https://s.eunow4u.com/"], :root #kt_player > div[style$="display: block;"][style*="inset: 0px;"], :root [href$="/sexdating.php"], :root a[href^="https://quotationfirearmrevision.com/"], :root a[href^="https://pubads.g.doubleclick.net/"], :root a[href^="https://prf.hn/click/"][href*="/camref:"] > img, :root a[href^="https://www.dating-finder.com/?ai_d="], :root a[href^="https://serve.awmdelivery.com/"], :root a[href^="https://prf.hn/click/"][href*="/adref:"] > img, :root app-ad, :root [href^="https://ap.octopuspop.com/click/"] > img, :root a[href^="https://postback1win.com/"], :root a[href^="https://mmwebhandler.aff-online.com/"], :root a[href^="https://www.bet365.com/"][href*="affiliate="], :root a[href^="https://pb-track.com/"], :root a[href^="https://pb-front.com/"], :root a[href^="https://paid.outbrain.com/network/redir?"], :root a[href^="https://streamate.com/landing/click/"], :root div[class^="Adstyled__AdWrapper-"], :root a[href^="https://osfultrbriolenai.info/"], :root a[href^="https://upsups.click/"], :root a[href^="https://ndt5.net/"], :root a[href^="https://natour.naughtyamerica.com/track/"], :root a[href^="https://mediaserver.entainpartners.com/renderBanner.do?"], :root a[href^="https://m.do.co/c/"] > img, :root a[href^="https://lead1.pl/"], :root a[href^="https://landing.brazzersnetwork.com/"], :root a[href^="https://join.virtuallust3d.com/"], :root a[href^="https://kiksajex.com/"], :root a[href^="https://juicyads.in/"], :root a[href^="https://snowdayonline.xyz/"], :root a[href^="https://mediaserver.gvcaffiliates.com/renderBanner.do?"], :root a[href^="https://join.dreamsexworld.com/"], :root a[href^="https://jaxofuna.com/"], :root a[href^="https://italarizege.xyz/"], :root a[href^="https://iqbroker.com/"][href*="?aff="], :root a[href^="https://identicaldrench.com/"], :root a[href^="https://hot-growngames.life/"], :root a[href^="https://helmethomicidal.com/"], :root a[href^="https://golinks.work/"], :root ark-top-ad, :root a[href^="https://s.zlinkn.com/"], :root a[href^="https://go.xxxvjmp.com/"], :root [class^="tile-picker__CitrusBannerContainer-sc-"], :root a[href^="https://go.xxxiijmp.com"], :root a[href^="https://go.xtbaffiliates.com/"], :root [data-role="tile-ads-module"], :root a[href^="https://go.xlviirdr.com"], :root div[class$="-adlabel"], :root a[href^="https://go.xlviiirdr.com"], :root a[href^="https://ismlks.com/"], :root [href^="https://www.mypillow.com/"] > img, :root a[href^="https://go.xlirdr.com"], :root [data-css-class="dfp-inarticle"], :root a[href^="https://l.hyenadata.com/"], :root a[href^="https://go.tmrjmp.com"], :root a[href^="https://zirdough.net/"], :root a[href^="https://s.deltraff.com/"], :root a[href^="https://go.markets.com/visit/?bta="], :root a[href^="https://billing.purevpn.com/aff.php"] > img, :root a[href^="https://go.hpyrdr.com/"], :root a[href^="https://lijavaxa.com/"], :root a[href^="https://go.goaserv.com/"], :root a[href^="https://t.hrtye.com/"], :root a[href^="https://go.etoro.com/"] > img, :root a[href^="https://go.dmzjmp.com"], :root a[href^="https://www.bang.com/?aff="], :root #mgb-container > #mgb, :root a[href^="https://go.admjmp.com"], :root a[href^="https://ak.stikroltiltoowi.net/"], :root a[href^="https://get.surfshark.net/aff_c?"][href*="&aff_id="] > img, :root a[href^="https://www.adskeeper.com"], :root a[data-redirect^="https://paid.outbrain.com/network/redir?"], :root [href^="https://clicks.affstrack.com/"] > img, :root a[href^="https://ak.hauchiwu.com/"], :root a[href^="https://engine.phn.doublepimp.com/"], :root a[href^="https://engine.blueistheneworanges.com/"], :root a[href^="https://drumskilxoa.click/"], :root a[href^="https://dl-protect.net/"], :root a[href*=".foxqck.com/"], :root a[href^="https://ctosrd.com/"], :root a[href^="https://clixtrac.com/"], :root [href^="https://noqreport.com/"] > img, :root a[href^="https://clicks.pipaffiliates.com/"], :root app-advertisement, :root a[href^="https://getmatchedlocally.com/"], :root a[href^="https://clickins.slixa.com/"], :root a[href^="https://datewhisper.life/"], :root a[href^="https://get-link.xyz/"], :root a[href^="https://click.linksynergy.com/fs-bin/"] > img, :root a[href^="https://combodef.com/"], :root a[href^="https://click.hoolig.app/"], :root a[href^="https://click.ggpickaff.com/"], :root a[href^="https://track.totalav.com/"], :root a[href^="https://ctrdwm.com/"], :root img[src^="https://images.purevpnaffiliates.com"], :root a[href^="https://porntubemate.com/"], :root a[href^="https://clickadilla.com/"], :root a[href^="https://click.dtiserv2.com/"], :root a[href^="https://go.xlvirdr.com"], :root a[href^="http://www.iyalc.com/"], :root a[href^="https://claring-loccelkin.com/"], :root a[href^="https://bongacams2.com/track?"], :root a[href^="https://t.ajrkm1.com/"], :root a[href^="https://bongacams10.com/track?"], :root a[href^="https://www.sheetmusicplus.com/"][href*="?aff_id="], :root a[href^="https://bngpt.com/"], :root a[href^="https://black77854.com/"], :root a[href^="https://rixofa.com/"], :root #ads[style^="position: absolute; z-index: 30; width: 100%; height"], :root a[href^="https://disobediencecalculatormaiden.com/"], :root a[href^="https://best-experience-cool.com/"], :root a[href^="https://banners.livepartners.com/"], :root a[href^="https://myclick-2.com/"], :root a[href^="https://sexynearme.com/"], :root a[href^="https://baipahanoop.net/"], :root a[href^="http://revolvemockerycopper.com/"], :root a[href^="https://awptjmp.com/"], :root a[href^="https://join.sexworld3d.com/track/"], :root a[href^="https://aweptjmp.com/"], :root a[href^="https://ausoafab.net/"], :root a[href^="https://adclick.g.doubleclick.net/"], :root a[href^="https://aj1070.online/"], :root a[href^="https://bc.game/"], :root a[href^="https://ak.oalsauwy.net/"], :root a[href^="https://a.bestcontentoperation.top/"], :root a[href^="https://adultfriendfinder.com/go/"], :root a[href^="https://ads.planetwin365affiliate.com/"], :root a[href^="https://ads.leovegas.com/"], :root .nya-slot[style], :root a[href^="https://a.bestcontentweb.top/"], :root a[href^="https://a2.adform.net/"], :root a[href^="https://a.candyai.love/"], :root a[href^="https://playnano.online/offerwalls/?ref="], :root a[href^="https://a.adtng.com/"], :root .banner-img > .pbl, :root [data-m-ad-id], :root a[href^="https://a-ads.com/"], :root [id^="ad_slider"], :root a[href^="https://click.ggpickyaff.com/"], :root broadstreet-zone-container, :root a[href^="https://ak.psaltauw.net/"], :root a[href^="https://1winpb.com/"], :root div[id^="rc-widget-"], :root a[href^="http://eslp34af.click/"], :root a[href^="https://turnstileunavailablesite.com/"], :root a[href^="https://chaturbate.com/in/?"], :root a[href^="https://prf.hn/click/"][href*="/creativeref:"] > img, :root a[href*="&maxads="], :root a[href^="http://www.adultempire.com/unlimited/promo?"][href*="&partner_id="], :root a[href^="https://1betandgonow.com/"], :root a[href^="https://eergortu.net/"], :root div[id^="optidigital-adslot"], :root a[href^="https://123-stream.org/"], :root a[href^="https://in.rabbtrk.com/"], :root a[href^="http://www.h4trck.com/"], :root a[href^="http://www.friendlyduck.com/AF_"], :root a[href^="https://go.rmhfrtnd.com"], :root a[href^="https://allhost.shop/aff.php?"], :root [data-dynamic-ads], :root a[href^="http://vnte9urn.click/"], :root a[href^="http://troopsassistedstupidity.com/"], :root a[href^="http://trk.globwo.online/"], :root a[href^="https://random-affiliate.atimaze.com/"], :root a-ad, :root a[href^="https://offhandpump.com/"], :root a[href^="http://stickingrepute.com/"], :root #slashboxes > .deals-rail, :root a[href^="http://roadcontagion.com/"], :root a[href^="http://premonitioninventdisagree.com/"], :root a[href^="http://cam4com.go2cloud.org/aff_c?"], :root a[href^="https://ads.betfair.com/redirect.aspx?"], :root [href^="https://www.mypatriotsupply.com/"] > img, :root a[href^="https://trk.softonixs.xyz/"], :root [data-advadstrackid], :root a[href^="http://muzzlematrix.com/"], :root a[href^="https://track.adform.net/"], :root a[href^="http://avthelkp.net/"], :root a[href^="https://a.medfoodhome.com/"], :root a[href^="https://engine.flixtrial.com/"], :root [data-type="ad-vertical"], :root [data-taboola-options], :root a[href^="http://annulmentequitycereals.com/"], :root a[href^="//startgaming.net/tienda/" i], :root a[href^="https://join.virtualtaboo.com/track/"], :root [id^="ad_sky"], :root a[href^="http://coefficienttolerategravel.com/"], :root a[href^="https://a.medfoodsafety.com/"], :root a[href^="//go.eabids.com/"], :root a[href^="//ejitsirdosha.net/"], :root a[href^=" https://www.friendlyduck.com/AF_"], :root [data-cl-spot-id], :root a[href*="/jump/next.php?r="], :root a[href^="https://go.rmishe.com/"], :root [href^="https://ilovemyfreedoms.com/landing-"], :root a[href^="https://syndication.optimizesrv.com/"], :root a[href*="//daichoho.com/"], :root a[href^="https://go.nordvpn.net/aff"] > img, :root .\[\&_\.gdprAdTransparencyCogWheelButton\]\:\!pjra-z-\[5\], :root [href^="http://clicks.totemcash.com/"], :root a[href^="https://ad.zanox.com/ppc/"] > img, :root a[href^="https://lone-pack.com/"], :root [data-d-ad-id], :root a[href*=".engine.adglare.net/"], :root a[href^="https://t.ajrkm3.com/"], :root [href^="https://aads.com/campaigns/"], :root a[href^="//stighoazon.com/"], :root [href^="https://www.profitablegatecpm.com/"], :root div[id^="lazyad-"], :root a[href^="http://com-1.pro/"], :root a[href*=".cfm?domain="][href*="&fp="], :root [data-ad-name], :root a[href^="https://loboclick.com/"], :root a[data-url^="https://vulpix.bet/?ref="], :root a[href^="https://ab.advertiserurl.com/aff/"], :root a[data-oburl^="https://paid.outbrain.com/network/redir?"], :root a[href^="https://go.xlivrdr.com"], :root [onclick^="location.href='https://1337x.vpnonly.site/"], :root [name^="google_ads_iframe"], :root [id^="section-ad-banner"], :root a[href^="https://www.goldenfrog.com/vyprvpn?offer_id="][href*="&aff_id="], :root a[href*="//jjgirls.com/sex/Chaturbate"], :root [id^="ad-wrap-"], :root [href^="https://zone.gotrackier.com/"], :root a[href^="http://sarcasmadvisor.com/"], :root [href^="https://www.restoro.com/"], :root [href^="https://www.targetingpartner.com/"], :root .section-subheader > .section-hotel-prices-header, :root [href^="https://www.hostg.xyz/"] > img, :root a[href^="http://adultfriendfinder.com/go/"], :root a[href^="https://fastestvpn.com/lifetime-special-deal?a_aid="], :root a[href^="https://tour.mrskin.com/"], :root [href^="https://www.brighteonstore.com/products/"] img, :root citrus-ad-wrapper, :root a[href^="https://go.grinsbest.com/"], :root a[href^="https://vo2.qrlsx.com/"], :root [href^="https://www.avantlink.com/click.php"] img, :root a[href^="https://t.acam.link/"], :root a[href^="https://go.strpjmp.com/"], :root [href^="https://url.totaladblock.com/"], :root div[id^="div-ads-"], :root [href^="https://rapidgator.net/article/premium/ref/"], :root [href^="https://join.girlsoutwest.com/"], :root a[href^="https://activate-game.com/"], :root .scroll-fixable.rail-right > .deals-rail, :root [data-wpas-zoneid], :root a[href^="https://track.aftrk3.com/"], :root [href^="https://join3.bannedsextapes.com"], :root a[href^="https://bodelen.com/"], :root a[href*=".g2afse.com/"], :root div[id^="adngin-"], :root [data-rc-widget], :root span[data-ez-ph-id], :root [href^="https://track.aftrk1.com/"], :root [href^="https://join.playboyplus.com/track/"], :root a[href^="https://go.xxxijmp.com"], :root [href^="https://istlnkcl.com/"], :root a[href^="https://tm-offers.gamingadult.com/"], :root [href^="https://charmingdatings.life/"], :root [href^="https://glersakr.com/"], :root a[href^="https://a.bestcontentfood.top/"], :root [href^="https://cpa.10kfreesilver.com/"], :root [data-id^="div-gpt-ad"], :root a[href^="https://tracker.loropartners.com/"], :root [href^="https://awbbjmp.com/"], :root div[ow-ad-unit-wrapper], :root a[data-href^="http://ads.trafficjunky.net/"], :root a[href^="http://partners.etoro.com/"], :root a[href^="https://www.friendlyduck.com/AF_"], :root [href^="https://ad1.adfarm1.adition.com/"], :root a[href^="https://bngprm.com/"], :root [href^="https://shiftnetwork.infusionsoft.com/go/"] > img, :root a[href^="https://go.bushheel.com/"], :root a[href^="https://ctjdwm.com/"], :root a[href^="https://camfapr.com/landing/click/"], :root div[data-ad-wrapper], :root .gnt_em_vp_c[data-g-s="vp_dk"], :root [href="//sexcams.plus/"], :root [href^="http://www.mypillow.com/"] > img, :root a[href^="https://promerycergerful.com/"], :root #kt_player > a[target="_blank"], :root a[href^="http://bongacams.com/track?"], :root [href^="http://mypillow.com/"] > img, :root [href="https://ourgoldguy.com/contact/"] img, :root .ob_container .item-container-obpd, :root [id^="div-gpt-ad"], :root a[href^="https://go.rmhfrtnd.com/"], :root [href="https://jdrucker.com/gold"] > img, :root a[href^="https://www.liquidfire.mobi/"], :root .grid > .container > #aside-promotion, :root DFP-AD, :root [href^="https://go.xlrdr.com"], :root a[href^="https://s.cant3am.com/"], :root [data-testid^="taboola-"], :root a[href^="https://track.1234sd123.com/"], :root zeus-ad, :root [data-testid="prism-ad-wrapper"], :root [href^="https://ad.admitad.com/"], :root [href^="https://mypillow.com/"] > img, :root [data-testid="ad_testID"], :root [href^="https://antiagingbed.com/discount/"] > img, :root a[href*=".adsrv.eacdn.com/"], :root [href^="https://optimizedelite.com/"] > img, :root [data-name="adaptiveConstructorAd"], :root a[href^="https://go.cmtaffiliates.com/"], :root [data-testid="adBanner-wrapper"], :root [href^="https://mylead.global/stl/"] > img, :root [href^="https://mypatriotsupply.com/"] > img, :root a[href^="https://go.hpyjmp.com"], :root iframe[scrolling="no"][sandbox*="allow-popups allow-modals"][style^="width: 100%; height: 100%; border: none;"], :root [href^="https://mystore.com/"] > img, :root a[href^="https://81ac.xyz/"], :root [href^="https://wct.link/click?"], :root div[data-adunit], :root app-large-ad, :root [href^="https://turtlebids.irauctions.com/"] img, :root a[href^="https://believessway.com/"], :root a[href^="https://witnessjacket.com/"], :root [data-mobile-ad-id], :root [class^="amp-ad-"], :root a[href^="http://handgripvegetationhols.com/"], :root a[href^="https://go.bbrdbr.com"], :root a[href^="https://fc.lc/ref/"], :root [data-adshim], :root topadblock, :root a[href^="//s.zlinkd.com/"], :root #teaser1[style^="width:autopx;"], :root [href^="https://www.cloudways.com/en/?id"], :root [data-asg-ins], :root a[href^="https://gamingadlt.com/?offer="], :root [data-desktop-ad-id], :root [data-adbridg-ad-class], :root #teaser3[style^="width:autopx;"], :root [data-adblockkey], :root [data-block-type="ad"], :root [data-ad-width], :root [onclick*="content.ad/"], :root [data-ad-manager-id], :root AMP-AD, :root [data-ad-cls], :root [data-ez-name], :root a[href^="https://go.mnaspm.com/"], :root a[href^="https://service.bv-aff-trx.com/"], :root a[href^="https://6-partner.com/"], :root [class^="s2nPlayer"], :root a[href^="https://traffdaq.com/"], :root [data-testid="commercial-label-taboola"], :root [class^="div-gpt-ad"], :root a[href^="http://tc.tradetracker.net/"] > img, :root a[href^="https://www8.smartadserver.com/"], :root a[href^="https://pb-imc.com/"], :root [href^="https://affiliate.fastcomet.com/"] > img, :root [class^="adDisplay-module"], :root [data-freestar-ad][id], :root AD-SLOT, :root a[href^="https://www.googleadservices.com/pagead/aclk?"] > img, :root [data-ad-module], :root a[href^="https://go.skinstrip.net"][href*="?campaignId="], :root #teaser2[style^="width:autopx;"], :root [data-revive-zoneid], :root a[href^="https://losingoldfry.com/"], :root div[id^="div-gpt-"], :root a[href^="https://gml-grp.com/"], :root .ob_dual_right > .ob_ads_header ~ .odb_div, :root a[href^="https://cam4com.go2cloud.org/"], :root a[href^="http://li.blogtrottr.com/click?"], :root a[onmousedown^="this.href='https://paid.outbrain.com/network/redir?"], :root a[href^="https://t.ajump1.com/"], :root a[href^="https://go.xxxjmp.com"], :root #leader-companion > a[href], :root a[href^="https://wittered-mainging.com/"], :root #teaser3[style="width: 100%;text-align: center;display: scroll;position:fixed;bottom: 0;margin: 0 auto;z-index: 103;"], :root [href^="https://wwp.hoqodd.com/redirect-zone/"] { display: none !important; }</style></head>
 <body>
-    
     <!-- HEXAGON Title -->
     <div class="header">
         <h1>HEXAGON</h1>
@@ -513,101 +518,99 @@
     </div>
 
     <!-- Main Content -->
-    <div class="main-content">
-        <div class="container">
+    <div class="main-content container">
+        
+        <!-- Patient Information -->
+        <div class="card">
+            <h3>Informações do Paciente e Procedimento</h3>
             
-            <!-- Patient Information -->
-            <div class="card">
-                <h3>Informações do Paciente e Procedimento</h3>
-                
-                <div class="grid grid-cols-3" style="margin-bottom: 1rem;">
-                    <div class="form-group">
-                        <label class="form-label">Usuário *</label>
-                        <input type="text" id="userField" placeholder="Digite o nome do usuário" class="form-input" oninput="capitalizeInput(this)">
-                    </div>
-                    
-                    <div class="form-group">
-                        <label class="form-label">Hospital *</label>
-                        <input type="text" id="hospitalSelect" placeholder="Digite o nome do hospital" class="form-input" oninput="capitalizeInput(this)">
-                    </div>
-                    
-                    <div class="form-group">
-                        <label class="form-label">Paciente</label>
-                        <input type="text" id="patientName" placeholder="Nome do paciente" class="form-input" oninput="capitalizeInput(this)">
-                    </div>
+            <div class="grid grid-cols-1 md:grid-cols-3 mb-4">
+                <div class="form-group">
+                    <label class="form-label">Usuário *</label>
+                    <input type="text" id="userField" placeholder="Digite o nome do usuário" class="form-input" oninput="capitalizeInput(this)">
                 </div>
                 
-                <div class="grid grid-cols-3">
-                    <div class="form-group">
-                        <label class="form-label">N° Prontuário</label>
-                        <input type="text" id="recordNumber" placeholder="Número do prontuário" class="form-input">
-                    </div>
-                    
-                    <div class="form-group">
-                        <label class="form-label">Data Cirurgia</label>
-                        <input type="date" id="surgeryDate" class="form-input">
-                    </div>
-                    
-                    <div class="form-group">
-                        <label class="form-label">Outras Informações</label>
-                        <textarea id="otherInfo" placeholder="Informações adicionais" rows="2" class="form-input"></textarea>
-                    </div>
+                <div class="form-group">
+                    <label class="form-label">Hospital *</label>
+                    <input type="text" id="hospitalSelect" placeholder="Digite o nome do hospital" class="form-input" oninput="capitalizeInput(this)">
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label">Paciente</label>
+                    <input type="text" id="patientName" placeholder="Nome do paciente" class="form-input" oninput="capitalizeInput(this)">
                 </div>
             </div>
-
-            <!-- Product Selection -->
-            <div class="card">
-                <div style="margin-bottom: 1rem;">
-                    <label class="form-label" style="margin-bottom: 0.5rem;">Tipo de Documento:</label>
-                    <select id="documentType" onchange="filterProducts()" class="form-select"><option value="">Selecione um subgrupo</option><option value="" disabled="" style="font-weight: bold; background-color: rgb(243, 244, 246);">═══ FIXADORES EXTERNOS ═══</option><option value="FIXADOR ILIZAROV">  FIXADOR ILIZAROV</option><option value="FIXADOR MODULAR B13">  FIXADOR MODULAR B13</option><option value="" disabled="" style="font-weight: bold; background-color: rgb(243, 244, 246);">═══ HASTES INTRAM FEMUR ═══</option><option value="HASTE FEMORAL A/R">  HASTE FEMORAL A/R</option><option value="HASTE FEMORAL LATERAL RECON">  HASTE FEMORAL LATERAL RECON</option><option value="HASTE FMORAL PROXIMAL PFN">  HASTE FMORAL PROXIMAL PFN</option><option value="" disabled="" style="font-weight: bold; background-color: rgb(243, 244, 246);">═══ HASTES INTRAM TIBIA ═══</option><option value="HASTE TIBIAL 335 GERAÇÃO I">  HASTE TIBIAL 335 GERAÇÃO I</option><option value="HASTE TIBIAL MULTIPLA">  HASTE TIBIAL MULTIPLA</option><option value="HASTE TIBIAL UTN 335.2">  HASTE TIBIAL UTN 335.2</option><option value="" disabled="" style="font-weight: bold; background-color: rgb(243, 244, 246);">═══ HASTES INTRAM UMERO ═══</option><option value="HASTE UMERAL">  HASTE UMERAL</option><option value="" disabled="" style="font-weight: bold; background-color: rgb(243, 244, 246);">═══ MICRO PLACAS COM BLOQUEIO ═══</option><option value="" disabled="" style="font-weight: bold; background-color: rgb(243, 244, 246);">═══ PARAFUSOS CANULADOS ═══</option><option value="PARAFUSOS CANUL COMPR HEBBERT">  PARAFUSOS CANUL COMPR HEBBERT</option><option value="PARAFUSOS CANULADOS Ø3,5mm">  PARAFUSOS CANULADOS Ø3,5mm</option><option value="PARAFUSOS CANULADOS Ø4,5mm">  PARAFUSOS CANULADOS Ø4,5mm</option><option value="PARAFUSOS CANULADOS Ø7mm">  PARAFUSOS CANULADOS Ø7mm</option><option value="" disabled="" style="font-weight: bold; background-color: rgb(243, 244, 246);">═══ PLACAS COM BLOQUEIO GR FRAG ═══</option><option value="PLACAS FEMUR DISTAL CONDILAR (4,5) BLOQU">  PLACAS FEMUR DISTAL CONDILAR (4,5) BLOQU</option><option value="PLACAS RETAS GR FRAG (4,5) BLOQU">  PLACAS RETAS GR FRAG (4,5) BLOQU</option><option value="PLACAS TIBIA PROXIMAL GF (4,5) BLOQU">  PLACAS TIBIA PROXIMAL GF (4,5) BLOQU</option><option value="" disabled="" style="font-weight: bold; background-color: rgb(243, 244, 246);">═══ PLACAS COM BLOQUEIO PEQU FRAG ═══</option><option value="PLACAS P/CLAVICULA (2,7/3,5) BLOQU">  PLACAS P/CLAVICULA (2,7/3,5) BLOQU</option><option value="PLACAS PARA FIBULA (2,7/3,5) BLOQU">  PLACAS PARA FIBULA (2,7/3,5) BLOQU</option><option value="PLACAS RETAS PEQU FRAG (3,5) BLOQU">  PLACAS RETAS PEQU FRAG (3,5) BLOQU</option><option value="PLACAS TIBIA DISTAL ANTEROLATERAL (3,5) BLOQU">  PLACAS TIBIA DISTAL ANTEROLATERAL (3,5) BLOQU</option><option value="PLACAS TIBIA DISTAL MEDIAL (3,5) BLOQU">  PLACAS TIBIA DISTAL MEDIAL (3,5) BLOQU</option><option value="PLACAS UMERO DISTAL (2,7-3,5) BLOQU">  PLACAS UMERO DISTAL (2,7-3,5) BLOQU</option><option value="PLACAS UMERO PROXIMAL PF (3.5) BLOQU">  PLACAS UMERO PROXIMAL PF (3.5) BLOQU</option><option value="" disabled="" style="font-weight: bold; background-color: rgb(243, 244, 246);">═══ PLACAS SEM BLOQUEIO GR FRAG ═══</option><option value="PLACAS DHS/DCS GR FRAG (4,5)">  PLACAS DHS/DCS GR FRAG (4,5)</option><option value="PLACAS EXTREMIDADES GR FRAG (4,5)">  PLACAS EXTREMIDADES GR FRAG (4,5)</option><option value="PLACAS RETAS GR FRAG (4,5)">  PLACAS RETAS GR FRAG (4,5)</option><option value="" disabled="" style="font-weight: bold; background-color: rgb(243, 244, 246);">═══ PLACAS SEM BLOQUEIO PEQU FRAG ═══</option><option value="PLACAS EXTREMIDADES PEQU FRAG (3,5)">  PLACAS EXTREMIDADES PEQU FRAG (3,5)</option><option value="PLACAS RECONSTRUÇÃO BACIA PF (3,5)">  PLACAS RECONSTRUÇÃO BACIA PF (3,5)</option><option value="PLACAS RETAS PEQU FRAG (3,5)">  PLACAS RETAS PEQU FRAG (3,5)</option><option value="" disabled="" style="font-weight: bold; background-color: rgb(243, 244, 246);">═══ PLACAS VOLARES COM BLOQUEIO ═══</option></select>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3">
+                <div class="form-group">
+                    <label class="form-label">N° Prontuário</label>
+                    <input type="text" id="recordNumber" placeholder="Número do prontuário" class="form-input">
                 </div>
-
-                <!-- Products Container -->
-                <div id="productsContainer">
-                    <div class="loading text-gray">
-                        Selecione um subgrupo para visualizar os produtos
-                    </div>
+                
+                <div class="form-group">
+                    <label class="form-label">Data Cirurgia</label>
+                    <input type="date" id="surgeryDate" class="form-input">
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label">Outras Informações</label>
+                    <textarea id="otherInfo" placeholder="Informações adicionais" rows="2" class="form-textarea"></textarea>
                 </div>
             </div>
+        </div>
 
-            <!-- Filter Buttons -->
-            <div class="btn-grid">
-                <button onclick="showSelectedOnly()" class="btn btn-success">
-                    Filtrar Selecionados
-                </button>
-                <button onclick="showAllProducts()" class="btn btn-primary">
-                    Mostrar Todos
-                </button>
+        <!-- Product Selection -->
+        <div class="card">
+            <div class="mb-4">
+                <label class="form-label">Tipo de Documento:</label>
+                <select id="documentType" onchange="filterProducts()" class="form-select"><option value="">Selecione um subgrupo</option><option value="" disabled="" style="font-weight: bold; background-color: rgb(243, 244, 246);">═══ FIXADORES EXTERNOS ═══</option><option value="FIXADOR ILIZAROV" data-grupo="FIXADORES EXTERNOS">  FIXADOR ILIZAROV</option><option value="FIXADOR MODULAR B13" data-grupo="FIXADORES EXTERNOS">  FIXADOR MODULAR B13</option><option value="" disabled="" style="font-weight: bold; background-color: rgb(243, 244, 246);">═══ HASTES INTRAM FEMUR ═══</option><option value="HASTE FEMORAL A/R" data-grupo="HASTES INTRAM FEMUR">  HASTE FEMORAL A/R</option><option value="HASTE FEMORAL LATERAL RECON" data-grupo="HASTES INTRAM FEMUR">  HASTE FEMORAL LATERAL RECON</option><option value="HASTE FMORAL PROXIMAL PFN" data-grupo="HASTES INTRAM FEMUR">  HASTE FMORAL PROXIMAL PFN</option><option value="" disabled="" style="font-weight: bold; background-color: rgb(243, 244, 246);">═══ HASTES INTRAM TIBIA ═══</option><option value="HASTE TIBIAL 335 GERAÇÃO I" data-grupo="HASTES INTRAM TIBIA">  HASTE TIBIAL 335 GERAÇÃO I</option><option value="HASTE TIBIAL MULTIPLA" data-grupo="HASTES INTRAM TIBIA">  HASTE TIBIAL MULTIPLA</option><option value="HASTE TIBIAL UTN 335.2" data-grupo="HASTES INTRAM TIBIA">  HASTE TIBIAL UTN 335.2</option><option value="" disabled="" style="font-weight: bold; background-color: rgb(243, 244, 246);">═══ HASTES INTRAM UMERO ═══</option><option value="HASTE UMERAL" data-grupo="HASTES INTRAM UMERO">  HASTE UMERAL</option><option value="" disabled="" style="font-weight: bold; background-color: rgb(243, 244, 246);">═══ MICRO PLACAS COM BLOQUEIO ═══</option><option value="MICRO FRAG (2.0) BLOQU" data-grupo="MICRO PLACAS COM BLOQUEIO">  MICRO FRAG (2.0) BLOQU</option><option value="" disabled="" style="font-weight: bold; background-color: rgb(243, 244, 246);">═══ PARAFUSOS CANULADOS ═══</option><option value="PARAFUSOS CANUL COMPR HEBBERT" data-grupo="PARAFUSOS CANULADOS">  PARAFUSOS CANUL COMPR HEBBERT</option><option value="PARAFUSOS CANULADOS Ø3,5mm" data-grupo="PARAFUSOS CANULADOS">  PARAFUSOS CANULADOS Ø3,5mm</option><option value="PARAFUSOS CANULADOS Ø4,5mm" data-grupo="PARAFUSOS CANULADOS">  PARAFUSOS CANULADOS Ø4,5mm</option><option value="PARAFUSOS CANULADOS Ø7mm" data-grupo="PARAFUSOS CANULADOS">  PARAFUSOS CANULADOS Ø7mm</option><option value="" disabled="" style="font-weight: bold; background-color: rgb(243, 244, 246);">═══ PLACAS COM BLOQUEIO GR FRAG ═══</option><option value="PLACAS FEMUR DISTAL CONDILAR (4,5) BLOQU" data-grupo="PLACAS COM BLOQUEIO GR FRAG">  PLACAS FEMUR DISTAL CONDILAR (4,5) BLOQU</option><option value="PLACAS RETAS GR FRAG (4,5) BLOQU" data-grupo="PLACAS COM BLOQUEIO GR FRAG">  PLACAS RETAS GR FRAG (4,5) BLOQU</option><option value="PLACAS TIBIA PROXIMAL GF (4,5) BLOQU" data-grupo="PLACAS COM BLOQUEIO GR FRAG">  PLACAS TIBIA PROXIMAL GF (4,5) BLOQU</option><option value="" disabled="" style="font-weight: bold; background-color: rgb(243, 244, 246);">═══ PLACAS COM BLOQUEIO PEQU FRAG ═══</option><option value="PLACAS P/CLAVICULA (2,7/3,5) BLOQU" data-grupo="PLACAS COM BLOQUEIO PEQU FRAG">  PLACAS P/CLAVICULA (2,7/3,5) BLOQU</option><option value="PLACAS PARA FIBULA (2,7/3,5) BLOQU" data-grupo="PLACAS COM BLOQUEIO PEQU FRAG">  PLACAS PARA FIBULA (2,7/3,5) BLOQU</option><option value="PLACAS RETAS PEQU FRAG (3,5) BLOQU" data-grupo="PLACAS COM BLOQUEIO PEQU FRAG">  PLACAS RETAS PEQU FRAG (3,5) BLOQU</option><option value="PLACAS TIBIA DISTAL ANTEROLATERAL (3,5) BLOQU" data-grupo="PLACAS COM BLOQUEIO PEQU FRAG">  PLACAS TIBIA DISTAL ANTEROLATERAL (3,5) BLOQU</option><option value="PLACAS TIBIA DISTAL MEDIAL (3,5) BLOQU" data-grupo="PLACAS COM BLOQUEIO PEQU FRAG">  PLACAS TIBIA DISTAL MEDIAL (3,5) BLOQU</option><option value="PLACAS UMERO DISTAL (2,7-3,5) BLOQU" data-grupo="PLACAS COM BLOQUEIO PEQU FRAG">  PLACAS UMERO DISTAL (2,7-3,5) BLOQU</option><option value="PLACAS UMERO PROXIMAL PF (3.5) BLOQU" data-grupo="PLACAS COM BLOQUEIO PEQU FRAG">  PLACAS UMERO PROXIMAL PF (3.5) BLOQU</option><option value="" disabled="" style="font-weight: bold; background-color: rgb(243, 244, 246);">═══ PLACAS SEM BLOQUEIO GR FRAG ═══</option><option value="PLACAS DHS/DCS GR FRAG (4,5)" data-grupo="PLACAS SEM BLOQUEIO GR FRAG">  PLACAS DHS/DCS GR FRAG (4,5)</option><option value="PLACAS EXTREMIDADES GR FRAG (4,5)" data-grupo="PLACAS SEM BLOQUEIO GR FRAG">  PLACAS EXTREMIDADES GR FRAG (4,5)</option><option value="PLACAS RETAS GR FRAG (4,5)" data-grupo="PLACAS SEM BLOQUEIO GR FRAG">  PLACAS RETAS GR FRAG (4,5)</option><option value="" disabled="" style="font-weight: bold; background-color: rgb(243, 244, 246);">═══ PLACAS SEM BLOQUEIO PEQU FRAG ═══</option><option value="PLACAS EXTREMIDADES PEQU FRAG (3,5)" data-grupo="PLACAS SEM BLOQUEIO PEQU FRAG">  PLACAS EXTREMIDADES PEQU FRAG (3,5)</option><option value="PLACAS RECONSTRUÇÃO BACIA PF (3,5)" data-grupo="PLACAS SEM BLOQUEIO PEQU FRAG">  PLACAS RECONSTRUÇÃO BACIA PF (3,5)</option><option value="PLACAS RETAS PEQU FRAG (3,5)" data-grupo="PLACAS SEM BLOQUEIO PEQU FRAG">  PLACAS RETAS PEQU FRAG (3,5)</option><option value="" disabled="" style="font-weight: bold; background-color: rgb(243, 244, 246);">═══ PLACAS VOLARES COM BLOQUEIO ═══</option><option value="PLACAS VOLARES MICRO (2,7) BLOQU" data-grupo="PLACAS VOLARES COM BLOQUEIO">  PLACAS VOLARES MICRO (2,7) BLOQU</option></select>
             </div>
 
-            <!-- Materiais Diversos -->
-            <div style="margin-bottom: 1rem;">
-                <label class="form-label" style="margin-bottom: 0.5rem;">Materiais Diversos:</label>
-                <textarea id="materiaisDiversos" placeholder="Digite materiais diversos utilizados..." class="form-textarea"></textarea>
+            <!-- Products Container -->
+            <div id="productsContainer">
+                <div class="text-center p-4 text-gray-500">
+                    Selecione um subgrupo para visualizar os produtos
+                </div>
             </div>
+        </div>
 
-            <!-- Send Report Button -->
-            <button onclick="sendReport()" class="btn btn-success btn-lg btn-block" style="margin-bottom: 1rem;">
-                Enviar Relatório
+        <!-- Filter Buttons -->
+        <div class="grid grid-cols-2 mb-4">
+            <button onclick="showSelectedOnly()" class="btn btn-success">
+                Filtrar Selecionados
+            </button>
+            <button onclick="showAllProducts()" class="btn btn-primary">
+                Mostrar Todos
             </button>
         </div>
+
+        <!-- Materiais Diversos -->
+        <div class="mb-4">
+            <label class="form-label">Materiais Diversos:</label>
+            <textarea id="materiaisDiversos" placeholder="Digite materiais diversos utilizados..." rows="3" class="form-textarea"></textarea>
+        </div>
+
+        <!-- Send Report Button -->
+        <button onclick="sendReport()" class="btn btn-success btn-lg btn-full mb-4">
+            Enviar Relatório
+        </button>
     </div>
 
     <!-- Completion Screen -->
     <div class="completion-screen">
         <div class="completion-card">
-            <div class="completion-icon">✓</div>
-            <h2 class="completion-title">Relatório Enviado</h2>
-            <p class="completion-text">Relatório enviado com sucesso!</p>
-            <button onclick="startNewReport()" class="btn btn-primary btn-lg btn-block">
+            <div class="success-icon">✓</div>
+            <h2 class="success-title">Relatório Enviado</h2>
+            <p class="success-message">Relatório enviado com sucesso!</p>
+            <button onclick="startNewReport()" class="btn btn-primary btn-lg btn-full">
                 Novo Relatório
             </button>
         </div>
     </div>
 
     <!-- Version -->
-    <div class="version">
-        Versão 3.0 - Firebase Edition
+    <div class="version-info">
+        Versão 3.0 - Firebase Implementado
     </div>
 
     <script>
@@ -620,15 +623,12 @@
             messagingSenderId: "810793753497",
             appId: "1:810793753497:web:b5a6a812b18e09bfdd5108"
         };
-        
+
         // Initialize Firebase
         firebase.initializeApp(firebaseConfig);
         const db = firebase.firestore();
-        
-        // Global variables
-        let currentProducts = [];
-        
-        // Mapeamento de grupos para coleções
+
+        // Collection mapping
         const groupToCollection = {
             'PLACAS SEM BLOQUEIO GR FRAG': 'placas_sem_bloqueio_gr_frag',
             'PLACAS SEM BLOQUEIO PEQU FRAG': 'placas_sem_bloqueio_pequ_frag',
@@ -642,13 +642,17 @@
             'PARAFUSOS CANULADOS': 'parafusos_canulados',
             'FIXADORES EXTERNOS': 'fixadores_externos'
         };
-        
+
+        // Global variables
+        let currentProducts = [];
+        let allSubgroups = {};
+
         // Initialize
         document.addEventListener('DOMContentLoaded', async function() {
             console.log('🚀 Aplicação iniciada - carregando subgrupos...');
             await carregarSubgrupos();
         });
-        
+
         // Função para capitalizar input
         function capitalizeInput(input) {
             const words = input.value.toLowerCase().split(' ');
@@ -660,18 +664,18 @@
             });
             input.value = capitalizedWords.join(' ');
         }
-        
-        // Carregar subgrupos do Firebase
+
+        // Carregar subgrupos de todas as coleções
         async function carregarSubgrupos() {
             try {
                 console.log('🔄 Carregando subgrupos do Firebase...');
                 
                 const gruposOrganizados = {};
                 
-                // Buscar dados de todas as coleções
-                for (const [grupo, colecao] of Object.entries(groupToCollection)) {
+                // Percorrer todas as coleções
+                for (const [grupo, collectionName] of Object.entries(groupToCollection)) {
                     try {
-                        const snapshot = await db.collection(colecao)
+                        const snapshot = await db.collection(collectionName)
                             .orderBy('ordem_global')
                             .limit(1)
                             .get();
@@ -680,29 +684,26 @@
                             const doc = snapshot.docs[0];
                             const data = doc.data();
                             
-                            if (data.grupo && data.subgrupo) {
-                                const grupoLimpo = data.grupo.trim();
-                                const subgrupoLimpo = data.subgrupo.trim();
-                                
-                                if (!gruposOrganizados[grupoLimpo]) {
-                                    gruposOrganizados[grupoLimpo] = new Set();
+                            if (data.subgrupo) {
+                                if (!gruposOrganizados[grupo]) {
+                                    gruposOrganizados[grupo] = new Set();
                                 }
                                 
                                 // Buscar todos os subgrupos deste grupo
-                                const allDocs = await db.collection(colecao)
-                                    .where('grupo', '==', grupoLimpo)
+                                const allDocs = await db.collection(collectionName)
+                                    .orderBy('ordem_global')
                                     .get();
                                 
                                 allDocs.forEach(doc => {
                                     const docData = doc.data();
                                     if (docData.subgrupo) {
-                                        gruposOrganizados[grupoLimpo].add(docData.subgrupo.trim());
+                                        gruposOrganizados[grupo].add(docData.subgrupo.trim());
                                     }
                                 });
                             }
                         }
                     } catch (error) {
-                        console.warn(`⚠️ Erro ao carregar coleção ${colecao}:`, error);
+                        console.warn(`⚠️  Erro ao carregar ${collectionName}:`, error);
                     }
                 }
                 
@@ -726,6 +727,7 @@
                         const option = document.createElement('option');
                         option.value = subgrupo;
                         option.textContent = `  ${subgrupo}`;
+                        option.dataset.grupo = grupo;
                         select.appendChild(option);
                     });
                 });
@@ -738,65 +740,75 @@
                 select.innerHTML = '<option value="">Erro ao carregar subgrupos</option>';
             }
         }
-        
-        // Filtrar produtos
+
+        // Filtrar produtos por subgrupo
         async function filterProducts() {
-            const subgrupo = document.getElementById('documentType').value;
+            const subgrupoSelect = document.getElementById('documentType');
+            const subgrupo = subgrupoSelect.value;
             const container = document.getElementById('productsContainer');
             
             if (!subgrupo) {
-                container.innerHTML = '<div class="loading text-gray">Selecione um subgrupo para visualizar os produtos</div>';
+                container.innerHTML = '<div class="text-center p-4 text-gray-500">Selecione um subgrupo para visualizar os produtos</div>';
+                return;
+            }
+            
+            // Encontrar o grupo do subgrupo selecionado
+            const selectedOption = subgrupoSelect.options[subgrupoSelect.selectedIndex];
+            const grupo = selectedOption.dataset.grupo;
+            
+            if (!grupo) {
+                container.innerHTML = '<div class="text-center p-4 text-red-500">Erro: grupo não encontrado</div>';
+                return;
+            }
+            
+            const collectionName = groupToCollection[grupo];
+            if (!collectionName) {
+                container.innerHTML = '<div class="text-center p-4 text-red-500">Erro: coleção não encontrada</div>';
                 return;
             }
             
             // Mostrar loading
-            container.innerHTML = '<div class="loading text-blue">🔄 Buscando produtos...</div>';
+            container.innerHTML = '<div class="text-center p-4 text-blue-500"><div class="loading"></div> Buscando produtos...</div>';
             
             try {
-                console.log('🔍 Buscando produtos para:', subgrupo);
+                console.log(`🔍 Buscando produtos para: ${subgrupo} na coleção: ${collectionName}`);
                 
-                let produtos = [];
+                const snapshot = await db.collection(collectionName)
+                    .where('subgrupo', '==', subgrupo)
+                    .orderBy('ordem_global')
+                    .get();
                 
-                // Buscar em todas as coleções
-                for (const [grupo, colecao] of Object.entries(groupToCollection)) {
-                    try {
-                        const snapshot = await db.collection(colecao)
-                            .where('subgrupo', '==', subgrupo)
-                            .orderBy('ordem_global')
-                            .get();
-                        
-                        snapshot.forEach(doc => {
-                            const data = doc.data();
-                            produtos.push({
-                                codigo: data.codigo,
-                                descricao: data.descricao,
-                                ordem_global: data.ordem_global
-                            });
-                        });
-                    } catch (error) {
-                        console.warn(`⚠️ Erro ao buscar em ${colecao}:`, error);
-                    }
+                if (snapshot.empty) {
+                    container.innerHTML = '<div class="text-center p-4 text-gray-500">Nenhum produto encontrado</div>';
+                    return;
                 }
                 
-                // Ordenar por ordem_global
-                produtos.sort((a, b) => a.ordem_global - b.ordem_global);
+                const produtos = [];
+                snapshot.forEach(doc => {
+                    const data = doc.data();
+                    produtos.push({
+                        codigo: data.codigo,
+                        descricao: data.descricao || data.nome,
+                        ordem: data.ordem_global
+                    });
+                });
                 
-                console.log('📦 Produtos encontrados:', produtos.length);
+                console.log(`✅ ${produtos.length} produtos encontrados`);
                 currentProducts = produtos;
                 renderProducts();
                 
             } catch (error) {
-                console.error('❌ Erro na consulta:', error);
-                container.innerHTML = '<div class="loading text-red">Erro ao carregar produtos</div>';
+                console.error('❌ Erro ao buscar produtos:', error);
+                container.innerHTML = '<div class="text-center p-4 text-red-500">Erro ao carregar produtos</div>';
             }
         }
-        
+
         function renderProducts() {
             const container = document.getElementById('productsContainer');
             container.innerHTML = '';
             
             if (currentProducts.length === 0) {
-                container.innerHTML = '<div class="loading text-gray">Nenhum produto encontrado</div>';
+                container.innerHTML = '<div class="text-center p-4 text-gray-500">Nenhum produto encontrado</div>';
                 return;
             }
             
@@ -805,10 +817,10 @@
                 card.className = 'product-card';
                 card.innerHTML = `
                     <div class="product-header">
-                        <input type="checkbox" onchange="toggleProductSelection(${index})" class="product-checkbox" id="checkbox-${index}">
+                        <input type="checkbox" onchange="toggleProductSelection(${index})" style="margin-top: 0.25rem; width: 1rem; height: 1rem;" id="checkbox-${index}">
                         <div class="product-info">
                             <div class="product-name">${product.descricao}</div>
-                            <div class="product-code">Código: ${product.codigo}</div>
+                            <div class="product-code">Código: ${product.codigo} | Ordem: ${product.ordem}</div>
                         </div>
                     </div>
                     <div class="qty-controls" id="qty-controls-${index}">
@@ -830,7 +842,7 @@
                 container.appendChild(card);
             });
         }
-        
+
         function toggleProductSelection(index) {
             const checkbox = document.getElementById(`checkbox-${index}`);
             const controls = document.getElementById(`qty-controls-${index}`);
@@ -846,7 +858,7 @@
                 document.getElementById(`additional-lots-${index}`).innerHTML = '';
             }
         }
-        
+
         function addLot(productIndex) {
             const container = document.getElementById(`additional-lots-${productIndex}`);
             const lotDiv = document.createElement('div');
@@ -861,11 +873,11 @@
             `;
             container.appendChild(lotDiv);
         }
-        
+
         function removeLot(button) {
             button.closest('.lot-row').remove();
         }
-        
+
         function showSelectedOnly() {
             const cards = document.querySelectorAll('.product-card');
             cards.forEach(card => {
@@ -875,21 +887,21 @@
                 }
             });
         }
-        
+
         function showAllProducts() {
             const cards = document.querySelectorAll('.product-card');
             cards.forEach(card => {
                 card.style.display = 'block';
             });
         }
-        
+
         // Função para formatar data no formato brasileiro
         function formatDateBrazilian(dateString) {
             if (!dateString) return '';
             const date = new Date(dateString + 'T00:00:00');
             return date.toLocaleDateString('pt-BR');
         }
-        
+
         // Função para gerar PDF
         function generatePDF() {
             try {
@@ -1136,7 +1148,7 @@
             
             // Limpar seleções de produtos
             document.getElementById('documentType').value = '';
-            document.getElementById('productsContainer').innerHTML = '<div class="loading text-gray">Selecione um subgrupo para visualizar os produtos</div>';
+            document.getElementById('productsContainer').innerHTML = '<div class="text-center p-4 text-gray-500">Selecione um subgrupo para visualizar os produtos</div>';
             
             document.querySelector('.main-content').classList.remove('hide');
             document.querySelector('.completion-screen').classList.remove('show');
@@ -1146,9 +1158,9 @@
 
     <script id="html_badge_script1">
         window.__genspark_remove_badge_link = "https://www.genspark.ai/api/html_badge/" +
-            "remove_badge?token=To%2FBnjzloZ3UfQdcSaYfDrxx4auhS1JZ%2Bn6GZPd3LGuueQcfPLzHWk9FW5MJn0VDON5OYEqI8Zs%2BJuvkcw75PjMPc32GDpkRtTn6W7kb0P0bngDto8rhD6F4bi2aOFauaWACGUptjmjX1RYEzh4x59pMWiS8dkGv9FaKrdax6h6FTwdr61nPfn1eR2DAbBO86siefgb6ej740P%2F87kCOS%2FcMqfNt3sR0OA4i86a0ReIQheiSp%2F0itMr5pv9T%2BDCKSb3nnXIKDb0D2zp0EDehwcGs4f9thE06bBUDVO9CgWE7qm6E1WnkC5EuLtRL9heMwqgnZt9GkMEkCrwNi5fQvFGmBhBuKVCKNvygsSteBnx1Ly2onvKmdaCS7UihXCDKRecqWq2h2j7QE%2BkTedgd4ukpzE070q8%2FoJOup%2BC3sb6ucmXvGcJxBpwQ6cXyQmo7i06O8JRlvWbLbg%2FfEYu1v1uKlFRAgt%2BlEJ1Gh5rusMd42j2SYV8jZqNVJk2ldXQe5yrDZzSuLEHcjk5wJylJnF4OWukWsTD4dL85Mrms88Y%3D";
+            "remove_badge?token=To%2FBnjzloZ3UfQdcSaYfDuqXGkxUERAWgYzgH1kl9g%2FR3evHV0l%2BHweqGEImp%2FNRKtdwqgUrjLLO6PCCWxLX2dZFeiCxG2lPYV2vcGwYJ93PjDbX3jRb8ywgArWvXPiQWOgFVqf463l60Xl%2FU9yCQfXaDDKqsVQSo2Ls6jiS2br%2FrVa9ZsEg53U9Hq6sCsjK3kJHwctddBK4rkR32SHPuRD6tIbWEE8ggxmoSAbaHB5f2s%2FtzXvvTkfOPnw1wjhNgv%2FQlBUrIZ04VNqOgreoMuZ7AM23z66hn8nweJMdus%2F%2B7ez8psLSMm76r8Ef6nZsCEPGL0vNsPoJZkYTUV2%2F%2FwRVe1g6CW7UopLjcRgxqHULeFJjiVlmnN9UXikNNP%2FGQhE51vL4ecgHfaeyiGlJ64ke%2F4IwA6xpsKByxRUKsxo3ZXyHf1mezIScOTEh1gpO2qbW0gmStQY2rh9fVJFYTfOnaT8TLtLlpie50vccPpeN5rKb0IhZgVo5DzL%2Ba6mo769cb9zIgssUnxujHIVcgJEDjlYcKmqKKk5bY3lwtoY%3D";
         window.__genspark_locale = "pt-BR";
-        window.__genspark_token = "To/BnjzloZ3UfQdcSaYfDrxx4auhS1JZ+n6GZPd3LGuueQcfPLzHWk9FW5MJn0VDON5OYEqI8Zs+Juvkcw75PjMPc32GDpkRtTn6W7kb0P0bngDto8rhD6F4bi2aOFauaWACGUptjmjX1RYEzh4x59pMWiS8dkGv9FaKrdax6h6FTwdr61nPfn1eR2DAbBO86siefgb6ej740P/87kCOS/cMqfNt3sR0OA4i86a0ReIQheiSp/0itMr5pv9T+DCKSb3nnXIKDb0D2zp0EDehwcGs4f9thE06bBUDVO9CgWE7qm6E1WnkC5EuLtRL9heMwqgnZt9GkMEkCrwNi5fQvFGmBhBuKVCKNvygsSteBnx1Ly2onvKmdaCS7UihXCDKRecqWq2h2j7QE+kTedgd4ukpzE070q8/oJOup+C3sb6ucmXvGcJxBpwQ6cXyQmo7i06O8JRlvWbLbg/fEYu1v1uKlFRAgt+lEJ1Gh5rusMd42j2SYV8jZqNVJk2ldXQe5yrDZzSuLEHcjk5wJylJnF4OWukWsTD4dL85Mrms88Y=";
+        window.__genspark_token = "To/BnjzloZ3UfQdcSaYfDuqXGkxUERAWgYzgH1kl9g/R3evHV0l+HweqGEImp/NRKtdwqgUrjLLO6PCCWxLX2dZFeiCxG2lPYV2vcGwYJ93PjDbX3jRb8ywgArWvXPiQWOgFVqf463l60Xl/U9yCQfXaDDKqsVQSo2Ls6jiS2br/rVa9ZsEg53U9Hq6sCsjK3kJHwctddBK4rkR32SHPuRD6tIbWEE8ggxmoSAbaHB5f2s/tzXvvTkfOPnw1wjhNgv/QlBUrIZ04VNqOgreoMuZ7AM23z66hn8nweJMdus/+7ez8psLSMm76r8Ef6nZsCEPGL0vNsPoJZkYTUV2//wRVe1g6CW7UopLjcRgxqHULeFJjiVlmnN9UXikNNP/GQhE51vL4ecgHfaeyiGlJ64ke/4IwA6xpsKByxRUKsxo3ZXyHf1mezIScOTEh1gpO2qbW0gmStQY2rh9fVJFYTfOnaT8TLtLlpie50vccPpeN5rKb0IhZgVo5DzL+a6mo769cb9zIgssUnxujHIVcgJEDjlYcKmqKKk5bY3lwtoY=";
     </script>
     
     <script id="html_notice_dialog_script" src="./Registro de Consumo de Materiais Consignados_files/notice_dialog.js.download"></script>
