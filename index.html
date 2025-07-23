@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- saved from url=(0135)https://gensparkpublicblob.blob.core.windows.net/user-upload-image/page/toolu_01PVqVkft4TM4AhP3x4kLvXg/hexagon_firebase_definitivo.html -->
+<!-- saved from url=(0140)https://gensparkpublicblob.blob.core.windows.net/user-upload-image/page/toolu_011xyAUEty4LisiAUQfmC8TL/hexagon_firebase_grupo_corrigido.html -->
 <html lang="pt-BR"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -24,389 +24,356 @@
             padding: 0;
             box-sizing: border-box;
         }
-
+        
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
             background-color: #f9fafb;
             min-height: 100vh;
             line-height: 1.6;
-            color: #374151;
         }
-
+        
         .container {
-            max-width: 64rem;
+            max-width: 1024px;
             margin: 0 auto;
-            padding: 0 1rem;
+            padding: 0 16px;
         }
-
+        
         .header {
-            padding: 2rem 0 1.5rem;
             text-align: center;
+            padding: 32px 0 24px;
         }
-
+        
         .header h1 {
             font-size: 2.5rem;
             font-weight: 700;
             color: #1f2937;
-            margin-bottom: 0.5rem;
+            margin-bottom: 8px;
         }
-
+        
         .header h2 {
             font-size: 1.25rem;
             font-weight: 600;
             color: #4b5563;
         }
-
+        
         .card {
             background: white;
-            padding: 1.5rem;
-            border-radius: 0.5rem;
-            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-            margin-bottom: 1.5rem;
+            border-radius: 8px;
+            box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+            padding: 24px;
+            margin-bottom: 24px;
         }
-
+        
         .card h3 {
             font-size: 1.125rem;
             font-weight: 600;
-            margin-bottom: 1rem;
+            margin-bottom: 16px;
             color: #1f2937;
         }
-
+        
         .grid {
             display: grid;
-            gap: 1rem;
+            gap: 16px;
         }
-
-        .grid-cols-1 {
-            grid-template-columns: repeat(1, 1fr);
-        }
-
-        .grid-cols-2 {
-            grid-template-columns: repeat(2, 1fr);
-        }
-
+        
         .grid-cols-3 {
             grid-template-columns: repeat(3, 1fr);
         }
-
-        @media (min-width: 768px) {
-            .md\\:grid-cols-3 {
-                grid-template-columns: repeat(3, 1fr);
+        
+        .grid-cols-2 {
+            grid-template-columns: repeat(2, 1fr);
+        }
+        
+        @media (max-width: 768px) {
+            .grid-cols-3 {
+                grid-template-columns: 1fr;
+            }
+            .header h1 {
+                font-size: 2rem;
             }
         }
-
+        
         .form-group {
             display: flex;
             flex-direction: column;
         }
-
+        
         .form-label {
-            display: block;
             font-size: 0.875rem;
             font-weight: 500;
             color: #374151;
-            margin-bottom: 0.25rem;
+            margin-bottom: 4px;
         }
-
+        
         .form-input, .form-select, .form-textarea {
             width: 100%;
-            padding: 0.5rem;
+            padding: 8px 12px;
             border: 1px solid #d1d5db;
-            border-radius: 0.375rem;
-            font-size: 1rem;
-            transition: border-color 0.15s ease-in-out;
+            border-radius: 6px;
+            font-size: 16px;
+            transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
         }
-
+        
         .form-input:focus, .form-select:focus, .form-textarea:focus {
             outline: none;
             border-color: #2563eb;
             box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
         }
-
+        
         .form-textarea {
             resize: vertical;
-            min-height: 2.5rem;
+            min-height: 80px;
         }
-
+        
         .btn {
             display: inline-flex;
             align-items: center;
             justify-content: center;
-            padding: 0.5rem 1rem;
-            border: none;
-            border-radius: 0.375rem;
-            font-size: 0.875rem;
+            padding: 12px 24px;
+            font-size: 16px;
             font-weight: 500;
+            border: none;
+            border-radius: 6px;
             cursor: pointer;
             transition: all 0.15s ease-in-out;
             text-decoration: none;
         }
-
+        
         .btn-primary {
             background-color: #2563eb;
             color: white;
         }
-
+        
         .btn-primary:hover {
             background-color: #1d4ed8;
         }
-
+        
         .btn-success {
             background-color: #059669;
             color: white;
         }
-
+        
         .btn-success:hover {
             background-color: #047857;
         }
-
-        .btn-lg {
-            padding: 0.75rem 1.5rem;
-            font-size: 1.125rem;
+        
+        .btn-info {
+            background-color: #0891b2;
+            color: white;
         }
-
+        
+        .btn-info:hover {
+            background-color: #0e7490;
+        }
+        
         .btn-full {
             width: 100%;
         }
-
+        
         .product-card {
-            transition: all 0.3s ease;
             border: 1px solid #e5e7eb;
-            border-radius: 0.5rem;
-            padding: 0.75rem;
-            margin-bottom: 0.5rem;
+            border-radius: 8px;
+            padding: 12px;
+            margin-bottom: 8px;
             background: white;
+            transition: all 0.3s ease;
         }
-
+        
         .product-card.selected {
             border-color: #2563eb;
             background-color: #f8fafc;
         }
-
-        .product-header {
+        
+        .product-card-content {
             display: flex;
             align-items: flex-start;
-            gap: 0.75rem;
+            gap: 12px;
         }
-
+        
         .product-info {
             flex: 1;
         }
-
+        
         .product-name {
             font-weight: 500;
             color: #1f2937;
-            margin-bottom: 0.25rem;
+            margin-bottom: 4px;
         }
-
+        
         .product-code {
             font-size: 0.875rem;
             color: #6b7280;
         }
-
+        
         .qty-controls {
             display: none;
-            margin-top: 0.5rem;
-            gap: 0.75rem;
-            align-items: center;
-            flex-wrap: wrap;
-            padding: 0.5rem 0;
+            margin-top: 12px;
+            padding-top: 12px;
+            border-top: 1px solid #e5e7eb;
         }
-
+        
         .qty-controls.show {
             display: flex;
+            gap: 12px;
+            align-items: center;
+            flex-wrap: wrap;
         }
-
+        
         .qty-group {
             display: flex;
             align-items: center;
-            gap: 0.375rem;
+            gap: 6px;
         }
-
+        
         .qty-label {
             font-size: 0.875rem;
             font-weight: 500;
+            color: #374151;
+            white-space: nowrap;
         }
-
+        
         .qty-select {
-            width: 3.75rem;
-            padding: 0.375rem;
+            width: 60px;
+            padding: 4px 6px;
             border: 1px solid #d1d5db;
-            border-radius: 0.25rem;
-            font-size: 0.875rem;
+            border-radius: 4px;
+            font-size: 14px;
         }
-
+        
         .lot-input {
-            width: 6.25rem;
-            padding: 0.375rem 0.5rem;
+            width: 100px;
+            padding: 4px 8px;
             border: 1px solid #d1d5db;
-            border-radius: 0.25rem;
-            font-size: 0.875rem;
+            border-radius: 4px;
+            font-size: 14px;
         }
-
-        .lot-btn {
-            width: 2rem;
-            height: 2rem;
-            font-size: 1rem;
-            border-radius: 0.25rem;
-            border: none;
-            cursor: pointer;
+        
+        .btn-small {
+            width: 32px;
+            height: 32px;
+            padding: 0;
+            font-size: 16px;
+            border-radius: 4px;
             display: flex;
             align-items: center;
             justify-content: center;
-            flex-shrink: 0;
         }
-
-        .add-lot-btn {
+        
+        .btn-add {
             background-color: #2563eb;
             color: white;
         }
-
-        .add-lot-btn:hover {
+        
+        .btn-add:hover {
             background-color: #1d4ed8;
         }
-
-        .remove-lot-btn {
+        
+        .btn-remove {
             background-color: #dc2626;
             color: white;
         }
-
-        .remove-lot-btn:hover {
+        
+        .btn-remove:hover {
             background-color: #b91c1c;
         }
-
+        
         .lot-row {
             display: flex;
-            gap: 0.375rem;
+            gap: 6px;
             align-items: center;
-            margin-top: 0.25rem;
+            margin-top: 8px;
             flex-wrap: wrap;
         }
-
-        .completion-screen {
-            display: none;
-            text-align: center;
-            padding: 2rem;
-        }
-
-        .completion-screen.show {
-            display: block;
-        }
-
-        .main-content {
-            display: block;
-        }
-
-        .main-content.hide {
-            display: none;
-        }
-
-        .completion-card {
-            max-width: 28rem;
-            margin: 0 auto;
-            background: white;
-            padding: 2rem;
-            border-radius: 0.5rem;
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
-        }
-
-        .success-icon {
-            color: #059669;
-            font-size: 4rem;
-            margin-bottom: 1rem;
-        }
-
-        .success-title {
-            font-size: 1.5rem;
-            font-weight: 700;
-            color: #1f2937;
-            margin-bottom: 1rem;
-        }
-
-        .success-message {
-            color: #6b7280;
-            margin-bottom: 1.5rem;
-        }
-
-        .version-info {
-            text-align: center;
-            color: #6b7280;
-            font-size: 0.875rem;
-            padding: 1rem 0;
-        }
-
+        
         .text-center {
             text-align: center;
         }
-
+        
         .text-gray-500 {
             color: #6b7280;
         }
-
+        
         .text-blue-500 {
             color: #3b82f6;
         }
-
+        
         .text-red-500 {
             color: #ef4444;
         }
-
+        
         .p-4 {
-            padding: 1rem;
+            padding: 16px;
         }
-
+        
         .mb-4 {
-            margin-bottom: 1rem;
+            margin-bottom: 16px;
         }
-
+        
+        .completion-screen {
+            display: none;
+            text-align: center;
+            padding: 32px;
+        }
+        
+        .completion-screen.show {
+            display: block;
+        }
+        
+        .completion-card {
+            max-width: 448px;
+            margin: 0 auto;
+            background: white;
+            padding: 32px;
+            border-radius: 8px;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        }
+        
+        .completion-icon {
+            color: #059669;
+            font-size: 4rem;
+            margin-bottom: 16px;
+        }
+        
+        .completion-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #1f2937;
+            margin-bottom: 16px;
+        }
+        
+        .completion-text {
+            color: #6b7280;
+            margin-bottom: 24px;
+        }
+        
+        .main-content.hide {
+            display: none;
+        }
+        
+        .version {
+            text-align: center;
+            color: #6b7280;
+            font-size: 0.875rem;
+            padding: 16px 0;
+        }
+        
         @media (max-width: 768px) {
-            .container {
-                padding: 0 0.5rem;
-            }
-
-            .header h1 {
-                font-size: 2rem;
-            }
-
-            .header h2 {
-                font-size: 1.125rem;
-            }
-
-            .card {
-                padding: 1rem;
-            }
-
             .qty-controls {
                 flex-direction: column;
                 align-items: stretch;
             }
-
-            .qty-group {
+            
+            .qty-controls .qty-group {
                 justify-content: space-between;
             }
-
+            
             .lot-input {
-                width: 5rem;
+                width: 80px;
             }
-        }
-
-        #documentType option {
-            font-size: 0.8125rem;
-        }
-
-        .loading {
-            display: inline-block;
-            width: 1rem;
-            height: 1rem;
-            border: 2px solid #f3f3f3;
-            border-top: 2px solid #3498db;
-            border-radius: 50%;
-            animation: spin 1s linear infinite;
-        }
-
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
+            
+            .header h1 {
+                font-size: 1.5rem;
+            }
         }
     </style>
 <style>
@@ -524,7 +491,7 @@
         <div class="card">
             <h3>Informações do Paciente e Procedimento</h3>
             
-            <div class="grid grid-cols-1 md:grid-cols-3 mb-4">
+            <div class="grid grid-cols-3 mb-4">
                 <div class="form-group">
                     <label class="form-label">Usuário *</label>
                     <input type="text" id="userField" placeholder="Digite o nome do usuário" class="form-input" oninput="capitalizeInput(this)">
@@ -541,7 +508,7 @@
                 </div>
             </div>
             
-            <div class="grid grid-cols-1 md:grid-cols-3">
+            <div class="grid grid-cols-3">
                 <div class="form-group">
                     <label class="form-label">N° Prontuário</label>
                     <input type="text" id="recordNumber" placeholder="Número do prontuário" class="form-input">
@@ -561,17 +528,877 @@
 
         <!-- Product Selection -->
         <div class="card">
-            <div class="mb-4">
+            <div class="form-group mb-4">
                 <label class="form-label">Tipo de Documento:</label>
-                <select id="documentType" onchange="filterProducts()" class="form-select"><option value="">Selecione um subgrupo</option><option value="" disabled="" style="font-weight: bold; background-color: rgb(243, 244, 246);">═══ FIXADORES EXTERNOS ═══</option><option value="FIXADOR ILIZAROV" data-grupo="FIXADORES EXTERNOS">  FIXADOR ILIZAROV</option><option value="FIXADOR MODULAR B13" data-grupo="FIXADORES EXTERNOS">  FIXADOR MODULAR B13</option><option value="" disabled="" style="font-weight: bold; background-color: rgb(243, 244, 246);">═══ HASTES INTRAM FEMUR ═══</option><option value="HASTE FEMORAL A/R" data-grupo="HASTES INTRAM FEMUR">  HASTE FEMORAL A/R</option><option value="HASTE FEMORAL LATERAL RECON" data-grupo="HASTES INTRAM FEMUR">  HASTE FEMORAL LATERAL RECON</option><option value="HASTE FMORAL PROXIMAL PFN" data-grupo="HASTES INTRAM FEMUR">  HASTE FMORAL PROXIMAL PFN</option><option value="" disabled="" style="font-weight: bold; background-color: rgb(243, 244, 246);">═══ HASTES INTRAM TIBIA ═══</option><option value="HASTE TIBIAL 335 GERAÇÃO I" data-grupo="HASTES INTRAM TIBIA">  HASTE TIBIAL 335 GERAÇÃO I</option><option value="HASTE TIBIAL MULTIPLA" data-grupo="HASTES INTRAM TIBIA">  HASTE TIBIAL MULTIPLA</option><option value="HASTE TIBIAL UTN 335.2" data-grupo="HASTES INTRAM TIBIA">  HASTE TIBIAL UTN 335.2</option><option value="" disabled="" style="font-weight: bold; background-color: rgb(243, 244, 246);">═══ HASTES INTRAM UMERO ═══</option><option value="HASTE UMERAL" data-grupo="HASTES INTRAM UMERO">  HASTE UMERAL</option><option value="" disabled="" style="font-weight: bold; background-color: rgb(243, 244, 246);">═══ MICRO PLACAS COM BLOQUEIO ═══</option><option value="MICRO FRAG (2.0) BLOQU" data-grupo="MICRO PLACAS COM BLOQUEIO">  MICRO FRAG (2.0) BLOQU</option><option value="" disabled="" style="font-weight: bold; background-color: rgb(243, 244, 246);">═══ PARAFUSOS CANULADOS ═══</option><option value="PARAFUSOS CANUL COMPR HEBBERT" data-grupo="PARAFUSOS CANULADOS">  PARAFUSOS CANUL COMPR HEBBERT</option><option value="PARAFUSOS CANULADOS Ø3,5mm" data-grupo="PARAFUSOS CANULADOS">  PARAFUSOS CANULADOS Ø3,5mm</option><option value="PARAFUSOS CANULADOS Ø4,5mm" data-grupo="PARAFUSOS CANULADOS">  PARAFUSOS CANULADOS Ø4,5mm</option><option value="PARAFUSOS CANULADOS Ø7mm" data-grupo="PARAFUSOS CANULADOS">  PARAFUSOS CANULADOS Ø7mm</option><option value="" disabled="" style="font-weight: bold; background-color: rgb(243, 244, 246);">═══ PLACAS COM BLOQUEIO GR FRAG ═══</option><option value="PLACAS FEMUR DISTAL CONDILAR (4,5) BLOQU" data-grupo="PLACAS COM BLOQUEIO GR FRAG">  PLACAS FEMUR DISTAL CONDILAR (4,5) BLOQU</option><option value="PLACAS RETAS GR FRAG (4,5) BLOQU" data-grupo="PLACAS COM BLOQUEIO GR FRAG">  PLACAS RETAS GR FRAG (4,5) BLOQU</option><option value="PLACAS TIBIA PROXIMAL GF (4,5) BLOQU" data-grupo="PLACAS COM BLOQUEIO GR FRAG">  PLACAS TIBIA PROXIMAL GF (4,5) BLOQU</option><option value="" disabled="" style="font-weight: bold; background-color: rgb(243, 244, 246);">═══ PLACAS COM BLOQUEIO PEQU FRAG ═══</option><option value="PLACAS P/CLAVICULA (2,7/3,5) BLOQU" data-grupo="PLACAS COM BLOQUEIO PEQU FRAG">  PLACAS P/CLAVICULA (2,7/3,5) BLOQU</option><option value="PLACAS PARA FIBULA (2,7/3,5) BLOQU" data-grupo="PLACAS COM BLOQUEIO PEQU FRAG">  PLACAS PARA FIBULA (2,7/3,5) BLOQU</option><option value="PLACAS RETAS PEQU FRAG (3,5) BLOQU" data-grupo="PLACAS COM BLOQUEIO PEQU FRAG">  PLACAS RETAS PEQU FRAG (3,5) BLOQU</option><option value="PLACAS TIBIA DISTAL ANTEROLATERAL (3,5) BLOQU" data-grupo="PLACAS COM BLOQUEIO PEQU FRAG">  PLACAS TIBIA DISTAL ANTEROLATERAL (3,5) BLOQU</option><option value="PLACAS TIBIA DISTAL MEDIAL (3,5) BLOQU" data-grupo="PLACAS COM BLOQUEIO PEQU FRAG">  PLACAS TIBIA DISTAL MEDIAL (3,5) BLOQU</option><option value="PLACAS UMERO DISTAL (2,7-3,5) BLOQU" data-grupo="PLACAS COM BLOQUEIO PEQU FRAG">  PLACAS UMERO DISTAL (2,7-3,5) BLOQU</option><option value="PLACAS UMERO PROXIMAL PF (3.5) BLOQU" data-grupo="PLACAS COM BLOQUEIO PEQU FRAG">  PLACAS UMERO PROXIMAL PF (3.5) BLOQU</option><option value="" disabled="" style="font-weight: bold; background-color: rgb(243, 244, 246);">═══ PLACAS SEM BLOQUEIO GR FRAG ═══</option><option value="PLACAS DHS/DCS GR FRAG (4,5)" data-grupo="PLACAS SEM BLOQUEIO GR FRAG">  PLACAS DHS/DCS GR FRAG (4,5)</option><option value="PLACAS EXTREMIDADES GR FRAG (4,5)" data-grupo="PLACAS SEM BLOQUEIO GR FRAG">  PLACAS EXTREMIDADES GR FRAG (4,5)</option><option value="PLACAS RETAS GR FRAG (4,5)" data-grupo="PLACAS SEM BLOQUEIO GR FRAG">  PLACAS RETAS GR FRAG (4,5)</option><option value="" disabled="" style="font-weight: bold; background-color: rgb(243, 244, 246);">═══ PLACAS SEM BLOQUEIO PEQU FRAG ═══</option><option value="PLACAS EXTREMIDADES PEQU FRAG (3,5)" data-grupo="PLACAS SEM BLOQUEIO PEQU FRAG">  PLACAS EXTREMIDADES PEQU FRAG (3,5)</option><option value="PLACAS RECONSTRUÇÃO BACIA PF (3,5)" data-grupo="PLACAS SEM BLOQUEIO PEQU FRAG">  PLACAS RECONSTRUÇÃO BACIA PF (3,5)</option><option value="PLACAS RETAS PEQU FRAG (3,5)" data-grupo="PLACAS SEM BLOQUEIO PEQU FRAG">  PLACAS RETAS PEQU FRAG (3,5)</option><option value="" disabled="" style="font-weight: bold; background-color: rgb(243, 244, 246);">═══ PLACAS VOLARES COM BLOQUEIO ═══</option><option value="PLACAS VOLARES MICRO (2,7) BLOQU" data-grupo="PLACAS VOLARES COM BLOQUEIO">  PLACAS VOLARES MICRO (2,7) BLOQU</option></select>
+                <select id="documentType" onchange="filterProducts()" class="form-select"><option value="">Selecione um subgrupo</option><option value="" disabled="" style="font-weight: bold; background-color: rgb(243, 244, 246);">═══ FIXADORES EXTERNOS ═══</option><option value="FIXADOR ILIZAROV">  FIXADOR ILIZAROV</option><option value="FIXADOR MODULAR B13">  FIXADOR MODULAR B13</option><option value="" disabled="" style="font-weight: bold; background-color: rgb(243, 244, 246);">═══ HASTES INTRAM FEMUR ═══</option><option value="HASTE FEMORAL A/R">  HASTE FEMORAL A/R</option><option value="HASTE FEMORAL LATERAL RECON">  HASTE FEMORAL LATERAL RECON</option><option value="HASTE FMORAL PROXIMAL PFN">  HASTE FMORAL PROXIMAL PFN</option><option value="" disabled="" style="font-weight: bold; background-color: rgb(243, 244, 246);">═══ HASTES INTRAM TIBIA ═══</option><option value="HASTE TIBIAL 335 GERAÇÃO I">  HASTE TIBIAL 335 GERAÇÃO I</option><option value="HASTE TIBIAL MULTIPLA">  HASTE TIBIAL MULTIPLA</option><option value="HASTE TIBIAL UTN 335.2">  HASTE TIBIAL UTN 335.2</option><option value="" disabled="" style="font-weight: bold; background-color: rgb(243, 244, 246);">═══ HASTES INTRAM UMERO ═══</option><option value="HASTE UMERAL">  HASTE UMERAL</option><option value="" disabled="" style="font-weight: bold; background-color: rgb(243, 244, 246);">═══ MICRO PLACAS COM BLOQUEIO ═══</option><option value="MICRO FRAG (2.0) BLOQU">  MICRO FRAG (2.0) BLOQU</option><option value="" disabled="" style="font-weight: bold; background-color: rgb(243, 244, 246);">═══ PARAFUSOS CANULADOS ═══</option><option value="PARAFUSOS CANUL COMPR HEBBERT">  PARAFUSOS CANUL COMPR HEBBERT</option><option value="PARAFUSOS CANULADOS Ø3,5mm">  PARAFUSOS CANULADOS Ø3,5mm</option><option value="PARAFUSOS CANULADOS Ø4,5mm">  PARAFUSOS CANULADOS Ø4,5mm</option><option value="PARAFUSOS CANULADOS Ø7mm">  PARAFUSOS CANULADOS Ø7mm</option><option value="" disabled="" style="font-weight: bold; background-color: rgb(243, 244, 246);">═══ PLACAS COM BLOQUEIO GR FRAG ═══</option><option value="PLACAS FEMUR DISTAL CONDILAR (4,5) BLOQU">  PLACAS FEMUR DISTAL CONDILAR (4,5) BLOQU</option><option value="PLACAS RETAS GR FRAG (4,5) BLOQU">  PLACAS RETAS GR FRAG (4,5) BLOQU</option><option value="PLACAS TIBIA PROXIMAL GF (4,5) BLOQU">  PLACAS TIBIA PROXIMAL GF (4,5) BLOQU</option><option value="" disabled="" style="font-weight: bold; background-color: rgb(243, 244, 246);">═══ PLACAS COM BLOQUEIO PEQU FRAG ═══</option><option value="PLACAS P/CLAVICULA (2,7/3,5) BLOQU">  PLACAS P/CLAVICULA (2,7/3,5) BLOQU</option><option value="PLACAS PARA FIBULA (2,7/3,5) BLOQU">  PLACAS PARA FIBULA (2,7/3,5) BLOQU</option><option value="PLACAS RETAS PEQU FRAG (3,5) BLOQU">  PLACAS RETAS PEQU FRAG (3,5) BLOQU</option><option value="PLACAS TIBIA DISTAL ANTEROLATERAL (3,5) BLOQU">  PLACAS TIBIA DISTAL ANTEROLATERAL (3,5) BLOQU</option><option value="PLACAS TIBIA DISTAL MEDIAL (3,5) BLOQU">  PLACAS TIBIA DISTAL MEDIAL (3,5) BLOQU</option><option value="PLACAS UMERO DISTAL (2,7-3,5) BLOQU">  PLACAS UMERO DISTAL (2,7-3,5) BLOQU</option><option value="PLACAS UMERO PROXIMAL PF (3.5) BLOQU">  PLACAS UMERO PROXIMAL PF (3.5) BLOQU</option><option value="" disabled="" style="font-weight: bold; background-color: rgb(243, 244, 246);">═══ PLACAS SEM BLOQUEIO GR FRAG ═══</option><option value="PLACAS DHS/DCS GR FRAG (4,5)">  PLACAS DHS/DCS GR FRAG (4,5)</option><option value="PLACAS EXTREMIDADES GR FRAG (4,5)">  PLACAS EXTREMIDADES GR FRAG (4,5)</option><option value="PLACAS RETAS GR FRAG (4,5)">  PLACAS RETAS GR FRAG (4,5)</option><option value="" disabled="" style="font-weight: bold; background-color: rgb(243, 244, 246);">═══ PLACAS SEM BLOQUEIO PEQU FRAG ═══</option><option value="PLACAS EXTREMIDADES PEQU FRAG (3,5)">  PLACAS EXTREMIDADES PEQU FRAG (3,5)</option><option value="PLACAS RECONSTRUÇÃO BACIA PF (3,5)">  PLACAS RECONSTRUÇÃO BACIA PF (3,5)</option><option value="PLACAS RETAS PEQU FRAG (3,5)">  PLACAS RETAS PEQU FRAG (3,5)</option><option value="" disabled="" style="font-weight: bold; background-color: rgb(243, 244, 246);">═══ PLACAS VOLARES COM BLOQUEIO ═══</option><option value="PLACAS VOLARES MICRO (2,7) BLOQU">  PLACAS VOLARES MICRO (2,7) BLOQU</option></select>
             </div>
 
             <!-- Products Container -->
-            <div id="productsContainer">
-                <div class="text-center p-4 text-gray-500">
-                    Selecione um subgrupo para visualizar os produtos
-                </div>
-            </div>
+            <div id="productsContainer"><div class="product-card">
+                    <div class="product-card-content">
+                        <input type="checkbox" onchange="toggleProductSelection(0)" class="mt-1 w-4 h-4" id="checkbox-0">
+                        <div class="product-info">
+                            <div class="product-name">PARAF.CANULADO 7,0 R19X40</div>
+                            <div class="product-code">Código: 322401</div>
+                            <div class="product-code">Ordem: 1213</div>
+                        </div>
+                    </div>
+                    <div class="qty-controls" id="qty-controls-0">
+                        <div class="qty-group">
+                            <label class="qty-label">Qtd:</label>
+                            <select class="qty-select">
+                                <option value="">-</option>
+                                <option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option><option value="6">6</option><option value="7">7</option><option value="8">8</option><option value="9">9</option><option value="10">10</option>
+                            </select>
+                        </div>
+                        <div class="qty-group">
+                            <label class="qty-label">Lote:</label>
+                            <input type="text" class="lot-input" placeholder="Lote" maxlength="12">
+                            <button onclick="addLot(0)" class="btn btn-small btn-add">+</button>
+                        </div>
+                        <div id="additional-lots-0"></div>
+                    </div>
+                </div><div class="product-card">
+                    <div class="product-card-content">
+                        <input type="checkbox" onchange="toggleProductSelection(1)" class="mt-1 w-4 h-4" id="checkbox-1">
+                        <div class="product-info">
+                            <div class="product-name">PARAF.CANULADO 7,0 R19X45</div>
+                            <div class="product-code">Código: 322451</div>
+                            <div class="product-code">Ordem: 1214</div>
+                        </div>
+                    </div>
+                    <div class="qty-controls" id="qty-controls-1">
+                        <div class="qty-group">
+                            <label class="qty-label">Qtd:</label>
+                            <select class="qty-select">
+                                <option value="">-</option>
+                                <option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option><option value="6">6</option><option value="7">7</option><option value="8">8</option><option value="9">9</option><option value="10">10</option>
+                            </select>
+                        </div>
+                        <div class="qty-group">
+                            <label class="qty-label">Lote:</label>
+                            <input type="text" class="lot-input" placeholder="Lote" maxlength="12">
+                            <button onclick="addLot(1)" class="btn btn-small btn-add">+</button>
+                        </div>
+                        <div id="additional-lots-1"></div>
+                    </div>
+                </div><div class="product-card">
+                    <div class="product-card-content">
+                        <input type="checkbox" onchange="toggleProductSelection(2)" class="mt-1 w-4 h-4" id="checkbox-2">
+                        <div class="product-info">
+                            <div class="product-name">PARAF.CANULADO 7,0 R19X50</div>
+                            <div class="product-code">Código: 322501</div>
+                            <div class="product-code">Ordem: 1215</div>
+                        </div>
+                    </div>
+                    <div class="qty-controls" id="qty-controls-2">
+                        <div class="qty-group">
+                            <label class="qty-label">Qtd:</label>
+                            <select class="qty-select">
+                                <option value="">-</option>
+                                <option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option><option value="6">6</option><option value="7">7</option><option value="8">8</option><option value="9">9</option><option value="10">10</option>
+                            </select>
+                        </div>
+                        <div class="qty-group">
+                            <label class="qty-label">Lote:</label>
+                            <input type="text" class="lot-input" placeholder="Lote" maxlength="12">
+                            <button onclick="addLot(2)" class="btn btn-small btn-add">+</button>
+                        </div>
+                        <div id="additional-lots-2"></div>
+                    </div>
+                </div><div class="product-card">
+                    <div class="product-card-content">
+                        <input type="checkbox" onchange="toggleProductSelection(3)" class="mt-1 w-4 h-4" id="checkbox-3">
+                        <div class="product-info">
+                            <div class="product-name">PARAF.CANULADO 7,0 R19X55</div>
+                            <div class="product-code">Código: 322551</div>
+                            <div class="product-code">Ordem: 1216</div>
+                        </div>
+                    </div>
+                    <div class="qty-controls" id="qty-controls-3">
+                        <div class="qty-group">
+                            <label class="qty-label">Qtd:</label>
+                            <select class="qty-select">
+                                <option value="">-</option>
+                                <option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option><option value="6">6</option><option value="7">7</option><option value="8">8</option><option value="9">9</option><option value="10">10</option>
+                            </select>
+                        </div>
+                        <div class="qty-group">
+                            <label class="qty-label">Lote:</label>
+                            <input type="text" class="lot-input" placeholder="Lote" maxlength="12">
+                            <button onclick="addLot(3)" class="btn btn-small btn-add">+</button>
+                        </div>
+                        <div id="additional-lots-3"></div>
+                    </div>
+                </div><div class="product-card">
+                    <div class="product-card-content">
+                        <input type="checkbox" onchange="toggleProductSelection(4)" class="mt-1 w-4 h-4" id="checkbox-4">
+                        <div class="product-info">
+                            <div class="product-name">PARAF.CANULADO 7,0 R19X60</div>
+                            <div class="product-code">Código: 322601</div>
+                            <div class="product-code">Ordem: 1217</div>
+                        </div>
+                    </div>
+                    <div class="qty-controls" id="qty-controls-4">
+                        <div class="qty-group">
+                            <label class="qty-label">Qtd:</label>
+                            <select class="qty-select">
+                                <option value="">-</option>
+                                <option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option><option value="6">6</option><option value="7">7</option><option value="8">8</option><option value="9">9</option><option value="10">10</option>
+                            </select>
+                        </div>
+                        <div class="qty-group">
+                            <label class="qty-label">Lote:</label>
+                            <input type="text" class="lot-input" placeholder="Lote" maxlength="12">
+                            <button onclick="addLot(4)" class="btn btn-small btn-add">+</button>
+                        </div>
+                        <div id="additional-lots-4"></div>
+                    </div>
+                </div><div class="product-card">
+                    <div class="product-card-content">
+                        <input type="checkbox" onchange="toggleProductSelection(5)" class="mt-1 w-4 h-4" id="checkbox-5">
+                        <div class="product-info">
+                            <div class="product-name">PARAF.CANULADO 7,0 R19X65</div>
+                            <div class="product-code">Código: 322651</div>
+                            <div class="product-code">Ordem: 1218</div>
+                        </div>
+                    </div>
+                    <div class="qty-controls" id="qty-controls-5">
+                        <div class="qty-group">
+                            <label class="qty-label">Qtd:</label>
+                            <select class="qty-select">
+                                <option value="">-</option>
+                                <option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option><option value="6">6</option><option value="7">7</option><option value="8">8</option><option value="9">9</option><option value="10">10</option>
+                            </select>
+                        </div>
+                        <div class="qty-group">
+                            <label class="qty-label">Lote:</label>
+                            <input type="text" class="lot-input" placeholder="Lote" maxlength="12">
+                            <button onclick="addLot(5)" class="btn btn-small btn-add">+</button>
+                        </div>
+                        <div id="additional-lots-5"></div>
+                    </div>
+                </div><div class="product-card">
+                    <div class="product-card-content">
+                        <input type="checkbox" onchange="toggleProductSelection(6)" class="mt-1 w-4 h-4" id="checkbox-6">
+                        <div class="product-info">
+                            <div class="product-name">PARAF.CANULADO 7,0 R19X70</div>
+                            <div class="product-code">Código: 322701</div>
+                            <div class="product-code">Ordem: 1219</div>
+                        </div>
+                    </div>
+                    <div class="qty-controls" id="qty-controls-6">
+                        <div class="qty-group">
+                            <label class="qty-label">Qtd:</label>
+                            <select class="qty-select">
+                                <option value="">-</option>
+                                <option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option><option value="6">6</option><option value="7">7</option><option value="8">8</option><option value="9">9</option><option value="10">10</option>
+                            </select>
+                        </div>
+                        <div class="qty-group">
+                            <label class="qty-label">Lote:</label>
+                            <input type="text" class="lot-input" placeholder="Lote" maxlength="12">
+                            <button onclick="addLot(6)" class="btn btn-small btn-add">+</button>
+                        </div>
+                        <div id="additional-lots-6"></div>
+                    </div>
+                </div><div class="product-card">
+                    <div class="product-card-content">
+                        <input type="checkbox" onchange="toggleProductSelection(7)" class="mt-1 w-4 h-4" id="checkbox-7">
+                        <div class="product-info">
+                            <div class="product-name">PARAF.CANULADO 7,0 R19X75</div>
+                            <div class="product-code">Código: 322751</div>
+                            <div class="product-code">Ordem: 1220</div>
+                        </div>
+                    </div>
+                    <div class="qty-controls" id="qty-controls-7">
+                        <div class="qty-group">
+                            <label class="qty-label">Qtd:</label>
+                            <select class="qty-select">
+                                <option value="">-</option>
+                                <option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option><option value="6">6</option><option value="7">7</option><option value="8">8</option><option value="9">9</option><option value="10">10</option>
+                            </select>
+                        </div>
+                        <div class="qty-group">
+                            <label class="qty-label">Lote:</label>
+                            <input type="text" class="lot-input" placeholder="Lote" maxlength="12">
+                            <button onclick="addLot(7)" class="btn btn-small btn-add">+</button>
+                        </div>
+                        <div id="additional-lots-7"></div>
+                    </div>
+                </div><div class="product-card">
+                    <div class="product-card-content">
+                        <input type="checkbox" onchange="toggleProductSelection(8)" class="mt-1 w-4 h-4" id="checkbox-8">
+                        <div class="product-info">
+                            <div class="product-name">PARAF.CANULADO 7,0 R19X80</div>
+                            <div class="product-code">Código: 322801</div>
+                            <div class="product-code">Ordem: 1221</div>
+                        </div>
+                    </div>
+                    <div class="qty-controls" id="qty-controls-8">
+                        <div class="qty-group">
+                            <label class="qty-label">Qtd:</label>
+                            <select class="qty-select">
+                                <option value="">-</option>
+                                <option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option><option value="6">6</option><option value="7">7</option><option value="8">8</option><option value="9">9</option><option value="10">10</option>
+                            </select>
+                        </div>
+                        <div class="qty-group">
+                            <label class="qty-label">Lote:</label>
+                            <input type="text" class="lot-input" placeholder="Lote" maxlength="12">
+                            <button onclick="addLot(8)" class="btn btn-small btn-add">+</button>
+                        </div>
+                        <div id="additional-lots-8"></div>
+                    </div>
+                </div><div class="product-card">
+                    <div class="product-card-content">
+                        <input type="checkbox" onchange="toggleProductSelection(9)" class="mt-1 w-4 h-4" id="checkbox-9">
+                        <div class="product-info">
+                            <div class="product-name">PARAF.CANULADO 7,0 R19X85</div>
+                            <div class="product-code">Código: 322851</div>
+                            <div class="product-code">Ordem: 1222</div>
+                        </div>
+                    </div>
+                    <div class="qty-controls" id="qty-controls-9">
+                        <div class="qty-group">
+                            <label class="qty-label">Qtd:</label>
+                            <select class="qty-select">
+                                <option value="">-</option>
+                                <option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option><option value="6">6</option><option value="7">7</option><option value="8">8</option><option value="9">9</option><option value="10">10</option>
+                            </select>
+                        </div>
+                        <div class="qty-group">
+                            <label class="qty-label">Lote:</label>
+                            <input type="text" class="lot-input" placeholder="Lote" maxlength="12">
+                            <button onclick="addLot(9)" class="btn btn-small btn-add">+</button>
+                        </div>
+                        <div id="additional-lots-9"></div>
+                    </div>
+                </div><div class="product-card">
+                    <div class="product-card-content">
+                        <input type="checkbox" onchange="toggleProductSelection(10)" class="mt-1 w-4 h-4" id="checkbox-10">
+                        <div class="product-info">
+                            <div class="product-name">PARAF.CANULADO 7,0 R19X90</div>
+                            <div class="product-code">Código: 322901</div>
+                            <div class="product-code">Ordem: 1223</div>
+                        </div>
+                    </div>
+                    <div class="qty-controls" id="qty-controls-10">
+                        <div class="qty-group">
+                            <label class="qty-label">Qtd:</label>
+                            <select class="qty-select">
+                                <option value="">-</option>
+                                <option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option><option value="6">6</option><option value="7">7</option><option value="8">8</option><option value="9">9</option><option value="10">10</option>
+                            </select>
+                        </div>
+                        <div class="qty-group">
+                            <label class="qty-label">Lote:</label>
+                            <input type="text" class="lot-input" placeholder="Lote" maxlength="12">
+                            <button onclick="addLot(10)" class="btn btn-small btn-add">+</button>
+                        </div>
+                        <div id="additional-lots-10"></div>
+                    </div>
+                </div><div class="product-card">
+                    <div class="product-card-content">
+                        <input type="checkbox" onchange="toggleProductSelection(11)" class="mt-1 w-4 h-4" id="checkbox-11">
+                        <div class="product-info">
+                            <div class="product-name">PARAF.CANULADO 7,0 R19X95</div>
+                            <div class="product-code">Código: 322951</div>
+                            <div class="product-code">Ordem: 1224</div>
+                        </div>
+                    </div>
+                    <div class="qty-controls" id="qty-controls-11">
+                        <div class="qty-group">
+                            <label class="qty-label">Qtd:</label>
+                            <select class="qty-select">
+                                <option value="">-</option>
+                                <option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option><option value="6">6</option><option value="7">7</option><option value="8">8</option><option value="9">9</option><option value="10">10</option>
+                            </select>
+                        </div>
+                        <div class="qty-group">
+                            <label class="qty-label">Lote:</label>
+                            <input type="text" class="lot-input" placeholder="Lote" maxlength="12">
+                            <button onclick="addLot(11)" class="btn btn-small btn-add">+</button>
+                        </div>
+                        <div id="additional-lots-11"></div>
+                    </div>
+                </div><div class="product-card">
+                    <div class="product-card-content">
+                        <input type="checkbox" onchange="toggleProductSelection(12)" class="mt-1 w-4 h-4" id="checkbox-12">
+                        <div class="product-info">
+                            <div class="product-name">PARAF.CANULADO 7,0 R19X100</div>
+                            <div class="product-code">Código: 322001</div>
+                            <div class="product-code">Ordem: 1225</div>
+                        </div>
+                    </div>
+                    <div class="qty-controls" id="qty-controls-12">
+                        <div class="qty-group">
+                            <label class="qty-label">Qtd:</label>
+                            <select class="qty-select">
+                                <option value="">-</option>
+                                <option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option><option value="6">6</option><option value="7">7</option><option value="8">8</option><option value="9">9</option><option value="10">10</option>
+                            </select>
+                        </div>
+                        <div class="qty-group">
+                            <label class="qty-label">Lote:</label>
+                            <input type="text" class="lot-input" placeholder="Lote" maxlength="12">
+                            <button onclick="addLot(12)" class="btn btn-small btn-add">+</button>
+                        </div>
+                        <div id="additional-lots-12"></div>
+                    </div>
+                </div><div class="product-card">
+                    <div class="product-card-content">
+                        <input type="checkbox" onchange="toggleProductSelection(13)" class="mt-1 w-4 h-4" id="checkbox-13">
+                        <div class="product-info">
+                            <div class="product-name">PARAF.CANULADO 7,0 R19X105</div>
+                            <div class="product-code">Código: 322051</div>
+                            <div class="product-code">Ordem: 1226</div>
+                        </div>
+                    </div>
+                    <div class="qty-controls" id="qty-controls-13">
+                        <div class="qty-group">
+                            <label class="qty-label">Qtd:</label>
+                            <select class="qty-select">
+                                <option value="">-</option>
+                                <option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option><option value="6">6</option><option value="7">7</option><option value="8">8</option><option value="9">9</option><option value="10">10</option>
+                            </select>
+                        </div>
+                        <div class="qty-group">
+                            <label class="qty-label">Lote:</label>
+                            <input type="text" class="lot-input" placeholder="Lote" maxlength="12">
+                            <button onclick="addLot(13)" class="btn btn-small btn-add">+</button>
+                        </div>
+                        <div id="additional-lots-13"></div>
+                    </div>
+                </div><div class="product-card">
+                    <div class="product-card-content">
+                        <input type="checkbox" onchange="toggleProductSelection(14)" class="mt-1 w-4 h-4" id="checkbox-14">
+                        <div class="product-info">
+                            <div class="product-name">PARAF.CANULADO 7,0 R19X110</div>
+                            <div class="product-code">Código: 322101</div>
+                            <div class="product-code">Ordem: 1227</div>
+                        </div>
+                    </div>
+                    <div class="qty-controls" id="qty-controls-14">
+                        <div class="qty-group">
+                            <label class="qty-label">Qtd:</label>
+                            <select class="qty-select">
+                                <option value="">-</option>
+                                <option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option><option value="6">6</option><option value="7">7</option><option value="8">8</option><option value="9">9</option><option value="10">10</option>
+                            </select>
+                        </div>
+                        <div class="qty-group">
+                            <label class="qty-label">Lote:</label>
+                            <input type="text" class="lot-input" placeholder="Lote" maxlength="12">
+                            <button onclick="addLot(14)" class="btn btn-small btn-add">+</button>
+                        </div>
+                        <div id="additional-lots-14"></div>
+                    </div>
+                </div><div class="product-card">
+                    <div class="product-card-content">
+                        <input type="checkbox" onchange="toggleProductSelection(15)" class="mt-1 w-4 h-4" id="checkbox-15">
+                        <div class="product-info">
+                            <div class="product-name">PARAF.CANULADO 7,0 R19X115</div>
+                            <div class="product-code">Código: 322151</div>
+                            <div class="product-code">Ordem: 1228</div>
+                        </div>
+                    </div>
+                    <div class="qty-controls" id="qty-controls-15">
+                        <div class="qty-group">
+                            <label class="qty-label">Qtd:</label>
+                            <select class="qty-select">
+                                <option value="">-</option>
+                                <option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option><option value="6">6</option><option value="7">7</option><option value="8">8</option><option value="9">9</option><option value="10">10</option>
+                            </select>
+                        </div>
+                        <div class="qty-group">
+                            <label class="qty-label">Lote:</label>
+                            <input type="text" class="lot-input" placeholder="Lote" maxlength="12">
+                            <button onclick="addLot(15)" class="btn btn-small btn-add">+</button>
+                        </div>
+                        <div id="additional-lots-15"></div>
+                    </div>
+                </div><div class="product-card">
+                    <div class="product-card-content">
+                        <input type="checkbox" onchange="toggleProductSelection(16)" class="mt-1 w-4 h-4" id="checkbox-16">
+                        <div class="product-info">
+                            <div class="product-name">PARAF.CANULADO 7,0 R19X120</div>
+                            <div class="product-code">Código: 322201</div>
+                            <div class="product-code">Ordem: 1229</div>
+                        </div>
+                    </div>
+                    <div class="qty-controls" id="qty-controls-16">
+                        <div class="qty-group">
+                            <label class="qty-label">Qtd:</label>
+                            <select class="qty-select">
+                                <option value="">-</option>
+                                <option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option><option value="6">6</option><option value="7">7</option><option value="8">8</option><option value="9">9</option><option value="10">10</option>
+                            </select>
+                        </div>
+                        <div class="qty-group">
+                            <label class="qty-label">Lote:</label>
+                            <input type="text" class="lot-input" placeholder="Lote" maxlength="12">
+                            <button onclick="addLot(16)" class="btn btn-small btn-add">+</button>
+                        </div>
+                        <div id="additional-lots-16"></div>
+                    </div>
+                </div><div class="product-card">
+                    <div class="product-card-content">
+                        <input type="checkbox" onchange="toggleProductSelection(17)" class="mt-1 w-4 h-4" id="checkbox-17">
+                        <div class="product-info">
+                            <div class="product-name">PARAF.CANULADO 7,0 R32X40</div>
+                            <div class="product-code">Código: 322402</div>
+                            <div class="product-code">Ordem: 1230</div>
+                        </div>
+                    </div>
+                    <div class="qty-controls" id="qty-controls-17">
+                        <div class="qty-group">
+                            <label class="qty-label">Qtd:</label>
+                            <select class="qty-select">
+                                <option value="">-</option>
+                                <option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option><option value="6">6</option><option value="7">7</option><option value="8">8</option><option value="9">9</option><option value="10">10</option>
+                            </select>
+                        </div>
+                        <div class="qty-group">
+                            <label class="qty-label">Lote:</label>
+                            <input type="text" class="lot-input" placeholder="Lote" maxlength="12">
+                            <button onclick="addLot(17)" class="btn btn-small btn-add">+</button>
+                        </div>
+                        <div id="additional-lots-17"></div>
+                    </div>
+                </div><div class="product-card">
+                    <div class="product-card-content">
+                        <input type="checkbox" onchange="toggleProductSelection(18)" class="mt-1 w-4 h-4" id="checkbox-18">
+                        <div class="product-info">
+                            <div class="product-name">PARAF.CANULADO 7,0 R32X45</div>
+                            <div class="product-code">Código: 322452</div>
+                            <div class="product-code">Ordem: 1231</div>
+                        </div>
+                    </div>
+                    <div class="qty-controls" id="qty-controls-18">
+                        <div class="qty-group">
+                            <label class="qty-label">Qtd:</label>
+                            <select class="qty-select">
+                                <option value="">-</option>
+                                <option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option><option value="6">6</option><option value="7">7</option><option value="8">8</option><option value="9">9</option><option value="10">10</option>
+                            </select>
+                        </div>
+                        <div class="qty-group">
+                            <label class="qty-label">Lote:</label>
+                            <input type="text" class="lot-input" placeholder="Lote" maxlength="12">
+                            <button onclick="addLot(18)" class="btn btn-small btn-add">+</button>
+                        </div>
+                        <div id="additional-lots-18"></div>
+                    </div>
+                </div><div class="product-card">
+                    <div class="product-card-content">
+                        <input type="checkbox" onchange="toggleProductSelection(19)" class="mt-1 w-4 h-4" id="checkbox-19">
+                        <div class="product-info">
+                            <div class="product-name">PARAF.CANULADO 7,0 R32X50</div>
+                            <div class="product-code">Código: 322502</div>
+                            <div class="product-code">Ordem: 1232</div>
+                        </div>
+                    </div>
+                    <div class="qty-controls" id="qty-controls-19">
+                        <div class="qty-group">
+                            <label class="qty-label">Qtd:</label>
+                            <select class="qty-select">
+                                <option value="">-</option>
+                                <option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option><option value="6">6</option><option value="7">7</option><option value="8">8</option><option value="9">9</option><option value="10">10</option>
+                            </select>
+                        </div>
+                        <div class="qty-group">
+                            <label class="qty-label">Lote:</label>
+                            <input type="text" class="lot-input" placeholder="Lote" maxlength="12">
+                            <button onclick="addLot(19)" class="btn btn-small btn-add">+</button>
+                        </div>
+                        <div id="additional-lots-19"></div>
+                    </div>
+                </div><div class="product-card">
+                    <div class="product-card-content">
+                        <input type="checkbox" onchange="toggleProductSelection(20)" class="mt-1 w-4 h-4" id="checkbox-20">
+                        <div class="product-info">
+                            <div class="product-name">PARAF.CANULADO 7,0 R32X55</div>
+                            <div class="product-code">Código: 322552</div>
+                            <div class="product-code">Ordem: 1233</div>
+                        </div>
+                    </div>
+                    <div class="qty-controls" id="qty-controls-20">
+                        <div class="qty-group">
+                            <label class="qty-label">Qtd:</label>
+                            <select class="qty-select">
+                                <option value="">-</option>
+                                <option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option><option value="6">6</option><option value="7">7</option><option value="8">8</option><option value="9">9</option><option value="10">10</option>
+                            </select>
+                        </div>
+                        <div class="qty-group">
+                            <label class="qty-label">Lote:</label>
+                            <input type="text" class="lot-input" placeholder="Lote" maxlength="12">
+                            <button onclick="addLot(20)" class="btn btn-small btn-add">+</button>
+                        </div>
+                        <div id="additional-lots-20"></div>
+                    </div>
+                </div><div class="product-card">
+                    <div class="product-card-content">
+                        <input type="checkbox" onchange="toggleProductSelection(21)" class="mt-1 w-4 h-4" id="checkbox-21">
+                        <div class="product-info">
+                            <div class="product-name">PARAF.CANULADO 7,0 R32X60</div>
+                            <div class="product-code">Código: 322602</div>
+                            <div class="product-code">Ordem: 1234</div>
+                        </div>
+                    </div>
+                    <div class="qty-controls" id="qty-controls-21">
+                        <div class="qty-group">
+                            <label class="qty-label">Qtd:</label>
+                            <select class="qty-select">
+                                <option value="">-</option>
+                                <option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option><option value="6">6</option><option value="7">7</option><option value="8">8</option><option value="9">9</option><option value="10">10</option>
+                            </select>
+                        </div>
+                        <div class="qty-group">
+                            <label class="qty-label">Lote:</label>
+                            <input type="text" class="lot-input" placeholder="Lote" maxlength="12">
+                            <button onclick="addLot(21)" class="btn btn-small btn-add">+</button>
+                        </div>
+                        <div id="additional-lots-21"></div>
+                    </div>
+                </div><div class="product-card">
+                    <div class="product-card-content">
+                        <input type="checkbox" onchange="toggleProductSelection(22)" class="mt-1 w-4 h-4" id="checkbox-22">
+                        <div class="product-info">
+                            <div class="product-name">PARAF.CANULADO 7,0 R32X65</div>
+                            <div class="product-code">Código: 322652</div>
+                            <div class="product-code">Ordem: 1235</div>
+                        </div>
+                    </div>
+                    <div class="qty-controls" id="qty-controls-22">
+                        <div class="qty-group">
+                            <label class="qty-label">Qtd:</label>
+                            <select class="qty-select">
+                                <option value="">-</option>
+                                <option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option><option value="6">6</option><option value="7">7</option><option value="8">8</option><option value="9">9</option><option value="10">10</option>
+                            </select>
+                        </div>
+                        <div class="qty-group">
+                            <label class="qty-label">Lote:</label>
+                            <input type="text" class="lot-input" placeholder="Lote" maxlength="12">
+                            <button onclick="addLot(22)" class="btn btn-small btn-add">+</button>
+                        </div>
+                        <div id="additional-lots-22"></div>
+                    </div>
+                </div><div class="product-card">
+                    <div class="product-card-content">
+                        <input type="checkbox" onchange="toggleProductSelection(23)" class="mt-1 w-4 h-4" id="checkbox-23">
+                        <div class="product-info">
+                            <div class="product-name">PARAF.CANULADO 7,0 R32X70</div>
+                            <div class="product-code">Código: 322702</div>
+                            <div class="product-code">Ordem: 1236</div>
+                        </div>
+                    </div>
+                    <div class="qty-controls" id="qty-controls-23">
+                        <div class="qty-group">
+                            <label class="qty-label">Qtd:</label>
+                            <select class="qty-select">
+                                <option value="">-</option>
+                                <option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option><option value="6">6</option><option value="7">7</option><option value="8">8</option><option value="9">9</option><option value="10">10</option>
+                            </select>
+                        </div>
+                        <div class="qty-group">
+                            <label class="qty-label">Lote:</label>
+                            <input type="text" class="lot-input" placeholder="Lote" maxlength="12">
+                            <button onclick="addLot(23)" class="btn btn-small btn-add">+</button>
+                        </div>
+                        <div id="additional-lots-23"></div>
+                    </div>
+                </div><div class="product-card">
+                    <div class="product-card-content">
+                        <input type="checkbox" onchange="toggleProductSelection(24)" class="mt-1 w-4 h-4" id="checkbox-24">
+                        <div class="product-info">
+                            <div class="product-name">PARAF.CANULADO 7,0 R32X75</div>
+                            <div class="product-code">Código: 322752</div>
+                            <div class="product-code">Ordem: 1237</div>
+                        </div>
+                    </div>
+                    <div class="qty-controls" id="qty-controls-24">
+                        <div class="qty-group">
+                            <label class="qty-label">Qtd:</label>
+                            <select class="qty-select">
+                                <option value="">-</option>
+                                <option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option><option value="6">6</option><option value="7">7</option><option value="8">8</option><option value="9">9</option><option value="10">10</option>
+                            </select>
+                        </div>
+                        <div class="qty-group">
+                            <label class="qty-label">Lote:</label>
+                            <input type="text" class="lot-input" placeholder="Lote" maxlength="12">
+                            <button onclick="addLot(24)" class="btn btn-small btn-add">+</button>
+                        </div>
+                        <div id="additional-lots-24"></div>
+                    </div>
+                </div><div class="product-card">
+                    <div class="product-card-content">
+                        <input type="checkbox" onchange="toggleProductSelection(25)" class="mt-1 w-4 h-4" id="checkbox-25">
+                        <div class="product-info">
+                            <div class="product-name">PARAF.CANULADO 7,0 R32X80</div>
+                            <div class="product-code">Código: 322802</div>
+                            <div class="product-code">Ordem: 1238</div>
+                        </div>
+                    </div>
+                    <div class="qty-controls" id="qty-controls-25">
+                        <div class="qty-group">
+                            <label class="qty-label">Qtd:</label>
+                            <select class="qty-select">
+                                <option value="">-</option>
+                                <option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option><option value="6">6</option><option value="7">7</option><option value="8">8</option><option value="9">9</option><option value="10">10</option>
+                            </select>
+                        </div>
+                        <div class="qty-group">
+                            <label class="qty-label">Lote:</label>
+                            <input type="text" class="lot-input" placeholder="Lote" maxlength="12">
+                            <button onclick="addLot(25)" class="btn btn-small btn-add">+</button>
+                        </div>
+                        <div id="additional-lots-25"></div>
+                    </div>
+                </div><div class="product-card">
+                    <div class="product-card-content">
+                        <input type="checkbox" onchange="toggleProductSelection(26)" class="mt-1 w-4 h-4" id="checkbox-26">
+                        <div class="product-info">
+                            <div class="product-name">PARAF.CANULADO 7,0 R32X85</div>
+                            <div class="product-code">Código: 322852</div>
+                            <div class="product-code">Ordem: 1239</div>
+                        </div>
+                    </div>
+                    <div class="qty-controls" id="qty-controls-26">
+                        <div class="qty-group">
+                            <label class="qty-label">Qtd:</label>
+                            <select class="qty-select">
+                                <option value="">-</option>
+                                <option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option><option value="6">6</option><option value="7">7</option><option value="8">8</option><option value="9">9</option><option value="10">10</option>
+                            </select>
+                        </div>
+                        <div class="qty-group">
+                            <label class="qty-label">Lote:</label>
+                            <input type="text" class="lot-input" placeholder="Lote" maxlength="12">
+                            <button onclick="addLot(26)" class="btn btn-small btn-add">+</button>
+                        </div>
+                        <div id="additional-lots-26"></div>
+                    </div>
+                </div><div class="product-card">
+                    <div class="product-card-content">
+                        <input type="checkbox" onchange="toggleProductSelection(27)" class="mt-1 w-4 h-4" id="checkbox-27">
+                        <div class="product-info">
+                            <div class="product-name">PARAF.CANULADO 7,0 R32X90</div>
+                            <div class="product-code">Código: 322902</div>
+                            <div class="product-code">Ordem: 1240</div>
+                        </div>
+                    </div>
+                    <div class="qty-controls" id="qty-controls-27">
+                        <div class="qty-group">
+                            <label class="qty-label">Qtd:</label>
+                            <select class="qty-select">
+                                <option value="">-</option>
+                                <option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option><option value="6">6</option><option value="7">7</option><option value="8">8</option><option value="9">9</option><option value="10">10</option>
+                            </select>
+                        </div>
+                        <div class="qty-group">
+                            <label class="qty-label">Lote:</label>
+                            <input type="text" class="lot-input" placeholder="Lote" maxlength="12">
+                            <button onclick="addLot(27)" class="btn btn-small btn-add">+</button>
+                        </div>
+                        <div id="additional-lots-27"></div>
+                    </div>
+                </div><div class="product-card">
+                    <div class="product-card-content">
+                        <input type="checkbox" onchange="toggleProductSelection(28)" class="mt-1 w-4 h-4" id="checkbox-28">
+                        <div class="product-info">
+                            <div class="product-name">PARAF.CANULADO 7,0 R32X95</div>
+                            <div class="product-code">Código: 322952</div>
+                            <div class="product-code">Ordem: 1241</div>
+                        </div>
+                    </div>
+                    <div class="qty-controls" id="qty-controls-28">
+                        <div class="qty-group">
+                            <label class="qty-label">Qtd:</label>
+                            <select class="qty-select">
+                                <option value="">-</option>
+                                <option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option><option value="6">6</option><option value="7">7</option><option value="8">8</option><option value="9">9</option><option value="10">10</option>
+                            </select>
+                        </div>
+                        <div class="qty-group">
+                            <label class="qty-label">Lote:</label>
+                            <input type="text" class="lot-input" placeholder="Lote" maxlength="12">
+                            <button onclick="addLot(28)" class="btn btn-small btn-add">+</button>
+                        </div>
+                        <div id="additional-lots-28"></div>
+                    </div>
+                </div><div class="product-card">
+                    <div class="product-card-content">
+                        <input type="checkbox" onchange="toggleProductSelection(29)" class="mt-1 w-4 h-4" id="checkbox-29">
+                        <div class="product-info">
+                            <div class="product-name">PARAF.CANULADO 7,0 R32X100</div>
+                            <div class="product-code">Código: 322002</div>
+                            <div class="product-code">Ordem: 1242</div>
+                        </div>
+                    </div>
+                    <div class="qty-controls" id="qty-controls-29">
+                        <div class="qty-group">
+                            <label class="qty-label">Qtd:</label>
+                            <select class="qty-select">
+                                <option value="">-</option>
+                                <option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option><option value="6">6</option><option value="7">7</option><option value="8">8</option><option value="9">9</option><option value="10">10</option>
+                            </select>
+                        </div>
+                        <div class="qty-group">
+                            <label class="qty-label">Lote:</label>
+                            <input type="text" class="lot-input" placeholder="Lote" maxlength="12">
+                            <button onclick="addLot(29)" class="btn btn-small btn-add">+</button>
+                        </div>
+                        <div id="additional-lots-29"></div>
+                    </div>
+                </div><div class="product-card">
+                    <div class="product-card-content">
+                        <input type="checkbox" onchange="toggleProductSelection(30)" class="mt-1 w-4 h-4" id="checkbox-30">
+                        <div class="product-info">
+                            <div class="product-name">PARAF.CANULADO 7,0 R32X105</div>
+                            <div class="product-code">Código: 322052</div>
+                            <div class="product-code">Ordem: 1243</div>
+                        </div>
+                    </div>
+                    <div class="qty-controls" id="qty-controls-30">
+                        <div class="qty-group">
+                            <label class="qty-label">Qtd:</label>
+                            <select class="qty-select">
+                                <option value="">-</option>
+                                <option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option><option value="6">6</option><option value="7">7</option><option value="8">8</option><option value="9">9</option><option value="10">10</option>
+                            </select>
+                        </div>
+                        <div class="qty-group">
+                            <label class="qty-label">Lote:</label>
+                            <input type="text" class="lot-input" placeholder="Lote" maxlength="12">
+                            <button onclick="addLot(30)" class="btn btn-small btn-add">+</button>
+                        </div>
+                        <div id="additional-lots-30"></div>
+                    </div>
+                </div><div class="product-card">
+                    <div class="product-card-content">
+                        <input type="checkbox" onchange="toggleProductSelection(31)" class="mt-1 w-4 h-4" id="checkbox-31">
+                        <div class="product-info">
+                            <div class="product-name">PARAF.CANULADO 7,0 R32X110</div>
+                            <div class="product-code">Código: 322102</div>
+                            <div class="product-code">Ordem: 1244</div>
+                        </div>
+                    </div>
+                    <div class="qty-controls" id="qty-controls-31">
+                        <div class="qty-group">
+                            <label class="qty-label">Qtd:</label>
+                            <select class="qty-select">
+                                <option value="">-</option>
+                                <option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option><option value="6">6</option><option value="7">7</option><option value="8">8</option><option value="9">9</option><option value="10">10</option>
+                            </select>
+                        </div>
+                        <div class="qty-group">
+                            <label class="qty-label">Lote:</label>
+                            <input type="text" class="lot-input" placeholder="Lote" maxlength="12">
+                            <button onclick="addLot(31)" class="btn btn-small btn-add">+</button>
+                        </div>
+                        <div id="additional-lots-31"></div>
+                    </div>
+                </div><div class="product-card">
+                    <div class="product-card-content">
+                        <input type="checkbox" onchange="toggleProductSelection(32)" class="mt-1 w-4 h-4" id="checkbox-32">
+                        <div class="product-info">
+                            <div class="product-name">PARAF.CANULADO 7,0 R32X115</div>
+                            <div class="product-code">Código: 322152</div>
+                            <div class="product-code">Ordem: 1245</div>
+                        </div>
+                    </div>
+                    <div class="qty-controls" id="qty-controls-32">
+                        <div class="qty-group">
+                            <label class="qty-label">Qtd:</label>
+                            <select class="qty-select">
+                                <option value="">-</option>
+                                <option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option><option value="6">6</option><option value="7">7</option><option value="8">8</option><option value="9">9</option><option value="10">10</option>
+                            </select>
+                        </div>
+                        <div class="qty-group">
+                            <label class="qty-label">Lote:</label>
+                            <input type="text" class="lot-input" placeholder="Lote" maxlength="12">
+                            <button onclick="addLot(32)" class="btn btn-small btn-add">+</button>
+                        </div>
+                        <div id="additional-lots-32"></div>
+                    </div>
+                </div><div class="product-card">
+                    <div class="product-card-content">
+                        <input type="checkbox" onchange="toggleProductSelection(33)" class="mt-1 w-4 h-4" id="checkbox-33">
+                        <div class="product-info">
+                            <div class="product-name">PARAF.CANULADO 7,0 R32X120</div>
+                            <div class="product-code">Código: 322202</div>
+                            <div class="product-code">Ordem: 1246</div>
+                        </div>
+                    </div>
+                    <div class="qty-controls" id="qty-controls-33">
+                        <div class="qty-group">
+                            <label class="qty-label">Qtd:</label>
+                            <select class="qty-select">
+                                <option value="">-</option>
+                                <option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option><option value="6">6</option><option value="7">7</option><option value="8">8</option><option value="9">9</option><option value="10">10</option>
+                            </select>
+                        </div>
+                        <div class="qty-group">
+                            <label class="qty-label">Lote:</label>
+                            <input type="text" class="lot-input" placeholder="Lote" maxlength="12">
+                            <button onclick="addLot(33)" class="btn btn-small btn-add">+</button>
+                        </div>
+                        <div id="additional-lots-33"></div>
+                    </div>
+                </div><div class="product-card">
+                    <div class="product-card-content">
+                        <input type="checkbox" onchange="toggleProductSelection(34)" class="mt-1 w-4 h-4" id="checkbox-34">
+                        <div class="product-info">
+                            <div class="product-name">ARRUELA P/ PARAF.  7mm</div>
+                            <div class="product-code">Código: 132145</div>
+                            <div class="product-code">Ordem: 1247</div>
+                        </div>
+                    </div>
+                    <div class="qty-controls" id="qty-controls-34">
+                        <div class="qty-group">
+                            <label class="qty-label">Qtd:</label>
+                            <select class="qty-select">
+                                <option value="">-</option>
+                                <option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option><option value="6">6</option><option value="7">7</option><option value="8">8</option><option value="9">9</option><option value="10">10</option>
+                            </select>
+                        </div>
+                        <div class="qty-group">
+                            <label class="qty-label">Lote:</label>
+                            <input type="text" class="lot-input" placeholder="Lote" maxlength="12">
+                            <button onclick="addLot(34)" class="btn btn-small btn-add">+</button>
+                        </div>
+                        <div id="additional-lots-34"></div>
+                    </div>
+                </div><div class="product-card">
+                    <div class="product-card-content">
+                        <input type="checkbox" onchange="toggleProductSelection(35)" class="mt-1 w-4 h-4" id="checkbox-35">
+                        <div class="product-info">
+                            <div class="product-name">FIO GUIA 2,5X230mm</div>
+                            <div class="product-code">Código: 2.001.25230</div>
+                            <div class="product-code">Ordem: 1248</div>
+                        </div>
+                    </div>
+                    <div class="qty-controls" id="qty-controls-35">
+                        <div class="qty-group">
+                            <label class="qty-label">Qtd:</label>
+                            <select class="qty-select">
+                                <option value="">-</option>
+                                <option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option><option value="6">6</option><option value="7">7</option><option value="8">8</option><option value="9">9</option><option value="10">10</option>
+                            </select>
+                        </div>
+                        <div class="qty-group">
+                            <label class="qty-label">Lote:</label>
+                            <input type="text" class="lot-input" placeholder="Lote" maxlength="12">
+                            <button onclick="addLot(35)" class="btn btn-small btn-add">+</button>
+                        </div>
+                        <div id="additional-lots-35"></div>
+                    </div>
+                </div></div>
         </div>
 
         <!-- Filter Buttons -->
@@ -579,7 +1406,7 @@
             <button onclick="showSelectedOnly()" class="btn btn-success">
                 Filtrar Selecionados
             </button>
-            <button onclick="showAllProducts()" class="btn btn-primary">
+            <button onclick="showAllProducts()" class="btn btn-info">
                 Mostrar Todos
             </button>
         </div>
@@ -591,7 +1418,7 @@
         </div>
 
         <!-- Send Report Button -->
-        <button onclick="sendReport()" class="btn btn-success btn-lg btn-full mb-4">
+        <button onclick="sendReport()" class="btn btn-success btn-full">
             Enviar Relatório
         </button>
     </div>
@@ -599,22 +1426,22 @@
     <!-- Completion Screen -->
     <div class="completion-screen">
         <div class="completion-card">
-            <div class="success-icon">✓</div>
-            <h2 class="success-title">Relatório Enviado</h2>
-            <p class="success-message">Relatório enviado com sucesso!</p>
-            <button onclick="startNewReport()" class="btn btn-primary btn-lg btn-full">
+            <div class="completion-icon">✓</div>
+            <h2 class="completion-title">Relatório Enviado</h2>
+            <p class="completion-text">Relatório enviado com sucesso!</p>
+            <button onclick="startNewReport()" class="btn btn-primary btn-full">
                 Novo Relatório
             </button>
         </div>
     </div>
 
     <!-- Version -->
-    <div class="version-info">
-        Versão 3.0 - Firebase Implementado
+    <div class="version">
+        Versão 3.0 - Firebase Integration
     </div>
 
     <script>
-        // Firebase configuration
+        // Firebase configuration - DECLARADO PRIMEIRO
         const firebaseConfig = {
             apiKey: "AIzaSyDnJsxMxCLCcpqYCxrO4njbxKMTqoOpmtg",
             authDomain: "app-hexagon-materiais.firebaseapp.com",
@@ -623,12 +1450,12 @@
             messagingSenderId: "810793753497",
             appId: "1:810793753497:web:b5a6a812b18e09bfdd5108"
         };
-
-        // Initialize Firebase
+        
+        // Initialize Firebase - DECLARADO SEGUNDO
         firebase.initializeApp(firebaseConfig);
         const db = firebase.firestore();
-
-        // Collection mapping
+        
+        // Group to Collection mapping - DECLARADO TERCEIRO (ANTES DAS FUNÇÕES)
         const groupToCollection = {
             'PLACAS SEM BLOQUEIO GR FRAG': 'placas_sem_bloqueio_gr_frag',
             'PLACAS SEM BLOQUEIO PEQU FRAG': 'placas_sem_bloqueio_pequ_frag',
@@ -642,17 +1469,32 @@
             'PARAFUSOS CANULADOS': 'parafusos_canulados',
             'FIXADORES EXTERNOS': 'fixadores_externos'
         };
-
-        // Global variables
+        
+        // Collections list - DECLARADO QUARTO
+        const collections = [
+            'placas_sem_bloqueio_gr_frag',
+            'placas_sem_bloqueio_pequ_frag', 
+            'hastes_intram_femur',
+            'hastes_intram_tibia',
+            'hastes_intram_umero',
+            'micro_placas_com_bloqueio',
+            'placas_com_bloqueio_pequ_frag',
+            'placas_com_bloqueio_gr_frag',
+            'placas_volares_com_bloqueio',
+            'parafusos_canulados',
+            'fixadores_externos'
+        ];
+        
+        // Global variables - DECLARADAS APÓS AS CONSTANTES
         let currentProducts = [];
-        let allSubgroups = {};
-
-        // Initialize
+        let allSubgroups = new Map();
+        
+        // Initialize app
         document.addEventListener('DOMContentLoaded', async function() {
-            console.log('🚀 Aplicação iniciada - carregando subgrupos...');
+            console.log('🔥 Aplicação iniciada - carregando subgrupos...');
             await carregarSubgrupos();
         });
-
+        
         // Função para capitalizar input
         function capitalizeInput(input) {
             const words = input.value.toLowerCase().split(' ');
@@ -664,8 +1506,8 @@
             });
             input.value = capitalizedWords.join(' ');
         }
-
-        // Carregar subgrupos de todas as coleções
+        
+        // Função para carregar subgrupos de todas as coleções
         async function carregarSubgrupos() {
             try {
                 console.log('🔄 Carregando subgrupos do Firebase...');
@@ -673,37 +1515,33 @@
                 const gruposOrganizados = {};
                 
                 // Percorrer todas as coleções
-                for (const [grupo, collectionName] of Object.entries(groupToCollection)) {
+                for (const collectionName of collections) {
                     try {
                         const snapshot = await db.collection(collectionName)
                             .orderBy('ordem_global')
-                            .limit(1)
+                            .limit(1000)
                             .get();
                         
-                        if (!snapshot.empty) {
-                            const doc = snapshot.docs[0];
+                        snapshot.forEach((doc) => {
                             const data = doc.data();
-                            
-                            if (data.subgrupo) {
-                                if (!gruposOrganizados[grupo]) {
-                                    gruposOrganizados[grupo] = new Set();
+                            if (data.grupo && data.subgrupo) {
+                                const grupoLimpo = data.grupo.trim();
+                                const subgrupoLimpo = data.subgrupo.trim();
+                                
+                                if (!gruposOrganizados[grupoLimpo]) {
+                                    gruposOrganizados[grupoLimpo] = new Set();
                                 }
+                                gruposOrganizados[grupoLimpo].add(subgrupoLimpo);
                                 
-                                // Buscar todos os subgrupos deste grupo
-                                const allDocs = await db.collection(collectionName)
-                                    .orderBy('ordem_global')
-                                    .get();
-                                
-                                allDocs.forEach(doc => {
-                                    const docData = doc.data();
-                                    if (docData.subgrupo) {
-                                        gruposOrganizados[grupo].add(docData.subgrupo.trim());
-                                    }
-                                });
+                                // Armazenar mapeamento subgrupo -> coleção
+                                allSubgroups.set(subgrupoLimpo, collectionName);
                             }
-                        }
+                        });
+                        
+                        console.log(`✅ Processada coleção: ${collectionName}`);
+                        
                     } catch (error) {
-                        console.warn(`⚠️  Erro ao carregar ${collectionName}:`, error);
+                        console.error(`❌ Erro ao processar coleção ${collectionName}:`, error);
                     }
                 }
                 
@@ -727,7 +1565,6 @@
                         const option = document.createElement('option');
                         option.value = subgrupo;
                         option.textContent = `  ${subgrupo}`;
-                        option.dataset.grupo = grupo;
                         select.appendChild(option);
                     });
                 });
@@ -740,11 +1577,10 @@
                 select.innerHTML = '<option value="">Erro ao carregar subgrupos</option>';
             }
         }
-
-        // Filtrar produtos por subgrupo
+        
+        // Função para filtrar produtos por subgrupo
         async function filterProducts() {
-            const subgrupoSelect = document.getElementById('documentType');
-            const subgrupo = subgrupoSelect.value;
+            const subgrupo = document.getElementById('documentType').value;
             const container = document.getElementById('productsContainer');
             
             if (!subgrupo) {
@@ -752,57 +1588,48 @@
                 return;
             }
             
-            // Encontrar o grupo do subgrupo selecionado
-            const selectedOption = subgrupoSelect.options[subgrupoSelect.selectedIndex];
-            const grupo = selectedOption.dataset.grupo;
-            
-            if (!grupo) {
-                container.innerHTML = '<div class="text-center p-4 text-red-500">Erro: grupo não encontrado</div>';
-                return;
-            }
-            
-            const collectionName = groupToCollection[grupo];
-            if (!collectionName) {
-                container.innerHTML = '<div class="text-center p-4 text-red-500">Erro: coleção não encontrada</div>';
-                return;
-            }
-            
             // Mostrar loading
-            container.innerHTML = '<div class="text-center p-4 text-blue-500"><div class="loading"></div> Buscando produtos...</div>';
+            container.innerHTML = '<div class="text-center p-4 text-blue-500">🔄 Buscando produtos...</div>';
             
             try {
-                console.log(`🔍 Buscando produtos para: ${subgrupo} na coleção: ${collectionName}`);
+                console.log('🔍 Buscando produtos para:', subgrupo);
+                
+                // Obter a coleção correta para este subgrupo
+                const collectionName = allSubgroups.get(subgrupo);
+                
+                if (!collectionName) {
+                    throw new Error(`Coleção não encontrada para subgrupo: ${subgrupo}`);
+                }
+                
+                console.log('📂 Consultando coleção:', collectionName);
                 
                 const snapshot = await db.collection(collectionName)
                     .where('subgrupo', '==', subgrupo)
                     .orderBy('ordem_global')
+                    .limit(1000)
                     .get();
                 
-                if (snapshot.empty) {
-                    container.innerHTML = '<div class="text-center p-4 text-gray-500">Nenhum produto encontrado</div>';
-                    return;
-                }
-                
-                const produtos = [];
-                snapshot.forEach(doc => {
+                const products = [];
+                snapshot.forEach((doc) => {
                     const data = doc.data();
-                    produtos.push({
+                    products.push({
                         codigo: data.codigo,
-                        descricao: data.descricao || data.nome,
+                        nome: data.descricao || data.nome,
                         ordem: data.ordem_global
                     });
                 });
                 
-                console.log(`✅ ${produtos.length} produtos encontrados`);
-                currentProducts = produtos;
+                console.log('✅ Produtos encontrados:', products.length);
+                
+                currentProducts = products;
                 renderProducts();
                 
             } catch (error) {
                 console.error('❌ Erro ao buscar produtos:', error);
-                container.innerHTML = '<div class="text-center p-4 text-red-500">Erro ao carregar produtos</div>';
+                container.innerHTML = `<div class="text-center p-4 text-red-500">Erro ao carregar produtos: ${error.message}</div>`;
             }
         }
-
+        
         function renderProducts() {
             const container = document.getElementById('productsContainer');
             container.innerHTML = '';
@@ -816,11 +1643,12 @@
                 const card = document.createElement('div');
                 card.className = 'product-card';
                 card.innerHTML = `
-                    <div class="product-header">
-                        <input type="checkbox" onchange="toggleProductSelection(${index})" style="margin-top: 0.25rem; width: 1rem; height: 1rem;" id="checkbox-${index}">
+                    <div class="product-card-content">
+                        <input type="checkbox" onchange="toggleProductSelection(${index})" class="mt-1 w-4 h-4" id="checkbox-${index}">
                         <div class="product-info">
-                            <div class="product-name">${product.descricao}</div>
-                            <div class="product-code">Código: ${product.codigo} | Ordem: ${product.ordem}</div>
+                            <div class="product-name">${product.nome}</div>
+                            <div class="product-code">Código: ${product.codigo}</div>
+                            ${product.ordem ? `<div class="product-code">Ordem: ${product.ordem}</div>` : ''}
                         </div>
                     </div>
                     <div class="qty-controls" id="qty-controls-${index}">
@@ -834,7 +1662,7 @@
                         <div class="qty-group">
                             <label class="qty-label">Lote:</label>
                             <input type="text" class="lot-input" placeholder="Lote" maxlength="12">
-                            <button onclick="addLot(${index})" class="lot-btn add-lot-btn">+</button>
+                            <button onclick="addLot(${index})" class="btn btn-small btn-add">+</button>
                         </div>
                         <div id="additional-lots-${index}"></div>
                     </div>
@@ -842,7 +1670,7 @@
                 container.appendChild(card);
             });
         }
-
+        
         function toggleProductSelection(index) {
             const checkbox = document.getElementById(`checkbox-${index}`);
             const controls = document.getElementById(`qty-controls-${index}`);
@@ -858,7 +1686,7 @@
                 document.getElementById(`additional-lots-${index}`).innerHTML = '';
             }
         }
-
+        
         function addLot(productIndex) {
             const container = document.getElementById(`additional-lots-${productIndex}`);
             const lotDiv = document.createElement('div');
@@ -869,15 +1697,15 @@
                     ${Array.from({length: 10}, (_, i) => `<option value="${i+1}">${i+1}</option>`).join('')}
                 </select>
                 <input type="text" class="lot-input" placeholder="Lote" maxlength="12">
-                <button onclick="removeLot(this)" class="lot-btn remove-lot-btn">-</button>
+                <button onclick="removeLot(this)" class="btn btn-small btn-remove">-</button>
             `;
             container.appendChild(lotDiv);
         }
-
+        
         function removeLot(button) {
             button.closest('.lot-row').remove();
         }
-
+        
         function showSelectedOnly() {
             const cards = document.querySelectorAll('.product-card');
             cards.forEach(card => {
@@ -887,21 +1715,21 @@
                 }
             });
         }
-
+        
         function showAllProducts() {
             const cards = document.querySelectorAll('.product-card');
             cards.forEach(card => {
                 card.style.display = 'block';
             });
         }
-
+        
         // Função para formatar data no formato brasileiro
         function formatDateBrazilian(dateString) {
             if (!dateString) return '';
             const date = new Date(dateString + 'T00:00:00');
             return date.toLocaleDateString('pt-BR');
         }
-
+        
         // Função para gerar PDF
         function generatePDF() {
             try {
@@ -933,7 +1761,7 @@
                 yPos += 7;
                 doc.text(`Nome do Paciente: ${document.getElementById('patientName').value || ''}`, 20, yPos);
                 yPos += 7;
-                doc.text(`Num Prontuario: ${document.getElementById('recordNumber').value || ''}`, 20, yPos);
+                doc.text(`Num Prontuário: ${document.getElementById('recordNumber').value || ''}`, 20, yPos);
                 yPos += 7;
                 doc.text(`Data da Cirurgia: ${formatDateBrazilian(document.getElementById('surgeryDate').value)}`, 20, yPos);
                 yPos += 7;
@@ -955,9 +1783,9 @@
                     const lotInput = qtyControls.querySelector('.lot-input');
                     
                     if (lotInput.value) {
-                        doc.text(`Codigo: ${product.codigo}`, 20, yPos);
+                        doc.text(`Código: ${product.codigo}`, 20, yPos);
                         yPos += 5;
-                        doc.text(`Produto: ${product.descricao}`, 20, yPos);
+                        doc.text(`Produto: ${product.nome}`, 20, yPos);
                         yPos += 5;
                         doc.text(`Lote: ${lotInput.value}`, 20, yPos);
                         yPos += 5;
@@ -980,9 +1808,9 @@
                         const qty = row.querySelector('.qty-select').value;
                         const lot = row.querySelector('.lot-input').value;
                         if (lot) {
-                            doc.text(`Codigo: ${product.codigo}`, 20, yPos);
+                            doc.text(`Código: ${product.codigo}`, 20, yPos);
                             yPos += 5;
-                            doc.text(`Produto: ${product.descricao}`, 20, yPos);
+                            doc.text(`Produto: ${product.nome}`, 20, yPos);
                             yPos += 5;
                             doc.text(`Lote: ${lot}`, 20, yPos);
                             yPos += 5;
@@ -1027,7 +1855,7 @@
 
         function sendReport() {
             try {
-                console.log('📤 Iniciando envio de relatório...');
+                console.log('📊 Iniciando envio de relatório...');
                 
                 // Validações obrigatórias
                 const userField = document.getElementById('userField').value.trim();
@@ -1052,7 +1880,7 @@
                 message += `Usuário: ${userField}\n`;
                 message += `Hospital: ${hospitalSelect}\n`;
                 message += `Nome do Paciente: ${document.getElementById('patientName').value || ''}\n`;
-                message += `Num Prontuario: ${document.getElementById('recordNumber').value || ''}\n`;
+                message += `Num Prontuário: ${document.getElementById('recordNumber').value || ''}\n`;
                 message += `Data da Cirurgia: ${formatDateBrazilian(document.getElementById('surgeryDate').value)}\n`;
                 message += `Outras Informações: ${document.getElementById('otherInfo').value || ''}\n`;
                 message += '================\n';
@@ -1068,8 +1896,8 @@
                     const lotInput = qtyControls.querySelector('.lot-input');
                     
                     if (lotInput.value) {
-                        message += `Codigo: ${product.codigo}\n`;
-                        message += `Produto: ${product.descricao}\n`;
+                        message += `Código: ${product.codigo}\n`;
+                        message += `Produto: ${product.nome}\n`;
                         message += `Lote: ${lotInput.value}\n`;
                         message += `Quantidade: ${qtySelect.value || '1'}\n`;
                         message += '================\n';
@@ -1081,8 +1909,8 @@
                         const qty = row.querySelector('.qty-select').value;
                         const lot = row.querySelector('.lot-input').value;
                         if (lot) {
-                            message += `Codigo: ${product.codigo}\n`;
-                            message += `Produto: ${product.descricao}\n`;
+                            message += `Código: ${product.codigo}\n`;
+                            message += `Produto: ${product.nome}\n`;
                             message += `Lote: ${lot}\n`;
                             message += `Quantidade: ${qty || '1'}\n`;
                             message += '================\n';
@@ -1158,9 +1986,9 @@
 
     <script id="html_badge_script1">
         window.__genspark_remove_badge_link = "https://www.genspark.ai/api/html_badge/" +
-            "remove_badge?token=To%2FBnjzloZ3UfQdcSaYfDuqXGkxUERAWgYzgH1kl9g%2FR3evHV0l%2BHweqGEImp%2FNRKtdwqgUrjLLO6PCCWxLX2dZFeiCxG2lPYV2vcGwYJ93PjDbX3jRb8ywgArWvXPiQWOgFVqf463l60Xl%2FU9yCQfXaDDKqsVQSo2Ls6jiS2br%2FrVa9ZsEg53U9Hq6sCsjK3kJHwctddBK4rkR32SHPuRD6tIbWEE8ggxmoSAbaHB5f2s%2FtzXvvTkfOPnw1wjhNgv%2FQlBUrIZ04VNqOgreoMuZ7AM23z66hn8nweJMdus%2F%2B7ez8psLSMm76r8Ef6nZsCEPGL0vNsPoJZkYTUV2%2F%2FwRVe1g6CW7UopLjcRgxqHULeFJjiVlmnN9UXikNNP%2FGQhE51vL4ecgHfaeyiGlJ64ke%2F4IwA6xpsKByxRUKsxo3ZXyHf1mezIScOTEh1gpO2qbW0gmStQY2rh9fVJFYTfOnaT8TLtLlpie50vccPpeN5rKb0IhZgVo5DzL%2Ba6mo769cb9zIgssUnxujHIVcgJEDjlYcKmqKKk5bY3lwtoY%3D";
+            "remove_badge?token=To%2FBnjzloZ3UfQdcSaYfDiW99vKE3hXkiA1OoGaBMHtPWe3b%2FRipusoAWX3OjUaCmm7U9szChQugnsaLz7VE6056dbqgl9JTZuSrJmdAGNDjZbne3hKAt8SC9abFRcAHZOGQiwbOLt503LjrUJMD1mghibZ1Q%2Bcjp%2BQ3yzEFMFpAn5yFPbOqEPV7Z8J9hgiYnlhszvv%2FPcgUUkgcPg6ED032YQZ73hZuayL6Arzuv%2FoiARmpKn9txnFKlXVCqo%2BfWHgl1NKqsQJ9M7gc8Byb5%2F%2BfBWoLcoF6t62mqXkRR00ct5OOfoyFmyhzVFrsK5nCLA1K9UyD8FuRC4Srv8yXkkrTP03XNrzs%2F3M%2FzQBQGAFzbxa4uKfcbbw4divi%2FzsJCQRX3jCLV3wy0GeFqlYkpQVlJNv3kZBo%2B4eSsqppKV0IpoHWjEA4z7RzjYNSxb1Gp5UAJWkJbuEfUDT%2FZVKdpPf%2FIb4yQlmj2VH6kY8HMb6NkSRDxWqrV8ZIDJ3F%2FFtSyX8pJWLiQTC2PdcrcGh%2FBemWQ97Wzk7xQW95SKg1Eik%3D";
         window.__genspark_locale = "pt-BR";
-        window.__genspark_token = "To/BnjzloZ3UfQdcSaYfDuqXGkxUERAWgYzgH1kl9g/R3evHV0l+HweqGEImp/NRKtdwqgUrjLLO6PCCWxLX2dZFeiCxG2lPYV2vcGwYJ93PjDbX3jRb8ywgArWvXPiQWOgFVqf463l60Xl/U9yCQfXaDDKqsVQSo2Ls6jiS2br/rVa9ZsEg53U9Hq6sCsjK3kJHwctddBK4rkR32SHPuRD6tIbWEE8ggxmoSAbaHB5f2s/tzXvvTkfOPnw1wjhNgv/QlBUrIZ04VNqOgreoMuZ7AM23z66hn8nweJMdus/+7ez8psLSMm76r8Ef6nZsCEPGL0vNsPoJZkYTUV2//wRVe1g6CW7UopLjcRgxqHULeFJjiVlmnN9UXikNNP/GQhE51vL4ecgHfaeyiGlJ64ke/4IwA6xpsKByxRUKsxo3ZXyHf1mezIScOTEh1gpO2qbW0gmStQY2rh9fVJFYTfOnaT8TLtLlpie50vccPpeN5rKb0IhZgVo5DzL+a6mo769cb9zIgssUnxujHIVcgJEDjlYcKmqKKk5bY3lwtoY=";
+        window.__genspark_token = "To/BnjzloZ3UfQdcSaYfDiW99vKE3hXkiA1OoGaBMHtPWe3b/RipusoAWX3OjUaCmm7U9szChQugnsaLz7VE6056dbqgl9JTZuSrJmdAGNDjZbne3hKAt8SC9abFRcAHZOGQiwbOLt503LjrUJMD1mghibZ1Q+cjp+Q3yzEFMFpAn5yFPbOqEPV7Z8J9hgiYnlhszvv/PcgUUkgcPg6ED032YQZ73hZuayL6Arzuv/oiARmpKn9txnFKlXVCqo+fWHgl1NKqsQJ9M7gc8Byb5/+fBWoLcoF6t62mqXkRR00ct5OOfoyFmyhzVFrsK5nCLA1K9UyD8FuRC4Srv8yXkkrTP03XNrzs/3M/zQBQGAFzbxa4uKfcbbw4divi/zsJCQRX3jCLV3wy0GeFqlYkpQVlJNv3kZBo+4eSsqppKV0IpoHWjEA4z7RzjYNSxb1Gp5UAJWkJbuEfUDT/ZVKdpPf/Ib4yQlmj2VH6kY8HMb6NkSRDxWqrV8ZIDJ3F/FtSyX8pJWLiQTC2PdcrcGh/BemWQ97Wzk7xQW95SKg1Eik=";
     </script>
     
     <script id="html_notice_dialog_script" src="./Registro de Consumo de Materiais Consignados_files/notice_dialog.js.download"></script>
