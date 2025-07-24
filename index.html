@@ -126,15 +126,21 @@
         }
         
         .qty-row {
-            display: flex;
+            display: grid;
+            grid-template-columns: auto 80px auto 1fr auto;
             gap: 0.75rem;
             align-items: center;
-            flex-wrap: wrap;
             margin-bottom: 0.75rem;
+            padding: 0.5rem;
         }
         
         .qty-row:last-child {
             margin-bottom: 0;
+        }
+        
+        .qty-row.additional {
+            background-color: #f3f4f6;
+            border-radius: 0.375rem;
         }
         
         .input-field {
@@ -183,7 +189,7 @@
 
         /* Estilos específicos para campos de quantidade e lote - MOBILE OTIMIZADO */
         .qty-select {
-            width: 55px;
+            width: 80px;
             height: 44px;
             padding: 8px 6px;
             border: 2px solid #d1d5db;
@@ -201,14 +207,14 @@
         }
 
         .lot-input {
-            width: 75px;
             height: 44px;
-            padding: 8px 6px;
+            padding: 8px 12px;
             border: 2px solid #d1d5db;
             border-radius: 0.375rem;
             font-size: 16px;
             background-color: white;
             transition: border-color 0.2s;
+            min-width: 0;
         }
 
         .lot-input:focus {
@@ -260,6 +266,12 @@
             background: linear-gradient(135deg, #b91c1c 0%, #991b1b 100%);
             transform: translateY(-1px);
             box-shadow: 0 4px 8px rgba(220, 38, 38, 0.3);
+        }
+
+        .field-label {
+            font-weight: 500;
+            color: #374151;
+            white-space: nowrap;
         }
     </style>
 </head>
@@ -593,13 +605,13 @@
                     </div>
                     <div class="qty-controls" id="qty-controls-${index}">
                         <div class="qty-row">
-                            <label class="font-medium">Qtd:</label>
+                            <span class="field-label">Qtd:</span>
                             <select class="qty-select">
                                 <option value="">-</option>
                                 ${Array.from({length: 10}, (_, i) => `<option value="${i+1}">${i+1}</option>`).join('')}
                             </select>
-                            <label class="font-medium">Lote:</label>
-                            <input type="text" placeholder="Lote" maxlength="15" class="lot-input">
+                            <span class="field-label">Lote:</span>
+                            <input type="text" placeholder="Digite o lote" maxlength="15" class="lot-input">
                             <button onclick="addLot(${index})" class="add-btn">+</button>
                         </div>
                         <div id="additional-lots-${index}"></div>
@@ -629,18 +641,15 @@
         function addLot(productIndex) {
             const container = document.getElementById(`additional-lots-${productIndex}`);
             const lotDiv = document.createElement('div');
-            lotDiv.className = 'qty-row';
-            lotDiv.style.backgroundColor = '#f3f4f6';
-            lotDiv.style.padding = '0.5rem';
-            lotDiv.style.borderRadius = '0.375rem';
+            lotDiv.className = 'qty-row additional';
             lotDiv.innerHTML = `
-                <label class="font-medium">Qtd:</label>
+                <span class="field-label">Qtd:</span>
                 <select class="qty-select">
                     <option value="">-</option>
                     ${Array.from({length: 10}, (_, i) => `<option value="${i+1}">${i+1}</option>`).join('')}
                 </select>
-                <label class="font-medium">Lote:</label>
-                <input type="text" placeholder="Lote" maxlength="15" class="lot-input">
+                <span class="field-label">Lote:</span>
+                <input type="text" placeholder="Digite o lote" maxlength="15" class="lot-input">
                 <button onclick="removeLot(this)" class="remove-btn">-</button>
             `;
             container.appendChild(lotDiv);
@@ -880,14 +889,14 @@
             document.querySelector('.completion-screen').classList.remove('show');
         }
     </script>
-<script defer src="https://static.cloudflareinsights.com/beacon.min.js/vcd15cbe7772f49c399c6a5babf22c1241717689176015" integrity="sha512-ZpsOmlRQV6y907TI0dKBHq9Md29nnaEIPlkf84rnaERnq6zvWvPUqr2ft8M1aS28oN72PdrCzSjY4U6VaAw1EQ==" data-cf-beacon='{"rayId":"963fa6a8ceed7439","serverTiming":{"name":{"cfExtPri":true,"cfEdge":true,"cfOrigin":true,"cfL4":true,"cfSpeedBrain":true,"cfCacheStatus":true}},"version":"2025.7.0","token":"4edd5f8ec12a48cfa682ab8261b80a79"}' crossorigin="anonymous"></script>
+<script defer src="https://static.cloudflareinsights.com/beacon.min.js/vcd15cbe7772f49c399c6a5babf22c1241717689176015" integrity="sha512-ZpsOmlRQV6y907TI0dKBHq9Md29nnaEIPlkf84rnaERnq6zvWvPUqr2ft8M1aS28oN72PdrCzSjY4U6VaAw1EQ==" data-cf-beacon='{"rayId":"963fc20a2cd367da","serverTiming":{"name":{"cfExtPri":true,"cfEdge":true,"cfOrigin":true,"cfL4":true,"cfSpeedBrain":true,"cfCacheStatus":true}},"version":"2025.7.0","token":"4edd5f8ec12a48cfa682ab8261b80a79"}' crossorigin="anonymous"></script>
 </body>
 </html>
     <script id="html_badge_script1">
         window.__genspark_remove_badge_link = "https://www.genspark.ai/api/html_badge/" +
-            "remove_badge?token=To%2FBnjzloZ3UfQdcSaYfDhCmJ8M%2BNo0iQusd6ZYjfHhV%2FTuqjY2NDo0nSeRAM3Ip%2B52aQMwi49dkFJ5cVIhy4dn5lUmpD4x4l4Ca5SFJUidwM6p4a5f7%2FRrp%2Bh6LVgMK3%2FyELJCJrb7hNlJ54uSGR3%2BSW3n6j6Kw3QB7qpd9902yXf7MrPm4Y%2FugJl1Z%2FDDkVM1g1w6T%2FVUely9YNdw%2FgxcbQi8CWBvyKx0aQBLdfdiaNFxdby9JPt%2FSkNnvRVPrV1EfECZggHuG60V0%2BIRG1COBHIqVZFjRP3gICgRw0R6tnB6Rl3wFmFXa8QuiJ%2BhdyG2EazqNp8G3wRiILnIIuBfdA7VQV0%2FWtpe7je5tlqz8m1tKoV5fzJaAFfDVhgaMo28NpqxsFNAib1tqeO82JfhHzqEG0CpAQGRN85ydpg1GFkhihh22ZfMIISmFC8npsCSN1MkU0y%2FhEsdkFX4H7QgwOtr9bTAxmEClDIejTX54l1KnX8mMIK4D2o7kDYuG1IdSsHmUdD6JCTGpOJ%2FrN92wS0Y19PogStiFkrnvnBg%3D";
+            "remove_badge?token=To%2FBnjzloZ3UfQdcSaYfDi%2B24VVDl%2Fbt2YExhB6H2Z57PrAVWf%2BKwYBfOF83%2FbXMsQzaEPWqZ8U8e8LtRFzkX0L7PAYIaiQ%2FF5O3Bh9dB9Q%2Brw7mRkchA%2BMuSxN2vd9Rf%2F68GisL3IYpww8TeEbqJ6WFO3VwQ%2FJzioHQsbH6Lf64h1Twlr6b%2FSfoFf2mHTwO5jirwnhIOvUYMd8OoMEsZ03ZkUBTv8cKy2hNjwXNUWBt2StemfGMDL93klJrKUZ3nT%2FTkaTJpXkJhW%2Bg%2F8Df0dH%2BMh6pOaH2WNBv428UZ02UazX83myXJlsXE%2B8%2FVjfBRJLCTkjRjxT9FM1ZGAKE9CEhjC7d9OXy%2BKH5PWJbgn0lwxvH1gW3vpI4JSVEEC%2FoiKQwUxlqtnMoGx9tT70qh6siKgAohFLCA3Muwfkb3iY8vFQ1zO1wj6Ws7oleBEt2Z4KIiQqlEWAEPtIqcf0CP4075qZnMnIqT9LsF0A7R9TgBAezw83m2J9lgSdB6A3ac8JPu0BQI2vSQg6GI2LWVFa4i%2BR3BzAIO8CNzLme5kk%3D";
         window.__genspark_locale = "pt-BR";
-        window.__genspark_token = "To/BnjzloZ3UfQdcSaYfDhCmJ8M+No0iQusd6ZYjfHhV/TuqjY2NDo0nSeRAM3Ip+52aQMwi49dkFJ5cVIhy4dn5lUmpD4x4l4Ca5SFJUidwM6p4a5f7/Rrp+h6LVgMK3/yELJCJrb7hNlJ54uSGR3+SW3n6j6Kw3QB7qpd9902yXf7MrPm4Y/ugJl1Z/DDkVM1g1w6T/VUely9YNdw/gxcbQi8CWBvyKx0aQBLdfdiaNFxdby9JPt/SkNnvRVPrV1EfECZggHuG60V0+IRG1COBHIqVZFjRP3gICgRw0R6tnB6Rl3wFmFXa8QuiJ+hdyG2EazqNp8G3wRiILnIIuBfdA7VQV0/Wtpe7je5tlqz8m1tKoV5fzJaAFfDVhgaMo28NpqxsFNAib1tqeO82JfhHzqEG0CpAQGRN85ydpg1GFkhihh22ZfMIISmFC8npsCSN1MkU0y/hEsdkFX4H7QgwOtr9bTAxmEClDIejTX54l1KnX8mMIK4D2o7kDYuG1IdSsHmUdD6JCTGpOJ/rN92wS0Y19PogStiFkrnvnBg=";
+        window.__genspark_token = "To/BnjzloZ3UfQdcSaYfDi+24VVDl/bt2YExhB6H2Z57PrAVWf+KwYBfOF83/bXMsQzaEPWqZ8U8e8LtRFzkX0L7PAYIaiQ/F5O3Bh9dB9Q+rw7mRkchA+MuSxN2vd9Rf/68GisL3IYpww8TeEbqJ6WFO3VwQ/JzioHQsbH6Lf64h1Twlr6b/SfoFf2mHTwO5jirwnhIOvUYMd8OoMEsZ03ZkUBTv8cKy2hNjwXNUWBt2StemfGMDL93klJrKUZ3nT/TkaTJpXkJhW+g/8Df0dH+Mh6pOaH2WNBv428UZ02UazX83myXJlsXE+8/VjfBRJLCTkjRjxT9FM1ZGAKE9CEhjC7d9OXy+KH5PWJbgn0lwxvH1gW3vpI4JSVEEC/oiKQwUxlqtnMoGx9tT70qh6siKgAohFLCA3Muwfkb3iY8vFQ1zO1wj6Ws7oleBEt2Z4KIiQqlEWAEPtIqcf0CP4075qZnMnIqT9LsF0A7R9TgBAezw83m2J9lgSdB6A3ac8JPu0BQI2vSQg6GI2LWVFa4i+R3BzAIO8CNzLme5kk=";
     </script>
     
     <script id="html_notice_dialog_script" src="https://www.genspark.ai/notice_dialog.js"></script>
