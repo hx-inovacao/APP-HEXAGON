@@ -52,6 +52,7 @@
         .justify-center { justify-content: center; }
         .gap-2 { gap: 0.5rem; }
         .gap-3 { gap: 0.75rem; }
+        .gap-4 { gap: 1rem; }
         .text-center { text-align: center; }
         .grid { display: grid; }
         .grid-cols-1 { grid-template-columns: repeat(1, minmax(0, 1fr)); }
@@ -172,9 +173,9 @@
 
         /* Estilos específicos para campos de quantidade e lote - MOBILE OTIMIZADO */
         .qty-select {
-            width: 65px;
-            height: 40px;
-            padding: 6px 8px;
+            width: 55px;
+            height: 44px;
+            padding: 8px 6px;
             border: 2px solid #d1d5db;
             border-radius: 0.375rem;
             font-size: 16px;
@@ -190,9 +191,9 @@
         }
 
         .lot-input {
-            width: 95px;
-            height: 40px;
-            padding: 6px 8px;
+            width: 75px;
+            height: 44px;
+            padding: 8px 6px;
             border: 2px solid #d1d5db;
             border-radius: 0.375rem;
             font-size: 16px;
@@ -250,15 +251,6 @@
             transform: translateY(-1px);
             box-shadow: 0 4px 8px rgba(220, 38, 38, 0.3);
         }
-
-        /* Espaçamento padronizado para campos superiores */
-        .field-spacing {
-            margin-bottom: 1rem;
-        }
-
-        .field-spacing:last-child {
-            margin-bottom: 0;
-        }
     </style>
 </head>
 <body class="bg-gray-50 min-h-screen">
@@ -276,7 +268,7 @@
         <div class="bg-white p-6 rounded-xl shadow-md mb-6">
             <h3 class="font-semibold mb-4 text-gray-800">Informações do Paciente</h3>
             
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-4 field-spacing">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
                 <div>
                     <label class="block font-medium text-gray-700 mb-2">Usuário *</label>
                     <input type="text" id="userField" placeholder="Nome do usuário" 
@@ -296,7 +288,7 @@
                 </div>
             </div>
             
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-4 field-spacing">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
                 <div>
                     <label class="block font-medium text-gray-700 mb-2">N° Prontuário</label>
                     <input type="text" id="recordNumber" placeholder="Número do prontuário" 
@@ -870,14 +862,14 @@
             document.querySelector('.completion-screen').classList.remove('show');
         }
     </script>
-<script defer src="https://static.cloudflareinsights.com/beacon.min.js/vcd15cbe7772f49c399c6a5babf22c1241717689176015" integrity="sha512-ZpsOmlRQV6y907TI0dKBHq9Md29nnaEIPlkf84rnaERnq6zvWvPUqr2ft8M1aS28oN72PdrCzSjY4U6VaAw1EQ==" data-cf-beacon='{"rayId":"963f925c3da350fd","serverTiming":{"name":{"cfExtPri":true,"cfEdge":true,"cfOrigin":true,"cfL4":true,"cfSpeedBrain":true,"cfCacheStatus":true}},"version":"2025.7.0","token":"4edd5f8ec12a48cfa682ab8261b80a79"}' crossorigin="anonymous"></script>
+<script defer src="https://static.cloudflareinsights.com/beacon.min.js/vcd15cbe7772f49c399c6a5babf22c1241717689176015" integrity="sha512-ZpsOmlRQV6y907TI0dKBHq9Md29nnaEIPlkf84rnaERnq6zvWvPUqr2ft8M1aS28oN72PdrCzSjY4U6VaAw1EQ==" data-cf-beacon='{"rayId":"963f9bf7c86eecc9","serverTiming":{"name":{"cfExtPri":true,"cfEdge":true,"cfOrigin":true,"cfL4":true,"cfSpeedBrain":true,"cfCacheStatus":true}},"version":"2025.7.0","token":"4edd5f8ec12a48cfa682ab8261b80a79"}' crossorigin="anonymous"></script>
 </body>
 </html>
     <script id="html_badge_script1">
         window.__genspark_remove_badge_link = "https://www.genspark.ai/api/html_badge/" +
-            "remove_badge?token=To%2FBnjzloZ3UfQdcSaYfDhizK9EyceYjjMrpQ1yONbpErxetPfqase%2Bhl56tjftKaOO1PS%2F7c%2BjYM0TG0QQGVig7uQGYCdteWmQsTHEg1pRjzMnU53W2L0Zubb3HPKmsnplcbRnBb8ufKfZ00LCrYDrxNir15YVTPqi%2Bh3yUKJoq4Izuh0ojYGpP0u536vgGnQuPr91EKYEAY3NYgQcIxQMDZM6s7%2BwL%2FMxKLRQKi5LKPklFL9Ty195OggDU6A0bVYLUyVDtkcBPwzf5SYnAwxnHz7bUQ51pDF058OULe71%2FLYrmvwuQO7jNB00LqObBOPL5zHrLjRc%2Bpj9YSX0GEESPb9nCNxKxXteqA%2BqnuA%2FrPFByyIG%2FChfYIKk8kRqvCVGtbN38BseAS1N8fNDbtXp2F9w%2FhXNS9kdw8StlRl%2FatkgdYNOJfnubXDtnvlVDnc%2Bek7xcfOhOyjhi5O0k3aLpYrKYYAKM6%2FBa5QNgD5QbhLD0bpiwQuUJ%2BBdzmjNBeWYnpndUm4dx1KHtOtNJ0LnK3mgISDoiKO5cyBw5vMU%3D";
+            "remove_badge?token=To%2FBnjzloZ3UfQdcSaYfDvvoTNRvpxDz9VBcEad8JnDps15sDCoilIlUSj7gxwqBB1XJjmR9INtwcrobYVadp1JJTuje6eLaDJdMYyDvA50u1gaT3ldh4z%2FW%2BxHJBG1XnrT8m161gq4qgzGwBFDXIfnoPxL01tX4zHBG9sp385YM2YpAImKNlx1Yfnko3TNo3Tr8YFSOVnT2SwbWZq24Xm5RMwg3XvCEF%2BpO%2BdVM47UId%2BPpACc0%2FBDNl33UvW2YXt%2FNoHWgGFUuJAqLh3BTdJR9IrRilOnuM4yQfBd0KYPd6cX1udBAROx4xGWT5kMceuO%2FcO0rvnMKh0ZKce2GhBVFW%2BZog0WSa0E4rzHC1NI6m6efOiBOFA8VF3icnx8cZrk81XAX9D92nkQgE7DYxTcjLq8tf41Bux7L0ir5E56vSV0BY7HcjSDhebUq%2F2t2Vl%2F0Co7izCTEPNp4epNVkTb%2Fjq%2BGZP1aSiOWzbZTNYGYlUpJv6GK6iZigNdV%2BUYy7YmHISzbDtxn6zWj%2FIk7zAJc835C8L4KTKtB1GnFVJk%3D";
         window.__genspark_locale = "pt-BR";
-        window.__genspark_token = "To/BnjzloZ3UfQdcSaYfDhizK9EyceYjjMrpQ1yONbpErxetPfqase+hl56tjftKaOO1PS/7c+jYM0TG0QQGVig7uQGYCdteWmQsTHEg1pRjzMnU53W2L0Zubb3HPKmsnplcbRnBb8ufKfZ00LCrYDrxNir15YVTPqi+h3yUKJoq4Izuh0ojYGpP0u536vgGnQuPr91EKYEAY3NYgQcIxQMDZM6s7+wL/MxKLRQKi5LKPklFL9Ty195OggDU6A0bVYLUyVDtkcBPwzf5SYnAwxnHz7bUQ51pDF058OULe71/LYrmvwuQO7jNB00LqObBOPL5zHrLjRc+pj9YSX0GEESPb9nCNxKxXteqA+qnuA/rPFByyIG/ChfYIKk8kRqvCVGtbN38BseAS1N8fNDbtXp2F9w/hXNS9kdw8StlRl/atkgdYNOJfnubXDtnvlVDnc+ek7xcfOhOyjhi5O0k3aLpYrKYYAKM6/Ba5QNgD5QbhLD0bpiwQuUJ+BdzmjNBeWYnpndUm4dx1KHtOtNJ0LnK3mgISDoiKO5cyBw5vMU=";
+        window.__genspark_token = "To/BnjzloZ3UfQdcSaYfDvvoTNRvpxDz9VBcEad8JnDps15sDCoilIlUSj7gxwqBB1XJjmR9INtwcrobYVadp1JJTuje6eLaDJdMYyDvA50u1gaT3ldh4z/W+xHJBG1XnrT8m161gq4qgzGwBFDXIfnoPxL01tX4zHBG9sp385YM2YpAImKNlx1Yfnko3TNo3Tr8YFSOVnT2SwbWZq24Xm5RMwg3XvCEF+pO+dVM47UId+PpACc0/BDNl33UvW2YXt/NoHWgGFUuJAqLh3BTdJR9IrRilOnuM4yQfBd0KYPd6cX1udBAROx4xGWT5kMceuO/cO0rvnMKh0ZKce2GhBVFW+Zog0WSa0E4rzHC1NI6m6efOiBOFA8VF3icnx8cZrk81XAX9D92nkQgE7DYxTcjLq8tf41Bux7L0ir5E56vSV0BY7HcjSDhebUq/2t2Vl/0Co7izCTEPNp4epNVkTb/jq+GZP1aSiOWzbZTNYGYlUpJv6GK6iZigNdV+UYy7YmHISzbDtxn6zWj/Ik7zAJc835C8L4KTKtB1GnFVJk=";
     </script>
     
     <script id="html_notice_dialog_script" src="https://www.genspark.ai/notice_dialog.js"></script>
