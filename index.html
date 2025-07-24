@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
@@ -51,6 +50,7 @@
         .flex { display: flex; }
         .items-center { align-items: center; }
         .justify-center { justify-content: center; }
+        .justify-between { justify-content: space-between; }
         .gap-2 { gap: 0.5rem; }
         .gap-3 { gap: 0.75rem; }
         .gap-4 { gap: 1rem; }
@@ -126,31 +126,28 @@
             display: block;
         }
         
-        /* Layout Responsivo para campos Qtd/Lote */
         .qty-row {
             display: flex;
-            flex-direction: column;
-            gap: 0.5rem;
+            justify-content: space-between;
+            align-items: center;
             margin-bottom: 0.75rem;
+            position: relative;
         }
         
         .qty-row:last-child {
             margin-bottom: 0;
         }
         
-        .qty-group {
+        .qty-left {
             display: flex;
             align-items: center;
             gap: 0.5rem;
+            flex: 1;
         }
         
-        /* Desktop: Layout horizontal */
-        @media (min-width: 640px) {
-            .qty-row {
-                flex-direction: row;
-                align-items: center;
-                gap: 0.75rem;
-            }
+        .qty-buttons {
+            display: flex;
+            gap: 0.25rem;
         }
         
         .input-field {
@@ -197,14 +194,14 @@
             100% { transform: rotate(360deg); }
         }
 
-        /* Estilos responsivos para campos de quantidade e lote */
+        /* Estilos específicos para campos de quantidade e lote - MOBILE OTIMIZADO */
         .qty-select {
-            width: 80px;
-            height: 44px;
-            padding: 8px 6px;
+            width: 60px;
+            height: 40px;
+            padding: 6px 4px;
             border: 2px solid #d1d5db;
             border-radius: 0.375rem;
-            font-size: 16px;
+            font-size: 14px;
             font-weight: 500;
             background-color: white;
             transition: border-color 0.2s;
@@ -217,13 +214,12 @@
         }
 
         .lot-input {
-            flex: 1;
-            min-width: 100px;
-            height: 44px;
-            padding: 8px 12px;
+            width: 80px;
+            height: 40px;
+            padding: 6px 4px;
             border: 2px solid #d1d5db;
             border-radius: 0.375rem;
-            font-size: 16px;
+            font-size: 14px;
             background-color: white;
             transition: border-color 0.2s;
         }
@@ -234,24 +230,11 @@
             box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
         }
 
-        /* Labels responsivos */
         .qty-label {
             font-size: 14px;
             font-weight: 500;
             color: #374151;
-            min-width: 35px;
-        }
-
-        /* Mobile: Labels mais compactos */
-        @media (max-width: 639px) {
-            .qty-label {
-                font-size: 13px;
-                min-width: 30px;
-            }
-            
-            .qty-select {
-                width: 70px;
-            }
+            min-width: 30px;
         }
 
         /* Botões + e - melhorados */
@@ -260,16 +243,15 @@
             color: white;
             border: none;
             border-radius: 0.375rem;
-            font-size: 18px;
+            font-size: 16px;
             font-weight: bold;
             cursor: pointer;
             transition: all 0.2s ease;
-            width: 40px;
-            height: 40px;
+            width: 32px;
+            height: 32px;
             display: flex;
             align-items: center;
             justify-content: center;
-            align-self: flex-start;
         }
 
         .add-btn:hover {
@@ -283,30 +265,21 @@
             color: white;
             border: none;
             border-radius: 0.375rem;
-            font-size: 16px;
+            font-size: 14px;
             font-weight: bold;
             cursor: pointer;
             transition: all 0.2s ease;
-            width: 32px;
-            height: 32px;
+            width: 28px;
+            height: 28px;
             display: flex;
             align-items: center;
             justify-content: center;
-            align-self: flex-start;
         }
 
         .remove-btn:hover {
             background: linear-gradient(135deg, #b91c1c 0%, #991b1b 100%);
             transform: translateY(-1px);
             box-shadow: 0 4px 8px rgba(220, 38, 38, 0.3);
-        }
-
-        /* Mobile: Botão + centralizado */
-        @media (max-width: 639px) {
-            .add-btn {
-                align-self: center;
-                margin-top: 0.5rem;
-            }
         }
     </style>
 </head>
@@ -640,18 +613,18 @@
                     </div>
                     <div class="qty-controls" id="qty-controls-${index}">
                         <div class="qty-row">
-                            <div class="qty-group">
-                                <label class="qty-label">Qtd:</label>
+                            <div class="qty-left">
+                                <span class="qty-label">Qtd:</span>
                                 <select class="qty-select">
                                     <option value="">-</option>
                                     ${Array.from({length: 10}, (_, i) => `<option value="${i+1}">${i+1}</option>`).join('')}
                                 </select>
-                            </div>
-                            <div class="qty-group">
-                                <label class="qty-label">Lote:</label>
+                                <span class="qty-label">Lote:</span>
                                 <input type="text" placeholder="Lote" maxlength="15" class="lot-input">
                             </div>
-                            <button onclick="addLot(${index})" class="add-btn">+</button>
+                            <div class="qty-buttons">
+                                <button onclick="addLot(${index})" class="add-btn">+</button>
+                            </div>
                         </div>
                         <div id="additional-lots-${index}"></div>
                     </div>
@@ -685,18 +658,18 @@
             lotDiv.style.padding = '0.5rem';
             lotDiv.style.borderRadius = '0.375rem';
             lotDiv.innerHTML = `
-                <div class="qty-group">
-                    <label class="qty-label">Qtd:</label>
+                <div class="qty-left">
+                    <span class="qty-label">Qtd:</span>
                     <select class="qty-select">
                         <option value="">-</option>
                         ${Array.from({length: 10}, (_, i) => `<option value="${i+1}">${i+1}</option>`).join('')}
                     </select>
-                </div>
-                <div class="qty-group">
-                    <label class="qty-label">Lote:</label>
+                    <span class="qty-label">Lote:</span>
                     <input type="text" placeholder="Lote" maxlength="15" class="lot-input">
                 </div>
-                <button onclick="removeLot(this)" class="remove-btn">-</button>
+                <div class="qty-buttons">
+                    <button onclick="removeLot(this)" class="remove-btn">-</button>
+                </div>
             `;
             container.appendChild(lotDiv);
         }
@@ -787,7 +760,7 @@
                         const qtySelect = row.querySelector('select');
                         const lotInput = row.querySelector('input[type="text"]');
                         
-                        if (lotInput && lotInput.value) {
+                        if (lotInput.value) {
                             doc.text(`Codigo: ${product.codigo}`, 20, yPos);
                             yPos += 5;
                             doc.text(`Produto: ${product.nome}`, 20, yPos);
@@ -870,7 +843,7 @@
                         const qtySelect = row.querySelector('select');
                         const lotInput = row.querySelector('input[type="text"]');
                         
-                        if (lotInput && lotInput.value) {
+                        if (lotInput.value) {
                             message += `Codigo: ${product.codigo}\n`;
                             message += `Produto: ${product.nome}\n`;
                             message += `Lote: ${lotInput.value}\n`;
@@ -935,15 +908,14 @@
             document.querySelector('.completion-screen').classList.remove('show');
         }
     </script>
-<script defer src="https://static.cloudflareinsights.com/beacon.min.js/vcd15cbe7772f49c399c6a5babf22c1241717689176015" integrity="sha512-ZpsOmlRQV6y907TI0dKBHq9Md29nnaEIPlkf84rnaERnq6zvWvPUqr2ft8M1aS28oN72PdrCzSjY4U6VaAw1EQ==" data-cf-beacon='{"rayId":"963fd4447f890a86","serverTiming":{"name":{"cfExtPri":true,"cfEdge":true,"cfOrigin":true,"cfL4":true,"cfSpeedBrain":true,"cfCacheStatus":true}},"version":"2025.7.0","token":"4edd5f8ec12a48cfa682ab8261b80a79"}' crossorigin="anonymous"></script>
+<script defer src="https://static.cloudflareinsights.com/beacon.min.js/vcd15cbe7772f49c399c6a5babf22c1241717689176015" integrity="sha512-ZpsOmlRQV6y907TI0dKBHq9Md29nnaEIPlkf84rnaERnq6zvWvPUqr2ft8M1aS28oN72PdrCzSjY4U6VaAw1EQ==" data-cf-beacon='{"rayId":"963fdd5f795b67e6","serverTiming":{"name":{"cfExtPri":true,"cfEdge":true,"cfOrigin":true,"cfL4":true,"cfSpeedBrain":true,"cfCacheStatus":true}},"version":"2025.7.0","token":"4edd5f8ec12a48cfa682ab8261b80a79"}' crossorigin="anonymous"></script>
 </body>
 </html>
     <script id="html_badge_script1">
         window.__genspark_remove_badge_link = "https://www.genspark.ai/api/html_badge/" +
-            "remove_badge?token=To%2FBnjzloZ3UfQdcSaYfDmMRea%2BBe902N05Y3r3f6WRY4EWV4%2BVBhzABbTuIA%2Bb3dN1fqODwFxzNFjU8263rRTCr1P0BgHlZFup8Gw42LurzE2mgoeR4YseYyh0Rk2fkv7VzUf4SpGKoPKiJ74X0s%2B0%2F1UarpLmG21DmZ5nIvlvTrXLSB5eB6wZWPJquIgRR5a2SUaYw4DPW%2FICwNbdzYBCWx3T0jwnYolmZPpuCXpDroD5E776cHOApT1tsCbi%2FTqw%2BpglkIHlgIPTstn96u8iPkB9hISgY5DGoGt1KyPsU3oPItInK%2F8KbJeDCkLFb9msNi4ewaiHmZxO5TiRb67ojOgXN%2FnkYhXstQiecUTmAnH%2FxASVGp3uPQ0mGUcUCQEUixNczxbE9099qwVHk9%2FUmJmPVzWHV%2BOk8YXiMd4%2FbH3tXTrq7Cw1ofmZnxtnD6jvsGXQiiY4hYpBjFRtaMoJNt2cvxJ7NN8gYoauu9h7GAd6Mwsfk4ngKt1P2w842aFz0dZTcHjopGqpA%2FTF1KB9UkFUNvlqs2pKTaz9uHbQ%3D";
+            "remove_badge?token=To%2FBnjzloZ3UfQdcSaYfDvPuyzKIOBrzi3IiIYvGm0W9ddPMrBmJHZTIKmdFXYUculDpGmzP3e0hm5OoOWHXLCFn59Ygdng0D7uLYTqtJ6a09s99oK5kjbhi8nlwR0ZamFgVjrFzgaEocSmrekCw%2BonFGlnwFjPKB7Dp%2FgR62BnAQkQozVrRu6G8odbaRMXrKi3O%2FdT7iByI16JfqtvN9d4rjOjephC9F%2FnaeXT0mYisSWc%2F9I2QUIR2EwACqT5AFuPgIEdqOzfFTdFzHm9ubK7wXNHCLC17oMNNwgurIBZ08dADwQAWwC369%2BqZz9UTG9uTk%2BbmZ2MaZ6RoQgRbeQ7o6n%2FPYPQLXq1M%2BKsWqaLnuif0TksKAdEcFcy%2BUOnJHjodOiaBcUqlSqI5OXQ1RIhf3PDwJiFS3FPWfhgCwlxx23ENyzhqh9nKgD64ImjFW9ykDsxIOqhU%2FbY5umiJ%2FvmyUtx4zOnhBRX6CHz7TiRFNXedo%2BHIF1XvbZ5pJl1y9lpQHn8F9WzNzfOJmOuMukUml%2BvJtmQ7R8%2BWgbzJnZ8%3D";
         window.__genspark_locale = "pt-BR";
-        window.__genspark_token = "To/BnjzloZ3UfQdcSaYfDmMRea+Be902N05Y3r3f6WRY4EWV4+VBhzABbTuIA+b3dN1fqODwFxzNFjU8263rRTCr1P0BgHlZFup8Gw42LurzE2mgoeR4YseYyh0Rk2fkv7VzUf4SpGKoPKiJ74X0s+0/1UarpLmG21DmZ5nIvlvTrXLSB5eB6wZWPJquIgRR5a2SUaYw4DPW/ICwNbdzYBCWx3T0jwnYolmZPpuCXpDroD5E776cHOApT1tsCbi/Tqw+pglkIHlgIPTstn96u8iPkB9hISgY5DGoGt1KyPsU3oPItInK/8KbJeDCkLFb9msNi4ewaiHmZxO5TiRb67ojOgXN/nkYhXstQiecUTmAnH/xASVGp3uPQ0mGUcUCQEUixNczxbE9099qwVHk9/UmJmPVzWHV+Ok8YXiMd4/bH3tXTrq7Cw1ofmZnxtnD6jvsGXQiiY4hYpBjFRtaMoJNt2cvxJ7NN8gYoauu9h7GAd6Mwsfk4ngKt1P2w842aFz0dZTcHjopGqpA/TF1KB9UkFUNvlqs2pKTaz9uHbQ=";
+        window.__genspark_token = "To/BnjzloZ3UfQdcSaYfDvPuyzKIOBrzi3IiIYvGm0W9ddPMrBmJHZTIKmdFXYUculDpGmzP3e0hm5OoOWHXLCFn59Ygdng0D7uLYTqtJ6a09s99oK5kjbhi8nlwR0ZamFgVjrFzgaEocSmrekCw+onFGlnwFjPKB7Dp/gR62BnAQkQozVrRu6G8odbaRMXrKi3O/dT7iByI16JfqtvN9d4rjOjephC9F/naeXT0mYisSWc/9I2QUIR2EwACqT5AFuPgIEdqOzfFTdFzHm9ubK7wXNHCLC17oMNNwgurIBZ08dADwQAWwC369+qZz9UTG9uTk+bmZ2MaZ6RoQgRbeQ7o6n/PYPQLXq1M+KsWqaLnuif0TksKAdEcFcy+UOnJHjodOiaBcUqlSqI5OXQ1RIhf3PDwJiFS3FPWfhgCwlxx23ENyzhqh9nKgD64ImjFW9ykDsxIOqhU/bY5umiJ/vmyUtx4zOnhBRX6CHz7TiRFNXedo+HIF1XvbZ5pJl1y9lpQHn8F9WzNzfOJmOuMukUml+vJtmQ7R8+WgbzJnZ8=";
     </script>
     
     <script id="html_notice_dialog_script" src="https://www.genspark.ai/notice_dialog.js"></script>
-    
