@@ -169,6 +169,87 @@
             0% { transform: rotate(0deg); }
             100% { transform: rotate(360deg); }
         }
+
+        /* Estilos específicos para campos de quantidade e lote - MOBILE OTIMIZADO */
+        .qty-select {
+            width: 85px;
+            height: 44px;
+            padding: 8px 12px;
+            border: 2px solid #d1d5db;
+            border-radius: 0.375rem;
+            font-size: 16px;
+            font-weight: 500;
+            background-color: white;
+            transition: border-color 0.2s;
+        }
+
+        .qty-select:focus {
+            outline: none;
+            border-color: #2563eb;
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+        }
+
+        .lot-input {
+            width: 140px;
+            height: 44px;
+            padding: 8px 12px;
+            border: 2px solid #d1d5db;
+            border-radius: 0.375rem;
+            font-size: 16px;
+            background-color: white;
+            transition: border-color 0.2s;
+        }
+
+        .lot-input:focus {
+            outline: none;
+            border-color: #2563eb;
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+        }
+
+        /* Botões + e - melhorados */
+        .add-btn {
+            background: linear-gradient(135deg, #1d4ed8 0%, #1e40af 100%);
+            color: white;
+            border: none;
+            border-radius: 0.375rem;
+            font-size: 18px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .add-btn:hover {
+            background: linear-gradient(135deg, #1e40af 0%, #1d4ed8 100%);
+            transform: translateY(-1px);
+            box-shadow: 0 4px 8px rgba(29, 78, 216, 0.3);
+        }
+
+        .remove-btn {
+            background: linear-gradient(135deg, #dc2626 0%, #b91c1c 100%);
+            color: white;
+            border: none;
+            border-radius: 0.375rem;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            width: 32px;
+            height: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .remove-btn:hover {
+            background: linear-gradient(135deg, #b91c1c 0%, #991b1b 100%);
+            transform: translateY(-1px);
+            box-shadow: 0 4px 8px rgba(220, 38, 38, 0.3);
+        }
     </style>
 </head>
 <body class="bg-gray-50 min-h-screen">
@@ -502,19 +583,15 @@
                     <div class="qty-controls" id="qty-controls-${index}">
                         <div class="flex items-center gap-2">
                             <label class="font-medium">Qtd:</label>
-                            <select class="p-2 border rounded" style="width: 70px;">
+                            <select class="qty-select">
                                 <option value="">-</option>
                                 ${Array.from({length: 10}, (_, i) => `<option value="${i+1}">${i+1}</option>`).join('')}
                             </select>
                         </div>
                         <div class="flex items-center gap-2">
                             <label class="font-medium">Lote:</label>
-                            <input type="text" placeholder="Lote" maxlength="15" 
-                                   class="p-2 border rounded" style="width: 120px;">
-                            <button onclick="addLot(${index})" 
-                                    class="bg-blue-600 text-white p-2 rounded hover:bg-blue-700">
-                                +
-                            </button>
+                            <input type="text" placeholder="Lote" maxlength="15" class="lot-input">
+                            <button onclick="addLot(${index})" class="add-btn">+</button>
                         </div>
                         <div id="additional-lots-${index}"></div>
                     </div>
@@ -547,17 +624,13 @@
             lotDiv.style.backgroundColor = '#f3f4f6';
             lotDiv.innerHTML = `
                 <label class="font-medium">Qtd:</label>
-                <select class="p-1 border rounded" style="width: 60px;">
+                <select class="qty-select">
                     <option value="">-</option>
                     ${Array.from({length: 10}, (_, i) => `<option value="${i+1}">${i+1}</option>`).join('')}
                 </select>
                 <label class="font-medium">Lote:</label>
-                <input type="text" placeholder="Lote" maxlength="15" 
-                       class="p-1 border rounded" style="width: 100px;">
-                <button onclick="removeLot(this)" 
-                        class="bg-red-600 text-white p-1 rounded hover:bg-red-700">
-                    -
-                </button>
+                <input type="text" placeholder="Lote" maxlength="15" class="lot-input">
+                <button onclick="removeLot(this)" class="remove-btn">-</button>
             `;
             container.appendChild(lotDiv);
         }
@@ -788,14 +861,14 @@
             document.querySelector('.completion-screen').classList.remove('show');
         }
     </script>
-<script defer src="https://static.cloudflareinsights.com/beacon.min.js/vcd15cbe7772f49c399c6a5babf22c1241717689176015" integrity="sha512-ZpsOmlRQV6y907TI0dKBHq9Md29nnaEIPlkf84rnaERnq6zvWvPUqr2ft8M1aS28oN72PdrCzSjY4U6VaAw1EQ==" data-cf-beacon='{"rayId":"963f6411d9242073","serverTiming":{"name":{"cfExtPri":true,"cfEdge":true,"cfOrigin":true,"cfL4":true,"cfSpeedBrain":true,"cfCacheStatus":true}},"version":"2025.7.0","token":"4edd5f8ec12a48cfa682ab8261b80a79"}' crossorigin="anonymous"></script>
+<script defer src="https://static.cloudflareinsights.com/beacon.min.js/vcd15cbe7772f49c399c6a5babf22c1241717689176015" integrity="sha512-ZpsOmlRQV6y907TI0dKBHq9Md29nnaEIPlkf84rnaERnq6zvWvPUqr2ft8M1aS28oN72PdrCzSjY4U6VaAw1EQ==" data-cf-beacon='{"rayId":"963f7e714cccfdc9","serverTiming":{"name":{"cfExtPri":true,"cfEdge":true,"cfOrigin":true,"cfL4":true,"cfSpeedBrain":true,"cfCacheStatus":true}},"version":"2025.7.0","token":"4edd5f8ec12a48cfa682ab8261b80a79"}' crossorigin="anonymous"></script>
 </body>
 </html>
     <script id="html_badge_script1">
         window.__genspark_remove_badge_link = "https://www.genspark.ai/api/html_badge/" +
-            "remove_badge?token=To%2FBnjzloZ3UfQdcSaYfDusNmhLd1W5Gv02ehAjPZwLAwSqJskP4WDRfyZQD0BccY8pqpZ69kl63JbFGKWo4VB088lUEUbAboTV5juZhDL22Exa183jgyv7XUSDL4ty%2FQHwZaRC%2BbgxBRM5gqByNLQqIrYNEX9A6Iw8b3Ysi1xsRYhgTy3EV79cmXN%2ByEWAOT3RJUrtx3VjVI0%2FiVoFXN7TT%2FMLTR1EHQ%2FoeXjk3vIB7qV9FfkZDL36%2FDG8mwfYWNT%2BERcXXoQksAeY%2FBja4njF18c0n%2FAPv9MMnfnrP5S93eX5%2Fp4em6Q9x6twiipMNOp%2BuMA0kAzH8rc5hz75e1DaJ5GSr7xm25u2R8INYyMwS%2FHkOUEG4bdNxexttfK8h5xPvOK1Xx9OKvbuF3STgBcrM9%2F9ujhAXSf7fZ%2BmW%2BsBlURWujVqNbR3PRPSwwEMrGykXgXbc0XxzMl4YhjAhCasKvVjWCQ5acTisx%2FfRSZsQ17XUd9HZJkY53poqnOGzkiHkcY7AW7zWMCwqdg8mJvTohy2W3fqZxzKZK9yFafE%3D";
+            "remove_badge?token=To%2FBnjzloZ3UfQdcSaYfDo%2BPmB%2ByfjXhCf46oKtUhuEMA37DTqk46FBvzdU%2FF7HqpYEVH%2FCMyrv3qtKrcUtJDyeZ0vijMIZizRLJwyp1%2Fb40dWNnTy37kWvnN1%2BCGTqr9N63%2FZSDueeKBEvuy44Bi6SsdJzHT2ZfRTmP1gUrn0loB85FQgNp0h1uIoJDcfOsZmaoDNNRPzWieIY0XO%2Fpyc3K6tzxNjggs7fL0Zu%2Br1%2BpW3NcnNfdP80nGctbLmfEevGKpuVS%2FOn0570PkgpSKGm4btHCxJxWtHXpGIGTQI0z21MmqG3VM%2F2QM4BN6itrP8BrC0rW34EMmxKJS0WOoph9wc%2B62yS1pyPWEgv5KnHfK%2Brkr%2FjPJRl6F%2FlGYFuIIc67uWH198aSB%2FO%2BvWM6Vi14af3xbuXsscdnh%2BpreBy%2FTQyykne2zKXq2w7o0ZGw1Wm5BrFwWrmPt%2FjxZQucEJ3zmLkRdTcuXJDNZaeP6Qd1%2ByTLqkfEqJnJlarN6a5J4TT2Jzb0LWi5E4AjQMa%2BEflXxpo5%2BGR1gO03AUI6T3s%3D";
         window.__genspark_locale = "pt-BR";
-        window.__genspark_token = "To/BnjzloZ3UfQdcSaYfDusNmhLd1W5Gv02ehAjPZwLAwSqJskP4WDRfyZQD0BccY8pqpZ69kl63JbFGKWo4VB088lUEUbAboTV5juZhDL22Exa183jgyv7XUSDL4ty/QHwZaRC+bgxBRM5gqByNLQqIrYNEX9A6Iw8b3Ysi1xsRYhgTy3EV79cmXN+yEWAOT3RJUrtx3VjVI0/iVoFXN7TT/MLTR1EHQ/oeXjk3vIB7qV9FfkZDL36/DG8mwfYWNT+ERcXXoQksAeY/Bja4njF18c0n/APv9MMnfnrP5S93eX5/p4em6Q9x6twiipMNOp+uMA0kAzH8rc5hz75e1DaJ5GSr7xm25u2R8INYyMwS/HkOUEG4bdNxexttfK8h5xPvOK1Xx9OKvbuF3STgBcrM9/9ujhAXSf7fZ+mW+sBlURWujVqNbR3PRPSwwEMrGykXgXbc0XxzMl4YhjAhCasKvVjWCQ5acTisx/fRSZsQ17XUd9HZJkY53poqnOGzkiHkcY7AW7zWMCwqdg8mJvTohy2W3fqZxzKZK9yFafE=";
+        window.__genspark_token = "To/BnjzloZ3UfQdcSaYfDo+PmB+yfjXhCf46oKtUhuEMA37DTqk46FBvzdU/F7HqpYEVH/CMyrv3qtKrcUtJDyeZ0vijMIZizRLJwyp1/b40dWNnTy37kWvnN1+CGTqr9N63/ZSDueeKBEvuy44Bi6SsdJzHT2ZfRTmP1gUrn0loB85FQgNp0h1uIoJDcfOsZmaoDNNRPzWieIY0XO/pyc3K6tzxNjggs7fL0Zu+r1+pW3NcnNfdP80nGctbLmfEevGKpuVS/On0570PkgpSKGm4btHCxJxWtHXpGIGTQI0z21MmqG3VM/2QM4BN6itrP8BrC0rW34EMmxKJS0WOoph9wc+62yS1pyPWEgv5KnHfK+rkr/jPJRl6F/lGYFuIIc67uWH198aSB/O+vWM6Vi14af3xbuXsscdnh+preBy/TQyykne2zKXq2w7o0ZGw1Wm5BrFwWrmPt/jxZQucEJ3zmLkRdTcuXJDNZaeP6Qd1+yTLqkfEqJnJlarN6a5J4TT2Jzb0LWi5E4AjQMa+EflXxpo5+GR1gO03AUI6T3s=";
     </script>
     
     <script id="html_notice_dialog_script" src="https://www.genspark.ai/notice_dialog.js"></script>
