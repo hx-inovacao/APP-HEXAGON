@@ -3,39 +3,104 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>HEXAGON - Firebase Real SDK</title>
-    
-    <!-- Tailwind CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
-    
-    <!-- Font Awesome -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
-    
-    <!-- Firebase SDK v9 -->
-    <script src="https://cdn.jsdelivr.net/npm/firebase@9.22.2/firebase-app-compat.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/firebase@9.22.2/firebase-firestore-compat.js"></script>
-    
-    <!-- jsPDF -->
-    <script src="https://cdn.jsdelivr.net/npm/jspdf@2.5.1/dist/jspdf.umd.min.js"></script>
+    <title>HEXAGON - Firebase</title>
     
     <style>
-        .loading-spinner {
-            border: 3px solid #f3f4f6;
-            border-top: 3px solid #2563eb;
-            border-radius: 50%;
-            width: 20px;
-            height: 20px;
-            animation: spin 1s linear infinite;
-            display: inline-block;
-            margin-right: 0.5rem;
+        /* Reset e Base */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { 
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; 
+            background-color: #f9fafb; 
+            color: #1f2937; 
+            line-height: 1.6; 
         }
         
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
+        /* Utilitários */
+        .bg-gray-50 { background-color: #f9fafb; }
+        .bg-white { background-color: #ffffff; }
+        .bg-blue-600 { background-color: #2563eb; }
+        .bg-green-500 { background-color: #10b981; }
+        .text-gray-800 { color: #1f2937; }
+        .text-gray-700 { color: #374151; }
+        .text-gray-600 { color: #4b5563; }
+        .text-blue-600 { color: #2563eb; }
+        .text-white { color: #ffffff; }
+        .font-bold { font-weight: 700; }
+        .font-semibold { font-weight: 600; }
+        .font-medium { font-weight: 500; }
+        .text-xl { font-size: 1.25rem; }
+        .text-4xl { font-size: 2.25rem; }
+        .p-3 { padding: 0.75rem; }
+        .p-4 { padding: 1rem; }
+        .p-6 { padding: 1.5rem; }
+        .p-8 { padding: 2rem; }
+        .pt-8 { padding-top: 2rem; }
+        .pb-6 { padding-bottom: 1.5rem; }
+        .mb-2 { margin-bottom: 0.5rem; }
+        .mb-4 { margin-bottom: 1rem; }
+        .mb-6 { margin-bottom: 1.5rem; }
+        .rounded-lg { border-radius: 0.5rem; }
+        .rounded-xl { border-radius: 0.75rem; }
+        .border { border-width: 1px; }
+        .border-gray-300 { border-color: #d1d5db; }
+        .w-full { width: 100%; }
+        .max-w-6xl { max-width: 72rem; }
+        .mx-auto { margin-left: auto; margin-right: auto; }
+        .px-4 { padding-left: 1rem; padding-right: 1rem; }
+        .flex { display: flex; }
+        .items-center { align-items: center; }
+        .justify-center { justify-content: center; }
+        .gap-2 { gap: 0.5rem; }
+        .gap-3 { gap: 0.75rem; }
+        .text-center { text-align: center; }
+        .grid { display: grid; }
+        .grid-cols-1 { grid-template-columns: repeat(1, minmax(0, 1fr)); }
+        .grid-cols-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+        .shadow-md { 
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06); 
+        }
+        .min-h-screen { min-height: 100vh; }
+        .cursor-pointer { cursor: pointer; }
+        .transition-all { transition: all 0.3s ease; }
+        
+        @media (min-width: 768px) {
+            .md\\:grid-cols-3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+        }
+        
+        /* Componentes */
+        .btn-primary {
+            background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
+            color: white;
+            padding: 0.75rem 1.5rem;
+            border: none;
+            border-radius: 0.5rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(37, 99, 235, 0.2);
+        }
+        
+        .btn-success {
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+            color: white;
+            padding: 0.75rem 1.5rem;
+            border: none;
+            border-radius: 0.5rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
         }
         
         .product-card {
+            background: white;
+            border: 1px solid #e5e7eb;
+            border-radius: 0.5rem;
+            padding: 1rem;
+            margin-bottom: 0.5rem;
             transition: all 0.3s ease;
         }
         
@@ -61,8 +126,24 @@
             flex-wrap: wrap;
         }
         
+        .input-field {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid #d1d5db;
+            border-radius: 0.5rem;
+            transition: border-color 0.2s;
+        }
+        
+        .input-field:focus {
+            outline: none;
+            border-color: #2563eb;
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+        }
+        
         .completion-screen {
             display: none;
+            text-align: center;
+            padding: 3rem;
         }
         
         .completion-screen.show {
@@ -72,18 +153,30 @@
         .main-content.hide {
             display: none;
         }
+        
+        .loading-spinner {
+            border: 3px solid #f3f4f6;
+            border-top: 3px solid #2563eb;
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            animation: spin 1s linear infinite;
+            display: inline-block;
+            margin-right: 0.5rem;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
     </style>
 </head>
 <body class="bg-gray-50 min-h-screen">
     
     <!-- HEXAGON Title -->
     <div class="pt-8 pb-6 text-center">
-        <h1 class="text-4xl font-bold text-gray-800 mb-2">🔥 HEXAGON</h1>
+        <h1 class="text-4xl font-bold text-gray-800 mb-2">HEXAGON</h1>
         <h2 class="text-xl font-semibold text-gray-700 mb-2">Registro de Materiais Ortopédicos</h2>
-        <div class="text-blue-600 font-medium">Firebase Real SDK • 11 Coleções • 1.352 Produtos</div>
-        <div id="connectionStatus" class="text-green-600 font-medium mt-2">
-            <i class="fas fa-wifi mr-1"></i> Conectando ao Firebase...
-        </div>
     </div>
 
     <!-- Main Content -->
@@ -91,28 +184,25 @@
         
         <!-- Patient Information -->
         <div class="bg-white p-6 rounded-xl shadow-md mb-6">
-            <h3 class="font-semibold mb-4 text-gray-800"><i class="fas fa-user mr-2"></i>Informações do Paciente</h3>
+            <h3 class="font-semibold mb-4 text-gray-800">Informações do Paciente</h3>
             
             <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
                 <div>
                     <label class="block font-medium text-gray-700 mb-2">Usuário *</label>
                     <input type="text" id="userField" placeholder="Nome do usuário" 
-                           class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500" 
-                           oninput="capitalizeInput(this)">
+                           class="input-field" oninput="capitalizeInput(this)">
                 </div>
                 
                 <div>
                     <label class="block font-medium text-gray-700 mb-2">Hospital *</label>
                     <input type="text" id="hospitalSelect" placeholder="Nome do hospital" 
-                           class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500" 
-                           oninput="capitalizeInput(this)">
+                           class="input-field" oninput="capitalizeInput(this)">
                 </div>
                 
                 <div>
                     <label class="block font-medium text-gray-700 mb-2">Paciente</label>
                     <input type="text" id="patientName" placeholder="Nome do paciente" 
-                           class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500" 
-                           oninput="capitalizeInput(this)">
+                           class="input-field" oninput="capitalizeInput(this)">
                 </div>
             </div>
             
@@ -120,19 +210,18 @@
                 <div>
                     <label class="block font-medium text-gray-700 mb-2">N° Prontuário</label>
                     <input type="text" id="recordNumber" placeholder="Número do prontuário" 
-                           class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+                           class="input-field">
                 </div>
                 
                 <div>
                     <label class="block font-medium text-gray-700 mb-2">Data Cirurgia</label>
-                    <input type="date" id="surgeryDate" 
-                           class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+                    <input type="date" id="surgeryDate" class="input-field">
                 </div>
                 
                 <div>
                     <label class="block font-medium text-gray-700 mb-2">Outras Informações</label>
                     <textarea id="otherInfo" placeholder="Informações adicionais" rows="2" 
-                              class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"></textarea>
+                              class="input-field"></textarea>
                 </div>
             </div>
         </div>
@@ -140,59 +229,60 @@
         <!-- Product Selection -->
         <div class="bg-white p-6 rounded-xl shadow-md mb-6">
             <div class="mb-4">
-                <label class="block font-medium text-gray-700 mb-2"><i class="fas fa-box mr-2"></i>Selecionar Subgrupo:</label>
-                <select id="documentType" onchange="filterProducts()" 
-                        class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
-                    <option value="">🔄 Carregando subgrupos...</option>
+                <label class="block font-medium text-gray-700 mb-2">Selecionar Subgrupo:</label>
+                <select id="documentType" onchange="filterProducts()" class="input-field">
+                    <option value="">Carregando subgrupos...</option>
                 </select>
             </div>
 
             <div id="productsContainer">
                 <div class="text-center p-8 text-gray-600">
-                    <i class="fas fa-hand-point-up text-4xl mb-4"></i>
-                    <p>Selecione um subgrupo para visualizar os produtos</p>
+                    Selecione um subgrupo para visualizar os produtos
                 </div>
             </div>
         </div>
 
         <!-- Filter Buttons -->
         <div class="grid grid-cols-2 gap-3 mb-6">
-            <button onclick="showSelectedOnly()" 
-                    class="bg-green-500 hover:bg-green-600 text-white font-semibold py-3 px-6 rounded-lg transition-colors">
-                <i class="fas fa-filter mr-2"></i>Filtrar Selecionados
+            <button onclick="showSelectedOnly()" class="btn-success">
+                Filtrar Selecionados
             </button>
-            <button onclick="showAllProducts()" 
-                    class="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 px-6 rounded-lg transition-colors">
-                <i class="fas fa-eye mr-2"></i>Mostrar Todos
+            <button onclick="showAllProducts()" class="btn-primary">
+                Mostrar Todos
             </button>
         </div>
 
         <!-- Materiais Diversos -->
         <div class="bg-white p-6 rounded-xl shadow-md mb-6">
-            <label class="block font-medium text-gray-700 mb-2"><i class="fas fa-plus mr-2"></i>Materiais Diversos:</label>
+            <label class="block font-medium text-gray-700 mb-2">Materiais Diversos:</label>
             <textarea id="materiaisDiversos" placeholder="Digite materiais diversos..." rows="4" 
-                      class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"></textarea>
+                      class="input-field"></textarea>
         </div>
 
         <!-- Send Report Button -->
-        <button onclick="sendReport()" 
-                class="w-full bg-green-500 hover:bg-green-600 text-white font-bold py-4 px-6 rounded-lg text-xl mb-6 transition-colors">
-            <i class="fas fa-paper-plane mr-2"></i>Enviar Relatório
+        <button onclick="sendReport()" class="w-full btn-success p-4 text-xl mb-6">
+            Enviar Relatório
         </button>
     </div>
 
     <!-- Completion Screen -->
     <div class="completion-screen">
-        <div class="bg-white p-8 rounded-xl shadow-md mx-auto max-w-md text-center">
-            <div class="text-6xl text-green-500 mb-4">✅</div>
+        <div class="bg-white p-8 rounded-xl shadow-md mx-auto" style="max-width: 28rem;">
+            <div style="font-size: 4rem; color: #10b981; margin-bottom: 1rem;">✓</div>
             <h2 class="text-2xl font-bold text-gray-800 mb-4">Relatório Enviado</h2>
             <p class="text-gray-600 mb-6">Relatório enviado com sucesso!</p>
-            <button onclick="startNewReport()" 
-                    class="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 px-6 rounded-lg w-full transition-colors">
-                <i class="fas fa-plus mr-2"></i>Novo Relatório
+            <button onclick="startNewReport()" class="btn-primary w-full">
+                Novo Relatório
             </button>
         </div>
     </div>
+
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
+
+    <!-- jsPDF -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 
     <script>
         // Firebase Configuration
@@ -205,10 +295,33 @@
             appId: "1:810793753497:web:b5a6a812b18e09bfdd5108"
         };
 
-        // Global variables
-        let db;
-        let currentProducts = [];
-        let allSubgroups = new Map();
+        // Initialize Firebase
+        let app, db;
+        
+        function initializeFirebase() {
+            try {
+                console.log('Firebase SDK carregada com sucesso');
+                app = firebase.initializeApp(firebaseConfig);
+                db = firebase.firestore();
+                console.log('Firebase inicializado:', firebaseConfig.projectId);
+                return true;
+            } catch (error) {
+                console.error('Erro ao inicializar Firebase:', error);
+                return false;
+            }
+        }
+
+        // Initialize on DOM ready
+        document.addEventListener('DOMContentLoaded', async function() {
+            console.log('Hexagon Firebase iniciado');
+            
+            if (initializeFirebase()) {
+                await carregarSubgrupos();
+            } else {
+                console.error('Falha na inicialização do Firebase');
+                document.getElementById('documentType').innerHTML = '<option value="">Erro de conexão Firebase</option>';
+            }
+        });
         
         // Collections
         const COLLECTIONS = [
@@ -217,36 +330,10 @@
             'hastes_intram_umero', 'micro_placas_com_bloqueio', 'placas_com_bloqueio_gr_frag',
             'placas_sem_bloqueio_pequ_frag', 'placas_volares_com_bloqueio'
         ];
-
-        // Initialize Firebase
-        function initializeFirebase() {
-            try {
-                console.log('🔥 Inicializando Firebase...');
-                const app = firebase.initializeApp(firebaseConfig);
-                db = firebase.firestore();
-                
-                document.getElementById('connectionStatus').innerHTML = 
-                    '<i class="fas fa-check-circle mr-1"></i> Conectado ao Firebase!';
-                document.getElementById('connectionStatus').className = 'text-green-600 font-medium mt-2';
-                
-                console.log('✅ Firebase inicializado com sucesso:', firebaseConfig.projectId);
-                
-                // Load subgroups after Firebase is initialized
-                carregarSubgrupos();
-                
-            } catch (error) {
-                console.error('❌ Erro ao inicializar Firebase:', error);
-                document.getElementById('connectionStatus').innerHTML = 
-                    '<i class="fas fa-exclamation-triangle mr-1"></i> Erro de conexão';
-                document.getElementById('connectionStatus').className = 'text-red-600 font-medium mt-2';
-            }
-        }
-
-        // Initialize when page loads
-        document.addEventListener('DOMContentLoaded', function() {
-            console.log('🚀 Hexagon PWA iniciado');
-            initializeFirebase();
-        });
+        
+        // Global variables
+        let currentProducts = [];
+        let allSubgroups = new Map();
         
         // Capitalize input
         function capitalizeInput(input) {
@@ -260,17 +347,16 @@
         async function carregarSubgrupos() {
             try {
                 const select = document.getElementById('documentType');
-                select.innerHTML = '<option value="">🔄 Carregando subgrupos...</option>';
+                select.innerHTML = '<option value="">Carregando...</option>';
                 
                 const gruposOrganizados = {};
-                let totalSubgroups = 0;
+                let totalProcessed = 0;
                 
-                console.log('📡 Buscando subgrupos de todas as coleções...');
+                console.log('Carregando subgrupos...');
                 
                 for (const collection of COLLECTIONS) {
                     try {
-                        console.log(`📡 Buscando subgrupos de: ${collection}`);
-                        
+                        console.log(`Buscando subgrupos de: ${collection}`);
                         const snapshot = await db.collection(collection).orderBy('ordem_global').limit(500).get();
                         
                         snapshot.forEach(doc => {
@@ -284,24 +370,32 @@
                                 }
                                 gruposOrganizados[grupo].add(subgrupo);
                                 allSubgroups.set(subgrupo, collection);
-                                totalSubgroups++;
+                                totalProcessed++;
                             }
                         });
                         
-                        console.log(`✅ ${collection}: ${snapshot.size} documentos processados`);
+                        console.log(`✓ ${collection}: processados`);
                         
                     } catch (error) {
-                        console.warn(`⚠️ Erro na coleção ${collection}:`, error);
+                        console.warn(`Erro na coleção ${collection}:`, error);
                         if (error.message.includes('index')) {
-                            console.log(`💡 Dica: Crie o índice para ${collection} no Firebase Console`);
+                            console.warn(`Índice necessário para ${collection}`);
                         }
                     }
                 }
                 
                 // Build dropdown
-                select.innerHTML = '<option value="">📋 Selecione um subgrupo</option>';
+                select.innerHTML = '<option value="">Selecione um subgrupo</option>';
                 
-                Object.keys(gruposOrganizados).sort().forEach(grupo => {
+                const sortedGroups = Object.keys(gruposOrganizados).sort();
+                
+                if (sortedGroups.length === 0) {
+                    select.innerHTML = '<option value="">Nenhum subgrupo encontrado</option>';
+                    console.warn('Nenhum subgrupo carregado. Verifique os índices do Firebase.');
+                    return;
+                }
+                
+                sortedGroups.forEach(grupo => {
                     const headerOption = document.createElement('option');
                     headerOption.value = '';
                     headerOption.textContent = `═══ ${grupo} ═══`;
@@ -314,24 +408,16 @@
                     Array.from(gruposOrganizados[grupo]).sort().forEach(subgrupo => {
                         const option = document.createElement('option');
                         option.value = subgrupo;
-                        option.textContent = `  📦 ${subgrupo}`;
+                        option.textContent = `  ${subgrupo}`;
                         select.appendChild(option);
                     });
                 });
                 
                 console.log(`✅ Subgrupos carregados: ${allSubgroups.size} encontrados`);
                 
-                // Update connection status
-                document.getElementById('connectionStatus').innerHTML = 
-                    `<i class="fas fa-database mr-1"></i> ${allSubgroups.size} subgrupos carregados`;
-                
             } catch (error) {
-                console.error('❌ Erro ao carregar subgrupos:', error);
-                document.getElementById('documentType').innerHTML = '<option value="">❌ Erro ao carregar subgrupos</option>';
-                
-                document.getElementById('connectionStatus').innerHTML = 
-                    '<i class="fas fa-exclamation-triangle mr-1"></i> Erro ao carregar dados';
-                document.getElementById('connectionStatus').className = 'text-red-600 font-medium mt-2';
+                console.error('Erro ao carregar subgrupos:', error);
+                document.getElementById('documentType').innerHTML = '<option value="">Erro ao carregar - Verifique índices Firebase</option>';
             }
         }
         
@@ -341,32 +427,20 @@
             const container = document.getElementById('productsContainer');
             
             if (!subgrupo) {
-                container.innerHTML = `
-                    <div class="text-center p-8 text-gray-600">
-                        <i class="fas fa-hand-point-up text-4xl mb-4"></i>
-                        <p>Selecione um subgrupo para visualizar os produtos</p>
-                    </div>`;
+                container.innerHTML = '<div class="text-center p-8 text-gray-600">Selecione um subgrupo</div>';
                 return;
             }
             
-            container.innerHTML = `
-                <div class="text-center p-8 text-blue-600">
-                    <div class="loading-spinner"></div>
-                    Buscando produtos do subgrupo: ${subgrupo}...
-                </div>`;
+            container.innerHTML = '<div class="text-center p-8 text-blue-600"><div class="loading-spinner"></div>Buscando produtos...</div>';
             
             try {
                 const collection = allSubgroups.get(subgrupo);
                 if (!collection) {
-                    container.innerHTML = `
-                        <div class="text-center p-8 text-red-600">
-                            <i class="fas fa-exclamation-triangle text-4xl mb-4"></i>
-                            <p>❌ Coleção não encontrada para este subgrupo</p>
-                        </div>`;
+                    container.innerHTML = '<div class="text-center p-8 text-red-600">Coleção não encontrada</div>';
                     return;
                 }
                 
-                console.log(`🔍 Buscando produtos de ${subgrupo} na coleção ${collection}`);
+                console.log(`Buscando produtos em: ${collection} para subgrupo: ${subgrupo}`);
                 
                 const snapshot = await db.collection(collection)
                     .where('subgrupo', '==', subgrupo)
@@ -387,26 +461,19 @@
                 currentProducts = produtos;
                 renderProducts();
                 
-                console.log(`✅ ${produtos.length} produtos encontrados para ${subgrupo}`);
+                console.log(`✓ ${produtos.length} produtos carregados para ${subgrupo}`);
                 
             } catch (error) {
-                console.error('❌ Erro ao buscar produtos:', error);
+                console.error('Erro ao buscar produtos:', error);
+                let errorMsg = 'Erro de conexão';
                 
-                let errorMessage = 'Erro de conexão';
                 if (error.message.includes('index')) {
-                    errorMessage = 'Índice necessário não foi criado ainda';
+                    errorMsg = 'Erro: Índice necessário no Firebase<br><small>Verifique a configuração dos índices</small>';
                 } else if (error.message.includes('permission')) {
-                    errorMessage = 'Erro de permissão';
+                    errorMsg = 'Erro: Permissão negada<br><small>Verifique as regras de segurança</small>';
                 }
                 
-                container.innerHTML = `
-                    <div class="text-center p-8 text-red-600">
-                        <i class="fas fa-exclamation-triangle text-4xl mb-4"></i>
-                        <p>❌ ${errorMessage}</p>
-                        <small class="text-gray-500 mt-2 block">
-                            Verifique se os índices foram criados no Firebase Console
-                        </small>
-                    </div>`;
+                container.innerHTML = `<div class="text-center p-8 text-red-600">${errorMsg}</div>`;
             }
         }
         
@@ -416,65 +483,37 @@
             container.innerHTML = '';
             
             if (currentProducts.length === 0) {
-                container.innerHTML = `
-                    <div class="text-center p-8 text-gray-600">
-                        <i class="fas fa-search text-4xl mb-4"></i>
-                        <p>🔍 Nenhum produto encontrado neste subgrupo</p>
-                    </div>`;
+                container.innerHTML = '<div class="text-center p-8 text-gray-600">Nenhum produto encontrado</div>';
                 return;
             }
             
-            const headerDiv = document.createElement('div');
-            headerDiv.className = 'mb-4 p-4 bg-blue-50 border border-blue-200 rounded-lg';
-            headerDiv.innerHTML = `
-                <div class="flex items-center justify-between">
-                    <span class="text-blue-700 font-medium">
-                        <i class="fas fa-box mr-2"></i>
-                        ${currentProducts.length} produtos encontrados
-                    </span>
-                    <span class="text-blue-600 text-sm">
-                        <i class="fas fa-sort-numeric-down mr-1"></i>
-                        Ordenados por: Ordem Global
-                    </span>
-                </div>
-            `;
-            container.appendChild(headerDiv);
-            
             currentProducts.forEach((product, index) => {
                 const card = document.createElement('div');
-                card.className = 'product-card bg-white border border-gray-300 rounded-lg p-4 mb-3';
+                card.className = 'product-card';
                 card.innerHTML = `
                     <div class="flex items-start gap-3">
                         <input type="checkbox" onchange="toggleProductSelection(${index})" 
-                               class="mt-1 w-5 h-5 text-blue-600 border-gray-300 rounded focus:ring-blue-500" 
-                               id="checkbox-${index}">
+                               class="mt-1 w-5 h-5" id="checkbox-${index}">
                         <div class="flex-1">
                             <div class="font-medium text-gray-900">${product.nome}</div>
-                            <div class="text-gray-500 text-sm">
-                                <i class="fas fa-barcode mr-1"></i>
-                                Código: ${product.codigo}
-                            </div>
-                            <div class="text-blue-500 text-xs">
-                                <i class="fas fa-sort-numeric-down mr-1"></i>
-                                Ordem: ${product.ordem_global}
-                            </div>
+                            <div class="text-gray-500 text-sm">Código: ${product.codigo}</div>
                         </div>
                     </div>
                     <div class="qty-controls" id="qty-controls-${index}">
                         <div class="flex items-center gap-2">
-                            <label class="font-medium text-gray-700">Qtd:</label>
-                            <select class="p-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500" style="width: 70px;">
+                            <label class="font-medium">Qtd:</label>
+                            <select class="p-2 border rounded" style="width: 70px;">
                                 <option value="">-</option>
                                 ${Array.from({length: 10}, (_, i) => `<option value="${i+1}">${i+1}</option>`).join('')}
                             </select>
                         </div>
                         <div class="flex items-center gap-2">
-                            <label class="font-medium text-gray-700">Lote:</label>
+                            <label class="font-medium">Lote:</label>
                             <input type="text" placeholder="Lote" maxlength="15" 
-                                   class="p-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500" style="width: 120px;">
+                                   class="p-2 border rounded" style="width: 120px;">
                             <button onclick="addLot(${index})" 
-                                    class="bg-blue-600 hover:bg-blue-700 text-white p-2 rounded-md transition-colors">
-                                <i class="fas fa-plus"></i>
+                                    class="bg-blue-600 text-white p-2 rounded hover:bg-blue-700">
+                                +
                             </button>
                         </div>
                         <div id="additional-lots-${index}"></div>
@@ -504,19 +543,20 @@
         function addLot(productIndex) {
             const container = document.getElementById(`additional-lots-${productIndex}`);
             const lotDiv = document.createElement('div');
-            lotDiv.className = 'flex items-center gap-2 mt-2 p-2 bg-gray-100 rounded-md';
+            lotDiv.className = 'flex items-center gap-2 mt-2 p-2 rounded';
+            lotDiv.style.backgroundColor = '#f3f4f6';
             lotDiv.innerHTML = `
-                <label class="font-medium text-gray-700">Qtd:</label>
-                <select class="p-1 border border-gray-300 rounded-md" style="width: 60px;">
+                <label class="font-medium">Qtd:</label>
+                <select class="p-1 border rounded" style="width: 60px;">
                     <option value="">-</option>
                     ${Array.from({length: 10}, (_, i) => `<option value="${i+1}">${i+1}</option>`).join('')}
                 </select>
-                <label class="font-medium text-gray-700">Lote:</label>
+                <label class="font-medium">Lote:</label>
                 <input type="text" placeholder="Lote" maxlength="15" 
-                       class="p-1 border border-gray-300 rounded-md" style="width: 100px;">
+                       class="p-1 border rounded" style="width: 100px;">
                 <button onclick="removeLot(this)" 
-                        class="bg-red-600 hover:bg-red-700 text-white p-1 rounded-md transition-colors">
-                    <i class="fas fa-minus"></i>
+                        class="bg-red-600 text-white p-1 rounded hover:bg-red-700">
+                    -
                 </button>
             `;
             container.appendChild(lotDiv);
@@ -553,32 +593,47 @@
             return date.toLocaleDateString('pt-BR');
         }
         
+        // Generate separator line
+        function generateSeparator(length = 32) {
+            return '='.repeat(length);
+        }
+        
         // Generate PDF
         function generatePDF() {
             try {
                 const { jsPDF } = window.jspdf;
                 const doc = new jsPDF();
                 
-                doc.setFontSize(20);
+                // Header
+                doc.setFontSize(16);
                 doc.setFont(undefined, 'bold');
-                doc.text('HEXAGON - FIREBASE REAL SDK', 105, 20, { align: 'center' });
+                doc.text('REGISTRO DE CONSUMO DE MATERIAIS CONSIGNADOS', 105, 20, { align: 'center' });
                 
-                let yPos = 40;
-                doc.setFontSize(12);
-                doc.text('REGISTRO DE CONSUMO DE MATERIAIS', 105, yPos, { align: 'center' });
-                yPos += 15;
+                let yPos = 35;
                 
+                // Separator
                 doc.setFontSize(10);
-                doc.text(`Usuario: ${document.getElementById('userField').value || ''}`, 20, yPos);
-                yPos += 7;
+                doc.text(generateSeparator(50), 105, yPos, { align: 'center' });
+                yPos += 10;
+                
+                // Patient info
+                doc.setFont(undefined, 'normal');
+                doc.text(`Usuário: ${document.getElementById('userField').value || ''}`, 20, yPos);
+                yPos += 6;
                 doc.text(`Hospital: ${document.getElementById('hospitalSelect').value || ''}`, 20, yPos);
-                yPos += 7;
-                doc.text(`Paciente: ${document.getElementById('patientName').value || ''}`, 20, yPos);
-                yPos += 7;
-                doc.text(`Prontuario: ${document.getElementById('recordNumber').value || ''}`, 20, yPos);
-                yPos += 7;
-                doc.text(`Data: ${formatDateBrazilian(document.getElementById('surgeryDate').value)}`, 20, yPos);
-                yPos += 15;
+                yPos += 6;
+                doc.text(`Nome do Paciente: ${document.getElementById('patientName').value || ''}`, 20, yPos);
+                yPos += 6;
+                doc.text(`Num Prontuario: ${document.getElementById('recordNumber').value || ''}`, 20, yPos);
+                yPos += 6;
+                doc.text(`Data da Cirurgia: ${formatDateBrazilian(document.getElementById('surgeryDate').value)}`, 20, yPos);
+                yPos += 6;
+                doc.text(`Outras Informações: ${document.getElementById('otherInfo').value || ''}`, 20, yPos);
+                yPos += 10;
+                
+                // Separator
+                doc.text(generateSeparator(50), 105, yPos, { align: 'center' });
+                yPos += 10;
                 
                 // Materials
                 const checkboxes = document.querySelectorAll('.product-card input[type="checkbox"]:checked');
@@ -595,26 +650,32 @@
                         yPos += 5;
                         doc.text(`Produto: ${product.nome}`, 20, yPos);
                         yPos += 5;
-                        doc.text(`Lote: ${lotInput.value} | Qtd: ${qtySelect.value || '1'}`, 20, yPos);
+                        doc.text(`Lote: ${lotInput.value}`, 20, yPos);
+                        yPos += 5;
+                        doc.text(`Quantidade: ${qtySelect.value || '1'}`, 20, yPos);
                         yPos += 10;
                         
-                        if (yPos > 250) {
+                        // Separator
+                        doc.text(generateSeparator(50), 105, yPos, { align: 'center' });
+                        yPos += 10;
+                        
+                        if (yPos > 260) {
                             doc.addPage();
                             yPos = 20;
                         }
                     }
                 });
                 
+                // Materiais Diversos
                 const diversos = document.getElementById('materiaisDiversos').value;
                 if (diversos) {
-                    yPos += 5;
                     doc.text('Materiais Diversos:', 20, yPos);
-                    yPos += 5;
-                    const lines = doc.splitTextToSize(diversos, 170);
-                    lines.forEach(line => {
-                        doc.text(line, 20, yPos);
-                        yPos += 5;
-                    });
+                    yPos += 6;
+                    doc.text(diversos, 20, yPos);
+                    yPos += 10;
+                    
+                    // Final separator
+                    doc.text(generateSeparator(50), 105, yPos, { align: 'center' });
                 }
                 
                 return doc;
@@ -632,57 +693,52 @@
                 const hospitalSelect = document.getElementById('hospitalSelect').value.trim();
                 
                 if (!userField) {
-                    alert('⚠️ Preencha o campo Usuário');
+                    alert('Preencha o campo Usuário');
                     return;
                 }
                 
                 if (!hospitalSelect) {
-                    alert('⚠️ Preencha o campo Hospital');
+                    alert('Preencha o campo Hospital');
                     return;
                 }
                 
-                let message = '🏥 REGISTRO DE CONSUMO - HEXAGON FIREBASE REAL\n';
-                message += '===============================\n\n';
-                message += `👤 Usuario: ${userField}\n`;
-                message += `🏥 Hospital: ${hospitalSelect}\n`;
-                message += `🤕 Paciente: ${document.getElementById('patientName').value || 'N/A'}\n`;
-                message += `📋 Prontuario: ${document.getElementById('recordNumber').value || 'N/A'}\n`;
-                message += `📅 Data: ${formatDateBrazilian(document.getElementById('surgeryDate').value) || 'N/A'}\n`;
-                message += `📝 Outras Info: ${document.getElementById('otherInfo').value || 'Nenhuma'}\n`;
-                message += '===============================\n\n';
+                // Build message using exact format
+                let message = 'REGISTRO DE CONSUMO DE MATERIAIS CONSIGNADOS\n';
+                message += generateSeparator() + '\n';
+                message += `Usuário: ${userField}\n`;
+                message += `Hospital: ${hospitalSelect}\n`;
+                message += `Nome do Paciente: ${document.getElementById('patientName').value || ''}\n`;
+                message += `Num Prontuario: ${document.getElementById('recordNumber').value || ''}\n`;
+                message += `Data da Cirurgia: ${formatDateBrazilian(document.getElementById('surgeryDate').value) || ''}\n`;
+                message += `Outras Informações: ${document.getElementById('otherInfo').value || ''}\n`;
+                message += generateSeparator() + '\n';
                 
                 // Materials
                 const checkboxes = document.querySelectorAll('.product-card input[type="checkbox"]:checked');
-                let materialCount = 0;
                 
-                if (checkboxes.length > 0) {
-                    message += '📦 MATERIAIS UTILIZADOS:\n';
+                checkboxes.forEach(checkbox => {
+                    const index = parseInt(checkbox.id.split('-')[1]);
+                    const product = currentProducts[index];
                     
-                    checkboxes.forEach(checkbox => {
-                        const index = parseInt(checkbox.id.split('-')[1]);
-                        const product = currentProducts[index];
-                        
-                        const qtyControls = document.getElementById(`qty-controls-${index}`);
-                        const qtySelect = qtyControls.querySelector('select');
-                        const lotInput = qtyControls.querySelector('input[type="text"]');
-                        
-                        if (lotInput.value) {
-                            materialCount++;
-                            message += `\n${materialCount}. 📦 ${product.codigo}\n`;
-                            message += `   📋 ${product.nome}\n`;
-                            message += `   🏷️ Lote: ${lotInput.value}\n`;
-                            message += `   🔢 Qtd: ${qtySelect.value || '1'}\n`;
-                        }
-                    });
-                } else {
-                    message += '⚠️ NENHUM MATERIAL SELECIONADO\n';
-                }
+                    const qtyControls = document.getElementById(`qty-controls-${index}`);
+                    const qtySelect = qtyControls.querySelector('select');
+                    const lotInput = qtyControls.querySelector('input[type="text"]');
+                    
+                    if (lotInput.value) {
+                        message += `Codigo: ${product.codigo}\n`;
+                        message += `Produto: ${product.nome}\n`;
+                        message += `Lote: ${lotInput.value}\n`;
+                        message += `Quantidade: ${qtySelect.value || '1'}\n`;
+                        message += generateSeparator() + '\n';
+                    }
+                });
                 
+                // Materiais Diversos
                 const diversos = document.getElementById('materiaisDiversos').value;
                 if (diversos) {
-                    message += '\n===============================\n';
-                    message += '➕ MATERIAIS DIVERSOS:\n';
+                    message += 'Materiais Diversos:\n';
                     message += diversos + '\n';
+                    message += generateSeparator() + '\n';
                 }
                 
                 // Generate PDF
@@ -698,15 +754,9 @@
                     link.click();
                     document.body.removeChild(link);
                     
-                    message += '\n📄 PDF salvo no dispositivo';
-                    
                 } catch (pdfError) {
                     console.error('Erro PDF:', pdfError);
-                    message += '\n⚠️ Erro ao gerar PDF';
                 }
-                
-                message += `\n\n⏰ ${new Date().toLocaleString('pt-BR')}`;
-                message += '\n🔥 Hexagon Firebase Real SDK v4.0';
                 
                 // WhatsApp
                 const whatsappUrl = `https://wa.me/5519998935452?text=${encodeURIComponent(message)}`;
@@ -716,7 +766,7 @@
                 
             } catch (error) {
                 console.error('Erro ao enviar:', error);
-                alert('❌ Erro ao enviar relatório');
+                alert('Erro ao enviar relatório');
             }
         }
 
@@ -731,24 +781,22 @@
             document.getElementById('otherInfo').value = '';
             document.getElementById('materiaisDiversos').value = '';
             document.getElementById('documentType').value = '';
-            document.getElementById('productsContainer').innerHTML = `
-                <div class="text-center p-8 text-gray-600">
-                    <i class="fas fa-hand-point-up text-4xl mb-4"></i>
-                    <p>Selecione um subgrupo para visualizar os produtos</p>
-                </div>`;
+            document.getElementById('productsContainer').innerHTML = 
+                '<div class="text-center p-8 text-gray-600">Selecione um subgrupo para visualizar os produtos</div>';
             
             document.querySelector('.main-content').classList.remove('hide');
             document.querySelector('.completion-screen').classList.remove('show');
         }
     </script>
-<script defer src="https://static.cloudflareinsights.com/beacon.min.js/vcd15cbe7772f49c399c6a5babf22c1241717689176015" integrity="sha512-ZpsOmlRQV6y907TI0dKBHq9Md29nnaEIPlkf84rnaERnq6zvWvPUqr2ft8M1aS28oN72PdrCzSjY4U6VaAw1EQ==" data-cf-beacon='{"rayId":"963e70d9898c13ca","serverTiming":{"name":{"cfExtPri":true,"cfEdge":true,"cfOrigin":true,"cfL4":true,"cfSpeedBrain":true,"cfCacheStatus":true}},"version":"2025.7.0","token":"4edd5f8ec12a48cfa682ab8261b80a79"}' crossorigin="anonymous"></script>
+<script defer src="https://static.cloudflareinsights.com/beacon.min.js/vcd15cbe7772f49c399c6a5babf22c1241717689176015" integrity="sha512-ZpsOmlRQV6y907TI0dKBHq9Md29nnaEIPlkf84rnaERnq6zvWvPUqr2ft8M1aS28oN72PdrCzSjY4U6VaAw1EQ==" data-cf-beacon='{"rayId":"963f6411d9242073","serverTiming":{"name":{"cfExtPri":true,"cfEdge":true,"cfOrigin":true,"cfL4":true,"cfSpeedBrain":true,"cfCacheStatus":true}},"version":"2025.7.0","token":"4edd5f8ec12a48cfa682ab8261b80a79"}' crossorigin="anonymous"></script>
 </body>
 </html>
     <script id="html_badge_script1">
         window.__genspark_remove_badge_link = "https://www.genspark.ai/api/html_badge/" +
-            "remove_badge?token=To%2FBnjzloZ3UfQdcSaYfDoNVhr17WVc0MEm5R7KpiusN7JIP%2FBFDgoMmnz8pT%2FlQhbdnbz7szUCg1FpGa2wFBYffh%2BHWSoljeG6zYhYpWYIG09mBd6tyuJ8ENmLwdOZRzaiybSWkw5N%2FyhxXqAgDS2O7mpe1C8d4ACECM0H5sQpH8LadRAfBGDjRMnHfCpieEvfOmPBPusdcB7CH%2FWgrqpvdKr5gI77nsc5nFI1XjP6b7O%2FvoYf8M1py9eeMQTl4O%2FF9GWYdwIgGCq3NMLDK%2BgPJ6ILB%2BBXCHPoARHI%2Bm%2B2fptl2Yc0y2fIqiTImvVnUTUVb9Dc9NbkeH6u3vQMLXYCF3aloenrEHRmcdFKjlQitEjiQ7NEdPRg17UQpRLIvX0xhCffHPTERwACmdAKed32ENsr9N%2B0ePkzyfqVQ5u7iw0oPdbZW1c%2FZDRtslhnL0DaS7swuKrQaCV4XYKMdw4VNOg66b%2B5h40cakgtsNY0mg3wMmRaXhHvSGldZJ8OWRhi0kfiZJKRXp2JL0C8PhZvYMcg2Gmso3L%2BkwNAZb5I%3D";
+            "remove_badge?token=To%2FBnjzloZ3UfQdcSaYfDusNmhLd1W5Gv02ehAjPZwLAwSqJskP4WDRfyZQD0BccY8pqpZ69kl63JbFGKWo4VB088lUEUbAboTV5juZhDL22Exa183jgyv7XUSDL4ty%2FQHwZaRC%2BbgxBRM5gqByNLQqIrYNEX9A6Iw8b3Ysi1xsRYhgTy3EV79cmXN%2ByEWAOT3RJUrtx3VjVI0%2FiVoFXN7TT%2FMLTR1EHQ%2FoeXjk3vIB7qV9FfkZDL36%2FDG8mwfYWNT%2BERcXXoQksAeY%2FBja4njF18c0n%2FAPv9MMnfnrP5S93eX5%2Fp4em6Q9x6twiipMNOp%2BuMA0kAzH8rc5hz75e1DaJ5GSr7xm25u2R8INYyMwS%2FHkOUEG4bdNxexttfK8h5xPvOK1Xx9OKvbuF3STgBcrM9%2F9ujhAXSf7fZ%2BmW%2BsBlURWujVqNbR3PRPSwwEMrGykXgXbc0XxzMl4YhjAhCasKvVjWCQ5acTisx%2FfRSZsQ17XUd9HZJkY53poqnOGzkiHkcY7AW7zWMCwqdg8mJvTohy2W3fqZxzKZK9yFafE%3D";
         window.__genspark_locale = "pt-BR";
-        window.__genspark_token = "To/BnjzloZ3UfQdcSaYfDoNVhr17WVc0MEm5R7KpiusN7JIP/BFDgoMmnz8pT/lQhbdnbz7szUCg1FpGa2wFBYffh+HWSoljeG6zYhYpWYIG09mBd6tyuJ8ENmLwdOZRzaiybSWkw5N/yhxXqAgDS2O7mpe1C8d4ACECM0H5sQpH8LadRAfBGDjRMnHfCpieEvfOmPBPusdcB7CH/WgrqpvdKr5gI77nsc5nFI1XjP6b7O/voYf8M1py9eeMQTl4O/F9GWYdwIgGCq3NMLDK+gPJ6ILB+BXCHPoARHI+m+2fptl2Yc0y2fIqiTImvVnUTUVb9Dc9NbkeH6u3vQMLXYCF3aloenrEHRmcdFKjlQitEjiQ7NEdPRg17UQpRLIvX0xhCffHPTERwACmdAKed32ENsr9N+0ePkzyfqVQ5u7iw0oPdbZW1c/ZDRtslhnL0DaS7swuKrQaCV4XYKMdw4VNOg66b+5h40cakgtsNY0mg3wMmRaXhHvSGldZJ8OWRhi0kfiZJKRXp2JL0C8PhZvYMcg2Gmso3L+kwNAZb5I=";
+        window.__genspark_token = "To/BnjzloZ3UfQdcSaYfDusNmhLd1W5Gv02ehAjPZwLAwSqJskP4WDRfyZQD0BccY8pqpZ69kl63JbFGKWo4VB088lUEUbAboTV5juZhDL22Exa183jgyv7XUSDL4ty/QHwZaRC+bgxBRM5gqByNLQqIrYNEX9A6Iw8b3Ysi1xsRYhgTy3EV79cmXN+yEWAOT3RJUrtx3VjVI0/iVoFXN7TT/MLTR1EHQ/oeXjk3vIB7qV9FfkZDL36/DG8mwfYWNT+ERcXXoQksAeY/Bja4njF18c0n/APv9MMnfnrP5S93eX5/p4em6Q9x6twiipMNOp+uMA0kAzH8rc5hz75e1DaJ5GSr7xm25u2R8INYyMwS/HkOUEG4bdNxexttfK8h5xPvOK1Xx9OKvbuF3STgBcrM9/9ujhAXSf7fZ+mW+sBlURWujVqNbR3PRPSwwEMrGykXgXbc0XxzMl4YhjAhCasKvVjWCQ5acTisx/fRSZsQ17XUd9HZJkY53poqnOGzkiHkcY7AW7zWMCwqdg8mJvTohy2W3fqZxzKZK9yFafE=";
     </script>
     
     <script id="html_notice_dialog_script" src="https://www.genspark.ai/notice_dialog.js"></script>
+    
