@@ -53,6 +53,7 @@
         .gap-2 { gap: 0.5rem; }
         .gap-3 { gap: 0.75rem; }
         .gap-4 { gap: 1rem; }
+        .gap-6 { gap: 1.5rem; }
         .text-center { text-align: center; }
         .grid { display: grid; }
         .grid-cols-1 { grid-template-columns: repeat(1, minmax(0, 1fr)); }
@@ -121,10 +122,19 @@
         }
         
         .qty-controls.show {
+            display: block;
+        }
+        
+        .qty-row {
             display: flex;
             gap: 0.75rem;
             align-items: center;
             flex-wrap: wrap;
+            margin-bottom: 0.75rem;
+        }
+        
+        .qty-row:last-child {
+            margin-bottom: 0;
         }
         
         .input-field {
@@ -288,7 +298,7 @@
                 </div>
             </div>
             
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
                 <div>
                     <label class="block font-medium text-gray-700 mb-2">N° Prontuário</label>
                     <input type="text" id="recordNumber" placeholder="Número do prontuário" 
@@ -582,14 +592,12 @@
                         </div>
                     </div>
                     <div class="qty-controls" id="qty-controls-${index}">
-                        <div class="flex items-center gap-2">
+                        <div class="qty-row">
                             <label class="font-medium">Qtd:</label>
                             <select class="qty-select">
                                 <option value="">-</option>
                                 ${Array.from({length: 10}, (_, i) => `<option value="${i+1}">${i+1}</option>`).join('')}
                             </select>
-                        </div>
-                        <div class="flex items-center gap-2">
                             <label class="font-medium">Lote:</label>
                             <input type="text" placeholder="Lote" maxlength="15" class="lot-input">
                             <button onclick="addLot(${index})" class="add-btn">+</button>
@@ -621,8 +629,10 @@
         function addLot(productIndex) {
             const container = document.getElementById(`additional-lots-${productIndex}`);
             const lotDiv = document.createElement('div');
-            lotDiv.className = 'flex items-center gap-2 mt-2 p-2 rounded';
+            lotDiv.className = 'qty-row';
             lotDiv.style.backgroundColor = '#f3f4f6';
+            lotDiv.style.padding = '0.5rem';
+            lotDiv.style.borderRadius = '0.375rem';
             lotDiv.innerHTML = `
                 <label class="font-medium">Qtd:</label>
                 <select class="qty-select">
@@ -638,7 +648,7 @@
         
         // Remove lot
         function removeLot(button) {
-            button.closest('div').remove();
+            button.closest('.qty-row').remove();
         }
         
         // Show selected only
@@ -716,28 +726,32 @@
                     const product = currentProducts[index];
                     
                     const qtyControls = document.getElementById(`qty-controls-${index}`);
-                    const qtySelect = qtyControls.querySelector('select');
-                    const lotInput = qtyControls.querySelector('input[type="text"]');
+                    const allRows = qtyControls.querySelectorAll('.qty-row');
                     
-                    if (lotInput.value) {
-                        doc.text(`Codigo: ${product.codigo}`, 20, yPos);
-                        yPos += 5;
-                        doc.text(`Produto: ${product.nome}`, 20, yPos);
-                        yPos += 5;
-                        doc.text(`Lote: ${lotInput.value}`, 20, yPos);
-                        yPos += 5;
-                        doc.text(`Quantidade: ${qtySelect.value || '1'}`, 20, yPos);
-                        yPos += 10;
+                    allRows.forEach(row => {
+                        const qtySelect = row.querySelector('select');
+                        const lotInput = row.querySelector('input[type="text"]');
                         
-                        // Separator
-                        doc.text(generateSeparator(50), 105, yPos, { align: 'center' });
-                        yPos += 10;
-                        
-                        if (yPos > 260) {
-                            doc.addPage();
-                            yPos = 20;
+                        if (lotInput.value) {
+                            doc.text(`Codigo: ${product.codigo}`, 20, yPos);
+                            yPos += 5;
+                            doc.text(`Produto: ${product.nome}`, 20, yPos);
+                            yPos += 5;
+                            doc.text(`Lote: ${lotInput.value}`, 20, yPos);
+                            yPos += 5;
+                            doc.text(`Quantidade: ${qtySelect.value || '1'}`, 20, yPos);
+                            yPos += 10;
+                            
+                            // Separator
+                            doc.text(generateSeparator(50), 105, yPos, { align: 'center' });
+                            yPos += 10;
+                            
+                            if (yPos > 260) {
+                                doc.addPage();
+                                yPos = 20;
+                            }
                         }
-                    }
+                    });
                 });
                 
                 // Materiais Diversos
@@ -795,16 +809,20 @@
                     const product = currentProducts[index];
                     
                     const qtyControls = document.getElementById(`qty-controls-${index}`);
-                    const qtySelect = qtyControls.querySelector('select');
-                    const lotInput = qtyControls.querySelector('input[type="text"]');
+                    const allRows = qtyControls.querySelectorAll('.qty-row');
                     
-                    if (lotInput.value) {
-                        message += `Codigo: ${product.codigo}\n`;
-                        message += `Produto: ${product.nome}\n`;
-                        message += `Lote: ${lotInput.value}\n`;
-                        message += `Quantidade: ${qtySelect.value || '1'}\n`;
-                        message += generateSeparator() + '\n';
-                    }
+                    allRows.forEach(row => {
+                        const qtySelect = row.querySelector('select');
+                        const lotInput = row.querySelector('input[type="text"]');
+                        
+                        if (lotInput.value) {
+                            message += `Codigo: ${product.codigo}\n`;
+                            message += `Produto: ${product.nome}\n`;
+                            message += `Lote: ${lotInput.value}\n`;
+                            message += `Quantidade: ${qtySelect.value || '1'}\n`;
+                            message += generateSeparator() + '\n';
+                        }
+                    });
                 });
                 
                 // Materiais Diversos
@@ -862,14 +880,14 @@
             document.querySelector('.completion-screen').classList.remove('show');
         }
     </script>
-<script defer src="https://static.cloudflareinsights.com/beacon.min.js/vcd15cbe7772f49c399c6a5babf22c1241717689176015" integrity="sha512-ZpsOmlRQV6y907TI0dKBHq9Md29nnaEIPlkf84rnaERnq6zvWvPUqr2ft8M1aS28oN72PdrCzSjY4U6VaAw1EQ==" data-cf-beacon='{"rayId":"963f9bf7c86eecc9","serverTiming":{"name":{"cfExtPri":true,"cfEdge":true,"cfOrigin":true,"cfL4":true,"cfSpeedBrain":true,"cfCacheStatus":true}},"version":"2025.7.0","token":"4edd5f8ec12a48cfa682ab8261b80a79"}' crossorigin="anonymous"></script>
+<script defer src="https://static.cloudflareinsights.com/beacon.min.js/vcd15cbe7772f49c399c6a5babf22c1241717689176015" integrity="sha512-ZpsOmlRQV6y907TI0dKBHq9Md29nnaEIPlkf84rnaERnq6zvWvPUqr2ft8M1aS28oN72PdrCzSjY4U6VaAw1EQ==" data-cf-beacon='{"rayId":"963fa6a8ceed7439","serverTiming":{"name":{"cfExtPri":true,"cfEdge":true,"cfOrigin":true,"cfL4":true,"cfSpeedBrain":true,"cfCacheStatus":true}},"version":"2025.7.0","token":"4edd5f8ec12a48cfa682ab8261b80a79"}' crossorigin="anonymous"></script>
 </body>
 </html>
     <script id="html_badge_script1">
         window.__genspark_remove_badge_link = "https://www.genspark.ai/api/html_badge/" +
-            "remove_badge?token=To%2FBnjzloZ3UfQdcSaYfDvvoTNRvpxDz9VBcEad8JnDps15sDCoilIlUSj7gxwqBB1XJjmR9INtwcrobYVadp1JJTuje6eLaDJdMYyDvA50u1gaT3ldh4z%2FW%2BxHJBG1XnrT8m161gq4qgzGwBFDXIfnoPxL01tX4zHBG9sp385YM2YpAImKNlx1Yfnko3TNo3Tr8YFSOVnT2SwbWZq24Xm5RMwg3XvCEF%2BpO%2BdVM47UId%2BPpACc0%2FBDNl33UvW2YXt%2FNoHWgGFUuJAqLh3BTdJR9IrRilOnuM4yQfBd0KYPd6cX1udBAROx4xGWT5kMceuO%2FcO0rvnMKh0ZKce2GhBVFW%2BZog0WSa0E4rzHC1NI6m6efOiBOFA8VF3icnx8cZrk81XAX9D92nkQgE7DYxTcjLq8tf41Bux7L0ir5E56vSV0BY7HcjSDhebUq%2F2t2Vl%2F0Co7izCTEPNp4epNVkTb%2Fjq%2BGZP1aSiOWzbZTNYGYlUpJv6GK6iZigNdV%2BUYy7YmHISzbDtxn6zWj%2FIk7zAJc835C8L4KTKtB1GnFVJk%3D";
+            "remove_badge?token=To%2FBnjzloZ3UfQdcSaYfDhCmJ8M%2BNo0iQusd6ZYjfHhV%2FTuqjY2NDo0nSeRAM3Ip%2B52aQMwi49dkFJ5cVIhy4dn5lUmpD4x4l4Ca5SFJUidwM6p4a5f7%2FRrp%2Bh6LVgMK3%2FyELJCJrb7hNlJ54uSGR3%2BSW3n6j6Kw3QB7qpd9902yXf7MrPm4Y%2FugJl1Z%2FDDkVM1g1w6T%2FVUely9YNdw%2FgxcbQi8CWBvyKx0aQBLdfdiaNFxdby9JPt%2FSkNnvRVPrV1EfECZggHuG60V0%2BIRG1COBHIqVZFjRP3gICgRw0R6tnB6Rl3wFmFXa8QuiJ%2BhdyG2EazqNp8G3wRiILnIIuBfdA7VQV0%2FWtpe7je5tlqz8m1tKoV5fzJaAFfDVhgaMo28NpqxsFNAib1tqeO82JfhHzqEG0CpAQGRN85ydpg1GFkhihh22ZfMIISmFC8npsCSN1MkU0y%2FhEsdkFX4H7QgwOtr9bTAxmEClDIejTX54l1KnX8mMIK4D2o7kDYuG1IdSsHmUdD6JCTGpOJ%2FrN92wS0Y19PogStiFkrnvnBg%3D";
         window.__genspark_locale = "pt-BR";
-        window.__genspark_token = "To/BnjzloZ3UfQdcSaYfDvvoTNRvpxDz9VBcEad8JnDps15sDCoilIlUSj7gxwqBB1XJjmR9INtwcrobYVadp1JJTuje6eLaDJdMYyDvA50u1gaT3ldh4z/W+xHJBG1XnrT8m161gq4qgzGwBFDXIfnoPxL01tX4zHBG9sp385YM2YpAImKNlx1Yfnko3TNo3Tr8YFSOVnT2SwbWZq24Xm5RMwg3XvCEF+pO+dVM47UId+PpACc0/BDNl33UvW2YXt/NoHWgGFUuJAqLh3BTdJR9IrRilOnuM4yQfBd0KYPd6cX1udBAROx4xGWT5kMceuO/cO0rvnMKh0ZKce2GhBVFW+Zog0WSa0E4rzHC1NI6m6efOiBOFA8VF3icnx8cZrk81XAX9D92nkQgE7DYxTcjLq8tf41Bux7L0ir5E56vSV0BY7HcjSDhebUq/2t2Vl/0Co7izCTEPNp4epNVkTb/jq+GZP1aSiOWzbZTNYGYlUpJv6GK6iZigNdV+UYy7YmHISzbDtxn6zWj/Ik7zAJc835C8L4KTKtB1GnFVJk=";
+        window.__genspark_token = "To/BnjzloZ3UfQdcSaYfDhCmJ8M+No0iQusd6ZYjfHhV/TuqjY2NDo0nSeRAM3Ip+52aQMwi49dkFJ5cVIhy4dn5lUmpD4x4l4Ca5SFJUidwM6p4a5f7/Rrp+h6LVgMK3/yELJCJrb7hNlJ54uSGR3+SW3n6j6Kw3QB7qpd9902yXf7MrPm4Y/ugJl1Z/DDkVM1g1w6T/VUely9YNdw/gxcbQi8CWBvyKx0aQBLdfdiaNFxdby9JPt/SkNnvRVPrV1EfECZggHuG60V0+IRG1COBHIqVZFjRP3gICgRw0R6tnB6Rl3wFmFXa8QuiJ+hdyG2EazqNp8G3wRiILnIIuBfdA7VQV0/Wtpe7je5tlqz8m1tKoV5fzJaAFfDVhgaMo28NpqxsFNAib1tqeO82JfhHzqEG0CpAQGRN85ydpg1GFkhihh22ZfMIISmFC8npsCSN1MkU0y/hEsdkFX4H7QgwOtr9bTAxmEClDIejTX54l1KnX8mMIK4D2o7kDYuG1IdSsHmUdD6JCTGpOJ/rN92wS0Y19PogStiFkrnvnBg=";
     </script>
     
     <script id="html_notice_dialog_script" src="https://www.genspark.ai/notice_dialog.js"></script>
