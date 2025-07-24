@@ -5,6 +5,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>HEXAGON - Firebase</title>
     
+    <!-- PWA Meta Tags -->
+    <meta name="theme-color" content="#2563eb">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <meta name="apple-mobile-web-app-title" content="HEXAGON">
+    <meta name="mobile-web-app-capable" content="yes">
+    
+    <!-- PWA Icons -->
+    <link rel="icon" type="image/png" sizes="32x32" href="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzIiIGhlaWdodD0iMzIiIHZpZXdCb3g9IjAgMCAzMiAzMiIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjMyIiBoZWlnaHQ9IjMyIiByeD0iOCIgZmlsbD0iIzI1NjNlYiIvPgo8dGV4dCB4PSIxNiIgeT0iMjIiIGZvbnQtZmFtaWx5PSJBcmlhbCIgZm9udC1zaXplPSIxNCIgZm9udC13ZWlnaHQ9ImJvbGQiIGZpbGw9IndoaXRlIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIj5IPC90ZXh0Pgo8L3N2Zz4K">
+    <link rel="apple-touch-icon" href="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTgwIiBoZWlnaHQ9IjE4MCIgdmlld0JveD0iMCAwIDE4MCAxODAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxyZWN0IHdpZHRoPSIxODAiIGhlaWdodD0iMTgwIiByeD0iNDAiIGZpbGw9IiMyNTYzZWIiLz4KPHRleHQgeD0iOTAiIHk9IjExMCIgZm9udC1mYW1pbHk9IkFyaWFsIiBmb250LXNpemU9IjcwIiBmb250LXdlaWdodD0iYm9sZCIgZmlsbD0id2hpdGUiIHRleHQtYW5jaG9yPSJtaWRkbGUiPkg8L3RleHQ+Cjwvc3ZnPgo=">
+    
     <style>
         /* Reset e Base */
         * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -331,10 +342,38 @@
         .btn-cancel:hover {
             background: #4b5563;
         }
+
+        /* PWA Install Button */
+        .install-button {
+            display: none;
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: #2563eb;
+            color: white;
+            border: none;
+            border-radius: 50px;
+            padding: 1rem;
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
+            z-index: 1000;
+        }
+
+        .install-button:hover {
+            background: #1d4ed8;
+            transform: translateY(-2px);
+        }
     </style>
 </head>
 <body class="bg-gray-50 min-h-screen">
     
+    <!-- PWA Install Button -->
+    <button id="installButton" class="install-button">
+        📱 Instalar App
+    </button>
+
     <!-- HEXAGON Title -->
     <div class="pt-8 pb-6 text-center">
         <h1 class="text-4xl font-bold text-gray-800 mb-2">HEXAGON</h1>
@@ -463,6 +502,114 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 
     <script>
+        // PWA Manifest (embedded)
+        const manifestData = {
+            name: "HEXAGON - Materiais Ortopédicos",
+            short_name: "HEXAGON",
+            description: "Registro de Materiais Ortopédicos Consignados",
+            start_url: "./",
+            display: "standalone",
+            background_color: "#f9fafb",
+            theme_color: "#2563eb",
+            orientation: "portrait-primary",
+            scope: "./",
+            icons: [
+                {
+                    src: "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTkyIiBoZWlnaHQ9IjE5MiIgdmlld0JveD0iMCAwIDE5MiAxOTIiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxyZWN0IHdpZHRoPSIxOTIiIGhlaWdodD0iMTkyIiByeD0iNDAiIGZpbGw9IiMyNTYzZWIiLz4KPHRleHQgeD0iOTYiIHk9IjEyMCIgZm9udC1mYW1pbHk9IkFyaWFsIiBmb250LXNpemU9Ijc2IiBmb250LXdlaWdodD0iYm9sZCIgZmlsbD0id2hpdGUiIHRleHQtYW5jaG9yPSJtaWRkbGUiPkg8L3RleHQ+Cjwvc3ZnPgo=",
+                    sizes: "192x192",
+                    type: "image/svg+xml",
+                    purpose: "maskable any"
+                },
+                {
+                    src: "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNTEyIiBoZWlnaHQ9IjUxMiIgdmlld0JveD0iMCAwIDUxMiA1MTIiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxyZWN0IHdpZHRoPSI1MTIiIGhlaWdodD0iNTEyIiByeD0iMTAwIiBmaWxsPSIjMjU2M2ViIi8+Cjx0ZXh0IHg9IjI1NiIgeT0iMzIwIiBmb250LWZhbWlseT0iQXJpYWwiIGZvbnQtc2l6ZT0iMjAwIiBmb250LXdlaWdodD0iYm9sZCIgZmlsbD0id2hpdGUiIHRleHQtYW5jaG9yPSJtaWRkbGUiPkg8L3RleHQ+Cjwvc3ZnPgo=",
+                    sizes: "512x512",
+                    type: "image/svg+xml"
+                }
+            ]
+        };
+
+        // Create and inject manifest
+        const manifestBlob = new Blob([JSON.stringify(manifestData)], {type: 'application/json'});
+        const manifestURL = URL.createObjectURL(manifestBlob);
+        const link = document.createElement('link');
+        link.rel = 'manifest';
+        link.href = manifestURL;
+        document.head.appendChild(link);
+
+        // Service Worker Registration
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                // Create service worker inline
+                const swCode = `
+                    const CACHE_NAME = 'hexagon-pwa-v1';
+                    const urlsToCache = [
+                        './',
+                        'https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js',
+                        'https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js',
+                        'https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js'
+                    ];
+
+                    self.addEventListener('install', (event) => {
+                        event.waitUntil(
+                            caches.open(CACHE_NAME)
+                                .then((cache) => cache.addAll(urlsToCache))
+                        );
+                    });
+
+                    self.addEventListener('fetch', (event) => {
+                        event.respondWith(
+                            caches.match(event.request)
+                                .then((response) => {
+                                    if (response) {
+                                        return response;
+                                    }
+                                    return fetch(event.request);
+                                })
+                        );
+                    });
+                `;
+
+                const swBlob = new Blob([swCode], {type: 'application/javascript'});
+                const swURL = URL.createObjectURL(swBlob);
+
+                navigator.serviceWorker.register(swURL)
+                    .then((registration) => {
+                        console.log('✅ Service Worker registrado:', registration.scope);
+                    })
+                    .catch((error) => {
+                        console.log('❌ Erro no Service Worker:', error);
+                    });
+            });
+        }
+
+        // PWA Install Prompt
+        let deferredPrompt;
+        const installButton = document.getElementById('installButton');
+
+        window.addEventListener('beforeinstallprompt', (e) => {
+            e.preventDefault();
+            deferredPrompt = e;
+            installButton.style.display = 'block';
+        });
+
+        installButton.addEventListener('click', () => {
+            if (deferredPrompt) {
+                deferredPrompt.prompt();
+                deferredPrompt.userChoice.then((choiceResult) => {
+                    if (choiceResult.outcome === 'accepted') {
+                        console.log('✅ PWA instalado');
+                        installButton.style.display = 'none';
+                    }
+                    deferredPrompt = null;
+                });
+            }
+        });
+
+        // Hide install button if already installed
+        window.addEventListener('appinstalled', () => {
+            installButton.style.display = 'none';
+        });
+
         // Firebase Configuration
         const firebaseConfig = {
             apiKey: "AIzaSyDnJsxMxCLCcpqYCxrO4njbxKMTqoOpmtg",
@@ -491,7 +638,7 @@
 
         // Initialize on DOM ready
         document.addEventListener('DOMContentLoaded', async function() {
-            console.log('Hexagon Firebase iniciado');
+            console.log('Hexagon PWA iniciado');
             
             if (initializeFirebase()) {
                 await carregarSubgrupos();
@@ -1007,14 +1154,14 @@
             document.querySelector('.completion-screen').classList.remove('show');
         }
     </script>
-<script defer src="https://static.cloudflareinsights.com/beacon.min.js/vcd15cbe7772f49c399c6a5babf22c1241717689176015" integrity="sha512-ZpsOmlRQV6y907TI0dKBHq9Md29nnaEIPlkf84rnaERnq6zvWvPUqr2ft8M1aS28oN72PdrCzSjY4U6VaAw1EQ==" data-cf-beacon='{"rayId":"9646ff140ef487a1","serverTiming":{"name":{"cfExtPri":true,"cfEdge":true,"cfOrigin":true,"cfL4":true,"cfSpeedBrain":true,"cfCacheStatus":true}},"version":"2025.7.0","token":"4edd5f8ec12a48cfa682ab8261b80a79"}' crossorigin="anonymous"></script>
+<script defer src="https://static.cloudflareinsights.com/beacon.min.js/vcd15cbe7772f49c399c6a5babf22c1241717689176015" integrity="sha512-ZpsOmlRQV6y907TI0dKBHq9Md29nnaEIPlkf84rnaERnq6zvWvPUqr2ft8M1aS28oN72PdrCzSjY4U6VaAw1EQ==" data-cf-beacon='{"rayId":"964730d1991059ec","serverTiming":{"name":{"cfExtPri":true,"cfEdge":true,"cfOrigin":true,"cfL4":true,"cfSpeedBrain":true,"cfCacheStatus":true}},"version":"2025.7.0","token":"4edd5f8ec12a48cfa682ab8261b80a79"}' crossorigin="anonymous"></script>
 </body>
 </html>
     <script id="html_badge_script1">
         window.__genspark_remove_badge_link = "https://www.genspark.ai/api/html_badge/" +
-            "remove_badge?token=To%2FBnjzloZ3UfQdcSaYfDu9f7zrJBHeQ1WdRUVKOtsZrmJi8x3b2wZ7gVdxdX4m85dCLdaE%2FbaK0wNoegjBHo%2BgTr%2F5travf6pxQTXtu6oTIkHTvR0xEDpQ9RDwjAhz6XRtzlxxVmKcUUJKwUr8QC20ORakGAlnPsI8f%2FPTjBdq3AG0p4oFG%2F84QBgWK6HVELKa%2BmjVqdNurpuNecwwupGmpvB8BnwDY%2FADRXAtJqDaqQf120q082H5A0WxXWJRktvgU%2B6%2FHK%2BKhlwQExKLghYlbpeVi3S1LGWOYlm%2FmG7KOukMHlAw8DTMTHOwYWptRCUhmZJJqMG%2FLDCyo3OuvTYW3hwsQttI1Eo9hROtWLwNrSzQyLYK0wt5QhaYQN45ktxCs9DrKqvg3l%2B%2B9D8p7l7EtxEDhKeG29d31%2BTaEQahSMHspFFL3Gmu3q7fXq9U0JqRUgIhIZkBGVfexjn4g3ce%2FY240n3ooJENgSxP6oUpWwlhuqBNW7UGo0uCAaZ%2BUnWbJ9gH4f8rJWMqZH%2BWkiBzHheSMZ5hnJmlUiYFGy5o%3D";
+            "remove_badge?token=To%2FBnjzloZ3UfQdcSaYfDu%2F2qTeZeHF%2BerZzKvQFnnxOwYtUBMyoSHpDk7R%2ByFEPOYz%2Bp8bKehWwGiAxPDYoBNWin1QoZvgwsYaFdI1KG0scEdPnF3rl%2FC068my%2B47MoayyyytEnCe0F9VuRGFyo6IS5l6mY5eFAV78upQVIQ9wH1LZPNNKHsUHuoUSIFOj9%2FI2nfMma0JqFu9X%2FqesuRkIyEUitiaUcRCoUY%2FiPcH06SN7cWMgdt%2FlXhMMrz%2B99IxOXBEx5pUcCZsK3RpBK%2BwmP8W159n3snBJiLDQcOIDD8ZsaJOVJC%2FLRyFPs8n%2FgFO9gv33MyoawTOm1Velo1lqVyFrhlchl7JxfYNc1%2BWuKqRkrwTnUhfal39fwHRu7KTLKX%2Bwpj82y6EO%2F77vSupQmh6RMTnJMol2NVesOjNHINh0SEX0%2F9gTxi6y4SycIvxEnyOP2f86Pjzq2hGOhew2cTkwzPPvAaWcsYRdNrajjWliyXofEcWYJDQV9GZXevYdm7k4niaHUtc%2BXC%2F1qiZuMPb2o4PrrK%2BLhXFTdPIE%3D";
         window.__genspark_locale = "pt-BR";
-        window.__genspark_token = "To/BnjzloZ3UfQdcSaYfDu9f7zrJBHeQ1WdRUVKOtsZrmJi8x3b2wZ7gVdxdX4m85dCLdaE/baK0wNoegjBHo+gTr/5travf6pxQTXtu6oTIkHTvR0xEDpQ9RDwjAhz6XRtzlxxVmKcUUJKwUr8QC20ORakGAlnPsI8f/PTjBdq3AG0p4oFG/84QBgWK6HVELKa+mjVqdNurpuNecwwupGmpvB8BnwDY/ADRXAtJqDaqQf120q082H5A0WxXWJRktvgU+6/HK+KhlwQExKLghYlbpeVi3S1LGWOYlm/mG7KOukMHlAw8DTMTHOwYWptRCUhmZJJqMG/LDCyo3OuvTYW3hwsQttI1Eo9hROtWLwNrSzQyLYK0wt5QhaYQN45ktxCs9DrKqvg3l++9D8p7l7EtxEDhKeG29d31+TaEQahSMHspFFL3Gmu3q7fXq9U0JqRUgIhIZkBGVfexjn4g3ce/Y240n3ooJENgSxP6oUpWwlhuqBNW7UGo0uCAaZ+UnWbJ9gH4f8rJWMqZH+WkiBzHheSMZ5hnJmlUiYFGy5o=";
+        window.__genspark_token = "To/BnjzloZ3UfQdcSaYfDu/2qTeZeHF+erZzKvQFnnxOwYtUBMyoSHpDk7R+yFEPOYz+p8bKehWwGiAxPDYoBNWin1QoZvgwsYaFdI1KG0scEdPnF3rl/C068my+47MoayyyytEnCe0F9VuRGFyo6IS5l6mY5eFAV78upQVIQ9wH1LZPNNKHsUHuoUSIFOj9/I2nfMma0JqFu9X/qesuRkIyEUitiaUcRCoUY/iPcH06SN7cWMgdt/lXhMMrz+99IxOXBEx5pUcCZsK3RpBK+wmP8W159n3snBJiLDQcOIDD8ZsaJOVJC/LRyFPs8n/gFO9gv33MyoawTOm1Velo1lqVyFrhlchl7JxfYNc1+WuKqRkrwTnUhfal39fwHRu7KTLKX+wpj82y6EO/77vSupQmh6RMTnJMol2NVesOjNHINh0SEX0/9gTxi6y4SycIvxEnyOP2f86Pjzq2hGOhew2cTkwzPPvAaWcsYRdNrajjWliyXofEcWYJDQV9GZXevYdm7k4niaHUtc+XC/1qiZuMPb2o4PrrK+LhXFTdPIE=";
     </script>
     
     <script id="html_notice_dialog_script" src="https://www.genspark.ai/notice_dialog.js"></script>
