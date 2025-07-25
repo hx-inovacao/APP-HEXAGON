@@ -365,6 +365,15 @@
             background: #1d4ed8;
             transform: translateY(-2px);
         }
+        
+        /* Estilo para versão */
+        .version-text {
+            text-align: center;
+            padding: 10px;
+            color: #6b7280;
+            font-size: 14px;
+            margin-bottom: 15px;
+        }
     </style>
 </head>
 <body class="bg-gray-50 min-h-screen">
@@ -464,6 +473,9 @@
         <button onclick="showConfirmationPopup()" class="w-full btn-success p-4 text-xl mb-6">
             Enviar Relatório
         </button>
+        
+        <!-- Version Info -->
+        <div class="version-text">Versão 1.0</div>
     </div>
 
     <!-- Completion Screen -->
@@ -475,6 +487,7 @@
             <button onclick="startNewReport()" class="btn-primary w-full">
                 Novo Relatório
             </button>
+            <div class="version-text" style="margin-top: 20px;">Versão 1.0</div>
         </div>
     </div>
 
@@ -923,16 +936,19 @@
             return '='.repeat(length);
         }
         
-        // Generate PDF
+        // Generate PDF - MODIFICADO para incluir HEXAGON no topo
         function generatePDF() {
             try {
                 const { jsPDF } = window.jspdf;
                 const doc = new jsPDF();
                 
-                // Header
-                doc.setFontSize(16);
+                // Novo cabeçalho com HEXAGON
+                doc.setFontSize(20);
                 doc.setFont(undefined, 'bold');
-                doc.text('REGISTRO DE CONSUMO DE MATERIAIS CONSIGNADOS', 105, 20, { align: 'center' });
+                doc.text('HEXAGON', 105, 15, { align: 'center' });
+                
+                doc.setFontSize(14);
+                doc.text('REGISTRO DE CONSUMO DE MATERIAIS CONSIGNADOS', 105, 25, { align: 'center' });
                 
                 let yPos = 35;
                 
@@ -960,20 +976,22 @@
                 doc.text(generateSeparator(50), 105, yPos, { align: 'center' });
                 yPos += 10;
                 
-                // Materials
+                // Materials - CORRIGIDO para incluir todos os lotes adicionais
                 const checkboxes = document.querySelectorAll('.product-card input[type="checkbox"]:checked');
                 checkboxes.forEach(checkbox => {
                     const index = parseInt(checkbox.id.split('-')[1]);
                     const product = currentProducts[index];
                     
+                    // Obter TODAS as linhas de lote (inicial + adicionais)
                     const qtyControls = document.getElementById(`qty-controls-${index}`);
-                    const allRows = qtyControls.querySelectorAll('.qty-row');
+                    const allLotRows = qtyControls.querySelectorAll('.qty-row');
                     
-                    allRows.forEach(row => {
+                    // Processar cada linha de lote
+                    allLotRows.forEach(row => {
                         const qtySelect = row.querySelector('select');
                         const lotInput = row.querySelector('input[type="text"]');
                         
-                        if (lotInput.value) {
+                        if (lotInput && lotInput.value) {
                             doc.text(`Codigo: ${product.codigo}`, 20, yPos);
                             yPos += 5;
                             doc.text(`Produto: ${product.nome}`, 20, yPos);
@@ -1058,13 +1076,13 @@
             sendReport();
         }
 
-        // Send report (usando o código original que funciona)
+        // Send report - CORRIGIDO para incluir todos os lotes adicionais
         function sendReport() {
             try {
                 const userField = document.getElementById('userField').value.trim();
                 const hospitalSelect = document.getElementById('hospitalSelect').value.trim();
                 
-                // Build message using exact format
+                // Build message using exact format - Mantendo igual mas com lotes corrigidos
                 let message = 'REGISTRO DE CONSUMO DE MATERIAIS CONSIGNADOS\n';
                 message += generateSeparator() + '\n';
                 message += `Usuário: ${userField}\n`;
@@ -1075,21 +1093,23 @@
                 message += `Outras Informações: ${document.getElementById('otherInfo').value || ''}\n`;
                 message += generateSeparator() + '\n';
                 
-                // Materials
+                // Materials - CORRIGIDO para incluir todos os lotes adicionais
                 const checkboxes = document.querySelectorAll('.product-card input[type="checkbox"]:checked');
                 
                 checkboxes.forEach(checkbox => {
                     const index = parseInt(checkbox.id.split('-')[1]);
                     const product = currentProducts[index];
                     
+                    // Obter TODAS as linhas de lote (inicial + adicionais)
                     const qtyControls = document.getElementById(`qty-controls-${index}`);
-                    const allRows = qtyControls.querySelectorAll('.qty-row');
+                    const allLotRows = qtyControls.querySelectorAll('.qty-row');
                     
-                    allRows.forEach(row => {
+                    // Processar cada linha de lote
+                    allLotRows.forEach(row => {
                         const qtySelect = row.querySelector('select');
                         const lotInput = row.querySelector('input[type="text"]');
                         
-                        if (lotInput.value) {
+                        if (lotInput && lotInput.value) {
                             message += `Codigo: ${product.codigo}\n`;
                             message += `Produto: ${product.nome}\n`;
                             message += `Lote: ${lotInput.value}\n`;
@@ -1107,7 +1127,7 @@
                     message += generateSeparator() + '\n';
                 }
                 
-                // Generate PDF
+                // Generate PDF - Usando a função modificada
                 try {
                     const pdf = generatePDF();
                     const pdfBlob = pdf.output('blob');
@@ -1154,14 +1174,5 @@
             document.querySelector('.completion-screen').classList.remove('show');
         }
     </script>
-<script defer src="https://static.cloudflareinsights.com/beacon.min.js/vcd15cbe7772f49c399c6a5babf22c1241717689176015" integrity="sha512-ZpsOmlRQV6y907TI0dKBHq9Md29nnaEIPlkf84rnaERnq6zvWvPUqr2ft8M1aS28oN72PdrCzSjY4U6VaAw1EQ==" data-cf-beacon='{"rayId":"964730d1991059ec","serverTiming":{"name":{"cfExtPri":true,"cfEdge":true,"cfOrigin":true,"cfL4":true,"cfSpeedBrain":true,"cfCacheStatus":true}},"version":"2025.7.0","token":"4edd5f8ec12a48cfa682ab8261b80a79"}' crossorigin="anonymous"></script>
 </body>
 </html>
-    <script id="html_badge_script1">
-        window.__genspark_remove_badge_link = "https://www.genspark.ai/api/html_badge/" +
-            "remove_badge?token=To%2FBnjzloZ3UfQdcSaYfDu%2F2qTeZeHF%2BerZzKvQFnnxOwYtUBMyoSHpDk7R%2ByFEPOYz%2Bp8bKehWwGiAxPDYoBNWin1QoZvgwsYaFdI1KG0scEdPnF3rl%2FC068my%2B47MoayyyytEnCe0F9VuRGFyo6IS5l6mY5eFAV78upQVIQ9wH1LZPNNKHsUHuoUSIFOj9%2FI2nfMma0JqFu9X%2FqesuRkIyEUitiaUcRCoUY%2FiPcH06SN7cWMgdt%2FlXhMMrz%2B99IxOXBEx5pUcCZsK3RpBK%2BwmP8W159n3snBJiLDQcOIDD8ZsaJOVJC%2FLRyFPs8n%2FgFO9gv33MyoawTOm1Velo1lqVyFrhlchl7JxfYNc1%2BWuKqRkrwTnUhfal39fwHRu7KTLKX%2Bwpj82y6EO%2F77vSupQmh6RMTnJMol2NVesOjNHINh0SEX0%2F9gTxi6y4SycIvxEnyOP2f86Pjzq2hGOhew2cTkwzPPvAaWcsYRdNrajjWliyXofEcWYJDQV9GZXevYdm7k4niaHUtc%2BXC%2F1qiZuMPb2o4PrrK%2BLhXFTdPIE%3D";
-        window.__genspark_locale = "pt-BR";
-        window.__genspark_token = "To/BnjzloZ3UfQdcSaYfDu/2qTeZeHF+erZzKvQFnnxOwYtUBMyoSHpDk7R+yFEPOYz+p8bKehWwGiAxPDYoBNWin1QoZvgwsYaFdI1KG0scEdPnF3rl/C068my+47MoayyyytEnCe0F9VuRGFyo6IS5l6mY5eFAV78upQVIQ9wH1LZPNNKHsUHuoUSIFOj9/I2nfMma0JqFu9X/qesuRkIyEUitiaUcRCoUY/iPcH06SN7cWMgdt/lXhMMrz+99IxOXBEx5pUcCZsK3RpBK+wmP8W159n3snBJiLDQcOIDD8ZsaJOVJC/LRyFPs8n/gFO9gv33MyoawTOm1Velo1lqVyFrhlchl7JxfYNc1+WuKqRkrwTnUhfal39fwHRu7KTLKX+wpj82y6EO/77vSupQmh6RMTnJMol2NVesOjNHINh0SEX0/9gTxi6y4SycIvxEnyOP2f86Pjzq2hGOhew2cTkwzPPvAaWcsYRdNrajjWliyXofEcWYJDQV9GZXevYdm7k4niaHUtc+XC/1qiZuMPb2o4PrrK+LhXFTdPIE=";
-    </script>
-    
-    <script id="html_notice_dialog_script" src="https://www.genspark.ai/notice_dialog.js"></script>
