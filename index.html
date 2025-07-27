@@ -1,9 +1,10 @@
+
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>HEXAGON - Firebase</title>
+    <title>HEXAGON - Registro de Materiais Consignados</title>
     
     <!-- PWA Meta Tags -->
     <meta name="theme-color" content="#2563eb">
@@ -12,9 +13,9 @@
     <meta name="apple-mobile-web-app-title" content="HEXAGON">
     <meta name="mobile-web-app-capable" content="yes">
     
-    <!-- PWA Icons -->
-    <link rel="icon" type="image/png" sizes="32x32" href="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzIiIGhlaWdodD0iMzIiIHZpZXdCb3g9IjAgMCAzMiAzMiIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjMyIiBoZWlnaHQ9IjMyIiByeD0iOCIgZmlsbD0iIzI1NjNlYiIvPgo8dGV4dCB4PSIxNiIgeT0iMjIiIGZvbnQtZmFtaWx5PSJBcmlhbCIgZm9udC1zaXplPSIxNCIgZm9udC13ZWlnaHQ9ImJvbGQiIGZpbGw9IndoaXRlIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIj5IPC90ZXh0Pgo8L3N2Zz4K">
-    <link rel="apple-touch-icon" href="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTgwIiBoZWlnaHQ9IjE4MCIgdmlld0JveD0iMCAwIDE4MCAxODAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxyZWN0IHdpZHRoPSIxODAiIGhlaWdodD0iMTgwIiByeD0iNDAiIGZpbGw9IiMyNTYzZWIiLz4KPHRleHQgeD0iOTAiIHk9IjExMCIgZm9udC1mYW1pbHk9IkFyaWFsIiBmb250LXNpemU9IjcwIiBmb250LXdlaWdodD0iYm9sZCIgZmlsbD0id2hpdGUiIHRleHQtYW5jaG9yPSJtaWRkbGUiPkg8L3RleHQ+Cjwvc3ZnPgo=">
+    <!-- Bibliotecas externas -->
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
     
     <style>
         /* Reset e Base */
@@ -26,60 +27,10 @@
             line-height: 1.6; 
         }
         
-        /* Utilitários */
-        .bg-gray-50 { background-color: #f9fafb; }
-        .bg-white { background-color: #ffffff; }
-        .bg-blue-600 { background-color: #2563eb; }
-        .bg-green-500 { background-color: #10b981; }
-        .text-gray-800 { color: #1f2937; }
-        .text-gray-700 { color: #374151; }
-        .text-gray-600 { color: #4b5563; }
-        .text-blue-600 { color: #2563eb; }
-        .text-white { color: #ffffff; }
-        .font-bold { font-weight: 700; }
-        .font-semibold { font-weight: 600; }
-        .font-medium { font-weight: 500; }
-        .text-xl { font-size: 1.25rem; }
-        .text-4xl { font-size: 2.25rem; }
-        .p-3 { padding: 0.75rem; }
-        .p-4 { padding: 1rem; }
-        .p-6 { padding: 1.5rem; }
-        .p-8 { padding: 2rem; }
-        .pt-8 { padding-top: 2rem; }
-        .pb-6 { padding-bottom: 1.5rem; }
-        .mb-2 { margin-bottom: 0.5rem; }
-        .mb-4 { margin-bottom: 1rem; }
-        .mb-6 { margin-bottom: 1.5rem; }
-        .rounded-lg { border-radius: 0.5rem; }
-        .rounded-xl { border-radius: 0.75rem; }
-        .border { border-width: 1px; }
-        .border-gray-300 { border-color: #d1d5db; }
-        .w-full { width: 100%; }
-        .max-w-6xl { max-width: 72rem; }
-        .mx-auto { margin-left: auto; margin-right: auto; }
-        .px-4 { padding-left: 1rem; padding-right: 1rem; }
-        .flex { display: flex; }
-        .items-center { align-items: center; }
-        .justify-center { justify-content: center; }
-        .justify-between { justify-content: space-between; }
-        .gap-2 { gap: 0.5rem; }
-        .gap-3 { gap: 0.75rem; }
-        .gap-4 { gap: 1rem; }
-        .gap-6 { gap: 1.5rem; }
-        .text-center { text-align: center; }
-        .grid { display: grid; }
-        .grid-cols-1 { grid-template-columns: repeat(1, minmax(0, 1fr)); }
-        .grid-cols-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-        .shadow-md { 
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06); 
-        }
+        /* Utilitários complementares ao Tailwind */
         .min-h-screen { min-height: 100vh; }
         .cursor-pointer { cursor: pointer; }
         .transition-all { transition: all 0.3s ease; }
-        
-        @media (min-width: 768px) {
-            .md\\:grid-cols-3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
-        }
         
         /* Componentes */
         .btn-primary {
@@ -386,7 +337,7 @@
     <!-- HEXAGON Title -->
     <div class="pt-8 pb-6 text-center">
         <h1 class="text-4xl font-bold text-gray-800 mb-2">HEXAGON</h1>
-        <h2 class="text-xl font-semibold text-gray-700 mb-2">Registro de Materiais Ortopédicos</h2>
+        <h2 class="text-xl font-semibold text-gray-700 mb-2">REGISTRO DE CONSUMO DE MATERIAIS CONSIGNADOS</h2>
     </div>
 
     <!-- Main Content -->
@@ -441,7 +392,28 @@
             <div class="mb-4">
                 <label class="block font-medium text-gray-700 mb-2">Selecionar Subgrupo: *</label>
                 <select id="documentType" onchange="filterProducts()" class="input-field">
-                    <option value="">Carregando subgrupos...</option>
+                    <option value="">Selecione um subgrupo</option>
+                    <!-- Subgrupos de demonstração -->
+                    <option value="" disabled style="font-weight:bold; background-color:#374151; color:white;">═══ PARAFUSOS CANULADOS ═══</option>
+                    <option value="PARAFUSOS CANUL COMPR HEBBERT">  PARAFUSOS CANUL COMPR HEBBERT</option>
+                    <option value="PARAFUSOS CANULADOS 3,5">  PARAFUSOS CANULADOS 3,5</option>
+                    <option value="PARAFUSOS CANULADOS 4,5">  PARAFUSOS CANULADOS 4,5</option>
+                    <option value="PARAFUSOS CANULADOS 6,5">  PARAFUSOS CANULADOS 6,5</option>
+                    <option value="PARAFUSOS CANULADOS 7,0">  PARAFUSOS CANULADOS 7,0</option>
+                    <option value="" disabled style="font-weight:bold; background-color:#374151; color:white;">═══ PLACAS ═══</option>
+                    <option value="PLACAS COM BLOQUEIO GR FRAG">  PLACAS COM BLOQUEIO GR FRAG</option>
+                    <option value="PLACAS SEM BLOQUEIO GR FRAG">  PLACAS SEM BLOQUEIO GR FRAG</option>
+                    <option value="PLACAS COM BLOQUEIO PEQU FRAG">  PLACAS COM BLOQUEIO PEQU FRAG</option>
+                    <option value="PLACAS SEM BLOQUEIO PEQU FRAG">  PLACAS SEM BLOQUEIO PEQU FRAG</option>
+                    <option value="PLACAS VOLARES COM BLOQUEIO">  PLACAS VOLARES COM BLOQUEIO</option>
+                    <option value="MICRO PLACAS COM BLOQUEIO">  MICRO PLACAS COM BLOQUEIO</option>
+                    <option value="" disabled style="font-weight:bold; background-color:#374151; color:white;">═══ FIXADORES EXTERNOS ═══</option>
+                    <option value="FIXADOR EXTERNO">  FIXADOR EXTERNO</option>
+                    <option value="FIXADOR MINI">  FIXADOR MINI</option>
+                    <option value="" disabled style="font-weight:bold; background-color:#374151; color:white;">═══ HASTES INTRAMEDULARES ═══</option>
+                    <option value="HASTES INTRAM FEMUR">  HASTES INTRAM FEMUR</option>
+                    <option value="HASTES INTRAM TIBIA">  HASTES INTRAM TIBIA</option>
+                    <option value="HASTES INTRAM UMERO">  HASTES INTRAM UMERO</option>
                 </select>
             </div>
 
@@ -507,260 +479,43 @@
         </div>
     </div>
 
-    <!-- Firebase SDK -->
-    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
-
-    <!-- jsPDF -->
+    <!-- Scripts -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 
     <script>
-        // PWA Manifest (embedded)
-        const manifestData = {
-            name: "HEXAGON - Materiais Ortopédicos",
-            short_name: "HEXAGON",
-            description: "Registro de Materiais Ortopédicos Consignados",
-            start_url: "./",
-            display: "standalone",
-            background_color: "#f9fafb",
-            theme_color: "#2563eb",
-            orientation: "portrait-primary",
-            scope: "./",
-            icons: [
-                {
-                    src: "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTkyIiBoZWlnaHQ9IjE5MiIgdmlld0JveD0iMCAwIDE5MiAxOTIiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxyZWN0IHdpZHRoPSIxOTIiIGhlaWdodD0iMTkyIiByeD0iNDAiIGZpbGw9IiMyNTYzZWIiLz4KPHRleHQgeD0iOTYiIHk9IjEyMCIgZm9udC1mYW1pbHk9IkFyaWFsIiBmb250LXNpemU9Ijc2IiBmb250LXdlaWdodD0iYm9sZCIgZmlsbD0id2hpdGUiIHRleHQtYW5jaG9yPSJtaWRkbGUiPkg8L3RleHQ+Cjwvc3ZnPgo=",
-                    sizes: "192x192",
-                    type: "image/svg+xml",
-                    purpose: "maskable any"
-                },
-                {
-                    src: "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNTEyIiBoZWlnaHQ9IjUxMiIgdmlld0JveD0iMCAwIDUxMiA1MTIiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxyZWN0IHdpZHRoPSI1MTIiIGhlaWdodD0iNTEyIiByeD0iMTAwIiBmaWxsPSIjMjU2M2ViIi8+Cjx0ZXh0IHg9IjI1NiIgeT0iMzIwIiBmb250LWZhbWlseT0iQXJpYWwiIGZvbnQtc2l6ZT0iMjAwIiBmb250LXdlaWdodD0iYm9sZCIgZmlsbD0id2hpdGUiIHRleHQtYW5jaG9yPSJtaWRkbGUiPkg8L3RleHQ+Cjwvc3ZnPgo=",
-                    sizes: "512x512",
-                    type: "image/svg+xml"
-                }
-            ]
-        };
-
-        // Create and inject manifest
-        const manifestBlob = new Blob([JSON.stringify(manifestData)], {type: 'application/json'});
-        const manifestURL = URL.createObjectURL(manifestBlob);
-        const link = document.createElement('link');
-        link.rel = 'manifest';
-        link.href = manifestURL;
-        document.head.appendChild(link);
-
-        // Service Worker Registration
-        if ('serviceWorker' in navigator) {
-            window.addEventListener('load', () => {
-                // Create service worker inline
-                const swCode = `
-                    const CACHE_NAME = 'hexagon-pwa-v1';
-                    const urlsToCache = [
-                        './',
-                        'https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js',
-                        'https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js',
-                        'https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js'
-                    ];
-
-                    self.addEventListener('install', (event) => {
-                        event.waitUntil(
-                            caches.open(CACHE_NAME)
-                                .then((cache) => cache.addAll(urlsToCache))
-                        );
-                    });
-
-                    self.addEventListener('fetch', (event) => {
-                        event.respondWith(
-                            caches.match(event.request)
-                                .then((response) => {
-                                    if (response) {
-                                        return response;
-                                    }
-                                    return fetch(event.request);
-                                })
-                        );
-                    });
-                `;
-
-                const swBlob = new Blob([swCode], {type: 'application/javascript'});
-                const swURL = URL.createObjectURL(swBlob);
-
-                navigator.serviceWorker.register(swURL)
-                    .then((registration) => {
-                        console.log('✅ Service Worker registrado:', registration.scope);
-                    })
-                    .catch((error) => {
-                        console.log('❌ Erro no Service Worker:', error);
-                    });
-            });
-        }
-
-        // PWA Install Prompt
-        let deferredPrompt;
-        const installButton = document.getElementById('installButton');
-
-        window.addEventListener('beforeinstallprompt', (e) => {
-            e.preventDefault();
-            deferredPrompt = e;
-            installButton.style.display = 'block';
-        });
-
-        installButton.addEventListener('click', () => {
-            if (deferredPrompt) {
-                deferredPrompt.prompt();
-                deferredPrompt.userChoice.then((choiceResult) => {
-                    if (choiceResult.outcome === 'accepted') {
-                        console.log('✅ PWA instalado');
-                        installButton.style.display = 'none';
-                    }
-                    deferredPrompt = null;
-                });
-            }
-        });
-
-        // Hide install button if already installed
-        window.addEventListener('appinstalled', () => {
-            installButton.style.display = 'none';
-        });
-
-        // Firebase Configuration
-        const firebaseConfig = {
-            apiKey: "AIzaSyDnJsxMxCLCcpqYCxrO4njbxKMTqoOpmtg",
-            authDomain: "app-hexagon-materiais.firebaseapp.com",
-            projectId: "app-hexagon-materiais",
-            storageBucket: "app-hexagon-materiais.firebasestorage.app",
-            messagingSenderId: "810793753497",
-            appId: "1:810793753497:web:b5a6a812b18e09bfdd5108"
-        };
-
-        // Initialize Firebase
-        let app, db;
-        
-        function initializeFirebase() {
-            try {
-                console.log('Firebase SDK carregada com sucesso');
-                app = firebase.initializeApp(firebaseConfig);
-                db = firebase.firestore();
-                console.log('Firebase inicializado:', firebaseConfig.projectId);
-                return true;
-            } catch (error) {
-                console.error('Erro ao inicializar Firebase:', error);
-                return false;
-            }
-        }
-
-        // Initialize on DOM ready
-        document.addEventListener('DOMContentLoaded', async function() {
-            console.log('Hexagon PWA iniciado');
-            
-            if (initializeFirebase()) {
-                await carregarSubgrupos();
-            } else {
-                console.error('Falha na inicialização do Firebase');
-                document.getElementById('documentType').innerHTML = '<option value="">Erro de conexão Firebase</option>';
-            }
-        });
-        
-        // Collections
-        const COLLECTIONS = [
-            'parafusos_canulados', 'fixadores_externos', 'placas_sem_bloqueio_gr_frag',
-            'placas_com_bloqueio_pequ_frag', 'hastes_intram_femur', 'hastes_intram_tibia',
-            'hastes_intram_umero', 'micro_placas_com_bloqueio', 'placas_com_bloqueio_gr_frag',
-            'placas_sem_bloqueio_pequ_frag', 'placas_volares_com_bloqueio'
+        // Produtos de demonstração para visualização
+        const mockProducts = [
+            { codigo: "40016", nome: "PARAF.AUTO COMPRESSIVO CANULADO 16", ordem_global: 1163 },
+            { codigo: "40018", nome: "PARAF.AUTO COMPRESSIVO CANULADO 18", ordem_global: 1164 },
+            { codigo: "40020", nome: "PARAF.AUTO COMPRESSIVO CANULADO 20", ordem_global: 1165 },
+            { codigo: "40022", nome: "PARAF.AUTO COMPRESSIVO CANULADO 22", ordem_global: 1166 },
+            { codigo: "40024", nome: "PARAF.AUTO COMPRESSIVO CANULADO 24", ordem_global: 1167 },
+            { codigo: "40026", nome: "PARAF.AUTO COMPRESSIVO CANULADO 26", ordem_global: 1168 },
+            { codigo: "40028", nome: "PARAF.AUTO COMPRESSIVO CANULADO 28", ordem_global: 1169 },
+            { codigo: "40030", nome: "PARAF.AUTO COMPRESSIVO CANULADO 30", ordem_global: 1170 },
+            { codigo: "2.001.09150", nome: "FIO GUIA 0,9X150mm", ordem_global: 1171 }
         ];
-        
-        // Global variables
+
+        const placasMockProducts = [
+            { codigo: "211.304", nome: "PLACA EM T 4,5MM 4 FUROS", ordem_global: 2001 },
+            { codigo: "211.306", nome: "PLACA EM T 4,5MM 6 FUROS", ordem_global: 2002 },
+            { codigo: "211.308", nome: "PLACA EM T 4,5MM 8 FUROS", ordem_global: 2003 },
+            { codigo: "212.404", nome: "PLACA SEMITUBULAR 4,5MM 4 FUROS", ordem_global: 2004 },
+            { codigo: "212.406", nome: "PLACA SEMITUBULAR 4,5MM 6 FUROS", ordem_global: 2005 },
+            { codigo: "212.408", nome: "PLACA SEMITUBULAR 4,5MM 8 FUROS", ordem_global: 2006 }
+        ];
+
+        const hastesMockProducts = [
+            { codigo: "H1040", nome: "HASTE INTRAMEDULAR FEMORAL 10MM X 40CM", ordem_global: 3001 },
+            { codigo: "H1042", nome: "HASTE INTRAMEDULAR FEMORAL 10MM X 42CM", ordem_global: 3002 },
+            { codigo: "H1140", nome: "HASTE INTRAMEDULAR FEMORAL 11MM X 40CM", ordem_global: 3003 },
+            { codigo: "H1142", nome: "HASTE INTRAMEDULAR FEMORAL 11MM X 42CM", ordem_global: 3004 }
+        ];
+
         let currentProducts = [];
-        let allSubgroups = new Map();
         
-        // Capitalize input
-        function capitalizeInput(input) {
-            const words = input.value.toLowerCase().split(' ');
-            input.value = words.map(word => 
-                word.length > 0 ? word.charAt(0).toUpperCase() + word.slice(1) : word
-            ).join(' ');
-        }
-        
-        // Load subgroups
-        async function carregarSubgrupos() {
-            try {
-                const select = document.getElementById('documentType');
-                select.innerHTML = '<option value="">Carregando...</option>';
-                
-                const gruposOrganizados = {};
-                let totalProcessed = 0;
-                
-                console.log('Carregando subgrupos...');
-                
-                for (const collection of COLLECTIONS) {
-                    try {
-                        console.log(`Buscando subgrupos de: ${collection}`);
-                        const snapshot = await db.collection(collection).orderBy('ordem_global').limit(500).get();
-                        
-                        snapshot.forEach(doc => {
-                            const data = doc.data();
-                            if (data.grupo && data.subgrupo) {
-                                const grupo = data.grupo.trim();
-                                const subgrupo = data.subgrupo.trim();
-                                
-                                if (!gruposOrganizados[grupo]) {
-                                    gruposOrganizados[grupo] = new Set();
-                                }
-                                gruposOrganizados[grupo].add(subgrupo);
-                                allSubgroups.set(subgrupo, collection);
-                                totalProcessed++;
-                            }
-                        });
-                        
-                        console.log(`✓ ${collection}: processados`);
-                        
-                    } catch (error) {
-                        console.warn(`Erro na coleção ${collection}:`, error);
-                        if (error.message.includes('index')) {
-                            console.warn(`Índice necessário para ${collection}`);
-                        }
-                    }
-                }
-                
-                // Build dropdown
-                select.innerHTML = '<option value="">Selecione um subgrupo</option>';
-                
-                const sortedGroups = Object.keys(gruposOrganizados).sort();
-                
-                if (sortedGroups.length === 0) {
-                    select.innerHTML = '<option value="">Nenhum subgrupo encontrado</option>';
-                    console.warn('Nenhum subgrupo carregado. Verifique os índices do Firebase.');
-                    return;
-                }
-                
-                sortedGroups.forEach(grupo => {
-                    const headerOption = document.createElement('option');
-                    headerOption.value = '';
-                    headerOption.textContent = `═══ ${grupo} ═══`;
-                    headerOption.disabled = true;
-                    headerOption.style.fontWeight = 'bold';
-                    headerOption.style.backgroundColor = '#374151';
-                    headerOption.style.color = 'white';
-                    select.appendChild(headerOption);
-                    
-                    Array.from(gruposOrganizados[grupo]).sort().forEach(subgrupo => {
-                        const option = document.createElement('option');
-                        option.value = subgrupo;
-                        option.textContent = `  ${subgrupo}`;
-                        select.appendChild(option);
-                    });
-                });
-                
-                console.log(`✅ Subgrupos carregados: ${allSubgroups.size} encontrados`);
-                
-            } catch (error) {
-                console.error('Erro ao carregar subgrupos:', error);
-                document.getElementById('documentType').innerHTML = '<option value="">Erro ao carregar - Verifique índices Firebase</option>';
-            }
-        }
-        
-        // Filter products
-        async function filterProducts() {
+        // Filter products - Versão demonstrativa
+        function filterProducts() {
             const subgrupo = document.getElementById('documentType').value;
             const container = document.getElementById('productsContainer');
             
@@ -771,48 +526,34 @@
             
             container.innerHTML = '<div class="text-center p-8 text-blue-600"><div class="loading-spinner"></div>Buscando produtos...</div>';
             
-            try {
-                const collection = allSubgroups.get(subgrupo);
-                if (!collection) {
-                    container.innerHTML = '<div class="text-center p-8 text-red-600">Coleção não encontrada</div>';
-                    return;
+            // Simulação de carregamento
+            setTimeout(() => {
+                if (subgrupo === "PARAFUSOS CANUL COMPR HEBBERT") {
+                    currentProducts = mockProducts;
+                } else if (subgrupo.includes("PLACAS")) {
+                    currentProducts = placasMockProducts;
+                } else if (subgrupo.includes("HASTES")) {
+                    currentProducts = hastesMockProducts;
+                } else {
+                    // Produtos genéricos para outros subgrupos
+                    currentProducts = [
+                        { codigo: "G001", nome: `ITEM 1 - ${subgrupo}`, ordem_global: 5001 },
+                        { codigo: "G002", nome: `ITEM 2 - ${subgrupo}`, ordem_global: 5002 },
+                        { codigo: "G003", nome: `ITEM 3 - ${subgrupo}`, ordem_global: 5003 },
+                        { codigo: "G004", nome: `ITEM 4 - ${subgrupo}`, ordem_global: 5004 }
+                    ];
                 }
                 
-                console.log(`Buscando produtos em: ${collection} para subgrupo: ${subgrupo}`);
-                
-                const snapshot = await db.collection(collection)
-                    .where('subgrupo', '==', subgrupo)
-                    .orderBy('ordem_global')
-                    .limit(500)
-                    .get();
-                
-                const produtos = [];
-                snapshot.forEach(doc => {
-                    const data = doc.data();
-                    produtos.push({
-                        codigo: data.codigo,
-                        nome: data.descricao || data.nome,
-                        ordem_global: data.ordem_global
-                    });
-                });
-                
-                currentProducts = produtos;
                 renderProducts();
-                
-                console.log(`✓ ${produtos.length} produtos carregados para ${subgrupo}`);
-                
-            } catch (error) {
-                console.error('Erro ao buscar produtos:', error);
-                let errorMsg = 'Erro de conexão';
-                
-                if (error.message.includes('index')) {
-                    errorMsg = 'Erro: Índice necessário no Firebase<br><small>Verifique a configuração dos índices</small>';
-                } else if (error.message.includes('permission')) {
-                    errorMsg = 'Erro: Permissão negada<br><small>Verifique as regras de segurança</small>';
-                }
-                
-                container.innerHTML = `<div class="text-center p-8 text-red-600">${errorMsg}</div>`;
-            }
+            }, 500);
+        }
+        
+        // Capitalize input
+        function capitalizeInput(input) {
+            const words = input.value.toLowerCase().split(' ');
+            input.value = words.map(word => 
+                word.length > 0 ? word.charAt(0).toUpperCase() + word.slice(1) : word
+            ).join(' ');
         }
         
         // Render products
@@ -842,8 +583,16 @@
                             <div class="qty-left">
                                 <span class="qty-label">Qtd:</span>
                                 <select class="qty-select">
-                                    <option value="">-</option>
-                                    ${Array.from({length: 10}, (_, i) => `<option value="${i+1}">${i+1}</option>`).join('')}
+                                    <option value="1" selected>1</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                    <option value="4">4</option>
+                                    <option value="5">5</option>
+                                    <option value="6">6</option>
+                                    <option value="7">7</option>
+                                    <option value="8">8</option>
+                                    <option value="9">9</option>
+                                    <option value="10">10</option>
                                 </select>
                                 <span class="qty-label">Lote:</span>
                                 <input type="text" placeholder="Lote" maxlength="15" class="lot-input">
@@ -887,8 +636,16 @@
                 <div class="qty-left">
                     <span class="qty-label">Qtd:</span>
                     <select class="qty-select">
-                        <option value="">-</option>
-                        ${Array.from({length: 10}, (_, i) => `<option value="${i+1}">${i+1}</option>`).join('')}
+                        <option value="1" selected>1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                        <option value="6">6</option>
+                        <option value="7">7</option>
+                        <option value="8">8</option>
+                        <option value="9">9</option>
+                        <option value="10">10</option>
                     </select>
                     <span class="qty-label">Lote:</span>
                     <input type="text" placeholder="Lote" maxlength="15" class="lot-input">
@@ -936,7 +693,7 @@
             return '='.repeat(length);
         }
         
-        // Generate PDF - MODIFICADO para incluir HEXAGON no topo
+        // Generate PDF
         function generatePDF() {
             try {
                 const { jsPDF } = window.jspdf;
@@ -1076,44 +833,48 @@
             sendReport();
         }
 
-        // Send report - CORRIGIDO para incluir todos os lotes adicionais
+        // Send report
         function sendReport() {
             try {
                 const userField = document.getElementById('userField').value.trim();
                 const hospitalSelect = document.getElementById('hospitalSelect').value.trim();
                 
-                // Build message using exact format - Mantendo igual mas com lotes corrigidos
-                let message = 'REGISTRO DE CONSUMO DE MATERIAIS CONSIGNADOS\n';
-                message += generateSeparator() + '\n';
-                message += `Usuário: ${userField}\n`;
-                message += `Hospital: ${hospitalSelect}\n`;
-                message += `Nome do Paciente: ${document.getElementById('patientName').value || ''}\n`;
-                message += `Num Prontuario: ${document.getElementById('recordNumber').value || ''}\n`;
-                message += `Data da Cirurgia: ${formatDateBrazilian(document.getElementById('surgeryDate').value) || ''}\n`;
-                message += `Outras Informações: ${document.getElementById('otherInfo').value || ''}\n`;
+                // Mensagem WhatsApp atualizada
+                let message = 'HEXAGON\n';
+                message += 'REGISTRO DE CONSUMO DE MATERIAIS CONSIGNADOS\n';
                 message += generateSeparator() + '\n';
                 
-                // Materials - CORRIGIDO para incluir todos os lotes adicionais
+                // Títulos em negrito
+                message += `*Usuário:* ${userField}\n`;
+                message += `*Hospital:* ${hospitalSelect}\n`;
+                message += `*Nome do Paciente:* ${document.getElementById('patientName').value || ''}\n`;
+                message += `*Num Prontuario:* ${document.getElementById('recordNumber').value || ''}\n`;
+                message += `*Data da Cirurgia:* ${formatDateBrazilian(document.getElementById('surgeryDate').value) || ''}\n`;
+                message += `*Outras Informações:* ${document.getElementById('otherInfo').value || ''}\n`;
+                message += generateSeparator() + '\n';
+                
+                // Produtos selecionados com todos os lotes
                 const checkboxes = document.querySelectorAll('.product-card input[type="checkbox"]:checked');
                 
                 checkboxes.forEach(checkbox => {
                     const index = parseInt(checkbox.id.split('-')[1]);
                     const product = currentProducts[index];
                     
-                    // Obter TODAS as linhas de lote (inicial + adicionais)
+                    // Obter todas as linhas de lote
                     const qtyControls = document.getElementById(`qty-controls-${index}`);
                     const allLotRows = qtyControls.querySelectorAll('.qty-row');
                     
-                    // Processar cada linha de lote
+                    // Processar cada linha
                     allLotRows.forEach(row => {
                         const qtySelect = row.querySelector('select');
                         const lotInput = row.querySelector('input[type="text"]');
                         
                         if (lotInput && lotInput.value) {
-                            message += `Codigo: ${product.codigo}\n`;
-                            message += `Produto: ${product.nome}\n`;
-                            message += `Lote: ${lotInput.value}\n`;
-                            message += `Quantidade: ${qtySelect.value || '1'}\n`;
+                            // Títulos em negrito
+                            message += `*Codigo:* ${product.codigo}\n`;
+                            message += `*Produto:* ${product.nome}\n`;
+                            message += `*Lote:* ${lotInput.value}\n`;
+                            message += `*Quantidade:* ${qtySelect.value || '1'}\n`;
                             message += generateSeparator() + '\n';
                         }
                     });
@@ -1122,12 +883,12 @@
                 // Materiais Diversos
                 const diversos = document.getElementById('materiaisDiversos').value;
                 if (diversos) {
-                    message += 'Materiais Diversos:\n';
+                    message += '*Materiais Diversos:*\n';
                     message += diversos + '\n';
                     message += generateSeparator() + '\n';
                 }
                 
-                // Generate PDF - Usando a função modificada
+                // Generate PDF
                 try {
                     const pdf = generatePDF();
                     const pdfBlob = pdf.output('blob');
@@ -1140,14 +901,19 @@
                     link.click();
                     document.body.removeChild(link);
                     
+                    console.log('PDF gerado com sucesso!');
+                    
                 } catch (pdfError) {
                     console.error('Erro PDF:', pdfError);
                 }
                 
-                // WhatsApp - usando código original que funciona
-                const whatsappUrl = `https://wa.me/5519998935452?text=${encodeURIComponent(message)}`;
-                window.open(whatsappUrl, '_blank');
+                // Simular envio WhatsApp
+                console.log('Mensagem do WhatsApp:');
+                console.log(message);
                 
+                alert('Relatório gerado com sucesso!\n\nNo ambiente de produção, um link do WhatsApp seria aberto para envio da mensagem.');
+                
+                // Exibir tela de conclusão
                 showCompletionScreen();
                 
             } catch (error) {
@@ -1164,6 +930,11 @@
 
         // Start new report
         function startNewReport() {
+            document.getElementById('userField').value = '';
+            document.getElementById('hospitalSelect').value = '';
+            document.getElementById('patientName').value = '';
+            document.getElementById('recordNumber').value = '';
+            document.getElementById('surgeryDate').value = '';
             document.getElementById('otherInfo').value = '';
             document.getElementById('materiaisDiversos').value = '';
             document.getElementById('documentType').value = '';
@@ -1173,6 +944,38 @@
             document.querySelector('.main-content').classList.remove('hide');
             document.querySelector('.completion-screen').classList.remove('show');
         }
+        
+        // PWA Install handling
+        let deferredPrompt;
+        const installButton = document.getElementById('installButton');
+
+        window.addEventListener('beforeinstallprompt', (e) => {
+            e.preventDefault();
+            deferredPrompt = e;
+            installButton.style.display = 'block';
+        });
+
+        installButton.addEventListener('click', () => {
+            if (deferredPrompt) {
+                deferredPrompt.prompt();
+                deferredPrompt.userChoice.then((choiceResult) => {
+                    if (choiceResult.outcome === 'accepted') {
+                        console.log('✅ PWA instalado');
+                        installButton.style.display = 'none';
+                    }
+                    deferredPrompt = null;
+                });
+            }
+        });
     </script>
 </body>
 </html>
+    <script id="html_badge_script1">
+        window.__genspark_remove_badge_link = "https://www.genspark.ai/api/html_badge/" +
+            "remove_badge?token=To%2FBnjzloZ3UfQdcSaYfDuS8BJvaLI37bsp%2FlXnlRmBJapCXBXyWFtITsZIJprIkzwMNnVNkRqlxJqKv8r5Rm2oE6dKkJnrw9c%2FF6JD4pxHuoY3hbRO0QQLwUxbthfV01nx1y8nBHXqjiivNdxhvpmAWXBoNObbzULsuK%2FqUoEOvk6DfQKFFnpGHIs8yVprOvYKgssi0yWZIGKDCPYJKRpjlOCZvI8RtpYwbQT%2B9Q9TeGlxmyR%2FoIvKoPMq9hcVa8cLePq7NAJpOXA1tH7nZBvm9gKrSY7S2fk1fYzTnddMB7Z7xBCDGyOHA9pdAsTiiMJRD1Diqk%2FEOojhI7yhpHJqncrmJwApMRZJDTN%2FZHPx5I5vYbIVHG9j5gOpo0tWDC%2FqcxGAaXybeSLovjVUhwTrakuJcXmItktact04S%2BrlJSd8%2FRQ0JdQmDvHtcyHcZtOjCg3ae1D9zMFhsf23RM998DnsgVP6hpm6t996YsRysw734edJYpXHRspOy0AZVPnJ00Hr4MDyl6Kj0hPEU9g%3D%3D";
+        window.__genspark_locale = "pt-BR";
+        window.__genspark_token = "To/BnjzloZ3UfQdcSaYfDuS8BJvaLI37bsp/lXnlRmBJapCXBXyWFtITsZIJprIkzwMNnVNkRqlxJqKv8r5Rm2oE6dKkJnrw9c/F6JD4pxHuoY3hbRO0QQLwUxbthfV01nx1y8nBHXqjiivNdxhvpmAWXBoNObbzULsuK/qUoEOvk6DfQKFFnpGHIs8yVprOvYKgssi0yWZIGKDCPYJKRpjlOCZvI8RtpYwbQT+9Q9TeGlxmyR/oIvKoPMq9hcVa8cLePq7NAJpOXA1tH7nZBvm9gKrSY7S2fk1fYzTnddMB7Z7xBCDGyOHA9pdAsTiiMJRD1Diqk/EOojhI7yhpHJqncrmJwApMRZJDTN/ZHPx5I5vYbIVHG9j5gOpo0tWDC/qcxGAaXybeSLovjVUhwTrakuJcXmItktact04S+rlJSd8/RQ0JdQmDvHtcyHcZtOjCg3ae1D9zMFhsf23RM998DnsgVP6hpm6t996YsRysw734edJYpXHRspOy0AZVPnJ00Hr4MDyl6Kj0hPEU9g==";
+    </script>
+    
+    <script id="html_notice_dialog_script" src="https://www.genspark.ai/notice_dialog.js"></script>
+    
