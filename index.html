@@ -737,7 +737,6 @@
                 sortedGroups.forEach(grupo => {
                     const headerOption = document.createElement('option');
                     headerOption.value = '';
-                    // MODIFICAÇÃO 2: Removendo as linhas horizontais duplas dos títulos dos grupos
                     headerOption.textContent = `${grupo}`;
                     headerOption.disabled = true;
                     headerOption.style.fontWeight = 'bold';
@@ -934,21 +933,25 @@
         }
         
         // Generate separator line
-        // MODIFICAÇÃO 1: Mudando o tamanho da linha de separação de 32 para 19 caracteres
         function generateSeparator(length = 19) {
             return '='.repeat(length);
         }
         
-        // Generate PDF - Já está com o título correto, não precisa modificar
+        // Generate PDF - Modificado para incluir "HEXAGON" no topo e produtos sem lote
         function generatePDF() {
             try {
                 const { jsPDF } = window.jspdf;
                 const doc = new jsPDF();
                 
-                // Header
+                // Adicionar "HEXAGON" no topo
                 doc.setFontSize(16);
                 doc.setFont(undefined, 'bold');
-                doc.text('REGISTRO DE CONSUMO DE MATERIAIS CONSIGNADOS', 105, 20, { align: 'center' });
+                doc.text('HEXAGON', 105, 15, { align: 'center' });
+                
+                // Header (já existente, mas posição Y ajustada para 25)
+                doc.setFontSize(16);
+                doc.setFont(undefined, 'bold');
+                doc.text('REGISTRO DE CONSUMO DE MATERIAIS CONSIGNADOS', 105, 25, { align: 'center' });
                 
                 let yPos = 35;
                 
@@ -989,24 +992,23 @@
                         const qtySelect = row.querySelector('select');
                         const lotInput = row.querySelector('input[type="text"]');
                         
-                        if (lotInput.value) {
-                            doc.text(`Codigo: ${product.codigo}`, 20, yPos);
-                            yPos += 5;
-                            doc.text(`Produto: ${product.nome}`, 20, yPos);
-                            yPos += 5;
-                            doc.text(`Lote: ${lotInput.value}`, 20, yPos);
-                            yPos += 5;
-                            doc.text(`Quantidade: ${qtySelect.value || '1'}`, 20, yPos);
-                            yPos += 10;
-                            
-                            // Separator
-                            doc.text(generateSeparator(50), 105, yPos, { align: 'center' });
-                            yPos += 10;
-                            
-                            if (yPos > 260) {
-                                doc.addPage();
-                                yPos = 20;
-                            }
+                        // Removida a condição if (lotInput.value) para incluir produtos sem lote
+                        doc.text(`Codigo: ${product.codigo}`, 20, yPos);
+                        yPos += 5;
+                        doc.text(`Produto: ${product.nome}`, 20, yPos);
+                        yPos += 5;
+                        doc.text(`Lote: ${lotInput.value || 'Não informado'}`, 20, yPos);
+                        yPos += 5;
+                        doc.text(`Quantidade: ${qtySelect.value || '1'}`, 20, yPos);
+                        yPos += 10;
+                        
+                        // Separator
+                        doc.text(generateSeparator(50), 105, yPos, { align: 'center' });
+                        yPos += 10;
+                        
+                        if (yPos > 260) {
+                            doc.addPage();
+                            yPos = 20;
                         }
                     });
                 });
@@ -1074,7 +1076,7 @@
             sendReport();
         }
 
-        // Send report - MODIFICAÇÃO 3: Adicionar negrito aos títulos do WhatsApp
+        // Send report - Modificado para incluir produtos sem lote
         function sendReport() {
             try {
                 const userField = document.getElementById('userField').value.trim();
@@ -1107,14 +1109,12 @@
                         const qtySelect = row.querySelector('select');
                         const lotInput = row.querySelector('input[type="text"]');
                         
-                        if (lotInput.value) {
-                            // Adicionando negrito com asteriscos
-                            message += `*Codigo:* ${product.codigo}\n`;
-                            message += `*Produto:* ${product.nome}\n`;
-                            message += `*Lote:* ${lotInput.value}\n`;
-                            message += `*Quantidade:* ${qtySelect.value || '1'}\n`;
-                            message += generateSeparator() + '\n';
-                        }
+                        // Removida a condição if (lotInput.value) para incluir produtos sem lote
+                        message += `*Codigo:* ${product.codigo}\n`;
+                        message += `*Produto:* ${product.nome}\n`;
+                        message += `*Lote:* ${lotInput.value || 'Não informado'}\n`;
+                        message += `*Quantidade:* ${qtySelect.value || '1'}\n`;
+                        message += generateSeparator() + '\n';
                     });
                 });
                 
