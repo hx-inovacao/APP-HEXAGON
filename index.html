@@ -737,7 +737,8 @@
                 sortedGroups.forEach(grupo => {
                     const headerOption = document.createElement('option');
                     headerOption.value = '';
-                    headerOption.textContent = `═══ ${grupo} ═══`;
+                    // MODIFICAÇÃO 2: Removendo as linhas horizontais duplas dos títulos dos grupos
+                    headerOption.textContent = `${grupo}`;
                     headerOption.disabled = true;
                     headerOption.style.fontWeight = 'bold';
                     headerOption.style.backgroundColor = '#374151';
@@ -933,7 +934,8 @@
         }
         
         // Generate separator line
-        function generateSeparator(length = 32) {
+        // MODIFICAÇÃO 1: Mudando o tamanho da linha de separação de 32 para 19 caracteres
+        function generateSeparator(length = 19) {
             return '='.repeat(length);
         }
         
