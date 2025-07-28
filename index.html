@@ -937,7 +937,7 @@
             return '='.repeat(length);
         }
         
-        // Generate PDF - Modificado para incluir "HEXAGON" no topo e produtos sem lote
+        // Generate PDF - CORRIGIDO para incluir todos os produtos selecionados
         function generatePDF() {
             try {
                 const { jsPDF } = window.jspdf;
@@ -979,7 +979,7 @@
                 doc.text(generateSeparator(50), 105, yPos, { align: 'center' });
                 yPos += 10;
                 
-                // Materials
+                // Materials - CORRIGIDO: inclui todos os produtos selecionados
                 const checkboxes = document.querySelectorAll('.product-card input[type="checkbox"]:checked');
                 checkboxes.forEach(checkbox => {
                     const index = parseInt(checkbox.id.split('-')[1]);
@@ -988,18 +988,39 @@
                     const qtyControls = document.getElementById(`qty-controls-${index}`);
                     const allRows = qtyControls.querySelectorAll('.qty-row');
                     
-                    allRows.forEach(row => {
-                        const qtySelect = row.querySelector('select');
-                        const lotInput = row.querySelector('input[type="text"]');
-                        
-                        // Removida a condição if (lotInput.value) para incluir produtos sem lote
+                    // Se há linhas de quantidade, processar cada uma
+                    if (allRows.length > 0) {
+                        allRows.forEach(row => {
+                            const qtySelect = row.querySelector('select');
+                            const lotInput = row.querySelector('input[type="text"]');
+                            
+                            doc.text(`Codigo: ${product.codigo}`, 20, yPos);
+                            yPos += 5;
+                            doc.text(`Produto: ${product.nome}`, 20, yPos);
+                            yPos += 5;
+                            doc.text(`Lote: ${lotInput.value || 'Não informado'}`, 20, yPos);
+                            yPos += 5;
+                            doc.text(`Quantidade: ${qtySelect.value || '1'}`, 20, yPos);
+                            yPos += 10;
+                            
+                            // Separator
+                            doc.text(generateSeparator(50), 105, yPos, { align: 'center' });
+                            yPos += 10;
+                            
+                            if (yPos > 260) {
+                                doc.addPage();
+                                yPos = 20;
+                            }
+                        });
+                    } else {
+                        // Se não há linhas de quantidade (produto selecionado sem interação), usar valores padrão
                         doc.text(`Codigo: ${product.codigo}`, 20, yPos);
                         yPos += 5;
                         doc.text(`Produto: ${product.nome}`, 20, yPos);
                         yPos += 5;
-                        doc.text(`Lote: ${lotInput.value || 'Não informado'}`, 20, yPos);
+                        doc.text(`Lote: Não informado`, 20, yPos);
                         yPos += 5;
-                        doc.text(`Quantidade: ${qtySelect.value || '1'}`, 20, yPos);
+                        doc.text(`Quantidade: 1`, 20, yPos);
                         yPos += 10;
                         
                         // Separator
@@ -1010,7 +1031,7 @@
                             doc.addPage();
                             yPos = 20;
                         }
-                    });
+                    }
                 });
                 
                 // Materiais Diversos
@@ -1076,7 +1097,7 @@
             sendReport();
         }
 
-        // Send report - Modificado para incluir produtos sem lote
+        // Send report - CORRIGIDO para incluir todos os produtos selecionados
         function sendReport() {
             try {
                 const userField = document.getElementById('userField').value.trim();
@@ -1095,7 +1116,7 @@
                 message += `*Outras Informações:* ${document.getElementById('otherInfo').value || ''}\n`;
                 message += generateSeparator() + '\n';
                 
-                // Materials
+                // Materials - CORRIGIDO: inclui todos os produtos selecionados
                 const checkboxes = document.querySelectorAll('.product-card input[type="checkbox"]:checked');
                 
                 checkboxes.forEach(checkbox => {
@@ -1105,17 +1126,26 @@
                     const qtyControls = document.getElementById(`qty-controls-${index}`);
                     const allRows = qtyControls.querySelectorAll('.qty-row');
                     
-                    allRows.forEach(row => {
-                        const qtySelect = row.querySelector('select');
-                        const lotInput = row.querySelector('input[type="text"]');
-                        
-                        // Removida a condição if (lotInput.value) para incluir produtos sem lote
+                    // Se há linhas de quantidade, processar cada uma
+                    if (allRows.length > 0) {
+                        allRows.forEach(row => {
+                            const qtySelect = row.querySelector('select');
+                            const lotInput = row.querySelector('input[type="text"]');
+                            
+                            message += `*Codigo:* ${product.codigo}\n`;
+                            message += `*Produto:* ${product.nome}\n`;
+                            message += `*Lote:* ${lotInput.value || 'Não informado'}\n`;
+                            message += `*Quantidade:* ${qtySelect.value || '1'}\n`;
+                            message += generateSeparator() + '\n';
+                        });
+                    } else {
+                        // Se não há linhas de quantidade (produto selecionado sem interação), usar valores padrão
                         message += `*Codigo:* ${product.codigo}\n`;
                         message += `*Produto:* ${product.nome}\n`;
-                        message += `*Lote:* ${lotInput.value || 'Não informado'}\n`;
-                        message += `*Quantidade:* ${qtySelect.value || '1'}\n`;
+                        message += `*Lote:* Não informado\n`;
+                        message += `*Quantidade:* 1\n`;
                         message += generateSeparator() + '\n';
-                    });
+                    }
                 });
                 
                 // Materiais Diversos
