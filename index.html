@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
@@ -118,3 +117,1055 @@
             margin-bottom: 0.5rem;
             transition: all 0.3s ease;
         }
+        
+        .product-card.selected {
+            border-color: #2563eb;
+            background-color: #f8fafc;
+            box-shadow: 0 4px 6px rgba(37, 99, 235, 0.1);
+        }
+        
+        .qty-controls {
+            display: none;
+            margin-top: 0.75rem;
+            padding: 0.75rem;
+            background-color: #f9fafb;
+            border-radius: 0.375rem;
+            border: 1px solid #e5e7eb;
+        }
+        
+        .qty-controls.show {
+            display: block;
+        }
+        
+        .qty-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 0.75rem;
+            position: relative;
+        }
+        
+        .qty-row:last-child {
+            margin-bottom: 0;
+        }
+        
+        .qty-left {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            flex: 1;
+        }
+        
+        .qty-buttons {
+            display: flex;
+            gap: 0.25rem;
+        }
+        
+        .input-field {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid #d1d5db;
+            border-radius: 0.5rem;
+            transition: border-color 0.2s;
+        }
+        
+        .input-field:focus {
+            outline: none;
+            border-color: #2563eb;
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+        }
+        
+        .completion-screen {
+            display: none;
+            text-align: center;
+            padding: 3rem;
+        }
+        
+        .completion-screen.show {
+            display: block;
+        }
+        
+        .main-content.hide {
+            display: none;
+        }
+        
+        .loading-spinner {
+            border: 3px solid #f3f4f6;
+            border-top: 3px solid #2563eb;
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            animation: spin 1s linear infinite;
+            display: inline-block;
+            margin-right: 0.5rem;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* Estilos específicos para campos de quantidade e lote - MOBILE OTIMIZADO */
+        .qty-select {
+            width: 60px;
+            height: 40px;
+            padding: 6px 4px;
+            border: 2px solid #d1d5db;
+            border-radius: 0.375rem;
+            font-size: 14px;
+            font-weight: 500;
+            background-color: white;
+            transition: border-color 0.2s;
+        }
+
+        .qty-select:focus {
+            outline: none;
+            border-color: #2563eb;
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+        }
+
+        .lot-input {
+            width: 80px;
+            height: 40px;
+            padding: 6px 4px;
+            border: 2px solid #d1d5db;
+            border-radius: 0.375rem;
+            font-size: 14px;
+            background-color: white;
+            transition: border-color 0.2s;
+        }
+
+        .lot-input:focus {
+            outline: none;
+            border-color: #2563eb;
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+        }
+
+        .qty-label {
+            font-size: 14px;
+            font-weight: 500;
+            color: #374151;
+            min-width: 30px;
+        }
+
+        /* Botões + e - melhorados */
+        .add-btn {
+            background: linear-gradient(135deg, #1d4ed8 0%, #1e40af 100%);
+            color: white;
+            border: none;
+            border-radius: 0.375rem;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            width: 32px;
+            height: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .add-btn:hover {
+            background: linear-gradient(135deg, #1e40af 0%, #1d4ed8 100%);
+            transform: translateY(-1px);
+            box-shadow: 0 4px 8px rgba(29, 78, 216, 0.3);
+        }
+
+        .remove-btn {
+            background: linear-gradient(135deg, #dc2626 0%, #b91c1c 100%);
+            color: white;
+            border: none;
+            border-radius: 0.375rem;
+            font-size: 14px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            width: 28px;
+            height: 28px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .remove-btn:hover {
+            background: linear-gradient(135deg, #b91c1c 0%, #991b1b 100%);
+            transform: translateY(-1px);
+            box-shadow: 0 4px 8px rgba(220, 38, 38, 0.3);
+        }
+
+        /* Pop-up de confirmação */
+        .confirm-popup {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .confirm-popup.show {
+            display: flex;
+        }
+
+        .confirm-content {
+            background: white;
+            padding: 2rem;
+            border-radius: 0.75rem;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+            max-width: 400px;
+            margin: 1rem;
+            text-align: center;
+        }
+
+        .confirm-buttons {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1.5rem;
+            justify-content: center;
+        }
+
+        .btn-cancel {
+            background: #6b7280;
+            color: white;
+            padding: 0.75rem 1.5rem;
+            border: none;
+            border-radius: 0.5rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .btn-cancel:hover {
+            background: #4b5563;
+        }
+
+        /* PWA Install Button */
+        .install-button {
+            display: none;
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: #2563eb;
+            color: white;
+            border: none;
+            border-radius: 50px;
+            padding: 1rem;
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
+            z-index: 1000;
+        }
+
+        .install-button:hover {
+            background: #1d4ed8;
+            transform: translateY(-2px);
+        }
+        
+        /* Estilo para versão */
+        .version-text {
+            text-align: center;
+            padding: 10px;
+            color: #6b7280;
+            font-size: 14px;
+            margin-bottom: 15px;
+        }
+    </style>
+</head>
+<body class="bg-gray-50 min-h-screen">
+    
+    <!-- PWA Install Button -->
+    <button id="installButton" class="install-button">
+        📱 Instalar App
+    </button>
+
+    <!-- HEXAGON Title -->
+    <div class="pt-8 pb-6 text-center">
+        <h1 class="text-4xl font-bold text-gray-800 mb-2">HEXAGON</h1>
+        <h2 class="text-xl font-semibold text-gray-700 mb-2">Registro de Materiais Ortopédicos</h2>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content max-w-6xl mx-auto px-4">
+        
+        <!-- Patient Information -->
+        <div class="bg-white p-6 rounded-xl shadow-md mb-6">
+            <h3 class="font-semibold mb-4 text-gray-800">Informações do Paciente</h3>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
+                <div>
+                    <label class="block font-medium text-gray-700 mb-2">Usuário *</label>
+                    <input type="text" id="userField" placeholder="Nome do usuário" 
+                           class="input-field" oninput="capitalizeInput(this)">
+                </div>
+                
+                <div>
+                    <label class="block font-medium text-gray-700 mb-2">Hospital *</label>
+                    <input type="text" id="hospitalSelect" placeholder="Nome do hospital" 
+                           class="input-field" oninput="capitalizeInput(this)">
+                </div>
+                
+                <div>
+                    <label class="block font-medium text-gray-700 mb-2">Paciente</label>
+                    <input type="text" id="patientName" placeholder="Nome do paciente" 
+                           class="input-field" oninput="capitalizeInput(this)">
+                </div>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div>
+                    <label class="block font-medium text-gray-700 mb-2">N° Prontuário</label>
+                    <input type="text" id="recordNumber" placeholder="Número do prontuário" 
+                           class="input-field">
+                </div>
+                
+                <div>
+                    <label class="block font-medium text-gray-700 mb-2">Data Cirurgia *</label>
+                    <input type="date" id="surgeryDate" class="input-field">
+                </div>
+                
+                <div>
+                    <label class="block font-medium text-gray-700 mb-2">Outras Informações</label>
+                    <textarea id="otherInfo" placeholder="Informações adicionais" rows="2" 
+                              class="input-field"></textarea>
+                </div>
+            </div>
+        </div>
+
+        <!-- Product Selection -->
+        <div class="bg-white p-6 rounded-xl shadow-md mb-6">
+            <div class="mb-4">
+                <label class="block font-medium text-gray-700 mb-2">Selecionar Subgrupo: *</label>
+                <select id="documentType" onchange="filterProducts()" class="input-field">
+                    <option value="">Carregando subgrupos...</option>
+                </select>
+            </div>
+
+            <div id="productsContainer">
+                <div class="text-center p-8 text-gray-600">
+                    Selecione um subgrupo para visualizar os produtos
+                </div>
+            </div>
+        </div>
+
+        <!-- Filter Buttons -->
+        <div class="grid grid-cols-2 gap-3 mb-6">
+            <button onclick="showSelectedOnly()" class="btn-success">
+                Filtrar Selecionados
+            </button>
+            <button onclick="showAllProducts()" class="btn-primary">
+                Mostrar Todos
+            </button>
+        </div>
+
+        <!-- Materiais Diversos -->
+        <div class="bg-white p-6 rounded-xl shadow-md mb-6">
+            <label class="block font-medium text-gray-700 mb-2">Materiais Diversos:</label>
+            <textarea id="materiaisDiversos" placeholder="Digite materiais diversos..." rows="4" 
+                      class="input-field"></textarea>
+        </div>
+
+        <!-- Send Report Button -->
+        <button onclick="showConfirmationPopup()" class="w-full btn-success p-4 text-xl mb-6">
+            Enviar Relatório
+        </button>
+        
+        <!-- Version Info -->
+        <div class="version-text">Versão 1.0</div>
+    </div>
+
+    <!-- Completion Screen -->
+    <div class="completion-screen">
+        <div class="bg-white p-8 rounded-xl shadow-md mx-auto" style="max-width: 28rem;">
+            <div style="font-size: 4rem; color: #10b981; margin-bottom: 1rem;">✓</div>
+            <h2 class="text-2xl font-bold text-gray-800 mb-4">Relatório Enviado</h2>
+            <p class="text-gray-600 mb-6">Relatório enviado com sucesso!</p>
+            <button onclick="startNewReport()" class="btn-primary w-full">
+                Novo Relatório
+            </button>
+            <div class="version-text" style="margin-top: 20px;">Versão 1.0</div>
+        </div>
+    </div>
+
+    <!-- Pop-up de Confirmação -->
+    <div class="confirm-popup" id="confirmPopup">
+        <div class="confirm-content">
+            <h3 class="text-xl font-bold text-gray-800 mb-4">Confirmação</h3>
+            <p class="text-gray-600 mb-6">Tem certeza que deseja finalizar a operação?</p>
+            <div class="confirm-buttons">
+                <button onclick="hideConfirmationPopup()" class="btn-cancel">
+                    Cancelar
+                </button>
+                <button onclick="confirmSendReport()" class="btn-success">
+                    Sim
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
+
+    <!-- jsPDF -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
+    <script>
+        // PWA Manifest (embedded)
+        const manifestData = {
+            name: "HEXAGON - Materiais Ortopédicos",
+            short_name: "HEXAGON",
+            description: "Registro de Materiais Ortopédicos Consignados",
+            start_url: "./",
+            display: "standalone",
+            background_color: "#f9fafb",
+            theme_color: "#2563eb",
+            orientation: "portrait-primary",
+            scope: "./",
+            icons: [
+                {
+                    src: "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTkyIiBoZWlnaHQ9IjE5MiIgdmlld0JveD0iMCAwIDE5MiAxOTIiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxyZWN0IHdpZHRoPSIxOTIiIGhlaWdodD0iMTkyIiByeD0iNDAiIGZpbGw9IiMyNTYzZWIiLz4KPHRleHQgeD0iOTYiIHk9IjEyMCIgZm9udC1mYW1pbHk9IkFyaWFsIiBmb250LXNpemU9Ijc2IiBmb250LXdlaWdodD0iYm9sZCIgZmlsbD0id2hpdGUiIHRleHQtYW5jaG9yPSJtaWRkbGUiPkg8L3RleHQ+Cjwvc3ZnPgo=",
+                    sizes: "192x192",
+                    type: "image/svg+xml",
+                    purpose: "maskable any"
+                },
+                {
+                    src: "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNTEyIiBoZWlnaHQ9IjUxMiIgdmlld0JveD0iMCAwIDUxMiA1MTIiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxyZWN0IHdpZHRoPSI1MTIiIGhlaWdodD0iNTEyIiByeD0iMTAwIiBmaWxsPSIjMjU2M2ViIi8+Cjx0ZXh0IHg9IjI1NiIgeT0iMzIwIiBmb250LWZhbWlseT0iQXJpYWwiIGZvbnQtc2l6ZT0iMjAwIiBmb250LXdlaWdodD0iYm9sZCIgZmlsbD0id2hpdGUiIHRleHQtYW5jaG9yPSJtaWRkbGUiPkg8L3RleHQ+Cjwvc3ZnPgo=",
+                    sizes: "512x512",
+                    type: "image/svg+xml"
+                }
+            ]
+        };
+
+        // Create and inject manifest
+        const manifestBlob = new Blob([JSON.stringify(manifestData)], {type: 'application/json'});
+        const manifestURL = URL.createObjectURL(manifestBlob);
+        const link = document.createElement('link');
+        link.rel = 'manifest';
+        link.href = manifestURL;
+        document.head.appendChild(link);
+
+        // Service Worker Registration
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                // Create service worker inline
+                const swCode = `
+                    const CACHE_NAME = 'hexagon-pwa-v1';
+                    const urlsToCache = [
+                        './',
+                        'https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js',
+                        'https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js',
+                        'https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js'
+                    ];
+
+                    self.addEventListener('install', (event) => {
+                        event.waitUntil(
+                            caches.open(CACHE_NAME)
+                                .then((cache) => cache.addAll(urlsToCache))
+                        );
+                    });
+
+                    self.addEventListener('fetch', (event) => {
+                        event.respondWith(
+                            caches.match(event.request)
+                                .then((response) => {
+                                    if (response) {
+                                        return response;
+                                    }
+                                    return fetch(event.request);
+                                })
+                        );
+                    });
+                `;
+
+                const swBlob = new Blob([swCode], {type: 'application/javascript'});
+                const swURL = URL.createObjectURL(swBlob);
+
+                navigator.serviceWorker.register(swURL)
+                    .then((registration) => {
+                        console.log('✅ Service Worker registrado:', registration.scope);
+                    })
+                    .catch((error) => {
+                        console.log('❌ Erro no Service Worker:', error);
+                    });
+            });
+        }
+
+        // PWA Install Prompt
+        let deferredPrompt;
+        const installButton = document.getElementById('installButton');
+
+        window.addEventListener('beforeinstallprompt', (e) => {
+            e.preventDefault();
+            deferredPrompt = e;
+            installButton.style.display = 'block';
+        });
+
+        installButton.addEventListener('click', () => {
+            if (deferredPrompt) {
+                deferredPrompt.prompt();
+                deferredPrompt.userChoice.then((choiceResult) => {
+                    if (choiceResult.outcome === 'accepted') {
+                        console.log('✅ PWA instalado');
+                        installButton.style.display = 'none';
+                    }
+                    deferredPrompt = null;
+                });
+            }
+        });
+
+        // Hide install button if already installed
+        window.addEventListener('appinstalled', () => {
+            installButton.style.display = 'none';
+        });
+
+        // Firebase Configuration
+        const firebaseConfig = {
+            apiKey: "AIzaSyDnJsxMxCLCcpqYCxrO4njbxKMTqoOpmtg",
+            authDomain: "app-hexagon-materiais.firebaseapp.com",
+            projectId: "app-hexagon-materiais",
+            storageBucket: "app-hexagon-materiais.firebasestorage.app",
+            messagingSenderId: "810793753497",
+            appId: "1:810793753497:web:b5a6a812b18e09bfdd5108"
+        };
+
+        // Initialize Firebase
+        let app, db;
+        
+        function initializeFirebase() {
+            try {
+                console.log('Firebase SDK carregada com sucesso');
+                app = firebase.initializeApp(firebaseConfig);
+                db = firebase.firestore();
+                console.log('Firebase inicializado:', firebaseConfig.projectId);
+                return true;
+            } catch (error) {
+                console.error('Erro ao inicializar Firebase:', error);
+                return false;
+            }
+        }
+
+        // Initialize on DOM ready
+        document.addEventListener('DOMContentLoaded', async function() {
+            console.log('Hexagon PWA iniciado');
+            
+            if (initializeFirebase()) {
+                await carregarSubgrupos();
+            } else {
+                console.error('Falha na inicialização do Firebase');
+                document.getElementById('documentType').innerHTML = '<option value="">Erro de conexão Firebase</option>';
+            }
+        });
+        
+        // Collections
+        const COLLECTIONS = [
+            'parafusos_canulados', 'fixadores_externos', 'placas_sem_bloqueio_gr_frag',
+            'placas_com_bloqueio_pequ_frag', 'hastes_intram_femur', 'hastes_intram_tibia',
+            'hastes_intram_umero', 'micro_placas_com_bloqueio', 'placas_com_bloqueio_gr_frag',
+            'placas_sem_bloqueio_pequ_frag', 'placas_volares_com_bloqueio'
+        ];
+        
+        // Global variables
+        let currentProducts = [];
+        let allSubgroups = new Map();
+        
+        // Capitalize input
+        function capitalizeInput(input) {
+            const words = input.value.toLowerCase().split(' ');
+            input.value = words.map(word => 
+                word.length > 0 ? word.charAt(0).toUpperCase() + word.slice(1) : word
+            ).join(' ');
+        }
+        
+        // Load subgroups
+        async function carregarSubgrupos() {
+            try {
+                const select = document.getElementById('documentType');
+                select.innerHTML = '<option value="">Carregando...</option>';
+                
+                const gruposOrganizados = {};
+                let totalProcessed = 0;
+                
+                console.log('Carregando subgrupos...');
+                
+                for (const collection of COLLECTIONS) {
+                    try {
+                        console.log(`Buscando subgrupos de: ${collection}`);
+                        const snapshot = await db.collection(collection).orderBy('ordem_global').limit(500).get();
+                        
+                        snapshot.forEach(doc => {
+                            const data = doc.data();
+                            if (data.grupo && data.subgrupo) {
+                                const grupo = data.grupo.trim();
+                                const subgrupo = data.subgrupo.trim();
+                                
+                                if (!gruposOrganizados[grupo]) {
+                                    gruposOrganizados[grupo] = new Set();
+                                }
+                                gruposOrganizados[grupo].add(subgrupo);
+                                allSubgroups.set(subgrupo, collection);
+                                totalProcessed++;
+                            }
+                        });
+                        
+                        console.log(`✓ ${collection}: processados`);
+                        
+                    } catch (error) {
+                        console.warn(`Erro na coleção ${collection}:`, error);
+                        if (error.message.includes('index')) {
+                            console.warn(`Índice necessário para ${collection}`);
+                        }
+                    }
+                }
+                
+                // Build dropdown
+                select.innerHTML = '<option value="">Selecione um subgrupo</option>';
+                
+                const sortedGroups = Object.keys(gruposOrganizados).sort();
+                
+                if (sortedGroups.length === 0) {
+                    select.innerHTML = '<option value="">Nenhum subgrupo encontrado</option>';
+                    console.warn('Nenhum subgrupo carregado. Verifique os índices do Firebase.');
+                    return;
+                }
+                
+                sortedGroups.forEach(grupo => {
+                    const headerOption = document.createElement('option');
+                    headerOption.value = '';
+                    headerOption.textContent = `═══ ${grupo} ═══`;
+                    headerOption.disabled = true;
+                    headerOption.style.fontWeight = 'bold';
+                    headerOption.style.backgroundColor = '#374151';
+                    headerOption.style.color = 'white';
+                    select.appendChild(headerOption);
+                    
+                    Array.from(gruposOrganizados[grupo]).sort().forEach(subgrupo => {
+                        const option = document.createElement('option');
+                        option.value = subgrupo;
+                        option.textContent = `  ${subgrupo}`;
+                        select.appendChild(option);
+                    });
+                });
+                
+                console.log(`✅ Subgrupos carregados: ${allSubgroups.size} encontrados`);
+                
+            } catch (error) {
+                console.error('Erro ao carregar subgrupos:', error);
+                document.getElementById('documentType').innerHTML = '<option value="">Erro ao carregar - Verifique índices Firebase</option>';
+            }
+        }
+        
+        // Filter products
+        async function filterProducts() {
+            const subgrupo = document.getElementById('documentType').value;
+            const container = document.getElementById('productsContainer');
+            
+            if (!subgrupo) {
+                container.innerHTML = '<div class="text-center p-8 text-gray-600">Selecione um subgrupo</div>';
+                return;
+            }
+            
+            container.innerHTML = '<div class="text-center p-8 text-blue-600"><div class="loading-spinner"></div>Buscando produtos...</div>';
+            
+            try {
+                const collection = allSubgroups.get(subgrupo);
+                if (!collection) {
+                    container.innerHTML = '<div class="text-center p-8 text-red-600">Coleção não encontrada</div>';
+                    return;
+                }
+                
+                console.log(`Buscando produtos em: ${collection} para subgrupo: ${subgrupo}`);
+                
+                const snapshot = await db.collection(collection)
+                    .where('subgrupo', '==', subgrupo)
+                    .orderBy('ordem_global')
+                    .limit(500)
+                    .get();
+                
+                const produtos = [];
+                snapshot.forEach(doc => {
+                    const data = doc.data();
+                    produtos.push({
+                        codigo: data.codigo,
+                        nome: data.descricao || data.nome,
+                        ordem_global: data.ordem_global
+                    });
+                });
+                
+                currentProducts = produtos;
+                renderProducts();
+                
+                console.log(`✓ ${produtos.length} produtos carregados para ${subgrupo}`);
+                
+            } catch (error) {
+                console.error('Erro ao buscar produtos:', error);
+                let errorMsg = 'Erro de conexão';
+                
+                if (error.message.includes('index')) {
+                    errorMsg = 'Erro: Índice necessário no Firebase<br><small>Verifique a configuração dos índices</small>';
+                } else if (error.message.includes('permission')) {
+                    errorMsg = 'Erro: Permissão negada<br><small>Verifique as regras de segurança</small>';
+                }
+                
+                container.innerHTML = `<div class="text-center p-8 text-red-600">${errorMsg}</div>`;
+            }
+        }
+        
+        // Render products
+        function renderProducts() {
+            const container = document.getElementById('productsContainer');
+            container.innerHTML = '';
+            
+            if (currentProducts.length === 0) {
+                container.innerHTML = '<div class="text-center p-8 text-gray-600">Nenhum produto encontrado</div>';
+                return;
+            }
+            
+            currentProducts.forEach((product, index) => {
+                const card = document.createElement('div');
+                card.className = 'product-card';
+                card.innerHTML = `
+                    <div class="flex items-start gap-3">
+                        <input type="checkbox" onchange="toggleProductSelection(${index})" 
+                               class="mt-1 w-5 h-5" id="checkbox-${index}">
+                        <div class="flex-1">
+                            <div class="font-medium text-gray-900">${product.nome}</div>
+                            <div class="text-gray-500 text-sm">Código: ${product.codigo}</div>
+                        </div>
+                    </div>
+                    <div class="qty-controls" id="qty-controls-${index}">
+                        <div class="qty-row">
+                            <div class="qty-left">
+                                <span class="qty-label">Qtd:</span>
+                                <select class="qty-select">
+                                    <option value="">-</option>
+                                    ${Array.from({length: 10}, (_, i) => `<option value="${i+1}">${i+1}</option>`).join('')}
+                                </select>
+                                <span class="qty-label">Lote:</span>
+                                <input type="text" placeholder="Lote" maxlength="15" class="lot-input">
+                            </div>
+                            <div class="qty-buttons">
+                                <button onclick="addLot(${index})" class="add-btn">+</button>
+                            </div>
+                        </div>
+                        <div id="additional-lots-${index}"></div>
+                    </div>
+                `;
+                container.appendChild(card);
+            });
+        }
+        
+        // Toggle product selection
+        function toggleProductSelection(index) {
+            const checkbox = document.getElementById(`checkbox-${index}`);
+            const controls = document.getElementById(`qty-controls-${index}`);
+            const card = checkbox.closest('.product-card');
+            
+            if (checkbox.checked) {
+                controls.classList.add('show');
+                card.classList.add('selected');
+            } else {
+                controls.classList.remove('show');
+                card.classList.remove('selected');
+                document.getElementById(`additional-lots-${index}`).innerHTML = '';
+            }
+        }
+        
+        // Add lot
+        function addLot(productIndex) {
+            const container = document.getElementById(`additional-lots-${productIndex}`);
+            const lotDiv = document.createElement('div');
+            lotDiv.className = 'qty-row';
+            lotDiv.style.backgroundColor = '#f3f4f6';
+            lotDiv.style.padding = '0.5rem';
+            lotDiv.style.borderRadius = '0.375rem';
+            lotDiv.innerHTML = `
+                <div class="qty-left">
+                    <span class="qty-label">Qtd:</span>
+                    <select class="qty-select">
+                        <option value="">-</option>
+                        ${Array.from({length: 10}, (_, i) => `<option value="${i+1}">${i+1}</option>`).join('')}
+                    </select>
+                    <span class="qty-label">Lote:</span>
+                    <input type="text" placeholder="Lote" maxlength="15" class="lot-input">
+                </div>
+                <div class="qty-buttons">
+                    <button onclick="removeLot(this)" class="remove-btn">-</button>
+                </div>
+            `;
+            container.appendChild(lotDiv);
+        }
+        
+        // Remove lot
+        function removeLot(button) {
+            button.closest('.qty-row').remove();
+        }
+        
+        // Show selected only
+        function showSelectedOnly() {
+            const cards = document.querySelectorAll('.product-card');
+            cards.forEach(card => {
+                const checkbox = card.querySelector('input[type="checkbox"]');
+                if (!checkbox.checked) {
+                    card.style.display = 'none';
+                }
+            });
+        }
+        
+        // Show all products
+        function showAllProducts() {
+            const cards = document.querySelectorAll('.product-card');
+            cards.forEach(card => {
+                card.style.display = 'block';
+            });
+        }
+        
+        // Format date
+        function formatDateBrazilian(dateString) {
+            if (!dateString) return '';
+            const date = new Date(dateString + 'T00:00:00');
+            return date.toLocaleDateString('pt-BR');
+        }
+        
+        // Generate separator line
+        function generateSeparator(length = 32) {
+            return '='.repeat(length);
+        }
+        
+        // Generate PDF
+        function generatePDF() {
+            try {
+                const { jsPDF } = window.jspdf;
+                const doc = new jsPDF();
+                
+                // Header
+                doc.setFontSize(16);
+                doc.setFont(undefined, 'bold');
+                doc.text('REGISTRO DE CONSUMO DE MATERIAIS CONSIGNADOS', 105, 20, { align: 'center' });
+                
+                let yPos = 35;
+                
+                // Separator
+                doc.setFontSize(10);
+                doc.text(generateSeparator(50), 105, yPos, { align: 'center' });
+                yPos += 10;
+                
+                // Patient info
+                doc.setFont(undefined, 'normal');
+                doc.text(`Usuário: ${document.getElementById('userField').value || ''}`, 20, yPos);
+                yPos += 6;
+                doc.text(`Hospital: ${document.getElementById('hospitalSelect').value || ''}`, 20, yPos);
+                yPos += 6;
+                doc.text(`Nome do Paciente: ${document.getElementById('patientName').value || ''}`, 20, yPos);
+                yPos += 6;
+                doc.text(`Num Prontuario: ${document.getElementById('recordNumber').value || ''}`, 20, yPos);
+                yPos += 6;
+                doc.text(`Data da Cirurgia: ${formatDateBrazilian(document.getElementById('surgeryDate').value)}`, 20, yPos);
+                yPos += 6;
+                doc.text(`Outras Informações: ${document.getElementById('otherInfo').value || ''}`, 20, yPos);
+                yPos += 10;
+                
+                // Separator
+                doc.text(generateSeparator(50), 105, yPos, { align: 'center' });
+                yPos += 10;
+                
+                // Materials
+                const checkboxes = document.querySelectorAll('.product-card input[type="checkbox"]:checked');
+                checkboxes.forEach(checkbox => {
+                    const index = parseInt(checkbox.id.split('-')[1]);
+                    const product = currentProducts[index];
+                    
+                    const qtyControls = document.getElementById(`qty-controls-${index}`);
+                    const allRows = qtyControls.querySelectorAll('.qty-row');
+                    
+                    allRows.forEach(row => {
+                        const qtySelect = row.querySelector('select');
+                        const lotInput = row.querySelector('input[type="text"]');
+                        
+                        if (lotInput.value) {
+                            doc.text(`Codigo: ${product.codigo}`, 20, yPos);
+                            yPos += 5;
+                            doc.text(`Produto: ${product.nome}`, 20, yPos);
+                            yPos += 5;
+                            doc.text(`Lote: ${lotInput.value}`, 20, yPos);
+                            yPos += 5;
+                            doc.text(`Quantidade: ${qtySelect.value || '1'}`, 20, yPos);
+                            yPos += 10;
+                            
+                            // Separator
+                            doc.text(generateSeparator(50), 105, yPos, { align: 'center' });
+                            yPos += 10;
+                            
+                            if (yPos > 260) {
+                                doc.addPage();
+                                yPos = 20;
+                            }
+                        }
+                    });
+                });
+                
+                // Materiais Diversos
+                const diversos = document.getElementById('materiaisDiversos').value;
+                if (diversos) {
+                    doc.text('Materiais Diversos:', 20, yPos);
+                    yPos += 6;
+                    doc.text(diversos, 20, yPos);
+                    yPos += 10;
+                    
+                    // Final separator
+                    doc.text(generateSeparator(50), 105, yPos, { align: 'center' });
+                }
+                
+                return doc;
+                
+            } catch (error) {
+                console.error('Erro PDF:', error);
+                throw error;
+            }
+        }
+
+        // Show confirmation popup
+        function showConfirmationPopup() {
+            // Validações simples
+            const userField = document.getElementById('userField').value.trim();
+            const hospitalSelect = document.getElementById('hospitalSelect').value.trim();
+            const surgeryDate = document.getElementById('surgeryDate').value.trim();
+            const documentType = document.getElementById('documentType').value.trim();
+            
+            if (!userField) {
+                alert('Preencha o campo Usuário');
+                return;
+            }
+            
+            if (!hospitalSelect) {
+                alert('Preencha o campo Hospital');
+                return;
+            }
+
+            if (!surgeryDate) {
+                alert('Preencha o campo Data da Cirurgia');
+                return;
+            }
+
+            if (!documentType) {
+                alert('Selecione um subgrupo');
+                return;
+            }
+            
+            // Mostrar popup
+            document.getElementById('confirmPopup').classList.add('show');
+        }
+
+        // Hide confirmation popup
+        function hideConfirmationPopup() {
+            document.getElementById('confirmPopup').classList.remove('show');
+        }
+
+        // Confirm send report
+        function confirmSendReport() {
+            hideConfirmationPopup();
+            sendReport();
+        }
+
+        // Send report (usando o código original que funciona)
+        function sendReport() {
+            try {
+                const userField = document.getElementById('userField').value.trim();
+                const hospitalSelect = document.getElementById('hospitalSelect').value.trim();
+                
+                // Build message using exact format
+                let message = 'REGISTRO DE CONSUMO DE MATERIAIS CONSIGNADOS\n';
+                message += generateSeparator() + '\n';
+                message += `Usuário: ${userField}\n`;
+                message += `Hospital: ${hospitalSelect}\n`;
+                message += `Nome do Paciente: ${document.getElementById('patientName').value || ''}\n`;
+                message += `Num Prontuario: ${document.getElementById('recordNumber').value || ''}\n`;
+                message += `Data da Cirurgia: ${formatDateBrazilian(document.getElementById('surgeryDate').value) || ''}\n`;
+                message += `Outras Informações: ${document.getElementById('otherInfo').value || ''}\n`;
+                message += generateSeparator() + '\n';
+                
+                // Materials
+                const checkboxes = document.querySelectorAll('.product-card input[type="checkbox"]:checked');
+                
+                checkboxes.forEach(checkbox => {
+                    const index = parseInt(checkbox.id.split('-')[1]);
+                    const product = currentProducts[index];
+                    
+                    const qtyControls = document.getElementById(`qty-controls-${index}`);
+                    const allRows = qtyControls.querySelectorAll('.qty-row');
+                    
+                    allRows.forEach(row => {
+                        const qtySelect = row.querySelector('select');
+                        const lotInput = row.querySelector('input[type="text"]');
+                        
+                        if (lotInput.value) {
+                            message += `Codigo: ${product.codigo}\n`;
+                            message += `Produto: ${product.nome}\n`;
+                            message += `Lote: ${lotInput.value}\n`;
+                            message += `Quantidade: ${qtySelect.value || '1'}\n`;
+                            message += generateSeparator() + '\n';
+                        }
+                    });
+                });
+                
+                // Materiais Diversos
+                const diversos = document.getElementById('materiaisDiversos').value;
+                if (diversos) {
+                    message += 'Materiais Diversos:\n';
+                    message += diversos + '\n';
+                    message += generateSeparator() + '\n';
+                }
+                
+                // Generate PDF
+                try {
+                    const pdf = generatePDF();
+                    const pdfBlob = pdf.output('blob');
+                    const pdfUrl = URL.createObjectURL(pdfBlob);
+                    
+                    const link = document.createElement('a');
+                    link.href = pdfUrl;
+                    link.download = `Hexagon_${new Date().toISOString().slice(0,10)}.pdf`;
+                    document.body.appendChild(link);
+                    link.click();
+                    document.body.removeChild(link);
+                    
+                } catch (pdfError) {
+                    console.error('Erro PDF:', pdfError);
+                }
+                
+                // WhatsApp - usando código original que funciona
+                const whatsappUrl = `https://wa.me/5519998935452?text=${encodeURIComponent(message)}`;
+                window.open(whatsappUrl, '_blank');
+                
+                showCompletionScreen();
+                
+            } catch (error) {
+                console.error('Erro ao enviar:', error);
+                alert('Erro ao enviar relatório');
+            }
+        }
+
+        // Show completion screen
+        function showCompletionScreen() {
+            document.querySelector('.main-content').classList.add('hide');
+            document.querySelector('.completion-screen').classList.add('show');
+        }
+
+        // Start new report
+        function startNewReport() {
+            document.getElementById('otherInfo').value = '';
+            document.getElementById('materiaisDiversos').value = '';
+            document.getElementById('documentType').value = '';
+            document.getElementById('productsContainer').innerHTML = 
+                '<div class="text-center p-8 text-gray-600">Selecione um subgrupo para visualizar os produtos</div>';
+            
+            document.querySelector('.main-content').classList.remove('hide');
+            document.querySelector('.completion-screen').classList.remove('show');
+        }
+    </script>
+</body>
+</html>
