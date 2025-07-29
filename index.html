@@ -955,9 +955,9 @@
                 
                 let yPos = 35;
                 
-                // Separator
+                // Separator - ALTERADO PARA 16 CARACTERES
                 doc.setFontSize(10);
-                doc.text(generateSeparator(50), 105, yPos, { align: 'center' });
+                doc.text(generateSeparator(16), 105, yPos, { align: 'center' });
                 yPos += 10;
                 
                 // Patient info
@@ -975,8 +975,8 @@
                 doc.text(`Outras Informações: ${document.getElementById('otherInfo').value || ''}`, 20, yPos);
                 yPos += 10;
                 
-                // Separator
-                doc.text(generateSeparator(50), 105, yPos, { align: 'center' });
+                // Separator - ALTERADO PARA 16 CARACTERES
+                doc.text(generateSeparator(16), 105, yPos, { align: 'center' });
                 yPos += 10;
                 
                 // Materials - CORRIGIDO: inclui todos os produtos selecionados
@@ -1003,8 +1003,8 @@
                             doc.text(`Quantidade: ${qtySelect.value || '1'}`, 20, yPos);
                             yPos += 10;
                             
-                            // Separator
-                            doc.text(generateSeparator(50), 105, yPos, { align: 'center' });
+                            // Separator - ALTERADO PARA 16 CARACTERES
+                            doc.text(generateSeparator(16), 105, yPos, { align: 'center' });
                             yPos += 10;
                             
                             if (yPos > 260) {
@@ -1023,8 +1023,8 @@
                         doc.text(`Quantidade: 1`, 20, yPos);
                         yPos += 10;
                         
-                        // Separator
-                        doc.text(generateSeparator(50), 105, yPos, { align: 'center' });
+                        // Separator - ALTERADO PARA 16 CARACTERES
+                        doc.text(generateSeparator(16), 105, yPos, { align: 'center' });
                         yPos += 10;
                         
                         if (yPos > 260) {
@@ -1042,8 +1042,8 @@
                     doc.text(diversos, 20, yPos);
                     yPos += 10;
                     
-                    // Final separator
-                    doc.text(generateSeparator(50), 105, yPos, { align: 'center' });
+                    // Final separator - ALTERADO PARA 16 CARACTERES
+                    doc.text(generateSeparator(16), 105, yPos, { align: 'center' });
                 }
                 
                 return doc;
