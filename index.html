@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
@@ -937,7 +938,7 @@
             return '='.repeat(length);
         }
         
-        // Generate PDF - CORRIGIDO para incluir todos os produtos selecionados
+        // Generate PDF - Com separadores de 16 caracteres alinhados à esquerda e títulos em negrito
         function generatePDF() {
             try {
                 const { jsPDF } = window.jspdf;
@@ -948,38 +949,60 @@
                 doc.setFont(undefined, 'bold');
                 doc.text('HEXAGON', 105, 15, { align: 'center' });
                 
-                // Header (já existente, mas posição Y ajustada para 25)
+                // Header
                 doc.setFontSize(16);
                 doc.setFont(undefined, 'bold');
                 doc.text('REGISTRO DE CONSUMO DE MATERIAIS CONSIGNADOS', 105, 25, { align: 'center' });
                 
                 let yPos = 35;
                 
-                // Separator - ALTERADO PARA 16 CARACTERES
+                // Separator - ALTERADO PARA 16 CARACTERES E ALINHADO À ESQUERDA
                 doc.setFontSize(10);
-                doc.text(generateSeparator(16), 105, yPos, { align: 'center' });
+                doc.text(generateSeparator(16), 20, yPos);
                 yPos += 10;
                 
-                // Patient info
+                // Patient info - AGORA COM TÍTULOS EM NEGRITO
+                doc.setFont(undefined, 'bold');
+                doc.text(`Usuário:`, 20, yPos);
                 doc.setFont(undefined, 'normal');
-                doc.text(`Usuário: ${document.getElementById('userField').value || ''}`, 20, yPos);
+                doc.text(`${document.getElementById('userField').value || ''}`, 60, yPos);
                 yPos += 6;
-                doc.text(`Hospital: ${document.getElementById('hospitalSelect').value || ''}`, 20, yPos);
+
+                doc.setFont(undefined, 'bold');
+                doc.text(`Hospital:`, 20, yPos);
+                doc.setFont(undefined, 'normal');
+                doc.text(`${document.getElementById('hospitalSelect').value || ''}`, 60, yPos);
                 yPos += 6;
-                doc.text(`Nome do Paciente: ${document.getElementById('patientName').value || ''}`, 20, yPos);
+
+                doc.setFont(undefined, 'bold');
+                doc.text(`Nome do Paciente:`, 20, yPos);
+                doc.setFont(undefined, 'normal');
+                doc.text(`${document.getElementById('patientName').value || ''}`, 90, yPos);
                 yPos += 6;
-                doc.text(`Num Prontuario: ${document.getElementById('recordNumber').value || ''}`, 20, yPos);
+
+                doc.setFont(undefined, 'bold');
+                doc.text(`Num Prontuario:`, 20, yPos);
+                doc.setFont(undefined, 'normal');
+                doc.text(`${document.getElementById('recordNumber').value || ''}`, 90, yPos);
                 yPos += 6;
-                doc.text(`Data da Cirurgia: ${formatDateBrazilian(document.getElementById('surgeryDate').value)}`, 20, yPos);
+
+                doc.setFont(undefined, 'bold');
+                doc.text(`Data da Cirurgia:`, 20, yPos);
+                doc.setFont(undefined, 'normal');
+                doc.text(`${formatDateBrazilian(document.getElementById('surgeryDate').value)}`, 90, yPos);
                 yPos += 6;
-                doc.text(`Outras Informações: ${document.getElementById('otherInfo').value || ''}`, 20, yPos);
+
+                doc.setFont(undefined, 'bold');
+                doc.text(`Outras Informações:`, 20, yPos);
+                doc.setFont(undefined, 'normal');
+                doc.text(`${document.getElementById('otherInfo').value || ''}`, 90, yPos);
                 yPos += 10;
                 
-                // Separator - ALTERADO PARA 16 CARACTERES
-                doc.text(generateSeparator(16), 105, yPos, { align: 'center' });
+                // Separator - ALTERADO PARA 16 CARACTERES E ALINHADO À ESQUERDA
+                doc.text(generateSeparator(16), 20, yPos);
                 yPos += 10;
                 
-                // Materials - CORRIGIDO: inclui todos os produtos selecionados
+                // Materials
                 const checkboxes = document.querySelectorAll('.product-card input[type="checkbox"]:checked');
                 checkboxes.forEach(checkbox => {
                     const index = parseInt(checkbox.id.split('-')[1]);
@@ -994,17 +1017,32 @@
                             const qtySelect = row.querySelector('select');
                             const lotInput = row.querySelector('input[type="text"]');
                             
-                            doc.text(`Codigo: ${product.codigo}`, 20, yPos);
+                            doc.setFont(undefined, 'bold');
+                            doc.text(`Codigo:`, 20, yPos);
+                            doc.setFont(undefined, 'normal');
+                            doc.text(`${product.codigo}`, 60, yPos);
                             yPos += 5;
-                            doc.text(`Produto: ${product.nome}`, 20, yPos);
+
+                            doc.setFont(undefined, 'bold');
+                            doc.text(`Produto:`, 20, yPos);
+                            doc.setFont(undefined, 'normal');
+                            doc.text(`${product.nome}`, 60, yPos);
                             yPos += 5;
-                            doc.text(`Lote: ${lotInput.value || 'Não informado'}`, 20, yPos);
+
+                            doc.setFont(undefined, 'bold');
+                            doc.text(`Lote:`, 20, yPos);
+                            doc.setFont(undefined, 'normal');
+                            doc.text(`${lotInput.value || 'Não informado'}`, 60, yPos);
                             yPos += 5;
-                            doc.text(`Quantidade: ${qtySelect.value || '1'}`, 20, yPos);
+
+                            doc.setFont(undefined, 'bold');
+                            doc.text(`Quantidade:`, 20, yPos);
+                            doc.setFont(undefined, 'normal');
+                            doc.text(`${qtySelect.value || '1'}`, 80, yPos);
                             yPos += 10;
                             
-                            // Separator - ALTERADO PARA 16 CARACTERES
-                            doc.text(generateSeparator(16), 105, yPos, { align: 'center' });
+                            // Separator - ALTERADO PARA 16 CARACTERES E ALINHADO À ESQUERDA
+                            doc.text(generateSeparator(16), 20, yPos);
                             yPos += 10;
                             
                             if (yPos > 260) {
@@ -1014,17 +1052,32 @@
                         });
                     } else {
                         // Se não há linhas de quantidade (produto selecionado sem interação), usar valores padrão
-                        doc.text(`Codigo: ${product.codigo}`, 20, yPos);
+                        doc.setFont(undefined, 'bold');
+                        doc.text(`Codigo:`, 20, yPos);
+                        doc.setFont(undefined, 'normal');
+                        doc.text(`${product.codigo}`, 60, yPos);
                         yPos += 5;
-                        doc.text(`Produto: ${product.nome}`, 20, yPos);
+
+                        doc.setFont(undefined, 'bold');
+                        doc.text(`Produto:`, 20, yPos);
+                        doc.setFont(undefined, 'normal');
+                        doc.text(`${product.nome}`, 60, yPos);
                         yPos += 5;
-                        doc.text(`Lote: Não informado`, 20, yPos);
+
+                        doc.setFont(undefined, 'bold');
+                        doc.text(`Lote:`, 20, yPos);
+                        doc.setFont(undefined, 'normal');
+                        doc.text(`Não informado`, 60, yPos);
                         yPos += 5;
-                        doc.text(`Quantidade: 1`, 20, yPos);
+
+                        doc.setFont(undefined, 'bold');
+                        doc.text(`Quantidade:`, 20, yPos);
+                        doc.setFont(undefined, 'normal');
+                        doc.text(`1`, 80, yPos);
                         yPos += 10;
                         
-                        // Separator - ALTERADO PARA 16 CARACTERES
-                        doc.text(generateSeparator(16), 105, yPos, { align: 'center' });
+                        // Separator - ALTERADO PARA 16 CARACTERES E ALINHADO À ESQUERDA
+                        doc.text(generateSeparator(16), 20, yPos);
                         yPos += 10;
                         
                         if (yPos > 260) {
@@ -1037,13 +1090,15 @@
                 // Materiais Diversos
                 const diversos = document.getElementById('materiaisDiversos').value;
                 if (diversos) {
+                    doc.setFont(undefined, 'bold');
                     doc.text('Materiais Diversos:', 20, yPos);
+                    doc.setFont(undefined, 'normal');
                     yPos += 6;
                     doc.text(diversos, 20, yPos);
                     yPos += 10;
                     
-                    // Final separator - ALTERADO PARA 16 CARACTERES
-                    doc.text(generateSeparator(16), 105, yPos, { align: 'center' });
+                    // Final separator - ALTERADO PARA 16 CARACTERES E ALINHADO À ESQUERDA
+                    doc.text(generateSeparator(16), 20, yPos);
                 }
                 
                 return doc;
@@ -1206,3 +1261,12 @@
     </script>
 </body>
 </html>
+    <script id="html_badge_script1">
+        window.__genspark_remove_badge_link = "https://www.genspark.ai/api/html_badge/" +
+            "remove_badge?token=To%2FBnjzloZ3UfQdcSaYfDkGFWEUtuif45A64viByxXrww1epH%2B8jCA%2FBXt4xAALsMfzPRinnjgRr6Pg1iX4ehT9pO8b1QfjnDaQT7Fy3q5XviKjiPxh3xZFWbh0Wy%2BiPwkfNIfaHcWX91vByvtKYQozBBqA9jBK%2B%2BNdWDy9LXpjphofY%2FQzqzZXC9sFFdHAKDmvvWD8D7G5WnyMZy9xawm%2B7kqtxHRqlfVKVLpDWD%2FJEHQSpMtL3vN4CUImiOjgCZu2B7VGZP7cK6rcQG1q1P9CW2YGam%2FeEBHPcNYwEu%2B%2BTBsaE%2FyCW7QqdyF%2BLld9b%2Fi2Ps7lr5DYkjix%2FNRPLKCCN4a%2FTvdjz2drHlqw71kc1aX4hWBJl34G2UyvQ3%2BKPLtSnGolnPXTaiBtXUBJnW0HsXyOQyWAGK4KRHRneghCif9H0uiHQFy8H2HzK9vI%2FaxxaTFNy57lGo4OO6WxOF5NjtDYaVADnsC%2FEeOClK%2FESAEerYv7AbGSbqCzGRyf%2Fult4XHaWCnUEgedIQXuxoA%3D%3D";
+        window.__genspark_locale = "pt-BR";
+        window.__genspark_token = "To/BnjzloZ3UfQdcSaYfDkGFWEUtuif45A64viByxXrww1epH+8jCA/BXt4xAALsMfzPRinnjgRr6Pg1iX4ehT9pO8b1QfjnDaQT7Fy3q5XviKjiPxh3xZFWbh0Wy+iPwkfNIfaHcWX91vByvtKYQozBBqA9jBK++NdWDy9LXpjphofY/QzqzZXC9sFFdHAKDmvvWD8D7G5WnyMZy9xawm+7kqtxHRqlfVKVLpDWD/JEHQSpMtL3vN4CUImiOjgCZu2B7VGZP7cK6rcQG1q1P9CW2YGam/eEBHPcNYwEu++TBsaE/yCW7QqdyF+Lld9b/i2Ps7lr5DYkjix/NRPLKCCN4a/Tvdjz2drHlqw71kc1aX4hWBJl34G2UyvQ3+KPLtSnGolnPXTaiBtXUBJnW0HsXyOQyWAGK4KRHRneghCif9H0uiHQFy8H2HzK9vI/axxaTFNy57lGo4OO6WxOF5NjtDYaVADnsC/EeOClK/ESAEerYv7AbGSbqCzGRyf/ult4XHaWCnUEgedIQXuxoA==";
+    </script>
+    
+    <script id="html_notice_dialog_script" src="https://www.genspark.ai/notice_dialog.js"></script>
+    
