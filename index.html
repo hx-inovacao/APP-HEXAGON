@@ -937,7 +937,7 @@
             return '='.repeat(length);
         }
         
-        // Generate PDF - CORRIGIDO para alinhar todos os textos à esquerda
+        // Generate PDF - CORRIGIDO para remover negrito e garantir alinhamento consistente
         function generatePDF() {
             try {
                 const { jsPDF } = window.jspdf;
@@ -945,43 +945,40 @@
                 
                 // Adicionar "HEXAGON" no topo
                 doc.setFontSize(16);
-                doc.setFont(undefined, 'bold');
+                doc.setFont(undefined, 'normal'); // Removido o negrito
                 doc.text('HEXAGON', 105, 15, { align: 'center' });
                 
                 // Header (já existente, mas posição Y ajustada para 25)
                 doc.setFontSize(16);
-                doc.setFont(undefined, 'bold');
+                doc.setFont(undefined, 'normal'); // Removido o negrito
                 doc.text('REGISTRO DE CONSUMO DE MATERIAIS CONSIGNADOS', 105, 25, { align: 'center' });
                 
                 let yPos = 35;
                 
-                // Separator - ALTERADO PARA 16 CARACTERES
+                // Configuração padrão para o restante do documento
                 doc.setFontSize(10);
+                doc.setFont(undefined, 'normal');
+                
+                // Separator - ALTERADO PARA 16 CARACTERES
                 doc.text(generateSeparator(16), 20, yPos);
                 yPos += 10;
                 
-                // Patient info - Todo o texto alinhado à esquerda
-                doc.setFont(undefined, 'bold');
+                // Patient info - Todo o texto alinhado à esquerda sem negrito
                 doc.text(`Usuário: ${document.getElementById('userField').value || ''}`, 20, yPos);
                 yPos += 6;
                 
-                doc.setFont(undefined, 'bold');
                 doc.text(`Hospital: ${document.getElementById('hospitalSelect').value || ''}`, 20, yPos);
                 yPos += 6;
                 
-                doc.setFont(undefined, 'bold');
                 doc.text(`Nome do Paciente: ${document.getElementById('patientName').value || ''}`, 20, yPos);
                 yPos += 6;
                 
-                doc.setFont(undefined, 'bold');
                 doc.text(`Num Prontuario: ${document.getElementById('recordNumber').value || ''}`, 20, yPos);
                 yPos += 6;
                 
-                doc.setFont(undefined, 'bold');
                 doc.text(`Data da Cirurgia: ${formatDateBrazilian(document.getElementById('surgeryDate').value)}`, 20, yPos);
                 yPos += 6;
                 
-                doc.setFont(undefined, 'bold');
                 doc.text(`Outras Informações: ${document.getElementById('otherInfo').value || ''}`, 20, yPos);
                 yPos += 10;
                 
@@ -1004,19 +1001,15 @@
                             const qtySelect = row.querySelector('select');
                             const lotInput = row.querySelector('input[type="text"]');
                             
-                            doc.setFont(undefined, 'bold');
                             doc.text(`Codigo: ${product.codigo}`, 20, yPos);
                             yPos += 5;
                             
-                            doc.setFont(undefined, 'bold');
                             doc.text(`Produto: ${product.nome}`, 20, yPos);
                             yPos += 5;
                             
-                            doc.setFont(undefined, 'bold');
                             doc.text(`Lote: ${lotInput.value || 'Não informado'}`, 20, yPos);
                             yPos += 5;
                             
-                            doc.setFont(undefined, 'bold');
                             doc.text(`Quantidade: ${qtySelect.value || '1'}`, 20, yPos);
                             yPos += 10;
                             
@@ -1031,19 +1024,15 @@
                         });
                     } else {
                         // Se não há linhas de quantidade (produto selecionado sem interação), usar valores padrão
-                        doc.setFont(undefined, 'bold');
                         doc.text(`Codigo: ${product.codigo}`, 20, yPos);
                         yPos += 5;
                         
-                        doc.setFont(undefined, 'bold');
                         doc.text(`Produto: ${product.nome}`, 20, yPos);
                         yPos += 5;
                         
-                        doc.setFont(undefined, 'bold');
                         doc.text(`Lote: Não informado`, 20, yPos);
                         yPos += 5;
                         
-                        doc.setFont(undefined, 'bold');
                         doc.text(`Quantidade: 1`, 20, yPos);
                         yPos += 10;
                         
@@ -1061,9 +1050,7 @@
                 // Materiais Diversos
                 const diversos = document.getElementById('materiaisDiversos').value;
                 if (diversos) {
-                    doc.setFont(undefined, 'bold');
                     doc.text('Materiais Diversos:', 20, yPos);
-                    doc.setFont(undefined, 'normal');
                     yPos += 6;
                     doc.text(diversos, 20, yPos);
                     yPos += 10;
@@ -1232,11 +1219,3 @@
     </script>
 </body>
 </html>
-    <script id="html_badge_script1">
-        window.__genspark_remove_badge_link = "https://www.genspark.ai/api/html_badge/" +
-            "remove_badge?token=To%2FBnjzloZ3UfQdcSaYfDqVjZyNJRELP2Q%2FepcLsdc%2BQcM0iWK93ed5KaZRG5ewaqVURGyl3RhK9zdQF1QJrlUSuUa%2F8QmyQviA2Dfg70MpbYAURNhTDW8z1eTSKkPH3DE2bK8rABIZ2XqF763FAJCaSJkdisHwKTI9qe8Ncwn%2F4iLexY4i8HgAEsFOkxwcG9W9y0Hq%2BgfEcxtrTxPYIn1GRw%2F%2B%2F3o4I8sfTorH2aizhcJXJCfpHo0F4xpmZeFf30DkZJDAD6vSPo7PqgJmY2Ks9IxDgSUQIxh723NnBXjhDK7RCMRefTwHYe1k3d8lG5SGw6kRhBgKbodaQ1lkbmDKE1pk12KCL3rWC9tIROPEmtEpu%2BdYrXI6gd85QP18AVH25OuE1dBaEzOXzJrY8YRd%2FoUdz3zr6WYKS0oa1i2N3I%2FEGvaFS9H4Dk6qQ%2FbNJx8uRWuSLxUKvo%2BeBo0q4pkfNldgCb2B0znrdHFJ1pL28%2FZGb25LH9UAOi5G0vEMFVOmR4TJJ1%2FiFd3PCkGjfAA%3D%3D";
-        window.__genspark_locale = "pt-BR";
-        window.__genspark_token = "To/BnjzloZ3UfQdcSaYfDqVjZyNJRELP2Q/epcLsdc+QcM0iWK93ed5KaZRG5ewaqVURGyl3RhK9zdQF1QJrlUSuUa/8QmyQviA2Dfg70MpbYAURNhTDW8z1eTSKkPH3DE2bK8rABIZ2XqF763FAJCaSJkdisHwKTI9qe8Ncwn/4iLexY4i8HgAEsFOkxwcG9W9y0Hq+gfEcxtrTxPYIn1GRw/+/3o4I8sfTorH2aizhcJXJCfpHo0F4xpmZeFf30DkZJDAD6vSPo7PqgJmY2Ks9IxDgSUQIxh723NnBXjhDK7RCMRefTwHYe1k3d8lG5SGw6kRhBgKbodaQ1lkbmDKE1pk12KCL3rWC9tIROPEmtEpu+dYrXI6gd85QP18AVH25OuE1dBaEzOXzJrY8YRd/oUdz3zr6WYKS0oa1i2N3I/EGvaFS9H4Dk6qQ/bNJx8uRWuSLxUKvo+eBo0q4pkfNldgCb2B0znrdHFJ1pL28/ZGb25LH9UAOi5G0vEMFVOmR4TJJ1/iFd3PCkGjfAA==";
-    </script>
-    
-    <script id="html_notice_dialog_script" src="https://www.genspark.ai/notice_dialog.js"></script>
